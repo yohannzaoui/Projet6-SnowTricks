@@ -6,9 +6,12 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "sensio/framework-extra-bundle": "^5.2",
+        "symfony/apache-pack": "^1.0",
         "symfony/console": "*",
         "symfony/flex": "^1.1",
+        "symfony/form": "*",
         "symfony/framework-bundle": "*",
+        "symfony/security-bundle": "*",
         "symfony/twig-bundle": "*",
         "symfony/web-server-bundle": "*",
         "symfony/yaml": "*"
@@ -57,7 +60,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "4.1.*"
         }
     }

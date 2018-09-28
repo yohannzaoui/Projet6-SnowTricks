@@ -53,6 +53,15 @@
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
         }
     },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "c82bead70f9a4f656354a193df7bf0ca2114efa0"
+        }
+    },
     "symfony/cache": {
         "version": "v4.1.4"
     },
@@ -95,6 +104,9 @@
             "ref": "e921bdbfe20cdefa3b82f379d1cd36df1bc8d115"
         }
     },
+    "symfony/form": {
+        "version": "v4.1.4"
+    },
     "symfony/framework-bundle": {
         "version": "3.3",
         "recipe": {
@@ -110,10 +122,25 @@
     "symfony/http-kernel": {
         "version": "v4.1.4"
     },
+    "symfony/inflector": {
+        "version": "v4.1.4"
+    },
+    "symfony/intl": {
+        "version": "v4.1.4"
+    },
+    "symfony/options-resolver": {
+        "version": "v4.1.4"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.9.0"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.9.0"
     },
     "symfony/process": {
+        "version": "v4.1.4"
+    },
+    "symfony/property-access": {
         "version": "v4.1.4"
     },
     "symfony/routing": {
@@ -123,6 +150,18 @@
             "branch": "master",
             "version": "4.0",
             "ref": "5f514d9d3b8a8aac3d62ae6a86b18b90ed0c7826"
+        }
+    },
+    "symfony/security": {
+        "version": "v4.1.4"
+    },
+    "symfony/security-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
     },
     "symfony/twig-bridge": {
