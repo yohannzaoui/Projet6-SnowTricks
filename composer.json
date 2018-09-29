@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "sensio/framework-extra-bundle": "^5.2",
+        "swiftmailer/swiftmailer": "6.0",
         "symfony/apache-pack": "^1.0",
         "symfony/console": "*",
         "symfony/flex": "^1.1",
