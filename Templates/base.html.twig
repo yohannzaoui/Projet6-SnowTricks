@@ -2,12 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Bienvenue!{% endblock %}</title>
+        <title>{% block title %}Snow Tricks !{% endblock %}</title>
         {% block stylesheets %}
         <link rel="stylesheet" href="/css/style.css" type="text/css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         {% endblock %}
-        <link rel="icon" href="../images/favicon.png">
+        <link rel="icon" href="/images/favicon.png">
     </head>
     <body>
 <header>
@@ -22,6 +22,11 @@
       <li class="nav-item active">
         <a class="nav-link" href="{{path('home')}}">Accueil <span class="sr-only">(current)</span></a>
       </li>
+      {% if app.user %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('addtrick')}}">Ajouter un Trick</a>
+      </li>
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="{{path('about')}}">A propos</a>
       </li>
@@ -38,6 +43,11 @@
       </li>
       {% endif %}
     </ul>
+    {% if app.user %}
+    <span class="navbar-text">
+      Bienvenue {{ app.user.getUsername }} !
+    </span>
+    {% endif %}
   </div>
 </nav>
 </header>
@@ -45,9 +55,9 @@
 {% block body %}
 {% endblock body %}
 
-<footer>
-  <hr>
-  <p class="copyright text-muted">Copyright &copy; Snow Tricks 2018</p>
+  <footer>
+    <hr>
+    <p class="copyright">Copyright &copy; Snow Tricks 2018</p>
   </footer>
 
 

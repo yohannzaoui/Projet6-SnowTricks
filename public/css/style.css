@@ -59,6 +59,11 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+.copyright {
+  text-align: center;
+  color : grey;
+}
+
 @-ms-viewport {
   width: device-width;
 }
@@ -172,14 +177,14 @@ sup {
 }
 
 a {
-  color: #DF691A;
+  color: white;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 
 a:hover {
-  color: #ffffff;
+  color: #DF691A;
   text-decoration: underline;
 }
 

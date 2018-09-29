@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajouter / modifier un Trick{% endblock %}
+
+{% block body %}
+
+    <br>
+    <div class="container">
+    
+    {% if app.user %}
+
+        <h1>Ajouter / modifier un Trick</h1>
+
+    
+
+    {% else %}
+
+        <p>Vous n'êtes pas connecter<p>
+        <p><a href="{{path('login')}}">Se connecter</a></p>
+
+    {% endif %}
+    </div>
+{% endblock body %}
