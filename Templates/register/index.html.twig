@@ -11,7 +11,7 @@
 {{ form_row(form.username, {'label':'Votre pseudo','attr':{'placeholder': 'Entrez votre nom d\'utilisateur'}}) }}
 {{ form_row(form.email, {'label':'Adresse Email','attr':{'placeholder': 'Entrez votre adresse Email'}}) }}
 {{ form_row(form.password, {'label':'Mot de passe','attr':{'placeholder': 'Entrez votre mot de passe'}}) }}
-{#{{ form_row(form.confirmePassword, {'label':'Confirmation Mot de passe','attr':{'placeholder': 'Confirmez votre mot de passe'}}) }}#}
+{{ form_row(form.confirmePassword, {'label':'Confirmation mot de passe','attr':{'placeholder': 'Confirmez votre mot de passe'}}) }}
 <p>
     <button type="submit" class="btn btn-success">S'inscrire</button> 
     <button type="reset" class="btn btn-danger">Effacer</button>
