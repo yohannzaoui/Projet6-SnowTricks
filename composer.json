@@ -20,7 +20,8 @@
         "symfony/yaml": "*"
     },
     "require-dev": {
-        "symfony/dotenv": "*"
+        "symfony/dotenv": "*",
+        "symfony/web-profiler-bundle": "*"
     },
     "config": {
         "preferred-install": {

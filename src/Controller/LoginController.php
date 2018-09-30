@@ -21,9 +21,9 @@ class LoginController extends AbstractController
             ->add('password', PasswordType::class)
             ->getForm();
 
-
         return $this->render('login/index.html.twig', [
-            'form' => $form->createView(),
+            'title' => 'Connexion',
+            'form' => $form->createView()
         ]);
     }
 }

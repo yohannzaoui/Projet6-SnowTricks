@@ -17,7 +17,7 @@ class RegisterController extends AbstractController
     /**
      * @Route("/inscription", name="register")
      */
-    public function index(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
+    public function Register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
     {
 
         $user = new User;
@@ -32,22 +32,29 @@ class RegisterController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             
-            $message = (new \Swift_Message('Hello Email'))
-                        ->setFrom('register@snowtrick.com')
-                        ->setTo($request->request->get('email'))
+            $message = (new \Swift_Message('Validation de votre compte Snow Tricks'))
+                        ->setFrom(['register@snowtrick.com' => 'Inscription à Snow Tricks'])
+                        ->setTo($formData->getEmail())
                         ->setBody('TEST');
             $mailer->send($message);
 
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('login');
+            return $this->render('register_validation/index.html.twig', [
+                'title' => 'En attente de validation',
+                'email' => $formData->getEmail()
+            ]);
+            
         }
         return $this->render('register/index.html.twig', [
-            'form' => $form->createView(),
+            'title' => 'Inscription',
+            'form' => $form->createView()
         ]);
     }
+
 }

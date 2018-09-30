@@ -64,6 +64,10 @@ html {
   color : grey;
 }
 
+.register_validation {
+  text-align: center;
+}
+
 @-ms-viewport {
   width: device-width;
 }

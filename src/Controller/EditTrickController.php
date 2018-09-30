@@ -15,6 +15,8 @@ class EditTrickController extends AbstractController
      */
     public function index()
     {
-        return $this->render('edit/index.html.twig');
+        return $this->render('edit/index.html.twig', [
+            'title' => 'Ajouter / modifier un Trick'
+        ]);
     }
 }
