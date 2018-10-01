@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/tricks/details", name="trick")
+     * @Route("/tricks/details/{id}", name="trick")
      */
     public function index()
     {
