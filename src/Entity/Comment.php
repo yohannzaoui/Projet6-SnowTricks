@@ -32,7 +32,8 @@ class Comment
     private $createdAt;
 
     /**
-     * @ORM\Column(name="trick", type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comment")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
 

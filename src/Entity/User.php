@@ -48,12 +48,12 @@ class User implements UserInterface
     private $createdAt;
 
     /**
-     * @ORM\Column(name="token", type="string", length=255)
+     * @ORM\Column(name="token", type="string", length=255, nullable=true)
      */
     private $token;
 
     /**
-     * @ORM\Column(name="ctoken", type="string", length=255)
+     * @ORM\Column(name="ctoken", type="string", length=255, nullable=true)
      */
     private $ctoken;
 
