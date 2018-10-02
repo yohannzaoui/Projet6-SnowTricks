@@ -29,19 +29,19 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
         //dump($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setCreatedAt(new \DateTime);
-            $comment->setTrick($id);
+            $comment->setCreatedAt(new \DateTime)
+                    ->setTrick($trick);
             $manager->persist($comment);
             $manager->flush();
+
+            return $this->redirectToRoute('trick', [
+                'id' => $id
+            ]);
         }
 
         return $this->render('trick/index.html.twig', [
             'title' => $trick->getName(),
-            'name' => $trick->getName(),
-            'image' => $trick->getImage(),
-            'description' => $trick->getDescription(),
-            'createdate' => $trick->getCreatedAt(),
-            'updatedate' => $trick->getUpdatedAt(),
+            'trick' => $trick,
             'form' => $form->createView()
         ]);
     }
