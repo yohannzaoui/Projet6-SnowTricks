@@ -20,7 +20,7 @@
         <div class="col-lg-10 col-md-6 mx-auto">
         <h3>Ecrire un commentaire</h3>
          {{ form_start(form) }}
-            {{ form_row(form.pseudo, {'label':'Votre pseudo','attr':{'placeholder': 'Entrez votre pseudo'}}) }}
+            {{ form_row(form.pseudo, {'label':'Votre pseudo','attr':{'placeholder': 'Entrez votre pseudo', 'value':app.user.username}}) }}
             {{ form_row(form.message, {'label':'Commentaire','attr':{'placeholder': 'Ecrivez votre commentaire'}}) }}
             <p>
                 <button type="submit" class="btn btn-success">Commenter</button> 
