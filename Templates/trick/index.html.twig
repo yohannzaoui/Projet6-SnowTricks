@@ -6,12 +6,34 @@
         <br>
         <h1>Trick : {{ name }}</h1>
         <div class="row">
-            <div class="col-lg-12 col-md-6 mx-auto">
+            <div class="col-lg-10 col-md-6 mx-auto">
                 <img src="{{image}}" class="rounded mx-auto d-block img-fluid" alt="Responsive image">
                 <br>
+                <p>{{ description }}</p>
             </div>
-            <p>{{ description }}</p>
         </div>
+
         <p class="infoTrick">Ajouté le {{ createdate | date("d/m/Y") }} {% if updatedate %} - Modifié le {{ updatedate | date("d/m/Y") }} {% endif %}</p>
+
+        <hr>
+        {% if app.user %}
+        <div class="col-lg-10 col-md-6 mx-auto">
+        <h3>Ecrire un commentaire</h3>
+         {{ form_start(form) }}
+            {{ form_row(form.pseudo, {'label':'Votre pseudo','attr':{'placeholder': 'Entrez votre pseudo'}}) }}
+            {{ form_row(form.message, {'label':'Commentaire','attr':{'placeholder': 'Ecrivez votre commentaire'}}) }}
+            <p>
+                <button type="submit" class="btn btn-success">Commenter</button> 
+                <button type="reset" class="btn btn-danger">Effacer</button>
+            </p>
+        {{ form_end(form) }}
+        </div>
+        {% endif %}
+
+        <hr>
+        <div class="col-lg-10 col-md-12 mx-auto">
+        <h3>Commentaire</h3>
+        </div>
+    </div>
     </div>
 {% endblock body %}

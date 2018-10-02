@@ -58,14 +58,6 @@ class Comment
     }
 
     /**
-     * Get the value of pseudo
-     */ 
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
-
-    /**
      * Get the value of message
      */ 
     public function getMessage()
@@ -121,6 +113,26 @@ class Comment
     public function setTrick($trick)
     {
         $this->trick = $trick;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of pseudo
+     */ 
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * Set the value of pseudo
+     *
+     * @return  self
+     */ 
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

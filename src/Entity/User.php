@@ -57,6 +57,11 @@ class User implements UserInterface
      */
     private $ctoken;
 
+    /**
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
 
     /**
      * Get the value of id
@@ -230,6 +235,26 @@ class User implements UserInterface
     public function setConfirmePassword($confirmePassword)
     {
         $this->confirmePassword = $confirmePassword;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of avatar
+     */ 
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set the value of avatar
+     *
+     * @return  self
+     */ 
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
