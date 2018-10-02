@@ -4,16 +4,16 @@
 {% block body %}
     <div class="container">
         <br>
-        <h1>Trick : {{ name }}</h1>
+        <h1>Trick : {{ trick.name }}</h1>
         <div class="row">
             <div class="col-lg-10 col-md-6 mx-auto">
-                <img src="{{image}}" class="rounded mx-auto d-block img-fluid" alt="Responsive image">
+                <img src="{{trick.image}}" class="rounded mx-auto d-block img-fluid" alt="Responsive image">
                 <br>
-                <p>{{ description }}</p>
+                <p>{{ trick.description }}</p>
             </div>
         </div>
 
-        <p class="infoTrick">Ajouté le {{ createdate | date("d/m/Y") }} {% if updatedate %} - Modifié le {{ updatedate | date("d/m/Y") }} {% endif %}</p>
+        <p class="infoTrick">Ajouté le {{ trick.createdAt| date("d/m/Y") }} {% if trick.updatedAt %} - Modifié le {{ trick.updatedAt | date("d/m/Y") }} {% endif %}</p>
 
         <hr>
         {% if app.user %}
@@ -32,7 +32,14 @@
 
         <hr>
         <div class="col-lg-10 col-md-12 mx-auto">
-        <h3>Commentaire</h3>
+        <h3>{% if trick.comment | length == 1 %} {{trick.comment | length}} Commentaire {% else %} {{trick.comment | length}} Commentaires{% endif %}</h3>
+        {% for comment in trick.comment %}
+        <div class="alert alert-dismissible alert-secondary">
+        <p>{{ comment.pseudo }} le {{ comment.createdAt | date("d/m/Y") }}</p>
+        <p>A écrit : {{ comment.message }}</p>
+        </div>
+        {% endfor %}
+        <hr>
         </div>
     </div>
     </div>
