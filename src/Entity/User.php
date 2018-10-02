@@ -57,7 +57,6 @@ class User implements UserInterface
      */
     private $ctoken;
 
-    
 
     /**
      * Get the value of id

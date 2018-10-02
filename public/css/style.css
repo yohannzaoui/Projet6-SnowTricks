@@ -50,6 +50,21 @@
           box-sizing: border-box;
 }
 
+.copyright {
+  text-align: center;
+  color : grey;
+}
+
+.infoTrick {
+  text-align: center;
+  font-style: italic;
+  color: #bfc5cb
+}
+
+.register_validation {
+  text-align: center;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -59,14 +74,7 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-.copyright {
-  text-align: center;
-  color : grey;
-}
 
-.register_validation {
-  text-align: center;
-}
 
 @-ms-viewport {
   width: device-width;
@@ -87,6 +95,7 @@ body {
   background-color: #2B3E50;
   padding-top: 40px;
 }
+
 
 [tabindex="-1"]:focus {
   outline: 0 !important;

@@ -53,6 +53,11 @@ class Trick
    */
     private $createdAt;
 
+    /**
+   * @ORM\Column(name="updatedAt", type="date", nullable=true)
+   */
+    private $updatedAt;
+
     
 
     /**
@@ -242,6 +247,26 @@ class Trick
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of updatedAt
+     */ 
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set the value of updatedAt
+     *
+     * @return  self
+     */ 
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

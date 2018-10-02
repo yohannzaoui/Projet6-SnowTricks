@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EditTrickController extends AbstractController
@@ -24,7 +25,7 @@ class EditTrickController extends AbstractController
         
         $form = $this->createFormBuilder($trick)
             ->add('name', TextType::class)
-            ->add('description', TextType::class)
+            ->add('description', TextareaType::class)
             ->add('image', TextType::class)
             ->add('video', TextType::class)
             ->getForm();
@@ -33,6 +34,8 @@ class EditTrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$trick->getId()) {
                 $trick->setCreatedAt(new \DateTime());
+            } else {
+                $trick->setUpdatedAt(new \DateTime());
             }
             $manager->persist($trick);
             $manager->flush();

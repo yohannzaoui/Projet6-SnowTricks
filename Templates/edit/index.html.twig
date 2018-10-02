@@ -16,9 +16,9 @@
             <div class="col-lg-6 col-md-10 mx-auto">
         {{ form_start(form) }}
             {{ form_row(form.name, {'label':'Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
-            {{ form_row(form.description, {'label':'Déscription','attr':{'placeholder': 'Entrez la déscription du Trick'}}) }}
             {{ form_row(form.image, {'label':'Image','attr':{'placeholder': 'Image'}}) }}
             {{ form_row(form.video, {'label':'Vidéo','attr':{'placeholder': 'Vidéo'}}) }}
+            {{ form_row(form.description, {'label':'Déscription','attr':{'placeholder': 'Entrez la déscription du Trick'}}) }}
             {#{{ form_row(form.category, {'label':'Catégories','attr':{'placeholder': 'Choisissez une catégorie'}}) }}#}
             <p>
                 <button type="submit" class="btn btn-success">
