@@ -12,14 +12,51 @@
                   <div class="card mb-3">
                     <img  src="{{trick.image}}" class="img-fluid" alt="Responsive image" alt="Card image">
                         <div class="card-footer">
-                            <p><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-6 mx-6">
+                                        <p><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a>
+                                    </div>
                             {% if app.user %}
-                                <a href="{{path('updatetrick', {'id':trick.id})}}"><i class="fas fa-edit"></i></a>
-                                <a href="{{path('deltrick', {'id':trick.id})}}"><i class="fas fa-trash-alt"></i></a></p>
+                                        <div class="col-lg-5 col-md-6 mx-6">
+                                            <i data-toggle="modal" data-target="#exampleModal2" class="fas fa-edit"></i>
+                                            <i data-toggle="modal" data-target="#exampleModal1" class="fas fa-trash-alt"></i></p>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
                         </div>
                       </div>
                   </div>
+                                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-body">
+                            <h3>Supprimer le Trick ?</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                            <a href="{{path('deltrick', {'id':trick.id})}}"><button type="button" class="btn btn-primary">Supprimer</button></a>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-body">
+                            <h3>Modifier le Trick ?</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                            <a href="{{path('updatetrick', {'id':trick.id})}}"><button type="button" class="btn btn-primary">Modifier</button></a>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
         {% endfor %}
           </div>
       </div>

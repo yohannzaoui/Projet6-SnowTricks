@@ -3,11 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Form\EditTrickType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EditTrickController extends AbstractController
@@ -23,12 +22,7 @@ class EditTrickController extends AbstractController
             $trick = new Trick();
         }
         
-        $form = $this->createFormBuilder($trick)
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('image', TextType::class)
-            ->add('video', TextType::class)
-            ->getForm();
+        $form = $this->createForm(EditTrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

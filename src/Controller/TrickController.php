@@ -4,12 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Entity\Comment;
+use App\Form\CommentType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class TrickController extends AbstractController
 {
@@ -22,12 +21,10 @@ class TrickController extends AbstractController
         $trick = $Manager->getRepository(Trick::class)->find($id);
 
         $comment = new Comment;
-        $form = $this->createFormBuilder($comment)
-                ->add('pseudo', TextType::class)
-                ->add('message', TextareaType::class)
-                ->getForm();
+
+        $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        //dump($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCreatedAt(new \DateTime)
                     ->setTrick($trick);

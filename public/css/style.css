@@ -55,13 +55,21 @@
   color : grey;
 }
 
-.infoTrick {
+.italicgrey {
   text-align: center;
   font-style: italic;
   color: #bfc5cb
 }
 
+.italic {
+  font-style: italic;
+}
+
 .register_validation {
+  text-align: center;
+}
+
+.p_center {
   text-align: center;
 }
 

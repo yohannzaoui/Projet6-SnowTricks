@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
     <div class="container">
         <br>
@@ -13,7 +12,7 @@
             </div>
         </div>
 
-        <p class="infoTrick">Ajouté le {{ trick.createdAt| date("d/m/Y") }} {% if trick.updatedAt %} - Modifié le {{ trick.updatedAt | date("d/m/Y") }} {% endif %}</p>
+        <p class="italicgrey">Ajouté le {{ trick.createdAt| date("d/m/Y") }} {% if trick.updatedAt %} - Modifié le {{ trick.updatedAt | date("d/m/Y") }} {% endif %}</p>
 
         <hr>
         {% if app.user %}
@@ -28,15 +27,22 @@
             </p>
         {{ form_end(form) }}
         </div>
+        {% else %}
+            <p class="p_center">Vous devez être connecté pour commenter.</p>
+            <p class="p_center"><a class="italic" href="{{path('login')}}">Connectez-vous</a> ou <a class="italic" href="{{path('register')}}">créez un compte</a>
         {% endif %}
-
+        
         <hr>
         <div class="col-lg-10 col-md-12 mx-auto">
-            <h3>{% if trick.comment | length == 1 %} 
-                {{trick.comment | length}} Commentaire 
+            <h3>
+                {% if trick.comment | length == 0 %} 
+                    <h4 class="p_center">Aucun commentaire pour ce Trick. Soyez le premier à commenter.</h4> 
+                {% elseif trick.comment | length == 1 %}
+                    {{trick.comment | length}} Commentaire
                 {% else %}
-                {{trick.comment | length}} Commentaires
-                {% endif %}</h3>
+                    {{trick.comment | length}} Commentaires
+                {% endif %}
+            </h3>
 
             {% for comment in trick.comment %}
                 <div class="alert alert-dismissible alert-secondary">
