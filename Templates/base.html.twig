@@ -12,60 +12,12 @@
 
     <body>
 
-<header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="{{path('home')}}">Snow Tricks</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarColor02">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{{path('home')}}">Accueil <span class="sr-only">(current)</span></a>
-            </li>
-            {% if app.user %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{path('addtrick')}}">Ajouter un Trick</a>
-            </li>
-            {% endif %}
-            {% if not app.user %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{path('register')}}">Inscription</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{path('login')}}">Connexion</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{path('logout')}}">Déconnexion</a>
-            </li>
-            {% endif %}
-          </ul>
-          {% if app.user %}
-          <span class="navbar-text">
-            Bienvenue {{ app.user.getUsername }} !
-          </span>
-          {% endif %}
-        </div>
-      </nav>
-      </header>
-
-
-
-
-
-
-
-
+      {% include "navbar.html.twig" %}
       
+      {% block body %}
+      {% endblock body %}
 
-{% block body %}
-{% endblock body %}
-
-  <footer>
-    <hr>
-    <p class="copyright">Copyright &copy; Snow Tricks 2018</p>
-  </footer>
+      {% include "footer.html.twig" %}
 
 
     {% block javascripts %}
