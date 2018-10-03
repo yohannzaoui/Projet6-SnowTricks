@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegisterType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -16,6 +17,7 @@ class ForgotPasswordController extends AbstractController
     public function index(Request $request, \Swift_Mailer $mailer)
     {
         $user = new User;
+
         $form = $this->createFormBuilder($user)
             ->add('email', EmailType::class)
             ->getForm();

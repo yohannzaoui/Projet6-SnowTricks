@@ -15,15 +15,8 @@ class LoginController extends AbstractController
      */
     public function index()
     {
-
-        //$form = $this->createFormBuilder()
-            //->add('email', EmailType::class)
-            //->add('password', PasswordType::class)
-            //->getForm();
-
         return $this->render('login/index.html.twig', [
             'title' => 'Connexion',
-            //'form' => $form->createView()
         ]);
     }
 }

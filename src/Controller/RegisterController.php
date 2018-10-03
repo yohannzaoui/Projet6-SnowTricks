@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegisterType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -21,20 +19,15 @@ class RegisterController extends AbstractController
     {
 
         $user = new User;
-        $user->setCreatedAt(new \DateTime);
         
-        $form = $this->createFormBuilder($user)
-            ->add('username', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add('confirmePassword', PasswordType::class)
-            ->getForm();
-
+        $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
+            $user->setCreatedAt(new \DateTime);
             
             $message = (new \Swift_Message('Validation de votre compte Snow Tricks'))
                         ->setFrom(['register@snowtrick.com' => 'Inscription à Snow Tricks'])
