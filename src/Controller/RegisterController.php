@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Mailer\Emailer;
 use App\Form\RegisterType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -28,12 +29,13 @@ class RegisterController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setCreatedAt(new \DateTime);
-            
-            $message = (new \Swift_Message('Validation de votre compte Snow Tricks'))
-                        ->setFrom(['register@snowtrick.com' => 'Inscription à Snow Tricks'])
-                        ->setTo($formData->getEmail())
-                        ->setBody('TEST');
-            $mailer->send($message);
+
+            $mail = new Emailer;
+            $email = $mail->mail('Validation de votre compte Snow Tricks', 
+                                ['register@snowtrick.com' => 'Inscription à Snow Tricks'],
+                                 $formData->getEmail(), 
+                                 'TEST');
+            $mailer->send($email);
 
             $manager->persist($user);
             $manager->flush();

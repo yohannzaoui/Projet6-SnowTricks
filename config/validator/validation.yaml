@@ -1,0 +1,23 @@
+App\Entity\User:
+  properties:
+    confirmePassword:
+      - IdenticalTo: {propertyPath: password, message: Les mots de passe ne correspondent pas.}
+      - Length:
+          {min: 8, minMessage: Le mot de passe doit contenir 8 caractères minimum.}
+    password:
+      - Length:
+          {min: 8, minMessage: Le mot de passe doit contenir 8 caractères minimum.}
+
+  constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: email
+            errorPath: email
+            message: "L'adresse email est déja utilisée. Veuillez en choisir une autre."
+
+App\Entity\Trick:
+  constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: name
+            errorPath: name
+            message: "Le nom du Trick existe déja."
+               
