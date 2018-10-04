@@ -2,59 +2,20 @@
 
 namespace App\Entity;
 
-/**
- * @Orm\Entity
- */
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 class Trick
 {
-    /**
-   * @ORM\Column(name="id", type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+
     private $id;
-
-    /**
-   * @ORM\Column(name="name", type="string", length=255)
-   */
     private $name;
-
-    /**
-   * @ORM\Column(name="description", type="text")
-   */
     private $description;
-
-    /**
-   * @ORM\Column(name="image", type="text")
-   */
     private $image;
-
-    /**
-   * @ORM\Column(name="video", type="text")
-   */
     private $video;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
-     */
     private $comment;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="trick")
-     */
     private $group;
-
-    /**
-   * @ORM\Column(name="createdAt", type="date")
-   */
     private $createdAt;
-
-    /**
-   * @ORM\Column(name="updatedAt", type="date", nullable=true)
-   */
     private $updatedAt;
-
-    
 
     /**
      * Get the value of id

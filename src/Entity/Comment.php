@@ -1,43 +1,16 @@
 <?php
 
 namespace App\Entity;
-
-/**
- * @Orm\Entity
- */
 class Comment
 {
-    /**
-   * @ORM\Column(name="id", type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
+   
     private $id;
-
-    /**
-   * @ORM\Column(name="pseudo", type="string", length=255)
-   */
     private $pseudo;
-
-    /**
-   * @ORM\Column(name="message", type="text")
-   */
     private $message;
-
-    /**
-   * @ORM\Column(name="createdAt", type="date")
-   */
     private $createdAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comment")
-     * @ORM\JoinColumn(nullable=false)
-     */
     private $trick;
-
-    /**
-     * Get the value of id
-     */ 
+    
+    
     public function getId()
     {
         return $this->id;

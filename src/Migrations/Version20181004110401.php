@@ -8,14 +8,16 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181001211713 extends AbstractMigration
+final class Version20181004110401 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE trick ADD updateddAt DATE DEFAULT NULL');
+        $this->addSql('ALTER TABLE comment CHANGE trick_id trick_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526CB281BE2E FOREIGN KEY (trick_id) REFERENCES trick (id)');
+        $this->addSql('CREATE INDEX IDX_9474526CB281BE2E ON comment (trick_id)');
     }
 
     public function down(Schema $schema) : void
@@ -23,6 +25,8 @@ final class Version20181001211713 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE trick DROP updateddAt');
+        $this->addSql('ALTER TABLE comment DROP FOREIGN KEY FK_9474526CB281BE2E');
+        $this->addSql('DROP INDEX IDX_9474526CB281BE2E ON comment');
+        $this->addSql('ALTER TABLE comment CHANGE trick_id trick_id INT NOT NULL');
     }
 }
