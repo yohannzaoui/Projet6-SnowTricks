@@ -1,36 +1,29 @@
-// Doctrine.ORM.Mapping.User.dcm.xml
-<?xml version="1.0" encoding="UTF-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
+    <entity name="App\Entity\Trick" table="trick">
 
-<entity name="Trick" table="trick">
-    <id name="id" type="integer">
-        <generator strategy="AUTO" />
-    </id>
+        <unique-constraints>
+            <unique-constraint columns="name" name="name" />
+        </unique-constraints>
 
-    <field name="name" column="name" type="string" length="255" />
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
 
-    <field name="description" column="description" type="text" />
+        <field name="name" column="name" type="string" length="255" nullable="false" unique="true" />
+        <field name="description" column="description" type="text"  nullable="false" />
+        <field name="image" column="image" type="text" nullable="false" />
+        <field name="video" column="video" type="text" nullable="true" />
+        <field name="createdAt" column="created_at" type="datetime" nullable="false" />
+        <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
+        
 
-    <field name="image" column="image" type="text" />
+        <one-to-many target-entity="App\Entity\Comment" field="comment" mapped-by="trick" orphan-removal="true" />
+        <one-to-many target-entity="App\Entity\Group" field="group" mapped-by="trick" />
 
-    <field name="video" column="video" type="text" />
+    </entity>
 
-    <one-to-many field="comment" target-entity="Comment" mapped-by="trick" orphan-removal="true">
-        <cascade>
-            <cascade-persist/>
-        </cascade>
-    </one-to-many>
-
-    <many-to-one fiels="category" target-entity="Category" inversed-by="trick">
-        <cascade>
-            <cascade-persist/>
-        </cascade>
-    </many-to-one>
-
-    <field name="createdAt" column="created_at" type="datetime" />  
-  </entity>
 </doctrine-mapping>

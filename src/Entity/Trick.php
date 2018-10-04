@@ -2,10 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
 /**
  * @Orm\Entity
  */
@@ -46,7 +42,7 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="trick")
      */
-    private $category;
+    private $group;
 
     /**
    * @ORM\Column(name="createdAt", type="date")
@@ -181,26 +177,6 @@ class Trick
     }
 
     /**
-     * Get the value of category
-     */ 
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Set the value of category
-     *
-     * @return  self
-     */ 
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
@@ -267,6 +243,26 @@ class Trick
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of group
+     */ 
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set the value of group
+     *
+     * @return  self
+     */ 
+    public function setGroup($group)
+    {
+        $this->group = $group;
 
         return $this;
     }
