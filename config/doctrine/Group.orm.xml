@@ -11,9 +11,11 @@
 
         <field name="nameGroup" column="name_group" type="string" length="255" nullable="false" />
         <field name="description" column="description" type="text" nullable="true" />
-        <field name="trick" column="trick_id" type="integer" nullable="false" />
+        
 
-        <many-to-One field="trick" target-entity="App\Entity\Trick" inversed-by="group" />
+        <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="group">
+        <join-column name="trick_id" referenced-column-name="id" />
+        </many-to-one>
 
     </entity>
 

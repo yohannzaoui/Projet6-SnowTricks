@@ -12,10 +12,12 @@
         <field name="pseudo" column="pseudo" type="string" length="255" nullable="false" />
         <field name="message" column="message" type="text" nullable="false" />
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
-        <field name="trick" column="trick_id" type="integer" nullable="false" />
+        
 
-        <many-to-One field="trick" target-entity="App\Entity\Trick" inversed-by="comment" />
-     
+        <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="comment" >
+        <join-column name="trick_id" referenced-column-name="id" />
+        </many-to-one>
+
     </entity>
 
 </doctrine-mapping>
