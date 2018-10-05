@@ -5,7 +5,7 @@ namespace App\Entity;
 class Group
 {
     private $id;
-    private $nameGroup;
+    private $name;
     private $description;
     private $trick;
 
@@ -32,19 +32,19 @@ class Group
     /**
      * Get the value of nameGroup
      */ 
-    public function getNameGroup()
+    public function getName()
     {
-        return $this->nameGroup;
+        return $this->name;
     }
 
     /**
-     * Set the value of nameGroup
+     * Set the value of name
      *
      * @return  self
      */ 
-    public function setNameGroup($nameGroup)
+    public function setName($name)
     {
-        $this->nameGroup = $nameGroup;
+        $this->name = $name;
 
         return $this;
     }

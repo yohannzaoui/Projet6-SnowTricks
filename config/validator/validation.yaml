@@ -8,6 +8,7 @@ App\Entity\User:
       - Length:
           {min: 8, minMessage: Le mot de passe doit contenir 8 caractères minimum.}
 
+
   constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: email
@@ -20,4 +21,10 @@ App\Entity\Trick:
             fields: name
             errorPath: name
             message: "Le nom du Trick existe déja."
+
+App\Entity\Group:
+  - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: name
+            errorPath: name
+            message: "Ce groupe existe déja."
                
