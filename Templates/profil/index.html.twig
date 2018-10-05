@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
+
     <div class="container">
         <br>
         <h1>Gestion de mon profil</h1>
@@ -8,8 +10,7 @@
             <div class="col-lg-6 col-md-10 mx-auto">
                  {{ form_start(form) }}
                     {{ form_row(form.avatar) }}
-                    <p>
-                        <button type="submit" class="btn btn-success">Mettre à jour</button> 
-                    </p>
+                    <p><button type="submit" class="btn btn-success">Mettre à jour</button></p>
                 {{ form_end(form) }}
+                
 {% endblock body %}

@@ -15,7 +15,7 @@ class ProfilType extends AbstractType
     {
         $builder
             ->add('avatar', FileType::class, [
-                'label' => 'Avatar (JPG, PNG)'
+                'label' => 'Avatar (200x200 pixels au format PNG)'
             ]);
     }
 
