@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -192,6 +193,7 @@ class User implements UserInterface
 
         return $this;
     }
+
 
     /**
      * Get the value of avatar

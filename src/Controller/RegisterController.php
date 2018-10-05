@@ -14,15 +14,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RegisterController extends AbstractController
 {
     /**
-     * @Route("/inscription", name="register")
+     * @Route("/inscription", name="register", methods={"GET","POST"})
      */
-    public function Register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
+    public function Register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, Emailer $mail)
     {
 
         $user = new User;
         
         $form = $this->createForm(RegisterType::class, $user)
-                      ->handleRequest($request);
+                     ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
@@ -30,7 +30,6 @@ class RegisterController extends AbstractController
             $user->setPassword($hash);
             $user->setCreatedAt(new \DateTime);
 
-            $mail = new Emailer;
             $email = $mail->mail('Validation de votre compte Snow Tricks', 
                                 ['register@snowtrick.com' => 'Inscription à Snow Tricks'],
                                  $formData->getEmail(), 

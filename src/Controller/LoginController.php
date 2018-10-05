@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class LoginController extends AbstractController
 {
     /**
-     * @Route("/connexion", name="login")
+     * @Route("/connexion", name="login", methods={"GET"})
      */
     public function index()
     {

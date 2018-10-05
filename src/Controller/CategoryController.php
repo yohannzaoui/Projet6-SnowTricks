@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/categories", name="category")
+     * @Route("/categories", name="category", methods={"GET"})
      */
     public function index(Request $request, ObjectManager $manager)
     {
