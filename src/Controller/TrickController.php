@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/tricks/details/{id}", name="trick")
+     * @Route("/tricks/details/{id}", name="trick", methods={"GET","POST"})
      */
     public function index(Request $request, ObjectManager $manager, $id)
     {
