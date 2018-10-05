@@ -13,7 +13,7 @@ class Trick
     private $image;
     private $video;
     private $comment;
-    private $group;
+    private $category;
     private $createdAt;
     private $updatedAt;
 
@@ -211,9 +211,9 @@ class Trick
     /**
      * Get the value of group
      */ 
-    public function getGroup()
+    public function getCategory()
     {
-        return $this->group;
+        return $this->category;
     }
 
     /**
@@ -221,9 +221,9 @@ class Trick
      *
      * @return  self
      */ 
-    public function setGroup($group)
+    public function setCategory($category)
     {
-        $this->group = $group;
+        $this->category = $category;
 
         return $this;
     }

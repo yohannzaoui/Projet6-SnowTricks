@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-class Group
+class Category
 {
     private $id;
     private $name;

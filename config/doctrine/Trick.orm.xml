@@ -22,7 +22,7 @@
         
 
         <one-to-many target-entity="App\Entity\Comment" field="comment" mapped-by="trick" orphan-removal="true" />
-        <one-to-many target-entity="App\Entity\Group" field="group" mapped-by="trick" />
+        <one-to-many target-entity="App\Entity\Category" field="category" mapped-by="trick" />
 
     </entity>
 

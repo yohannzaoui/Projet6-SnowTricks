@@ -2,32 +2,32 @@
 
 namespace App\Controller;
 
-use App\Entity\Group;
-use App\Form\GroupType;
+use App\Entity\Category;
+use App\Form\CategoryType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class GroupController extends AbstractController
+class CategoryController extends AbstractController
 {
     /**
-     * @Route("/groupes", name="group")
+     * @Route("/categories", name="category")
      */
     public function index(Request $request, ObjectManager $manager)
     {
-        $group = new Group;
+        $category = new Category;
 
-        $form = $this->createForm(GroupType::class, $group);
+        $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($group);
+            $manager->persist($category);
             $manager->flush();
         }
         
-        return $this->render('group/index.html.twig', [
-            'title' => 'Gestion des groupes',
+        return $this->render('category/index.html.twig', [
+            'title' => 'Gestion des catégories',
             'form' => $form->createView()
         ]);
     }

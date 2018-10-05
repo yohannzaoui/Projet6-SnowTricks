@@ -1,0 +1,6 @@
+App\Entity\Trick:
+  constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: name
+            errorPath: name
+            message: "Le nom du Trick existe déja."

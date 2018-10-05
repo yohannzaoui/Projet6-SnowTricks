@@ -2,14 +2,14 @@
 
 namespace App\Repository;
 
-use App\Entity\Group;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class GroupRepository extends ServiceEntityRepository
+class CategoryRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Group::class);
+        parent::__construct($registry, Category::class);
     }
 }

@@ -1,0 +1,5 @@
+App\Entity\Category:
+  - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: name
+            errorPath: name
+            message: "Cette catégorie existe déja."
