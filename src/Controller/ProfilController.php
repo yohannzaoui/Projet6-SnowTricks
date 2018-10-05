@@ -2,28 +2,28 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\Avatar;
 use App\Form\ProfilType;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/monprofil", name="profil")
+     * @Route("/monprofil", name="profil", methods={"GET"})
      */
     public function index(Request $request, ObjectManager $manager)
     {
-        $user = new User;
+        $avatar = new Avatar;
         
-        $form = $this->createForm(ProfilType::class, $user);
+        $form = $this->createForm(ProfilType::class, $avatar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $user->getAvatar();
+            $file = $avatar->getFile();
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             try {
@@ -34,8 +34,8 @@ class ProfilController extends AbstractController
             } catch (FileException $e) {
                 // ... handle exception if something happens during file upload
             }
-            $user->setAvatar($fileName);
-            $manager->persist($user);
+            $avatar->setFile($fileName);
+            $manager->persist($avatar);
             $manager->flush();
         }
 

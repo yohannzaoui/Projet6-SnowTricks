@@ -11,9 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EditTrickController extends AbstractController
 {
+
     /**
-     * @Route("/ajouterTrick", name="addtrick")
-     * @Route("/modifierTrick/{id}", name="updatetrick")
+     * @Route("/ajouterTrick", name="addtrick", methods={"GET","POST"})
+     * @Route("/modifierTrick/{id}", name="updatetrick", methods={"GET","POST"})
      */
     public function edit(Request $request, ObjectManager $manager, Trick $trick = null)
     {
@@ -44,6 +45,7 @@ class EditTrickController extends AbstractController
             'editMode' => $trick->getId() !== null
         ]);
     }
+
 
     /**
      * @Route("/supprimerTrick/{id}", name="deltrick")

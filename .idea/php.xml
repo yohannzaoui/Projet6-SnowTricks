@@ -74,4 +74,8 @@
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
     </include_path>
   </component>
+<<<<<<< HEAD
+=======
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
+>>>>>>> 6ae65c57466a35d21a8bde249d7abad0ebc3f1c2
 </project>

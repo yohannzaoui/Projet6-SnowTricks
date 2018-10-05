@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ForgotPasswordController extends AbstractController
 {
     /**
-     *@Route("/forgotPassword", name="forgot")
+     *@Route("/forgotPassword", name="forgot", methods={"GET"})
      */
     public function index(Request $request, \Swift_Mailer $mailer)
     {
