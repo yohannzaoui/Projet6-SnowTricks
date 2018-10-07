@@ -50,10 +50,10 @@ class EditTrickController extends AbstractController
     /**
      * @Route("/supprimerTrick/{id}", name="deltrick")
      */
-    public function delete(ObjectManager $manager, $id)
+    public function delete(ObjectManager $manager, Request $request)
     {
         $Manager = $this->getDoctrine()->getManager();
-        $trick = $Manager->getRepository(Trick::class)->find($id);
+        $trick = $Manager->getRepository(Trick::class)->find($request->get('id'));
         $manager->remove($trick);
         $manager->flush();
         return $this->redirectToRoute('home');

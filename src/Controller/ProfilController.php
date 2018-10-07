@@ -28,7 +28,7 @@ class ProfilController extends AbstractController
 
             try {
                 $file->move(
-                    $this->getParameter('avatar_directory'),
+                    $this->getParameter('avatarFolder'),
                     $fileName
                 );
             } catch (FileException $e) {

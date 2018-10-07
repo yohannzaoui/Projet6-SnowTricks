@@ -1,6 +1,6 @@
 security:
     encoders:
-        App\Entity\User:
+        App\Domain\Models\User:
             algorithm: bcrypt
             
 
@@ -9,7 +9,7 @@ security:
         in_memory: { memory: ~ }
         in_database:
             entity:
-                class: App\Entity\User
+                class: App\Domain\Models\User
                 property: email
         
     firewalls:

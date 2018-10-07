@@ -3,7 +3,7 @@
       xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\Category" table="category">
+    <entity name="App\Domain\Models\Category" table="category">
 
         <unique-constraints>
             <unique-constraint columns="name" name="name" />
@@ -17,7 +17,7 @@
         <field name="description" column="description" type="text" nullable="false" />
         
 
-        <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="category">
+        <many-to-one field="trick" target-entity="App\Domain\Models\Trick" inversed-by="category">
         <join-column name="trick_id" referenced-column-name="id" />
         </many-to-one>
 
