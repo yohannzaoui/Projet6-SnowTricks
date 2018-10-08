@@ -18,12 +18,10 @@ class TrickResponder implements TrickResponderInterface
 
     public function __invoke(FormInterface $form, $trick)
     {
-        return new Response(
-            $this->twig->render('trick/index.html.twig', [
-                'form' => $form->createView(),
-                'trick' => $trick
-            ]),
-            200
-        );
+        $response =  new Response($this->twig->render('trick/index.html.twig', [
+            'form' => $form->createView(),
+            'trick' => $trick
+        ]), 200);
+        return $response;
     }
 }

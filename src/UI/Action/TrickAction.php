@@ -12,7 +12,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use App\UI\Action\Interfaces\TrickActionInterface;
 use App\UI\Responder\Interfaces\TrickResponderInterface;
 use App\UI\Form\Handler\Interfaces\CommentTypeHandlerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * 
@@ -21,18 +20,15 @@ class TrickAction implements TrickActionInterface
 {
     private $formFactory;
     private $commentTypeHandler;
-    private $redirect;
 
     /**
      * 
      */
     public function __construct(FormFactoryInterface $formFactory,
-        CommentTypeHandlerInterface $commentTypeHandler,
-        UrlGeneratorInterface $redirect
+        CommentTypeHandlerInterface $commentTypeHandler
     ) {
         $this->formFactory = $formFactory;
         $this->commentTypeHandler = $commentTypeHandler;
-        $this->redirect = $redirect;
     }
 
     /**
@@ -50,11 +46,8 @@ class TrickAction implements TrickActionInterface
                                   ->handleRequest($request);
 
         if ($this->commentTypeHandler->handle($form, $trick, $comment)) {
-            $this->redirect->generate('trick', [
-                'id' => $request->get('id')
-            ]);
+            return $responder($form, $trick);
         }
-
         return $responder($form, $trick);
     }
 }

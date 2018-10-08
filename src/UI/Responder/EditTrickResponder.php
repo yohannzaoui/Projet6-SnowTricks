@@ -34,7 +34,7 @@ class EditTrickResponder implements EditTrickResponderInterface
         : $response = new Response($this->twig->render('edit/index.html.twig', [
             'form' => $form->createView(),
             'editmode' => $trick->getId() !== null
-        ]));
+        ]), 200);
         return $response;        
     }
 }
