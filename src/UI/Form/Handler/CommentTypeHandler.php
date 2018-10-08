@@ -19,13 +19,13 @@ class CommentTypeHandler implements CommentTypeHandlerInterface
     public function handle(FormInterface $form, $trick, $comment): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
+            //$data = $form->getData();
             $comment->setCreatedAt(new \DateTime)
                     ->setTrick($trick);
             $this->manager->persist($comment);
             $this->manager->flush();
             return true;
         }
-
         return false;
     }
 }

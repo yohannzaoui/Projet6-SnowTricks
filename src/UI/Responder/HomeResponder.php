@@ -18,8 +18,7 @@ class HomeResponder implements HomeResponderInterface
 
     public function __invoke($tricks)
     {
-        return new Response(
-            $this->twig->render('home/index.html.twig', [
+        return new Response($this->twig->render('home/index.html.twig', [
                 'tricks' => $tricks
             ]),
             200

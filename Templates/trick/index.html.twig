@@ -25,7 +25,7 @@
         </div>
         {% else %}
             <p class="p_center">Vous devez être connecté pour commenter.</p>
-            <p class="p_center"><a class="italic" href="{#{{path('login')}}#}">Connectez-vous</a> ou <a class="italic" href="{#{{path('register')}}#}">créez un compte</a>
+            <p class="p_center"><a class="italic" href="{{path('login')}}">Connectez-vous</a> ou <a class="italic" href="{{path('register')}}">créez un compte</a>
         {% endif %}
         
         <hr>
