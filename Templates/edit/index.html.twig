@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Ajouter un Trick{% endblock %}
 
 {% block body %}
 
@@ -6,11 +7,10 @@
     <div class="container">
     
     {% if app.user %}
-
-        {% if editMode %}
-        <h1>Modifier un Trick</h1>
+        {% if editmode %}
+            <h1>Modifier un Trick</h1>
         {% else %}
-        <h1>Ajouter un Trick</h1>
+            <h1>Ajouter un Trick</h1>
         {% endif %}
         <div class="row">
             <div class="col-lg-6 col-md-10 mx-auto">
@@ -22,11 +22,11 @@
             {#{{ form_row(form.category, {'label':'Catégories','attr':{'placeholder': 'Choisissez une catégorie'}}) }}#}
             <p>
                 <button type="submit" class="btn btn-success">
-                {% if editMode %}
-                Modifier
-                {% else %}
-                Ajouter
-                {% endif %}
+                    {% if editmode %}
+                        Modifier
+                    {% else %}
+                        Ajouter
+                    {% endif %}
                 </button>
                 <button type="reset" class="btn btn-danger">Effacer</button>
             </p>
