@@ -4,11 +4,12 @@ namespace App\UI\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\UI\Form\Interfaces\EditTrickTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class AddTrickType extends AbstractType
+class EditTrickType extends AbstractType implements EditTrickTypeInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

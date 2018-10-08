@@ -4,12 +4,13 @@ namespace App\UI\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\UI\Form\Interfaces\RegisterTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class RegisterType extends AbstractType
+class RegisterType extends AbstractType implements RegisterTypeInterface
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)

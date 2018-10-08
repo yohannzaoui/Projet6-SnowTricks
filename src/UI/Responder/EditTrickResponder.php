@@ -5,14 +5,14 @@ namespace App\UI\Responder;
 use Twig\Environment;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
-use App\UI\Responder\Interfaces\AddTrickResponderInterface;
+use App\UI\Responder\Interfaces\EditTrickResponderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * 
  */
-class AddTrickResponder implements AddTrickResponderInterface
+class EditTrickResponder implements EditTrickResponderInterface
 {
     private $twig;
 
@@ -27,12 +27,13 @@ class AddTrickResponder implements AddTrickResponderInterface
     /**
      * 
      */
-    public function __invoke($redirect = false, FormInterface $form = null)
+    public function __invoke($redirect = false, FormInterface $form = null, $trick)
     {
         $redirect
         ? $response = new RedirectResponse('/')
-        : $response = new Response($this->twig->render('add/index.html.twig', [
-            'form' => $form->createView()
+        : $response = new Response($this->twig->render('edit/index.html.twig', [
+            'form' => $form->createView(),
+            'editmode' => $trick->getId() !== null
         ]));
         return $response;        
     }
