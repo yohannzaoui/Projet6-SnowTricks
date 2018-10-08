@@ -2,7 +2,9 @@
 
 namespace App\UI\Form;
 
+use App\Domain\DTO\NewCommentDTO;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Interfaces\CommentTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,7 +23,7 @@ class CommentType extends AbstractType implements CommentTypeInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            
         ]);
     }
 

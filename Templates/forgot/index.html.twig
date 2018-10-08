@@ -10,13 +10,8 @@
             <br>
             <div class="row">
                 <div class="col-lg-6 col-md-10 mx-auto">
-                    {{form_start(form)}}
-                    {{ form_row(form.email, {'label':'Adresse Email','attr':{'placeholder': 'Entrez votre adresse Email'}}) }}
-                    <p>
-                        <button type="submit" class="btn btn-success">Envoyer</button>
-                        <button type="reset" class="btn btn-danger">Effacer</button>
-                    </p>
-                    {{form_end(form)}}
+                    {% form_theme form 'theme/forgot_password_type.html.twig' %}
+                    {{form(form)}}
                 </div>
             </div>
     </div>

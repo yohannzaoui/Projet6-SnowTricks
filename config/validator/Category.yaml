@@ -1,4 +1,4 @@
-App\Entity\Category:
+App\Domain\Models\Category:
   - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: name
             errorPath: name

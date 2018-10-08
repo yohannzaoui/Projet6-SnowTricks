@@ -31,7 +31,7 @@ class ForgotPasswordAction implements ForgotPasswordActionInterface
      * 
      *@Route("/forgotPassword", name="forgot", methods={"GET","POST"})
      */
-    public function __invoke(Request $request, Emailer $email, \Swift_Mailer $mailer, ForgotPasswordActionResponderInterface $responder)
+    public function __invoke(Request $request, Emailer $mail, \Swift_Mailer $mailer, ForgotPasswordActionResponderInterface $responder)
     {
 
         $user = new User;
@@ -48,7 +48,7 @@ class ForgotPasswordAction implements ForgotPasswordActionInterface
                                  $getEmail, 
                                  'TEST');
             $mailer->send($email);
-            return $responder(true, $getEmail);
+            return $responder(true, $form, $getEmail);
         }
 
         return $responder(false, $form);

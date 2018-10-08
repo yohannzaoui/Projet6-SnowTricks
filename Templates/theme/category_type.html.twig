@@ -1,0 +1,10 @@
+{% block form %}
+    {{form_start(form)}}
+        {{ form_row(form.name, {'label':'Nom de la catégorie','attr':{'placeholder': 'Entrez le nom du groupe'}}) }}
+        {{ form_row(form.description, {'label':'Description de la catégorie'})}}
+        <p>
+            <button type="submit" class="btn btn-success">Ajouter la catégorie</button> 
+            <button type="reset" class="btn btn-danger">Effacer</button>
+        </p>
+    {{ form_end(form)}}
+{% endblock %}

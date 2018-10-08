@@ -7,15 +7,8 @@
     <h1>Réinitialisez votre mot de passe</h1>
     <div class="row">
         <div class="col-lg-6 col-md-10 mx-auto">
-            {{ form_start(form) }}
-                {{ form_row(form.password, {'label':'Mot de passe','attr':{'placeholder': 'Entrez votre mot de passe'}}) }}
-                {{ form_row(form.confirmePassword, {'label':'Confirmation mot de passe','attr':{'placeholder': 'Confirmez votre mot de passe'}}) }}
-                    <p>
-                        <button type="submit" class="btn btn-success">Réinitialiser</button> 
-                        <button type="reset" class="btn btn-danger">Effacer</button>
-                    </p>
-            {{ form_end(form) }}
-
+            {% form_theme form 'theme/reset_type.html.twig' %}
+            {{form(form)}}
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-App\Entity\User:
+App\Domain\Models\User:
   properties:
     confirmePassword:
       - IdenticalTo: 

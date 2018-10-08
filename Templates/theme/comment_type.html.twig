@@ -1,0 +1,10 @@
+{% block form %}
+    {{ form_start(form) }}
+        {{ form_row(form.pseudo, {'label':'Votre pseudo','attr':{'placeholder': 'Entrez votre pseudo', 'value':app.user.username}}) }}
+        {{ form_row(form.message, {'label':'Commentaire','attr':{'placeholder': 'Ecrivez votre commentaire'}}) }}
+        <p>
+            <button type="submit" class="btn btn-success">Commenter</button> 
+            <button type="reset" class="btn btn-danger">Effacer</button>
+        </p>
+    {{ form_end(form) }}
+{% endblock %}

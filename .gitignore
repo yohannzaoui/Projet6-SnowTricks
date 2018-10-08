@@ -11,3 +11,5 @@
 ###< symfony/web-server-bundle ###
 
 /public/uploads
+
+/UML/
