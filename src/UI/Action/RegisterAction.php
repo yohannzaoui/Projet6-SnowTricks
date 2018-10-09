@@ -35,7 +35,8 @@ class RegisterAction implements RegisterActionInterface
     public function __invoke(Request $request, EmailerInterface $mail, \Swift_Mailer $mailer, RegisterActionResponderInterface $responder)
     {
         $userDTO = new NewUserDTO;
-        $form = $this->formFactory->create(RegisterType::class, $userDTO)->handleRequest($request);
+        $form = $this->formFactory->create(RegisterType::class, $userDTO)
+                                  ->handleRequest($request);
         $formData = $form->getData();
         $getEmail = $formData->email;
         $token = md5($getEmail);

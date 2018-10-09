@@ -8,7 +8,7 @@ class UserBuilder
 {
     private $user;
 
-    public function createFromRegistration(string $username, string $password, string $email, string $token): self
+    public function createFromRegistration($username, $password, $email, $token)
     {
         $this->user = new User($username, $password, $email, $token);
         return $this;

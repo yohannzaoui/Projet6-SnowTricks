@@ -1,10 +1,5 @@
 App\Domain\Models\User:
   properties:
-    confirmePassword:
-      - IdenticalTo: 
-          {propertyPath: password, message: "Les mots de passe ne correspondent pas."}
-      - Length:
-          {min: 8, minMessage: "Le mot de passe doit contenir 8 caractères minimum."}
     password:
       - Length:
           {min: 8, minMessage: "Le mot de passe doit contenir 8 caractères minimum."}

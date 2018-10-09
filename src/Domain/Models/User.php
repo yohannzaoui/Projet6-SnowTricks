@@ -24,7 +24,7 @@ class User implements UserInterface
         $this->email = $email;
         $this->token = $token;
         $this->createdAt = new \DateTime;
-        $this->roles[] = 'ROLE_USER';
+        $this->roles = 'ROLE_USER';
     }
 
     /**
@@ -50,7 +50,7 @@ class User implements UserInterface
     /**
      * Get the value of pseudo
      */ 
-    public function getUserName()
+    public function getUsername()
     {
         return $this->username;
     }
@@ -60,7 +60,7 @@ class User implements UserInterface
      *
      * @return  self
      */ 
-    public function setUserName($username)
+    public function setUsername($username)
     {
         $this->username = $username;
 

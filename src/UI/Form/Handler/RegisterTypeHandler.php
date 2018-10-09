@@ -40,8 +40,7 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
             $user->setUsername($username)
                  ->setEmail($email)
                  ->setPassword($hash)
-                 ->setToken($token)
-                 ->setCreatedAt(new \DateTime);
+                 ->setToken($token);
             $this->manager->persist($user);
             $this->manager->flush();
             return true;
