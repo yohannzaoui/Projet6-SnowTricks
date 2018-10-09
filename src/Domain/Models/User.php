@@ -10,13 +10,22 @@ class User implements UserInterface
     private $id;
     private $username;
     private $password;
-    private $confirmePassword;
     private $email;
     private $createdAt;
     private $token;
     private $ctoken;
     private $avatar;
+    private $roles;
 
+    public function __construct($username = null, $password = null, $email = null, $token = null)
+    {
+        $this->username = $username;
+        $this->password = $password;
+        $this->email = $email;
+        $this->token = $token;
+        $this->createdAt = new \DateTime;
+        $this->roles[] = 'ROLE_USER';
+    }
 
     /**
      * Get the value of id
@@ -155,6 +164,26 @@ class User implements UserInterface
     }
 
     /**
+     * Get the value of avatar
+     */ 
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set the value of avatar
+     *
+     * @return  self
+     */ 
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
      * Get the value of ctoken
      */ 
     public function getCtoken()
@@ -175,42 +204,13 @@ class User implements UserInterface
     }
 
     /**
-     * Get the value of confirmePassword
-     */ 
-    public function getConfirmePassword()
-    {
-        return $this->confirmePassword;
-    }
-
-    /**
-     * Set the value of confirmePassword
+     * Set the value of roles
      *
      * @return  self
      */ 
-    public function setConfirmePassword($confirmePassword)
+    public function setRoles($roles)
     {
-        $this->confirmePassword = $confirmePassword;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the value of avatar
-     */ 
-    public function getAvatar()
-    {
-        return $this->avatar;
-    }
-
-    /**
-     * Set the value of avatar
-     *
-     * @return  self
-     */ 
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
+        $this->roles = $roles;
 
         return $this;
     }

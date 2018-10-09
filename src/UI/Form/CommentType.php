@@ -23,7 +23,13 @@ class CommentType extends AbstractType implements CommentTypeInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            
+            'data_class' => NewCommentDTO::class,
+            'empty_data' => function (FormInterface $form) {
+                return new newCommentDTO(
+                    $form->get('pseudo')->getdata(),
+                    $form->get('message')->getdata()
+                );
+            }
         ]);
     }
 

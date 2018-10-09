@@ -43,10 +43,11 @@ class ForgotPasswordAction implements ForgotPasswordActionInterface
             $formData = $form->getData();
             $getEmail = $formData->getEmail();
 
+            $token = md5($getEmail);
             $email = $mail->mail('Récupération de votre compte Snow Tricks', 
                                 ['reset_password@snowtrick.com' => 'Récupération de mot passe'],
                                  $getEmail, 
-                                 'TEST');
+                                 'TEST'.$token);
             $mailer->send($email);
             return $responder(true, $form, $getEmail);
         }

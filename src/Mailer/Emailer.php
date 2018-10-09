@@ -3,8 +3,9 @@
 namespace App\Mailer;
 
 use Swift_Message;
+use App\Mailer\Interfaces\EmailerInterface;
 
-class Emailer
+class Emailer implements EmailerInterface
 {
     public function mail($subject, $from = [], $to, $body)
     {

@@ -14,30 +14,15 @@ class NewTrickDTO
     
 
     public $video;
+
     
 
-    public $comment;
-    
-
-    public $category;
-    
-    
-    public $createdAt;
-    
-
-    public $updatedAt;
-    
-
-    public function __construct($name, $description, $image, $video, $comment, $category, $createdAt, $updatedAt)
+    public function __construct($name = null, $description = null, $image = null, $video = null)
     {
         $this->name = $name;
         $this->description = $description;
         $this->image = $image;
         $this->video = $video;
-        $this->comment = $comment;
-        $this->category = $category;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
     }
 
 

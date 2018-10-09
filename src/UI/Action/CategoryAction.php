@@ -28,7 +28,7 @@ class CategoryAction implements CategoryActionInterface
     }
 
     /**
-     * @Route("/categories", name="category", methods={"GET","POST"})
+     * @Route("/admin", name="category", methods={"GET","POST"})
      */
     public function __invoke(Request $request, CategoryActionResponderInterface $responder, ObjectManager $manager)
     {

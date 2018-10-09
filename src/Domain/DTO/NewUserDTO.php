@@ -13,26 +13,14 @@ class NewUserDTO
     public $email;
     
 
-    public $createdAt;
-    
-
-    public $token;
-    
-
-    public $ctoken;
-    
-
-	public $avatar;
-
-    public function __construct($username, $password, $email, $createdAt, $token, $ctoken, $avatar)
+    /**
+     * 
+     */
+    public function __construct($username = null, $password = null, $email = null)
     {
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
-        $this->createdAt = $createdAt;
-        $this->token = $token;
-        $this->ctoken = $ctoken;
-        $this->avatar = $avatar;
     }
 
     

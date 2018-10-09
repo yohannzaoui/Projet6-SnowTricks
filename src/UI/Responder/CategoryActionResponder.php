@@ -20,11 +20,11 @@ class CategoryActionResponder implements CategoryActionResponderInterface
     public function __invoke($redirect = false, FormInterface $form, $categoryList)
     {
         $redirect
-        ? $response = new Response($this->twig->render('category/index.html.twig', [
+        ? $response = new Response($this->twig->render('admin/category.html.twig', [
             'form' => $form->createView(),
             'categoryslist' => $categoryList
         ]), 200)
-        : $response = new Response($this->twig->render('category/index.html.twig', [
+        : $response = new Response($this->twig->render('admin/category.html.twig', [
             'form' => $form->createView(),
             'categoryslist' => $categoryList
         ]), 200);

@@ -9,5 +9,5 @@ interface CommentTypeHandlerInterface
 {
     public function __construct(ObjectManager $manager);
     
-    public function handle(FormInterface $form, $trick, $comment): bool;
+    public function handle(FormInterface $form, $trick): bool;
 }
