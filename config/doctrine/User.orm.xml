@@ -7,6 +7,7 @@
 
     <unique-constraints>
         <unique-constraint columns="email" name="email" />
+        <unique-constraint columns="username" name="username" />
     </unique-constraints>
 
     <id name="id" type="integer" column="id">

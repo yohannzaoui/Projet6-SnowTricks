@@ -21,6 +21,12 @@ class Trick
     private $createdAt;
     private $updatedAt;
 
+    public function __construct($name = null, $description = null)
+    {
+        $this->name = $name;
+        $this->description = $description;
+    }
+
     /**
      * Get the value of id
      */ 

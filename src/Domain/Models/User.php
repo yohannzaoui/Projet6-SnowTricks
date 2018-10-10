@@ -17,14 +17,14 @@ class User implements UserInterface
     private $avatar;
     private $roles;
 
-    public function __construct($username = null, $password = null, $email = null, $token = null)
+    public function __construct($username = null, $password = null, callable $passwordEncoder = null, $email = null, $token = null)
     {
         $this->username = $username;
-        $this->password = $password;
+        $this->password = $passwordEncoder($password = null);
         $this->email = $email;
         $this->token = $token;
         $this->createdAt = new \DateTime;
-        $this->roles[] = 'ROLE_USER';
+        $this->roles = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     /**
@@ -50,7 +50,7 @@ class User implements UserInterface
     /**
      * Get the value of pseudo
      */ 
-    public function getUserName()
+    public function getUsername()
     {
         return $this->username;
     }
@@ -60,7 +60,7 @@ class User implements UserInterface
      *
      * @return  self
      */ 
-    public function setUserName($username)
+    public function setUsername($username)
     {
         $this->username = $username;
 

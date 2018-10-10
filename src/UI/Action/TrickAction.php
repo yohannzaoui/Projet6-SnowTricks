@@ -35,10 +35,8 @@ class TrickAction implements TrickActionInterface
      * 
      * @Route("/tricks/details/{id}", name="trick", methods={"GET","POST"})
      */
-    public function __invoke(Request $request,
-        ObjectManager $manager,
-        TrickResponderInterface $responder
-    ) {
+    public function __invoke(Request $request, ObjectManager $manager, TrickResponderInterface $responder)
+    {
         $trick = $manager->getRepository(Trick::class)->find($request->get('id'));
 
         $commentDTO = new NewCommentDTO;

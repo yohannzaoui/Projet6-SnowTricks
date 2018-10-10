@@ -10,7 +10,7 @@ security:
         in_database:
             entity:
                 class: App\Domain\Models\User
-                property: email
+                property: username
         
     firewalls:
         dev:
@@ -18,6 +18,8 @@ security:
             security: false
         main:
             anonymous: true
+            pattern:    ^/
+            http_basic: ~
             provider: in_database
 
             form_login:
@@ -39,5 +41,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
