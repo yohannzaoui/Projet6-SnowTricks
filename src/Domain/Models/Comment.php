@@ -10,8 +10,16 @@ class Comment
     private $message;
     private $createdAt;
     private $trick;
-    
-    
+
+    public function __construct($pseudo = null, $message = null, $trick = null)
+    {
+        $this->pseudo = $pseudo;
+        $this->message = $message;
+        $this->createdAt = new \DateTime();
+        $this->trick = $trick;
+    }
+
+
     public function getId()
     {
         return $this->id;

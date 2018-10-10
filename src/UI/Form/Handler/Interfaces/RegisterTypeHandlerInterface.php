@@ -10,5 +10,5 @@ interface RegisterTypeHandlerInterface
 {
     public function __construct(ObjectManager $manager, UserPasswordEncoderInterface $encoder);
 
-    public function handle(FormInterface $form, $token);
+    public function handle(FormInterface $form, $token, $user);
 }

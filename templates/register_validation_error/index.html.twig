@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Validation du compte{% endblock %}
+{% block title %}Erreur de validation du compte{% endblock %}
 
 
 {% block body %}
@@ -8,7 +8,7 @@
     <br>
     <div class="container">
         <div class="alert alert-dismissible alert-secondary">
-                <h5 class="register_validation">Un email à l'adresse {{email}} vient de vous être envoyez pour la validation de votre compte</h5>
+                <h5 class="register_validation">Erreur lors de la confirmation de votre compte. Le token de validation est invalide.</h5>
         </div>
     </div>
 

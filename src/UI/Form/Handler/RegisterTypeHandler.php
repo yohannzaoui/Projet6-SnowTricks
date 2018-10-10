@@ -29,16 +29,14 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
     /**
      * 
      */
-    public function handle(FormInterface $form, $token)
+    public function handle(FormInterface $form, $token, $user)
     {
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = new User;
             $data = $form->getData();
-            $username = $data->username;
-            $email = $data->email;
+            $user = new User;
             $hash = $this->encoder->encodePassword($user, $data->password);
-            $user->setUsername($username)
-                 ->setEmail($email)
+            $user->setUsername($data->username)
+                 ->setEmail($data->email)
                  ->setPassword($hash)
                  ->setToken($token);
             $this->manager->persist($user);
