@@ -6,39 +6,50 @@ use App\Domain\Models\User;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\UI\Form\Handler\Interfaces\RegisterTypeHandlerInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Domain\Builder\UserBuilder;
 
 /**
  * 
  */
 class RegisterTypeHandler implements RegisterTypeHandlerInterface
 {
+    /**
+     * @var ObjectManager
+     */
     private $manager;
-    private $encoder;
+    /**
+     * @var EncoderFactoryInterface
+     */
+    private $encoderFactory;
+    /**
+     * @var UserBuilder
+     */
+    private $userBuilder;
 
     /**
      * 
      */
-    public function __construct(ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function __construct(ObjectManager $manager, EncoderFactoryInterface $encoderFactory, UserBuilder $userBuilder)
     {
         $this->manager = $manager;
-        $this->encoder = $encoder;
+        $this->encoderFactory = $encoderFactory;
+        $this->userBuilder = $userBuilder;
     }
 
     /**
      * 
      */
-    public function handle(FormInterface $form, $token, $user)
+    public function handle(FormInterface $form, $token)
     {
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $user = new User;
-            $hash = $this->encoder->encodePassword($user, $data->password);
-            $user->setUsername($data->username)
-                 ->setEmail($data->email)
-                 ->setPassword($hash)
-                 ->setToken($token);
+            $formData = $form->getData();
+            $encoder = $this->encoderFactory->getEncoder(User::class, null);
+            $user = $this->userBuilder->createFromRegistration($formData->username,
+                $formData->email,
+                $formData->password,
+                \closure::fromCallable([$encoder, 'encodePassword']),
+                $token);
             $this->manager->persist($user);
             $this->manager->flush();
             return true;

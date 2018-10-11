@@ -12,9 +12,9 @@
 
 /public/uploads
 
-/UML/
-.buildpath
-.buildpath
+
 .project
 .idea/workspace.xml
 .buildpath
+.vscode
+.idea

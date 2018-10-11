@@ -3,7 +3,6 @@
 namespace App\UI\Action;
 
 use App\Mailer\Emailer;
-use App\Domain\Models\User;
 use App\UI\Form\ForgotPasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,9 +33,9 @@ class ForgotPasswordAction implements ForgotPasswordActionInterface
     public function __invoke(Request $request, Emailer $mail, \Swift_Mailer $mailer, ForgotPasswordActionResponderInterface $responder)
     {
 
-        $user = new User;
+
         
-        $form = $this->formFactory->create(ForgotPasswordType::class, $user)
+        $form = $this->formFactory->create(ForgotPasswordType::class)
                                   ->handleRequest($request);
         
         if ($this->forgotPasswordTypeHandler->handle($form)) {

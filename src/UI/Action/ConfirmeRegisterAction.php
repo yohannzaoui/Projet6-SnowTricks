@@ -3,11 +3,12 @@
 
 namespace App\UI\Action;
 
+use App\UI\Action\Interfaces\ConfirmeRegisterActionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\UI\Responder\Interfaces\ConfirmeRegisterActionResponderInterface;
 
-class ConfirmeRegisterAction
+class ConfirmeRegisterAction implements ConfirmeRegisterActionInterface
 {
     /**
      * @Route("/confirmeregister/{token}", name="confirme", methods={"GET"})

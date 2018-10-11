@@ -2,6 +2,7 @@
 
 namespace App\UI\Action\Interfaces;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\UI\Responder\Interfaces\ConfirmeRegisterActionResponderInterface;
 
 interface ConfirmeRegisterActionInterface
