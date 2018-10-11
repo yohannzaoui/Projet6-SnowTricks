@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 interface RegisterActionInterface
 {
     public function __construct(
-        FormFactoryInterface $formFactory, /*RegisterTypeHandlerInterface $registerTypeHandler,*/ EncoderFactoryInterface $encoderFactory, UserBuilder $userBuilder);
+        FormFactoryInterface $formFactory, RegisterTypeHandlerInterface $registerTypeHandler);
 
-    public function __invoke(Request $request, EmailerInterface $mail, \Swift_Mailer $mailer, RegisterActionResponderInterface $responder, ObjectManager $manager);
+    public function __invoke(Request $request, EmailerInterface $mail, \Swift_Mailer $mailer, RegisterActionResponderInterface $responder);
 }

@@ -2,11 +2,12 @@
 
 namespace App\UI\Responder;
 
+use App\UI\Responder\Interfaces\ConfirmeRegisterActionResponderInterface;
 use Twig\Environment;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class ConfirmeRegisterActionResponder
+class ConfirmeRegisterActionResponder implements ConfirmeRegisterActionResponderInterface
 {
     private $twig;
 

@@ -17,14 +17,18 @@ class User implements UserInterface
     private $avatar;
     private $roles;
 
-    public function __construct($username = null, $password = null, callable $passwordEncoder = null, $email = null, $token = null)
-    {
+    public function __construct($username = null,
+                                $password,
+                                callable $passwordEncoder = null,
+                                $email = null,
+                                $token = null
+    ) {
         $this->username = $username;
-        $this->password = $passwordEncoder($password = null);
+        $this->password = $passwordEncoder($password = null, null);
         $this->email = $email;
         $this->token = $token;
         $this->createdAt = new \DateTime;
-        $this->roles = ['ROLE_USER', 'ROLE_ADMIN'];
+        $this->roles = 'ROLE_USER';
     }
 
     /**

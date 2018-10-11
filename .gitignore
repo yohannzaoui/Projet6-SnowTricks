@@ -12,15 +12,9 @@
 
 /public/uploads
 
-/UML/
-.idea/workspace.xml
+
 .project
-.settings/org.eclipse.wst.validation.prefs
+.idea/workspace.xml
 .buildpath
-.idea/copyright/Yohann_Zaoui.xml
-.idea/copyright/profiles_settings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/php.xml
-.idea/projet6.iml
-.idea/vcs.xml
+.vscode
+.idea
