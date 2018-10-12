@@ -4,6 +4,10 @@ namespace App\Domain\Models;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class User
+ * @package App\Domain\Models
+ */
 class User implements UserInterface
 {
 
@@ -44,7 +48,6 @@ class User implements UserInterface
      * User constructor.
      * @param null $username
      * @param $password
-     * @param callable|null $passwordEncoder
      * @param null $email
      * @param null $token
      */
