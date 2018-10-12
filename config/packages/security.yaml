@@ -23,7 +23,6 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                csrf_token_generator: security.csrf.token_manager
 
             
             logout:

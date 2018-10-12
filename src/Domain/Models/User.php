@@ -6,55 +6,25 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
-
-    /**
-     * @var
-     */
+  
     private $id;
-    /**
-     * @var null
-     */
     private $username;
-    /**
-     * @var
-     */
     private $password;
-    /**
-     * @var null
-     */
     private $email;
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
-    /**
-     * @var null
-     */
     private $token;
-    /**
-     * @var
-     */
     private $ctoken;
-    /**
-     * @var string
-     */
+    private $avatar;
     private $roles;
 
-    /**
-     * User constructor.
-     * @param null $username
-     * @param $password
-     * @param callable|null $passwordEncoder
-     * @param null $email
-     * @param null $token
-     */
-    public function __construct(string $username = null,
-                                string $password = null,
-                                string $email = null,
-                                string $token = null
+    public function __construct($username = null,
+                                $password,
+                                callable $passwordEncoder = null,
+                                $email = null,
+                                $token = null
     ) {
         $this->username = $username;
-        $this->password = $password;
+        $this->password = $passwordEncoder($password = null, null);
         $this->email = $email;
         $this->token = $token;
         $this->createdAt = new \DateTime;
@@ -161,25 +131,16 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     *
-     */
     public function eraseCredentials()
     {
         
     }
 
-    /**
-     * @return null|string|void
-     */
     public function getSalt()
     {
         
     }
 
-    /**
-     * @return array
-     */
     public function getRoles()
     {
         return ['ROLE_USER'];
@@ -206,6 +167,25 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * Get the value of avatar
+     */ 
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set the value of avatar
+     *
+     * @return  self
+     */ 
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
 
     /**
      * Get the value of ctoken

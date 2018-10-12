@@ -2,40 +2,15 @@
 
 namespace App\Domain\Models;
 
-/**
- * Class Comment
- * @package App\Domain\Models
- */
 class Comment
 {
-
-    /**
-     * @var
-     */
+   
     private $id;
-    /**
-     * @var null
-     */
     private $pseudo;
-    /**
-     * @var null
-     */
     private $message;
-    /**
-     * @var \DateTime
-     */
     private $createdAt;
-    /**
-     * @var null
-     */
     private $trick;
 
-    /**
-     * Comment constructor.
-     * @param null $pseudo
-     * @param null $message
-     * @param null $trick
-     */
     public function __construct($pseudo = null, $message = null, $trick = null)
     {
         $this->pseudo = $pseudo;
@@ -45,9 +20,6 @@ class Comment
     }
 
 
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
