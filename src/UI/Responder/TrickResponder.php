@@ -7,15 +7,34 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\UI\Responder\Interfaces\TrickResponderInterface;
 
+/**
+ * Class TrickResponder
+ * @package App\UI\Responder
+ */
 class TrickResponder implements TrickResponderInterface
 {
+    /**
+     * @var Environment
+     */
     private $twig;
 
+    /**
+     * TrickResponder constructor.
+     * @param Environment $twig
+     */
     public function __construct(Environment $twig)
     {
         $this->twig = $twig;
     }
 
+    /**
+     * @param FormInterface $form
+     * @param $trick
+     * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function __invoke(FormInterface $form, $trick)
     {
         $response =  new Response($this->twig->render('trick/index.html.twig', [

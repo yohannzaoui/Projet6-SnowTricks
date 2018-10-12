@@ -12,18 +12,26 @@ use App\UI\Action\Interfaces\EditTrickActionInterface;
 use App\UI\Responder\Interfaces\EditTrickResponderInterface;
 use App\UI\Form\Handler\Interfaces\EditTrickTypeHandlerInterface;
 
+
 /**
- * 
+ * Class EditTrickAction
+ * @package App\UI\Action
  */
 class EditTrickAction implements EditTrickActionInterface
 {
+    /**
+     * @var FormFactoryInterface
+     */
     private $formFactory;
 
+
     /**
-     * 
+     * EditTrickAction constructor.
+     * @param FormFactoryInterface $formFactory
+     * @param EditTrickTypeHandlerInterface $editTrickTypeHandler
      */
     public function __construct(FormFactoryInterface $formFactory,
-        EditTrickTypeHandlerInterface $editTrickTypeHandler
+                                EditTrickTypeHandlerInterface $editTrickTypeHandler
     ) {
         $this->formFactory = $formFactory;
         $this->editTrickTypeHandler = $editTrickTypeHandler;
