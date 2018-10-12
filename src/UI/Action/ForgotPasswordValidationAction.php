@@ -3,22 +3,15 @@
 
 namespace App\UI\Action;
 
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
-use App\UI\Form\ForgotPasswordValidationTypeType;
-
 
 class ForgotPasswordValidationAction
 {
-    private $formFactory;
-
-    public function __construct(FormFactoryInterface $formFactory)
+    public function __construct()
     {
-        $this->formFactory = $formFactory;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke()
     {
-        $form = $this->formFactory->create(ForgotPasswordValidationType::class)->handleRequest($request);
+        // TODO: Implement __invoke() method.
     }
 }
