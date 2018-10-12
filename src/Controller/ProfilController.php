@@ -17,10 +17,8 @@ class ProfilController extends AbstractController
      */
     public function index(Request $request, ObjectManager $manager)
     {
-        $avatar = new Avatar;
         
-        $form = $this->createForm(ProfilType::class, $avatar);
-        $form->handleRequest($request);
+        $form = $this->createForm(ProfilType::class)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $avatar->getFile();
