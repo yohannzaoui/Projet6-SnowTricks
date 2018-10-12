@@ -9,10 +9,6 @@ use App\UI\Action\Interfaces\HomeActionInterface;
 use App\UI\Responder\Interfaces\HomeResponderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-/**
- * Class HomeAction
- * @package App\UI\Action
- */
 class HomeAction implements HomeActionInterface
 {
 
