@@ -13,14 +13,18 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
+
 /**
- * 
+ * Class RegisterType
+ * @package App\UI\Form
  */
 class RegisterType extends AbstractType implements RegisterTypeInterface
 {
 
+
     /**
-     * 
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -39,8 +43,9 @@ class RegisterType extends AbstractType implements RegisterTypeInterface
             ]);
     }
 
+
     /**
-     * 
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -50,7 +55,7 @@ class RegisterType extends AbstractType implements RegisterTypeInterface
                 return new newUserDTO(
                     $form->get('username')->getdata(),
                     $form->get('email')->getdata(),
-                    $form->get('password')
+                    $form->get('password')->getdata()
                 );
             }
         ]);

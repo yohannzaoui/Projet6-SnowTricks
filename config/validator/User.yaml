@@ -3,21 +3,10 @@ App\Domain\Models\User:
     password:
       - Length:
           {min: 8, minMessage: "Le mot de passe doit contenir 8 caractères minimum."}
-    avatar:
-      - Image:
-          minWidth: 200
-          minWidthMessage: "L'image doit avoir une largeur minimum de 200 pixel"
-          maxWidth: 200
-          maxWidthMessage: "L'image doit avoir une largeur maximum de 200 pixel"
-          minHeight: 200
-          minHeightMessage: "L'image doit avoir une hauteur maximum de 200 pixel"
-          maxHeight: 200
-          maxHeightMessage: "L'image doit avoir une hauteur maximum de 200 pixel"
-          mimeTypes: image/png
-          mimeTypesMessage: "Le format de fichier doit être du PNG."
 
   constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: email
             errorPath: email
             message: "L'adresse email est déja utilisée. Veuillez en choisir une autre."
+

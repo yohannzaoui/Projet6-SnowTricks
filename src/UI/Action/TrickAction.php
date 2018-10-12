@@ -18,7 +18,13 @@ use App\UI\Form\Handler\Interfaces\CommentTypeHandlerInterface;
  */
 class TrickAction implements TrickActionInterface
 {
+    /**
+     * @var FormFactoryInterface
+     */
     private $formFactory;
+    /**
+     * @var CommentTypeHandlerInterface
+     */
     private $commentTypeHandler;
 
     /**

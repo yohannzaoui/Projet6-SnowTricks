@@ -2,7 +2,6 @@
 
 namespace App\UI\Action;
 
-use App\Mailer\Emailer;
 use App\UI\Form\ForgotPasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,16 +10,22 @@ use App\UI\Action\Interfaces\ForgotPasswordActionInterface;
 use App\UI\Form\Handler\Interfaces\ForgotPasswordTypeHandlerInterface;
 use App\UI\Responder\Interfaces\ForgotPasswordActionResponderInterface;
 
+
 /**
- * 
+ * Class ForgotPasswordAction
+ * @package App\UI\Action
  */
 class ForgotPasswordAction implements ForgotPasswordActionInterface
 {
+
+
     /**
-     * 
+     * ForgotPasswordAction constructor.
+     * @param FormFactoryInterface $formFactory
+     * @param ForgotPasswordTypeHandlerInterface $forgotPasswordTypeHandler
      */
     public function __construct(FormFactoryInterface $formFactory,
-        ForgotPasswordTypeHandlerInterface $forgotPasswordTypeHandler
+                                ForgotPasswordTypeHandlerInterface $forgotPasswordTypeHandler
     ) {
         $this->formFactory = $formFactory;
         $this->forgotPasswordTypeHandler = $forgotPasswordTypeHandler;
@@ -30,25 +35,15 @@ class ForgotPasswordAction implements ForgotPasswordActionInterface
      * 
      *@Route("/forgotPassword", name="forgot", methods={"GET","POST"})
      */
-    public function __invoke(Request $request, Emailer $mail, \Swift_Mailer $mailer, ForgotPasswordActionResponderInterface $responder)
+    public function __invoke(Request $request, ForgotPasswordActionResponderInterface $responder)
     {
 
-
-        
         $form = $this->formFactory->create(ForgotPasswordType::class)
                                   ->handleRequest($request);
         
         if ($this->forgotPasswordTypeHandler->handle($form)) {
-            $formData = $form->getData();
-            $getEmail = $formData->getEmail();
 
-            $token = md5($getEmail);
-            $email = $mail->mail('Récupération de votre compte Snow Tricks', 
-                                ['reset_password@snowtrick.com' => 'Récupération de mot passe'],
-                                 $getEmail, 
-                                 'TEST'.$token);
-            $mailer->send($email);
-            return $responder(true, $form, $getEmail);
+            return $responder(true, $form, $form->getData()->email);
         }
 
         return $responder(false, $form);

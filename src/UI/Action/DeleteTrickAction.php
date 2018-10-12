@@ -9,8 +9,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use App\UI\Action\Interfaces\DeleteTrickActionInterface;
 
+
 /**
- * 
+ * Class DeleteTrickAction
+ * @package App\UI\Action
  */
 class DeleteTrickAction implements DeleteTrickActionInterface
 {

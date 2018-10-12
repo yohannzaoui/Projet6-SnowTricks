@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\UI\Responder\Interfaces\ConfirmeRegisterActionResponderInterface;
 
+/**
+ * Class ConfirmeRegisterAction
+ * @package App\UI\Action
+ */
 class ConfirmeRegisterAction implements ConfirmeRegisterActionInterface
 {
     /**
@@ -15,7 +19,7 @@ class ConfirmeRegisterAction implements ConfirmeRegisterActionInterface
      */
     public function __invoke(Request $request, ConfirmeRegisterActionResponderInterface $responder)
     {
-        if (! $request->get('token')) {
+        if ($request->get('token')) {
             $token = $request->get('token');
             return $responder(true, $token);
         }
