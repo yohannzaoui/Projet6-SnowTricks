@@ -21,5 +21,5 @@ interface ConfirmeRegisterActionResponderInterface
      * @param null $token
      * @return mixed
      */
-    public function __invoke($redirect = false, $token = null);
+    public function __invoke($redirect = false);
 }

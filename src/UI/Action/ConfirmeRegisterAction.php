@@ -20,8 +20,7 @@ class ConfirmeRegisterAction implements ConfirmeRegisterActionInterface
     public function __invoke(Request $request, ConfirmeRegisterActionResponderInterface $responder)
     {
         if ($request->get('token')) {
-            $token = $request->get('token');
-            return $responder(true, $token);
+            return $responder(true);
         }
         return $responder(false);
     }

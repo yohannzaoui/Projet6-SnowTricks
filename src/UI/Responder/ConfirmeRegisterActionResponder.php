@@ -35,12 +35,10 @@ class ConfirmeRegisterActionResponder implements ConfirmeRegisterActionResponder
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke($redirect = false, $token = null)
+    public function __invoke($redirect = false)
     {
         $redirect
-        ? $response = new Response($this->twig->render('confirme_register_validation/index.html.twig', [
-            'token' => $token
-        ]), 200)
+        ? $response = new Response($this->twig->render('confirme_register_validation/index.html.twig'), 200)
         : $response = new Response($this->twig->render('register_validation_error/index.html.twig'), 200);
         return $response;
         
