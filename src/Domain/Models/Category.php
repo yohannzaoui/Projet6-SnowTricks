@@ -2,12 +2,33 @@
 
 namespace App\Domain\Models;
 
+/**
+ * Class Category
+ * @package App\Domain\Models
+ */
 class Category
 {
+    /**
+     * @var
+     */
     private $id;
+    /**
+     * @var
+     */
     private $name;
+    /**
+     * @var
+     */
     private $description;
+    /**
+     * @var
+     */
     private $trick;
+
+    public function __construct()
+    {
+
+    }
 
     /**
      * Get the value of id

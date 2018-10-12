@@ -2,18 +2,36 @@
 
 namespace App\Domain\Builder;
 
+use App\Domain\Builder\Interfaces\UserBuilderInterface;
 use App\Domain\Models\User;
 
-class UserBuilder
+/**
+ * Class UserBuilder
+ * @package App\Domain\Builder
+ */
+class UserBuilder implements UserBuilderInterface
 {
+    /**
+     * @var
+     */
     private $user;
 
-    public function createFromRegistration($username, $password, callable $passwordEncoder, $email, $token)
+    /**
+     * @param $username
+     * @param $password
+     * @param $email
+     * @param $token
+     * @return $this
+     */
+    public function createFromRegistration($username, $password, $email, $token)
     {
-        $this->user = new User($username, $password, $passwordEncoder, $email, $token);
+        $this->user = new User($username, $password, $email, $token);
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUser()
     {
         return $this->user;
