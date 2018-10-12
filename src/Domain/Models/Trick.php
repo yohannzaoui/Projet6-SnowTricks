@@ -11,48 +11,16 @@ use Doctrine\Common\Collections\Collection;
 class Trick
 {
 
-    /**
-     * @var
-     */
     private $id;
-    /**
-     * @var null
-     */
     private $name;
-    /**
-     * @var null
-     */
     private $description;
-    /**
-     * @var
-     */
     private $image;
-    /**
-     * @var
-     */
     private $video;
-    /**
-     * @var
-     */
     private $comment;
-    /**
-     * @var
-     */
     private $category;
-    /**
-     * @var
-     */
     private $createdAt;
-    /**
-     * @var
-     */
     private $updatedAt;
 
-    /**
-     * Trick constructor.
-     * @param null $name
-     * @param null $description
-     */
     public function __construct($name = null, $description = null)
     {
         $this->name = $name;
@@ -187,10 +155,6 @@ class Trick
         return $this->comments;
     }
 
-    /**
-     * @param Comment $comment
-     * @return Trick
-     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -201,10 +165,6 @@ class Trick
         return $this;
     }
 
-    /**
-     * @param Comment $comment
-     * @return Trick
-     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
