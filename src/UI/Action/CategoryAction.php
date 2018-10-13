@@ -11,8 +11,7 @@ use App\UI\Form\Handler\Interfaces\CategoryTypeHandlerInterface;
 use App\UI\Responder\Interfaces\CategoryActionResponderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\UI\Action\Interfaces\CategoryActionInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class CategoryAction
@@ -44,7 +43,7 @@ class CategoryAction implements CategoryActionInterface
 
     /**
      * @Route("/admin", name="category", methods={"GET","POST"})
-     * @Security("has_role('ROLE_ADMIN')")
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param CategoryActionResponderInterface $responder
      * @param ObjectManager $manager

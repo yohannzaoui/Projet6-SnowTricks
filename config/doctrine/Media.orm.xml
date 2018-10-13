@@ -9,12 +9,11 @@
             <unique-constraint columns="file_name" name="fileName" />
         </unique-constraints>
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
-        </id>
+        <id name="id" type="uuid" column="id" />
 
         <field name="fileName" column="file_name" type="string" length="255" nullable="false" />
         <field name="path" column="path" type="string" length="255" nullable="false" />
+        <field name="file" column="file" type="binary" length="255" nullable="false" />
 
     </entity>
 

@@ -9,7 +9,20 @@
 namespace App\Domain\Builder;
 
 
+use App\Domain\Models\Media;
+
 class MediaBuilder
 {
+    private $Media;
 
+    public function createFromProfil($path, $fileName, $file)
+    {
+        $this->Media = new Media($path, $fileName, $file);
+        return $this;
+    }
+
+    public function getMedia()
+    {
+        return $this->Media;
+    }
 }

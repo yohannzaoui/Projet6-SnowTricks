@@ -2,6 +2,9 @@
 
 namespace App\Domain\Models;
 
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+
 /**
  * Class Comment
  * @package App\Domain\Models
@@ -10,7 +13,7 @@ class Comment
 {
 
     /**
-     * @var
+     * @var UuidInterface
      */
     private $id;
     /**
@@ -30,14 +33,17 @@ class Comment
      */
     private $trick;
 
+
     /**
      * Comment constructor.
      * @param null $pseudo
      * @param null $message
      * @param null $trick
+     * @throws \Exception
      */
     public function __construct($pseudo = null, $message = null, $trick = null)
     {
+        $this->id = Uuid::uuid4();
         $this->pseudo = $pseudo;
         $this->message = $message;
         $this->createdAt = new \DateTime();

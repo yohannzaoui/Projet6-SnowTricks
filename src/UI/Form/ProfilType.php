@@ -2,10 +2,11 @@
 
 namespace App\UI\Form;
 
-use App\Domain\Models\Avatar;
+use App\Domain\DTO\NewMediaDTO;
 use Symfony\Component\Form\AbstractType;
 use App\UI\Form\Interfaces\ProfilTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,7 +24,10 @@ class ProfilType extends AbstractType implements ProfilTypeInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Avatar::class,
+            'data_class' => NewMediaDTO::class,
+            'empty_data' => function(FormInterface $form) {
+            return new NewMediaDTO($form->get('file')->getData());
+            }
         ]);
     }
 }
