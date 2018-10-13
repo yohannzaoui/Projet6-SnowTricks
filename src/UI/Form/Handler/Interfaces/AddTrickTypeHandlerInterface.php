@@ -2,25 +2,26 @@
 
 namespace App\UI\Form\Handler\Interfaces;
 
+use App\Domain\Builder\TrickBuilder;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * Interface EditTrickTypeHandlerInterface
+ * Interface AddTrickTypeHandlerInterface
  * @package App\UI\Form\Handler\Interfaces
  */
-interface EditTrickTypeHandlerInterface
+interface AddTrickTypeHandlerInterface
 {
     /**
-     * EditTrickTypeHandlerInterface constructor.
+     * AddTrickTypeHandlerInterface constructor.
      * @param ObjectManager $manager
      */
-    public function __construct(ObjectManager $manager);
+    public function __construct(ObjectManager $manager, TrickBuilder $trickBuilder);
 
     /**
      * @param FormInterface $form
      * @param $trick
      * @return mixed
      */
-    public function handle(FormInterface $form, $trick);
+    public function handle(FormInterface $form);
 }

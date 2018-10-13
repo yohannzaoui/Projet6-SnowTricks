@@ -16,12 +16,14 @@ class UserBuilder implements UserBuilderInterface
      */
     private $user;
 
+
     /**
      * @param $username
      * @param $password
      * @param $email
      * @param $token
-     * @return $this
+     * @return $this|mixed
+     * @throws \Exception
      */
     public function createFromRegistration($username, $password, $email, $token)
     {

@@ -2,18 +2,20 @@
 
 namespace App\UI\Form;
 
+use App\Domain\DTO\NewTrickDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use App\UI\Form\Interfaces\EditTrickTypeInterface;
+use App\UI\Form\Interfaces\AddTrickTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormInterface;
 
 /**
- * Class EditTrickType
+ * Class AddTrickType
  * @package App\UI\Form
  */
-class EditTrickType extends AbstractType implements EditTrickTypeInterface
+class AddTrickType extends AbstractType implements AddTrickTypeInterface
 {
     /**
      * @param FormBuilderInterface $builder
@@ -34,7 +36,15 @@ class EditTrickType extends AbstractType implements EditTrickTypeInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => NewTrickDTO::class,
+            'empty_data' => function (FormInterface $form) {
+                return new newTrickDTO(
+                    $form->get('name')->getdata(),
+                    $form->get('description')->getdata(),
+                    $form->get('image')->getdata(),
+                    $form->get('video')->getdata()
+                );
+            }
         ]);
     }
 }

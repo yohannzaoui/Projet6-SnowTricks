@@ -3,7 +3,6 @@
 namespace App\UI\Responder;
 
 use Twig\Environment;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**

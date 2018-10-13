@@ -45,9 +45,8 @@ class TrickAction implements TrickActionInterface
     {
         $trick = $manager->getRepository(Trick::class)->find($request->get('id'));
 
-        $commentDTO = new NewCommentDTO;
-        $form = $this->formFactory->create(CommentType::class, $commentDTO)
-                                  ->handleRequest($request);
+
+        $form = $this->formFactory->create(CommentType::class)->handleRequest($request);
 
         if ($this->commentTypeHandler->handle($form, $trick)) {
             return $responder($form, $trick);
