@@ -9,9 +9,7 @@
             <unique-constraint columns="name" name="name" />
         </unique-constraints>
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
-        </id>
+        <id name="id" type="uuid" column="id" />
 
         <field name="name" column="name" type="string" length="255" nullable="false" unique="true" />
         <field name="description" column="description" type="text"  nullable="false" />

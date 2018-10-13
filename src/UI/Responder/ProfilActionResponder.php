@@ -2,11 +2,12 @@
 
 namespace App\UI\Responder;
 
+use App\UI\Responder\Interfaces\ProfilActionResponderInterface;
 use Twig\Environment;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class ProfilActionResponder
+class ProfilActionResponder implements ProfilActionResponderInterface
 {
     private $twig;
 
@@ -15,9 +16,13 @@ class ProfilActionResponder
         $this->twig = $twig;
     }
 
-    public function __invoke()
+    public function __invoke($redirect = false, $form)
     {
-        $response = new Response();
+        $redirect
+        ? $response = new Response($this->twig->render('home/index.html.twig'), 200)
+        : $response = new Response($this->twig->render('profil/index.html.twig', [
+            'form' => $form->createView()
+        ]), 200);
         return $response;
     }
 

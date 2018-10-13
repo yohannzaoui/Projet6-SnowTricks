@@ -2,6 +2,9 @@
 
 namespace App\Domain\Models;
 
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+
 /**
  * Class Category
  * @package App\Domain\Models
@@ -9,7 +12,7 @@ namespace App\Domain\Models;
 class Category
 {
     /**
-     * @var
+     * @var UuidInterface
      */
     private $id;
     /**
@@ -25,9 +28,13 @@ class Category
      */
     private $trick;
 
+    /**
+     * Category constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
-
+        $this->id = Uuid::uuid4();
     }
 
     /**

@@ -5,9 +5,8 @@
 
     <entity name="App\Domain\Models\Comment" table="comment">
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
-        </id>
+        <id name="id" type="uuid" column="id" />
+
 
         <field name="pseudo" column="pseudo" type="string" length="255" nullable="false" />
         <field name="message" column="message" type="text" nullable="false" />

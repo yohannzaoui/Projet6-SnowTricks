@@ -4,6 +4,8 @@ namespace App\Domain\Models;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * 
@@ -12,7 +14,7 @@ class Trick
 {
 
     /**
-     * @var
+     * @var UuidInterface
      */
     private $id;
     /**
@@ -48,13 +50,16 @@ class Trick
      */
     private $updatedAt;
 
+
     /**
      * Trick constructor.
      * @param null $name
      * @param null $description
+     * @throws \Exception
      */
     public function __construct($name = null, $description = null)
     {
+        $this->id = Uuid::uuid4();
         $this->name = $name;
         $this->description = $description;
     }

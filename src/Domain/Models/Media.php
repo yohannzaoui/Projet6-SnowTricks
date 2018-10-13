@@ -9,6 +9,9 @@
 namespace App\Domain\Models;
 
 
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+
 /**
  * Class Media
  * @package App\Domain\Models
@@ -16,7 +19,7 @@ namespace App\Domain\Models;
 class Media
 {
     /**
-     * @var
+     * @var UuidInterface
      */
     private $id;
 
@@ -24,19 +27,30 @@ class Media
      * @var
      */
     private $path;
+
     /**
-     * @var
+     * @var null
+     */
+    private $file;
+
+    /**
+     * @var null
      */
     private $fileName;
 
+
     /**
      * Media constructor.
-     * @param $path
-     * @param $fileName
+     * @param null $path
+     * @param null $file
+     * @param null $fileName
+     * @throws \Exception
      */
-    public function __construct($path, $fileName)
+    public function __construct($path = null, $file = null, $fileName = null)
     {
+        $this->id = Uuid::uuid4();
         $this->path = $path;
+        $this->file = $file;
         $this->fileName = $fileName;
     }
 
@@ -87,4 +101,23 @@ class Media
     {
         $this->fileName = $fileName;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
+
+
 }

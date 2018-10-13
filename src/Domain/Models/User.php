@@ -2,6 +2,8 @@
 
 namespace App\Domain\Models;
 
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -12,7 +14,7 @@ class User implements UserInterface
 {
 
     /**
-     * @var
+     * @var UuidInterface
      */
     private $id;
     /**
@@ -35,33 +37,52 @@ class User implements UserInterface
      * @var null
      */
     private $token;
-    /**
-     * @var
-     */
-    private $ctoken;
+
     /**
      * @var string
      */
     private $roles;
 
     /**
+     * @var bool
+     */
+    private $validated;
+
+    /**
+     * @var int
+     */
+    private $profilImage;
+
+    /**
+     * @var
+     */
+    private $resetPasswordToken;
+
+
+    /**
      * User constructor.
-     * @param null $username
-     * @param $password
-     * @param null $email
-     * @param null $token
+     * @param string|null $username
+     * @param string|null $password
+     * @param string|null $email
+     * @param string|null $token
+     * @param int|null $profilImage
+     * @throws \Exception
      */
     public function __construct(string $username = null,
                                 string $password = null,
                                 string $email = null,
-                                string $token = null
+                                string $token = null,
+                                int $profilImage = null
     ) {
+        $this->id = Uuid::uuid4();
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
         $this->token = $token;
         $this->createdAt = new \DateTime;
         $this->roles = 'ROLE_USER';
+        $this->validated = false;
+        $this->profilImage = $profilImage;
     }
 
     /**
@@ -211,26 +232,6 @@ class User implements UserInterface
 
 
     /**
-     * Get the value of ctoken
-     */ 
-    public function getCtoken()
-    {
-        return $this->ctoken;
-    }
-
-    /**
-     * Set the value of ctoken
-     *
-     * @return  self
-     */ 
-    public function setCtoken($ctoken)
-    {
-        $this->ctoken = $ctoken;
-
-        return $this;
-    }
-
-    /**
      * Set the value of roles
      *
      * @return  self
@@ -241,4 +242,62 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isValidated(): bool
+    {
+        return $this->validated;
+    }
+
+    /**
+     * @param bool $validated
+     */
+    public function setValidated(bool $validated): void
+    {
+        $this->validated = $validated;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfilImage(): string
+    {
+        return $this->profilImage;
+    }
+
+    /**
+     * @param string $profilImage
+     */
+    public function setProfilImage(string $profilImage): void
+    {
+        $this->profilImage = $profilImage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResetPasswordToken()
+    {
+        return $this->resetPasswordToken;
+    }
+
+    /**
+     * @param mixed $resetPasswordToken
+     */
+    public function setResetPasswordToken($resetPasswordToken): void
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
+    }
+
+
+
+
+
+
+
+
+
+
 }
