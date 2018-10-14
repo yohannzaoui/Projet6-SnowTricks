@@ -8,19 +8,33 @@
 
 namespace App\Domain\Builder;
 
-
 use App\Domain\Models\Media;
 
+/**
+ * Class MediaBuilder
+ * @package App\Domain\Builder
+ */
 class MediaBuilder
 {
+    /**
+     * @var
+     */
     private $Media;
 
-    public function createFromProfil($path, $fileName, $file)
+    /**
+     * @param $fileName
+     * @return $this
+     * @throws \Exception
+     */
+    public function create($fileName)
     {
-        $this->Media = new Media($path, $fileName, $file);
+        $this->Media = new Media($fileName);
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getMedia()
     {
         return $this->Media;

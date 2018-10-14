@@ -24,16 +24,6 @@ class Media
     private $id;
 
     /**
-     * @var
-     */
-    private $path;
-
-    /**
-     * @var null
-     */
-    private $file;
-
-    /**
      * @var null
      */
     private $fileName;
@@ -41,16 +31,12 @@ class Media
 
     /**
      * Media constructor.
-     * @param null $path
-     * @param null $file
      * @param null $fileName
      * @throws \Exception
      */
-    public function __construct($path = null, $file = null, $fileName = null)
+    public function __construct($fileName = null)
     {
         $this->id = Uuid::uuid4();
-        $this->path = $path;
-        $this->file = $file;
         $this->fileName = $fileName;
     }
 
@@ -73,22 +59,6 @@ class Media
     /**
      * @return mixed
      */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path): void
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getFileName()
     {
         return $this->fileName;
@@ -101,23 +71,5 @@ class Media
     {
         $this->fileName = $fileName;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param mixed $file
-     */
-    public function setFile($file): void
-    {
-        $this->file = $file;
-    }
-
-
 
 }

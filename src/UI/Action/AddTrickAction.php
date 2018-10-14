@@ -16,7 +16,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use App\UI\Form\Handler\Interfaces\AddTrickTypeHandlerInterface;
 use App\UI\Responder\Interfaces\AddTrickResponderInterface;
 
-
 class AddTrickAction implements AddTrickActionInterface
 {
     private $formFactory;
@@ -30,6 +29,7 @@ class AddTrickAction implements AddTrickActionInterface
     }
 
     /**
+     *
      * @Route("/ajouterTrick", name="addtrick", methods={"GET","POST"})
      */
     public function __invoke(Request $request, AddTrickResponderInterface $responder)
