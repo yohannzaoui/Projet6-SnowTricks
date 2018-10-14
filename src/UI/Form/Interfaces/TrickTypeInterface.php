@@ -6,10 +6,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Interface AddTrickTypeInterface
+ * Interface TrickTypeInterface
  * @package App\UI\Form\Interfaces
  */
-interface AddTrickTypeInterface
+interface TrickTypeInterface
 {
     /**
      * @param FormBuilderInterface $builder

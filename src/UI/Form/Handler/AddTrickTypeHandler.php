@@ -2,10 +2,9 @@
 
 namespace App\UI\Form\Handler;
 
-use App\Domain\Models\Trick;
 use App\Domain\Builder\TrickBuilder;
+use App\Domain\Repository\TrickRepository;
 use Symfony\Component\Form\FormInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\UI\Form\Handler\Interfaces\AddTrickTypeHandlerInterface;
 
 
@@ -16,19 +15,18 @@ use App\UI\Form\Handler\Interfaces\AddTrickTypeHandlerInterface;
 class AddTrickTypeHandler implements AddTrickTypeHandlerInterface
 {
     /**
-     * @var ObjectManager
+     *
      */
-    private $manager;
+    private $trickRepository;
 
     private $trickBuilder;
 
     /**
      * AddTrickTypeHandler constructor.
-     * @param ObjectManager $manager
      */
-    public function __construct(ObjectManager $manager, TrickBuilder $trickBuilder)
+    public function __construct(TrickRepository $trickRepository, TrickBuilder $trickBuilder)
     {
-        $this->manager = $manager;
+        $this->trickRepository = $trickRepository;
         $this->trickBuilder = $trickBuilder;
     }
 
@@ -48,10 +46,8 @@ class AddTrickTypeHandler implements AddTrickTypeHandlerInterface
                 $form->getData()->video
             );
 
-            $trick = $this->trickBuilder->getTrick();
+            $this->trickRepository->save($this->trickBuilder->getTrick());
 
-            $this->manager->persist($trick);
-            $this->manager->flush();
             return true;
         }
         return false;

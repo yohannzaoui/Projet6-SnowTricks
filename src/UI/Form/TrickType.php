@@ -5,17 +5,18 @@ namespace App\UI\Form;
 use App\Domain\DTO\NewTrickDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use App\UI\Form\Interfaces\AddTrickTypeInterface;
+use App\UI\Form\Interfaces\TrickTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
  * Class AddTrickType
  * @package App\UI\Form
  */
-class AddTrickType extends AbstractType implements AddTrickTypeInterface
+class TrickType extends AbstractType implements TrickTypeInterface
 {
     /**
      * @param FormBuilderInterface $builder
@@ -26,7 +27,7 @@ class AddTrickType extends AbstractType implements AddTrickTypeInterface
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('image', TextType::class)
+            ->add('image', FileType::class)
             ->add('video', TextType::class);
     }
 

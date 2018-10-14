@@ -4,7 +4,6 @@ namespace App\UI\Action;
 
 use App\Domain\Models\Trick;
 use App\UI\Form\CommentType;
-use App\Domain\DTO\NewCommentDTO;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;

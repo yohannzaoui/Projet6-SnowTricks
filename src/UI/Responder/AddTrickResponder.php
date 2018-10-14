@@ -43,7 +43,7 @@ class AddTrickResponder implements AddTrickResponderInterface
     {
         $redirect
         ? $response = new RedirectResponse('/')
-        : $response = new Response($this->twig->render('edit/index.html.twig', [
+        : $response = new Response($this->twig->render('add_trick/index.html.twig', [
             'form' => $form->createView()
         ]), 200);
         return $response;        

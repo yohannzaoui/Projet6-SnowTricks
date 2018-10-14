@@ -3,7 +3,7 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Models\User;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
  * Class UserRepository
  * @package App\Domain\Repository
  */
-class UserRepository extends EntityRepository implements UserLoaderInterface
+class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
     /**
      * UserRepository constructor.
