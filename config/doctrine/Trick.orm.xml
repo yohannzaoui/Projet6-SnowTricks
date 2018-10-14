@@ -21,6 +21,8 @@
 
         <one-to-many target-entity="App\Domain\Models\Comment" field="comment" mapped-by="trick" orphan-removal="true" />
         <one-to-many target-entity="App\Domain\Models\Category" field="category" mapped-by="trick" />
+        <many-to-one field="author" target-entity="App\Domain\Models\User" />
+
 
     </entity>
 

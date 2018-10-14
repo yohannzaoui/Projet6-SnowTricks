@@ -8,7 +8,6 @@
 
 namespace App\UI\Action;
 
-use App\Mailer\Interfaces\EmailerInterface;
 use App\UI\Action\Interfaces\RegisterActionInterface;
 use App\UI\Form\Handler\Interfaces\RegisterTypeHandlerInterface;
 use App\UI\Form\RegisterType;
@@ -41,7 +40,7 @@ class RegisterAction implements RegisterActionInterface
     /**
      * @Route("/inscription", name="register", methods={"GET","POST"})
      */
-    public function __invoke(Request $request, RegisterActionResponderInterface $responder, \Swift_Mailer $mailer, EmailerInterface $mail)
+    public function __invoke(Request $request, RegisterActionResponderInterface $responder)
     {
         $form = $this->formFactory->create(RegisterType::class)->handleRequest($request);
 

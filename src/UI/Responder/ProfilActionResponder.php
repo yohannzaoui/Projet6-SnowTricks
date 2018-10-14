@@ -3,6 +3,7 @@
 namespace App\UI\Responder;
 
 use App\UI\Responder\Interfaces\ProfilActionResponderInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Twig\Environment;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,7 +20,7 @@ class ProfilActionResponder implements ProfilActionResponderInterface
     public function __invoke($redirect = false, $form)
     {
         $redirect
-        ? $response = new Response($this->twig->render('home/index.html.twig'), 200)
+        ? $response = new RedirectResponse('/')
         : $response = new Response($this->twig->render('profil/index.html.twig', [
             'form' => $form->createView()
         ]), 200);

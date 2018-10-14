@@ -1,20 +1,26 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Yohann Zaoui
- * Date: 13/10/2018
- * Time: 23:00
- */
 
 namespace App\UI\Form\Interfaces;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-interface EditTrickTypeInterface
+/**
+ * Interface TrickTypeInterface
+ * @package App\UI\Form\Interfaces
+ */
+interface TrickTypeInterface
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return mixed
+     */
     public function buildForm(FormBuilderInterface $builder, array $options);
 
+    /**
+     * @param OptionsResolver $resolver
+     * @return mixed
+     */
     public function configureOptions(OptionsResolver $resolver);
 }

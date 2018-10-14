@@ -77,7 +77,7 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
 
             $password = $this->encoderFactory->getEncoder(User::class)->encodePassword($form->getData()->password, null);
 
-            $token = md5(str_rot13(crypt('abcdefghijklmnopqrstwxyz1234567890', null)));
+            $token = md5(uniqid());
 
             $this->userBuilder->createFromRegistration(
                 $form->getData()->username,

@@ -6,13 +6,13 @@ use Twig\Environment;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Interface EditTrickResponderInterface
+ * Interface AddTrickResponderInterface
  * @package App\UI\Responder\Interfaces
  */
-interface EditTrickResponderInterface
+interface AddTrickResponderInterface
 {
     /**
-     * EditTrickResponderInterface constructor.
+     * AddTrickResponderInterface constructor.
      * @param Environment $twig
      */
     public function __construct(Environment $twig);
@@ -23,5 +23,5 @@ interface EditTrickResponderInterface
      * @param $trick
      * @return mixed
      */
-    public function __invoke($redirect = false, FormInterface $form = null, $trick);
+    public function __invoke($redirect = false, FormInterface $form = null);
 }

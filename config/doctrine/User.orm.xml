@@ -16,12 +16,15 @@
         <field name="username" column="username" type="string" length="255" nullable="false" unique="true" />
         <field name="password" column="password" type="string" length="255" nullable="false" />
         <field name="email" column="email" type="string" length="255" nullable="false" unique="true" />
-        <field name="createdAt" column="created_at" type="datetime" nullable="false" /> 
+        <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="token" column="token" type="string" length="255" nullable="false" />
         <field name="roles" column="roles" type="string" length="255" nullable="true" />
         <field name="validated" column="validated" type="boolean" nullable="false" />
+        <field name="active" column="active" type="boolean" nullable="false" />
         <field name="profilImage" column="profil_image" type="integer" nullable="true" />
         <field name="resetPasswordToken" column="reset_password_token" type="string" nullable="true" />
+
+
  
 </entity>
 

@@ -1,26 +1,21 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Yohann Zaoui
+ * Date: 14/10/2018
+ * Time: 15:58
+ */
 
 namespace App\UI\Form\Handler\Interfaces;
 
+use App\Domain\Repository\TrickRepository;
+use App\Domain\Builder\TrickBuilder;
 use Symfony\Component\Form\FormInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 
-/**
- * Interface EditTrickTypeHandlerInterface
- * @package App\UI\Form\Handler\Interfaces
- */
+
 interface EditTrickTypeHandlerInterface
 {
-    /**
-     * EditTrickTypeHandlerInterface constructor.
-     * @param ObjectManager $manager
-     */
-    public function __construct(ObjectManager $manager);
+    public function __construct(TrickRepository $trickRepository, TrickBuilder $trickBuilder);
 
-    /**
-     * @param FormInterface $form
-     * @param $trick
-     * @return mixed
-     */
-    public function handle(FormInterface $form, $trick);
+    public function handle(FormInterface $form);
 }

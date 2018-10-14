@@ -1,11 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Yohann Zaoui
+ * Date: 14/10/2018
+ * Time: 16:19
+ */
 
 namespace App\UI\Form\Handler;
 
-use Symfony\Component\Form\FormInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Domain\Builder\TrickBuilder;
+use App\Domain\Repository\TrickRepository;
 use App\UI\Form\Handler\Interfaces\EditTrickTypeHandlerInterface;
-
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class EditTrickTypeHandler
@@ -14,33 +20,42 @@ use App\UI\Form\Handler\Interfaces\EditTrickTypeHandlerInterface;
 class EditTrickTypeHandler implements EditTrickTypeHandlerInterface
 {
     /**
-     * EditTrickTypeHandler constructor.
-     * @param ObjectManager $manager
+     * @var TrickRepository
      */
-    public function __construct(ObjectManager $manager)
-    {
-        $this->manager = $manager;
-    }
+    private $trickRepository;
+    /**
+     * @var TrickBuilder
+     */
+    private $trickBuilder;
 
+    /**
+     * EditTrickTypeHandler constructor.
+     * @param TrickRepository $trickRepository
+     * @param TrickBuilder $trickBuilder
+     */
+    public function __construct(TrickRepository $trickRepository, TrickBuilder $trickBuilder)
+    {
+        $this->trickRepository = $trickRepository;
+        $this->trickBuilder = $trickBuilder;
+    }
 
     /**
      * @param FormInterface $form
-     * @param $trick
      * @return bool
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
-    public function handle(FormInterface $form, $trick)
+    public function handle(FormInterface $form)
     {
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$trick->getId()) {
-                $trick->setCreatedAt(new \DateTime());
-            } else {
-                $trick->setUpdatedAt(new \DateTime());
-            }
-            $this->manager->persist($trick);
-            $this->manager->flush();
-            return true;
-        }
-        return false;
+       if ($form->isSubmitted() && $form->isValid()){
+
+           $this->trickBuilder->create($form->getData()->name, $form->getData()->description, $form->getData()->image, $form->getData()->video);
+
+           $this->trickRepository->update();
+
+           return true;
+       }
+       return false;
     }
-    
 }

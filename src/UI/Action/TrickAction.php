@@ -4,7 +4,6 @@ namespace App\UI\Action;
 
 use App\Domain\Models\Trick;
 use App\UI\Form\CommentType;
-use App\Domain\DTO\NewCommentDTO;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,9 +44,8 @@ class TrickAction implements TrickActionInterface
     {
         $trick = $manager->getRepository(Trick::class)->find($request->get('id'));
 
-        $commentDTO = new NewCommentDTO;
-        $form = $this->formFactory->create(CommentType::class, $commentDTO)
-                                  ->handleRequest($request);
+
+        $form = $this->formFactory->create(CommentType::class)->handleRequest($request);
 
         if ($this->commentTypeHandler->handle($form, $trick)) {
             return $responder($form, $trick);

@@ -1,64 +1,72 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Yohann Zaoui
+ * Date: 14/10/2018
+ * Time: 15:40
+ */
 
 namespace App\UI\Action;
 
-use App\Domain\Models\Trick;
 use App\UI\Form\EditTrickType;
+use App\Domain\Repository\TrickRepository;
+use App\UI\Responder\Interfaces\EditTrickActionResponderInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
-use App\UI\Action\Interfaces\EditTrickActionInterface;
-use App\UI\Responder\Interfaces\EditTrickResponderInterface;
 use App\UI\Form\Handler\Interfaces\EditTrickTypeHandlerInterface;
-
 
 /**
  * Class EditTrickAction
  * @package App\UI\Action
  */
-class EditTrickAction implements EditTrickActionInterface
+class EditTrickAction
 {
     /**
      * @var FormFactoryInterface
      */
     private $formFactory;
-
+    /**
+     * @var EditTrickTypeHandlerInterface
+     */
+    private $editTrickTypeHandler;
+    /**
+     * @var TrickRepository
+     */
+    private $trickRepository;
 
     /**
      * EditTrickAction constructor.
      * @param FormFactoryInterface $formFactory
      * @param EditTrickTypeHandlerInterface $editTrickTypeHandler
+     * @param TrickRepository $trickRepository
      */
     public function __construct(FormFactoryInterface $formFactory,
-                                EditTrickTypeHandlerInterface $editTrickTypeHandler
+                                EditTrickTypeHandlerInterface $editTrickTypeHandler,
+                                TrickRepository $trickRepository
     ) {
         $this->formFactory = $formFactory;
         $this->editTrickTypeHandler = $editTrickTypeHandler;
+        $this->trickRepository = $trickRepository;
     }
 
+
     /**
-     * 
-     * @Route("/ajouterTrick", name="addtrick", methods={"GET","POST"})
-     * @Route("/modifierTrick/{id}", name="updatetrick", methods={"GET","POST"})
-     * 
+     * @Route("/modifierTrick/{id}", name="edittrick", methods={"GET","POST"})
+     * @param Request $request
+     * @return mixed
+     * @throws \Exception
      */
-    public function __invoke(Request $request, EditTrickResponderInterface $responder, ObjectManager $manager)
+    public function __invoke(Request $request, EditTrickActionResponderInterface $responder)
     {
-        if (!$request->get('id')) {
-            $trick = new Trick;
-        }
+        if ($request->get('id')){
+            $trick= $this->trickRepository->getTrick($request->get('id'));
 
-        if ($request->get('id')) {
-            $trick = $manager->getRepository(Trick::class)->find($request->get('id'));
-        }
-        
-        $form = $this->formFactory->create(EditTrickType::class, $trick)
-                                  ->handleRequest($request);
+            $form = $this->formFactory->create(EditTrickType::class)->handleRequest($request);
 
-        if ($this->editTrickTypeHandler->handle($form, $trick)) {
-            return $responder(true, $form, $trick);
-        }
-        return $responder(false, $form, $trick);
+            if ($this->editTrickTypeHandler->handle($form)){
+                return $responder(true, $form, $trick);
+            }
+        } return $responder(false, $form, $trick);
     }
 }

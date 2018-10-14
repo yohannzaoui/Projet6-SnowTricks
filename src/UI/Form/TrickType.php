@@ -1,24 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Yohann Zaoui
- * Date: 14/10/2018
- * Time: 16:34
- */
 
 namespace App\UI\Form;
 
-use Symfony\Component\Form\AbstractType;
 use App\Domain\DTO\NewTrickDTO;
-use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\UI\Form\Interfaces\TrickTypeInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-class EditTrickType extends AbstractType
+/**
+ * Class AddTrickType
+ * @package App\UI\Form
+ */
+class TrickType extends AbstractType implements TrickTypeInterface
 {
     /**
      * @param FormBuilderInterface $builder

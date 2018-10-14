@@ -2,8 +2,10 @@
 
 namespace App\UI\Form\Handler\Interfaces;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Domain\Repository\MediaRepository;
+use App\Services\FileUploader;
 use Symfony\Component\Form\FormInterface;
+use App\Domain\Builder\MediaBuilder;
 
 /**
  * Interface ProfilTypeHandlerInterface
@@ -14,7 +16,7 @@ interface ProfilTypeHandlerInterface
     /**
      * ProfilTypeHandlerInterface constructor.
      */
-    public function __construct(ObjectManager $manager);
+    public function __construct(FileUploader $fileUploader, MediaRepository $mediaRepository, MediaBuilder $mediaBuilder);
 
     /**
      * @return mixed

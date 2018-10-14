@@ -2,7 +2,6 @@
 
 namespace App\UI\Action\Interfaces;
 
-use App\Mailer\Interfaces\EmailerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\UI\Form\Handler\Interfaces\RegisterTypeHandlerInterface;
@@ -28,5 +27,5 @@ interface RegisterActionInterface
      * @param RegisterActionResponderInterface $responder
      * @return mixed
      */
-    public function __invoke(Request $request, RegisterActionResponderInterface $responder, \Swift_Mailer $mailer, EmailerInterface $mail);
+    public function __invoke(Request $request, RegisterActionResponderInterface $responder);
 }

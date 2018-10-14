@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    avatarFolder: '%kernel.project_dir%/public/uploads/avatar'
+    image_directory: '%kernel.project_dir%/public/uploads/images'
 
 services:
     # default configuration for services in *this* file
@@ -15,6 +15,7 @@ services:
         public: false       # Allows optimizing the container by removing unused services; this also means
                             # fetching services directly from the container via $container->get() won't work.
                             # The best practice is to be explicit about your dependencies anyway.
+
 
 
 
@@ -32,6 +33,10 @@ services:
     App\UI\Action\:
         resource: '../src/UI/Action'
         tags: ['controller.service_arguments']
+
+    App\Services\FileUploader:
+        arguments:
+            $targetDirectory: '%image_directory%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

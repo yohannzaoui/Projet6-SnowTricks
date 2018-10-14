@@ -2,7 +2,7 @@
 
 namespace App\Domain\Models;
 
-use Doctrine\Common\Collections\ArrayCollection;
+//use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -37,6 +37,11 @@ class Trick
      * @var
      */
     private $comment;
+
+    /**
+     * @var
+     */
+    private $author;
     /**
      * @var
      */
@@ -51,17 +56,26 @@ class Trick
     private $updatedAt;
 
 
+
     /**
      * Trick constructor.
      * @param null $name
      * @param null $description
+     * @param null $image
+     * @param null $video
+     * @param null $updatedAt
      * @throws \Exception
      */
-    public function __construct($name = null, $description = null)
+    public function __construct($name = null, $description = null, $image = null, $video = null, $author = null)
     {
         $this->id = Uuid::uuid4();
         $this->name = $name;
         $this->description = $description;
+        $this->image = $image;
+        $this->video = $video;
+        $this->author = $author;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = null;
     }
 
     /**

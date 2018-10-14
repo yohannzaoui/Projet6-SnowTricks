@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UI\Form\Handler;
 
 
+use App\Domain\Builder\MediaBuilder;
+use App\Domain\Repository\MediaRepository;
+use App\Services\FileUploader;
 use App\UI\Form\Handler\Interfaces\ProfilTypeHandlerInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormInterface;
 
 
@@ -14,29 +18,47 @@ use Symfony\Component\Form\FormInterface;
  */
 class ProfilTypeHandler implements ProfilTypeHandlerInterface
 {
-    private $manager;
+
+    /**
+     * @var FileUploader
+     */
     private $fileUploader;
+    /**
+     * @var MediaRepository
+     */
+    private $mediaRepository;
+    /**
+     * @var MediaBuilder
+     */
+    private $mediaBuilder;
 
     /**
      * ProfilTypeHandler constructor.
      */
-    public function __construct(ObjectManager $manager)
+    public function __construct(FileUploader $fileUploader, MediaRepository $mediaRepository, MediaBuilder $mediaBuilder)
     {
-        $this->manager = $manager;
+        $this->fileUploader = $fileUploader;
+        $this->mediaRepository = $mediaRepository;
+        $this->mediaBuilder = $mediaBuilder;
     }
 
+
     /**
-     *
+     * @param FormInterface $form
+     * @return bool|mixed
+     * @throws \Exception
      */
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->getData()->file;
+            $fileName = $this->fileUploader->upload($file);
+
+            $this->mediaBuilder->create($fileName);
 
 
+            $this->mediaRepository->save($this->mediaBuilder->getMedia());
 
-
-
-            return true;
         }
         return false;
     }
