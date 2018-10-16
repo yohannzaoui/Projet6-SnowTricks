@@ -16,6 +16,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class HomeAction implements HomeActionInterface
 {
 
+
     /**
      * @Route("/", name="home", methods={"GET"})
      */
@@ -24,7 +25,6 @@ class HomeAction implements HomeActionInterface
     ) {
         
         $tricks = $manager->getRepository(Trick::class)->findAll();
-        //$tricks = "test";
         return $responder($tricks);
     }
 }

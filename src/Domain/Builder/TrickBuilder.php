@@ -37,6 +37,7 @@ class TrickBuilder
         return $this;
     }
 
+
     /**
      * @return mixed
      */

@@ -69,5 +69,18 @@ class TrickRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
+
+    public function delete($id)
+    {
+        return $this->_em->createQueryBuilder()
+            ->delete(Trick::class, 't')
+            ->where('t.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->execute();
+
+
+    }
+
 }
 

@@ -3,7 +3,8 @@
 namespace App\UI\Form\Handler\Interfaces;
 
 use Symfony\Component\Form\FormInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Domain\Builder\CategoryBuilder;
+use App\Domain\Repository\CategoryRepository;
 
 /**
  * Interface CategoryTypeHandlerInterface
@@ -13,14 +14,14 @@ interface CategoryTypeHandlerInterface
 {
     /**
      * CategoryTypeHandlerInterface constructor.
-     * @param ObjectManager $manager
+     *
      */
-    public function __construct(ObjectManager $manager);
+    public function __construct(CategoryBuilder $categoryBuilder, CategoryRepository $categoryRepository);
 
     /**
      * @param FormInterface $form
      * @param $category
      * @return mixed
      */
-    public function handle(FormInterface $form, $category);
+    public function handle(FormInterface $form);
 }

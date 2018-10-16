@@ -2,7 +2,7 @@
 
 namespace App\Domain\Models;
 
-//use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -76,6 +76,8 @@ class Trick
         $this->author = $author;
         $this->createdAt = new \DateTime();
         $this->updatedAt = null;
+        $this->category = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     /**

@@ -8,7 +8,7 @@
 
 namespace App\UI\Action;
 
-use App\UI\Form\EditTrickType;
+use App\UI\Form\TrickType;
 use App\Domain\Repository\TrickRepository;
 use App\UI\Responder\Interfaces\EditTrickActionResponderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,13 +60,13 @@ class EditTrickAction
     public function __invoke(Request $request, EditTrickActionResponderInterface $responder)
     {
         if ($request->get('id')){
-            $trick= $this->trickRepository->getTrick($request->get('id'));
+            $trick = $this->trickRepository->getTrick($request->get('id'));
 
-            $form = $this->formFactory->create(EditTrickType::class)->handleRequest($request);
+            $form = $this->formFactory->create(TrickType::class)->handleRequest($request);
 
             if ($this->editTrickTypeHandler->handle($form)){
-                return $responder(true, $form, $trick);
+                return $responder($form, true);
             }
-        } return $responder(false, $form, $trick);
+        } return $responder($form, $trick, false);
     }
 }

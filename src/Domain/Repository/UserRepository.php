@@ -32,4 +32,30 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         // TODO: Implement loadUserByUsername() method.
     }
 
+    /**
+     * @param $token
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public Function checkRegistrationToken($token)
+    {
+        return  $this->createQueryBuilder('user')
+                    ->where('user.token = :token')
+                    ->setParameter('token', $token)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $user
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save($user)
+    {
+        $this->_em->persist($user);
+        $this->_em->flush();
+
+    }
+
 }

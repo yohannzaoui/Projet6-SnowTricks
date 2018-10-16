@@ -26,18 +26,18 @@ class Media
     /**
      * @var null
      */
-    private $fileName;
+    private $file;
 
 
     /**
      * Media constructor.
-     * @param null $fileName
+     * @param null $file
      * @throws \Exception
      */
-    public function __construct($fileName = null)
+    public function __construct($file = null)
     {
         $this->id = Uuid::uuid4();
-        $this->fileName = $fileName;
+        $this->file = $file;
     }
 
     /**
@@ -59,17 +59,17 @@ class Media
     /**
      * @return mixed
      */
-    public function getFileName()
+    public function getFile()
     {
-        return $this->fileName;
+        return $this->file;
     }
 
     /**
      * @param mixed $fileName
      */
-    public function setFileName($fileName): void
+    public function setFile($file): void
     {
-        $this->fileName = $fileName;
+        $this->file = $file;
     }
 
 }

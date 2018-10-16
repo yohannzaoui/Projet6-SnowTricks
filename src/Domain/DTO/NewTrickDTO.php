@@ -33,6 +33,8 @@ class NewTrickDTO implements NewTrickDTOInterface
      */
     public $video;
 
+    public $category;
+
 
     /**
      * NewTrickDTO constructor.
@@ -41,12 +43,13 @@ class NewTrickDTO implements NewTrickDTOInterface
      * @param null $image
      * @param null $video
      */
-    public function __construct($name = null, $description = null, $image = null, $video = null)
+    public function __construct($name = null, $description = null, $image = null, $video = null, $category = null)
     {
         $this->name = $name;
         $this->description = $description;
         $this->image = $image;
         $this->video = $video;
+        $this->category = $category;
     }
 
 

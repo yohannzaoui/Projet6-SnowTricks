@@ -12,6 +12,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 interface DeleteTrickActionInterface
 {
+
     /**
      * @param ObjectManager $manager
      * @param Request $request

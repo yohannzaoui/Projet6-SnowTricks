@@ -5,13 +5,10 @@
 
     <entity name="App\Domain\Models\Media" table="media">
 
-        <unique-constraints>
-            <unique-constraint columns="file_name" name="fileName" />
-        </unique-constraints>
 
         <id name="id" type="uuid" column="id" />
 
-        <field name="fileName" column="file_name" type="string" length="255" nullable="false" />
+        <field name="file" column="file" type="string" length="255" nullable="false" />
 
     </entity>
 

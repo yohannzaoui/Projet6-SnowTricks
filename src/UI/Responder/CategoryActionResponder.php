@@ -2,6 +2,7 @@
 
 namespace App\UI\Responder;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Twig\Environment;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,10 +41,7 @@ class CategoryActionResponder implements CategoryActionResponderInterface
     public function __invoke($redirect = false, FormInterface $form, $categoryList)
     {
         $redirect
-        ? $response = new Response($this->twig->render('admin/category.html.twig', [
-            'form' => $form->createView(),
-            'categoryslist' => $categoryList
-        ]), 200)
+        ? $response = new RedirectResponse('/admin')
         : $response = new Response($this->twig->render('admin/category.html.twig', [
             'form' => $form->createView(),
             'categoryslist' => $categoryList
