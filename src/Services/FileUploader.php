@@ -8,6 +8,7 @@
 
 namespace App\Services;
 
+use App\Services\Interfaces\FileUploaderInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Class FileUploader
  * @package App\Services
  */
-class FileUploader
+class FileUploader implements FileUploaderInterface
 {
     /**
      * @var

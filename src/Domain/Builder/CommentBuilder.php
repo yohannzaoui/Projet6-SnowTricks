@@ -17,11 +17,13 @@ class CommentBuilder
      */
     private $comment;
 
+
     /**
      * @param $pseudo
      * @param $message
      * @param $trick
      * @return $this
+     * @throws \Exception
      */
     public function createFromComment($pseudo, $message, $trick)
     {

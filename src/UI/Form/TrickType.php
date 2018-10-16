@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use App\UI\Form\ImageType;
 
 /**
  * Class AddTrickType
@@ -27,8 +27,9 @@ class TrickType extends AbstractType implements TrickTypeInterface
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('image', FileType::class)
-            ->add('video', TextType::class);
+            ->add('image', TextType::class)
+            ->add('video', TextType::class)
+            ->add('category', CategoryNameType::class);
     }
 
     /**
@@ -39,11 +40,9 @@ class TrickType extends AbstractType implements TrickTypeInterface
         $resolver->setDefaults([
             'data_class' => NewTrickDTO::class,
             'empty_data' => function (FormInterface $form) {
-                return new newTrickDTO(
+                return new NewTrickDTO(
                     $form->get('name')->getdata(),
-                    $form->get('description')->getdata(),
-                    $form->get('image')->getdata(),
-                    $form->get('video')->getdata()
+                    $form->get('description')->getdata()
                 );
             }
         ]);

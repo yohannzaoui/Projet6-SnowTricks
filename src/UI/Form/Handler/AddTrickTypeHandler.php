@@ -53,12 +53,12 @@ class AddTrickTypeHandler implements AddTrickTypeHandlerInterface
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->getData()->image;
-            $fileName = $this->fileUploader->upload($file);
+            //$file = $form->getData()->image;
+            //$fileName = $this->fileUploader->upload($file);
 
             $this->trickBuilder->create($form->getData()->name,
                 $form->getData()->description,
-                $fileName,
+                $form->getData()->image,
                 $form->getData()->video
             );
 

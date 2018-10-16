@@ -2,6 +2,8 @@
 
 namespace App\UI\Form\Handler;
 
+use App\Domain\Builder\CategoryBuilder;
+use App\Domain\Repository\CategoryRepository;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\UI\Form\Handler\Interfaces\CategoryTypeHandlerInterface;
@@ -17,27 +19,34 @@ class CategoryTypeHandler implements CategoryTypeHandlerInterface
     /**
      * @var ObjectManager
      */
-    private $manager;
+    private $categoryRepository;
+
+    /**
+     * @var CategoryBuilder
+     */
+    private $categoryBuilder;
 
     /**
      * CategoryTypeHandler constructor.
      * @param ObjectManager $manager
      */
-    public function __construct(ObjectManager $manager)
+    public function __construct(CategoryBuilder $categoryBuilder, CategoryRepository $categoryRepository)
     {
-        $this->manager = $manager;
+        $this->categoryBuilder = $categoryBuilder;
+        $this->categoryRepository = $categoryRepository;
     }
+
 
     /**
      * @param FormInterface $form
-     * @param $category
-     * @return bool
+     * @return bool|mixed
+     * @throws \Exception
      */
-    public function handle(FormInterface $form, $category)
+    public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($category);
-            $this->manager->flush();
+            $this->categoryBuilder->createFromCategory($form->getData()->name, $form->getData()->description);
+            $this->categoryRepository->save($this->categoryBuilder->getCategory());
             return true;
         }
         return false;

@@ -22,13 +22,13 @@ class MediaBuilder
     private $Media;
 
     /**
-     * @param $fileName
+     * @param $file
      * @return $this
      * @throws \Exception
      */
-    public function create($fileName)
+    public function create($file)
     {
-        $this->Media = new Media($fileName);
+        $this->Media = new Media($file);
         return $this;
     }
 

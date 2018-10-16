@@ -32,9 +32,11 @@ class Category
      * Category constructor.
      * @throws \Exception
      */
-    public function __construct()
+    public function __construct($name = null, $description = null)
     {
         $this->id = Uuid::uuid4();
+        $this->name = $name;
+        $this->description = $description;
     }
 
     /**

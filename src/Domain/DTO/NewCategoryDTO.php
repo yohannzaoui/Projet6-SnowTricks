@@ -20,10 +20,7 @@ class NewCategoryDTO
     public $description;
 
 
-    /**
-     * @var
-     */
-    public $trick;
+
 
 
     /**
@@ -32,11 +29,10 @@ class NewCategoryDTO
      * @param $description
      * @param $trick
      */
-    public function __construct($name, $description, $trick)
+    public function __construct($name, $description)
     {
         $this->name = $name;
         $this->description = $description;
-        $this->trick = $trick;
     }
 
     

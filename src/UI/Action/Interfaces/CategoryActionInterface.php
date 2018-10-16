@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\UI\Form\Handler\Interfaces\CategoryTypeHandlerInterface;
 use App\UI\Responder\Interfaces\CategoryActionResponderInterface;
+use App\Domain\Repository\CategoryRepository;
 
 /**
  * Interface CategoryActionInterface
@@ -19,7 +20,7 @@ interface CategoryActionInterface
      * @param FormFactoryInterface $formFactory
      * @param CategoryTypeHandlerInterface $categoryTypeHandler
      */
-    public function __construct(FormFactoryInterface $formFactory, CategoryTypeHandlerInterface $categoryTypeHandler);
+    public function __construct(FormFactoryInterface $formFactory, CategoryTypeHandlerInterface $categoryTypeHandler, CategoryRepository $categoryRepository);
 
     /**
      * @param Request $request

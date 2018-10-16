@@ -12,4 +12,11 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
+
+    public function getAllComments()
+    {
+        $query = $this->_em->createQuery('SELECT c FROM App\Domain\Models\Comment ORDER BY c.createdAt DESC');
+
+        $query->getResult();
+    }
 }

@@ -42,7 +42,7 @@
 
             {% for comment in trick.comment %}
                 <div class="alert alert-dismissible alert-secondary">
-                    <p>{{ comment.pseudo }} le {{ comment.createdAt | date("d/m/Y à h:m:i") }}</p>
+                    <p>{{ comment.pseudo }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
                     <p>A écrit : {{ comment.message }}</p>
                 </div>
             {% endfor %}

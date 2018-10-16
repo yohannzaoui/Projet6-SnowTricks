@@ -13,15 +13,17 @@
 
         <field name="name" column="name" type="string" length="255" nullable="false" unique="true" />
         <field name="description" column="description" type="text"  nullable="false" />
-        <field name="image" column="image" type="text" nullable="false" />
-        <field name="video" column="video" type="text" nullable="true" />
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
         
 
         <one-to-many target-entity="App\Domain\Models\Comment" field="comment" mapped-by="trick" orphan-removal="true" />
-        <one-to-many target-entity="App\Domain\Models\Category" field="category" mapped-by="trick" />
+        <one-to-one field="category" target-entity="App\Domain\Models\Category">
+            <cascade><cascade-persist/></cascade>
+        </one-to-one>
         <many-to-one field="author" target-entity="App\Domain\Models\User" />
+        <one-to-one field="image" target-entity="App\Domain\Models\Media" />
+        <many-to-one field="video" target-entity="App\Domain\Models\Media" />
 
 
     </entity>

@@ -3,6 +3,7 @@
 namespace App\UI\Action;
 
 use App\Domain\Models\Trick;
+use App\Domain\Repository\TrickRepository;
 use App\UI\Responder\DeleteTrickResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -16,6 +17,13 @@ use App\UI\Action\Interfaces\DeleteTrickActionInterface;
  */
 class DeleteTrickAction implements DeleteTrickActionInterface
 {
+    private $trickRepository;
+
+    public function __construct(TrickRepository $trickRepository)
+    {
+        $this->trickRepository = $trickRepository;
+    }
+
     /**
      * 
      * @Route("/supprimerTrick/{id}", name="deltrick", methods={"GET"})
@@ -23,9 +31,8 @@ class DeleteTrickAction implements DeleteTrickActionInterface
     public function __invoke(ObjectManager $manager, Request $request, DeleteTrickResponder $responder)
     {
 
-        $trick = $manager->getRepository(Trick::class)->find($request->get('id'));
-        $manager->remove($trick);
-        $manager->flush();
+        $this->trickRepository->delete($request->get('id'));
+
         return $responder();
     }
 }
