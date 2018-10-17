@@ -31,6 +31,11 @@ class UserBuilder implements UserBuilderInterface
         return $this;
     }
 
+    public function resetPassword($password)
+    {
+        $this->user = new User($password);
+    }
+
     /**
      * @return mixed
      */

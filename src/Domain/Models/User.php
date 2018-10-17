@@ -56,7 +56,8 @@ class User implements UserInterface
     /**
      * @var int
      */
-    private $profilImage;
+    private $image;
+
 
     /**
      * @var
@@ -77,7 +78,7 @@ class User implements UserInterface
                                 string $password = null,
                                 string $email = null,
                                 string $token = null,
-                                int $profilImage = null
+                                string $image = null
     ) {
         $this->id = Uuid::uuid4();
         $this->username = $username;
@@ -85,10 +86,10 @@ class User implements UserInterface
         $this->email = $email;
         $this->token = $token;
         $this->createdAt = new \DateTime;
-        $this->roles = 'ROLE_USER';
+        $this->roles[] = 'ROLE_USER';
         $this->validated = false;
         $this->active = false;
-        $this->profilImage = $profilImage;
+        $this->image = $image;
     }
 
     /**
@@ -178,14 +179,23 @@ class User implements UserInterface
         return $this->validated;
     }
 
+    /**
+     * @return int
+     */
+    public function getImage(): int
+    {
+        return $this->image;
+    }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getProfilImage(): string
+    public function isActive(): bool
     {
-        return $this->profilImage;
+        return $this->active;
     }
+
+
 
 
     /**

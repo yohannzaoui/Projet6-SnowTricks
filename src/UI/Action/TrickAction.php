@@ -13,7 +13,7 @@ use App\UI\Responder\Interfaces\TrickResponderInterface;
 use App\UI\Form\Handler\Interfaces\CommentTypeHandlerInterface;
 
 /**
- * 
+ *
  */
 class TrickAction implements TrickActionInterface
 {
@@ -37,19 +37,18 @@ class TrickAction implements TrickActionInterface
     }
 
     /**
-     * 
+     *
      * @Route("/tricks/details/{id}", name="trick", methods={"GET","POST"})
      */
     public function __invoke(Request $request, ObjectManager $manager, TrickResponderInterface $responder)
     {
         $trick = $manager->getRepository(Trick::class)->find($request->get('id'));
 
-
         $form = $this->formFactory->create(CommentType::class)->handleRequest($request);
 
         if ($this->commentTypeHandler->handle($form, $trick)) {
-            return $responder($form, $trick);
+            return $responder(true, $form, $trick);
         }
-        return $responder($form, $trick);
+        return $responder(false, $form, $trick);
     }
 }

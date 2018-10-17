@@ -24,6 +24,8 @@ interface UserBuilderInterface
      */
     public function createFromRegistration($username, $password, $email, $token);
 
+    public function resetPassword($password);
+
     /**
      * @return mixed
      */

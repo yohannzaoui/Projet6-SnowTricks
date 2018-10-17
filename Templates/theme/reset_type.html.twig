@@ -1,10 +1,10 @@
 {% block form %}
     {{ form_start(form) }}
         {{ form_row(form.password, {'label':'Mot de passe','attr':{'placeholder': 'Entrez votre mot de passe'}}) }}
-        {{ form_row(form.confirmePassword, {'label':'Confirmation mot de passe','attr':{'placeholder': 'Confirmez votre mot de passe'}}) }}
+
         <p>
             <button type="submit" class="btn btn-success">Réinitialiser</button> 
             <button type="reset" class="btn btn-danger">Effacer</button>
         </p>
     {{ form_end(form) }}
-{% endBlock %}
+{% endblock %}

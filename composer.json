@@ -10,6 +10,7 @@
 		"sensio/framework-extra-bundle": "^5.2",
 		"symfony/apache-pack": "^1.0",
 		"symfony/console": "*",
+		"symfony/event-dispatcher": "*",
 		"symfony/flex": "^1.1",
 		"symfony/form": "*",
 		"symfony/framework-bundle": "*",

@@ -27,6 +27,8 @@ class NewUserDTO implements NewUserDTOInterface
      */
     public $email;
 
+    public $image;
+
 
     /**
      * NewUserDTO constructor.
@@ -34,11 +36,12 @@ class NewUserDTO implements NewUserDTOInterface
      * @param null $password
      * @param null $email
      */
-    public function __construct($username = null, $password = null, $email = null)
+    public function __construct($username = null, $password = null, $email = null, $image = null)
     {
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
+        $this->image = $image;
     }
 
     

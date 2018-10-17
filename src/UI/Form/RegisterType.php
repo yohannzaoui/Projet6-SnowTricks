@@ -4,6 +4,7 @@ namespace App\UI\Form;
 
 use App\Domain\DTO\NewUserDTO;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\UI\Form\Interfaces\RegisterTypeInterface;
@@ -38,8 +39,11 @@ class RegisterType extends AbstractType implements RegisterTypeInterface
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options' => ['label' => 'Votre mot de passe'],
-                'second_options' => ['label' => 'Confirmez votre mot de passe'],
+                'first_options' => ['label' => 'Votre mot de passe*'],
+                'second_options' => ['label' => 'Confirmez votre mot de passe*'],
+            ])
+            ->add('image', TextType::class, [
+                'required' => false
             ]);
     }
 
@@ -53,9 +57,10 @@ class RegisterType extends AbstractType implements RegisterTypeInterface
             'data_class' => NewUserDTO::class,
             'empty_data' => function (FormInterface $form) {
                 return new newUserDTO(
-                    $form->get('username')->getdata(),
-                    $form->get('email')->getdata(),
-                    $form->get('password')->getdata()
+                    $form->get('username')->getData(),
+                    $form->get('email')->getData(),
+                    $form->get('image')->getData(),
+                    $form->get('password')->getData()
                 );
             }
         ]);

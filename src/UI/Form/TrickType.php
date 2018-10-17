@@ -4,13 +4,13 @@ namespace App\UI\Form;
 
 use App\Domain\DTO\NewTrickDTO;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\UI\Form\Interfaces\TrickTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
-use App\UI\Form\ImageType;
 
 /**
  * Class AddTrickType
@@ -27,9 +27,13 @@ class TrickType extends AbstractType implements TrickTypeInterface
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('image', TextType::class)
+            ->add('image', FileType::class, [
+                'required' => false
+            ])
             ->add('video', TextType::class)
-            ->add('category', CategoryNameType::class);
+            ->add('category', CategoryNameType::class,[
+                'required' => false
+            ]);
     }
 
     /**
@@ -42,7 +46,9 @@ class TrickType extends AbstractType implements TrickTypeInterface
             'empty_data' => function (FormInterface $form) {
                 return new NewTrickDTO(
                     $form->get('name')->getdata(),
-                    $form->get('description')->getdata()
+                    $form->get('description')->getdata(),
+                    $form->get('image')->getdata(),
+                    $form->get('video')->getdata()
                 );
             }
         ]);

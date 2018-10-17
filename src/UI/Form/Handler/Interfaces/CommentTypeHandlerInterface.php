@@ -2,8 +2,9 @@
 
 namespace App\UI\Form\Handler\Interfaces;
 
+use App\Domain\Builder\Interfaces\CommentBuilderInterface;
 use Symfony\Component\Form\FormInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Domain\Repository\CommentRepository;
 
 /**
  * Interface CommentTypeHandlerInterface
@@ -11,11 +12,13 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 interface CommentTypeHandlerInterface
 {
+
     /**
      * CommentTypeHandlerInterface constructor.
-     * @param ObjectManager $manager
+     * @param CommentRepository $commentRepository
+     * @param CommentBuilderInterface $commentBuilder
      */
-    public function __construct(ObjectManager $manager);
+    public function __construct(CommentRepository $commentRepository, CommentBuilderInterface $commentBuilder);
 
     /**
      * @param FormInterface $form

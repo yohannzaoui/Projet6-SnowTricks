@@ -42,7 +42,8 @@ class TrickRepository extends ServiceEntityRepository
     public function getTrick($id)
     {
         return $this->createQueryBuilder('trick')
-                    ->andWhere($id)
+                    ->where('trick.id = :id')
+                    ->setParameter('id', $id)
                     ->getQuery();
 
     }
@@ -78,8 +79,6 @@ class TrickRepository extends ServiceEntityRepository
             ->setParameter('id', $id)
             ->getQuery()
             ->execute();
-
-
     }
 
 }

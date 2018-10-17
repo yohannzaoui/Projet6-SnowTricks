@@ -45,8 +45,11 @@ class CategoryTypeHandler implements CategoryTypeHandlerInterface
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->categoryBuilder->createFromCategory($form->getData()->name, $form->getData()->description);
+
             $this->categoryRepository->save($this->categoryBuilder->getCategory());
+
             return true;
         }
         return false;

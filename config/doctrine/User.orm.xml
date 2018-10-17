@@ -19,11 +19,10 @@
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="token" column="token" type="string" length="255" nullable="false" />
         <field name="roles" column="roles" type="string" length="255" nullable="true" />
+        <field name="image" column="image" type="string" length="255" nullable="true" />
         <field name="validated" column="validated" type="boolean" nullable="false" />
         <field name="active" column="active" type="boolean" nullable="false" />
         <field name="resetPasswordToken" column="reset_password_token" type="string" nullable="true" />
-
-        <one-to-one field="profilImage" target-entity="App\Domain\Models\Media" />
 
 
  

@@ -8,8 +8,10 @@
 
 namespace App\UI\Form;
 
+use Symfony\Component\DependencyInjection\Compiler\RepeatedPass;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,7 +29,12 @@ class ForgotPasswordValidationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('password', PasswordType::class);
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => ['label' => 'Votre mot de passe'],
+                'second_options' => ['label' => 'Confirmez votre mot de passe'],
+            ]);
     }
 
     /**

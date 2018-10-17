@@ -2,9 +2,9 @@
 
 namespace App\UI\Form\Handler;
 
-use App\Domain\Models\Comment;
+use App\Domain\Builder\Interfaces\CommentBuilderInterface;
+use App\Domain\Repository\CommentRepository;
 use Symfony\Component\Form\FormInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\UI\Form\Handler\Interfaces\CommentTypeHandlerInterface;
 
 
@@ -15,19 +15,26 @@ use App\UI\Form\Handler\Interfaces\CommentTypeHandlerInterface;
 class CommentTypeHandler implements CommentTypeHandlerInterface
 {
 
+
     /**
-     * @var ObjectManager
+     * @var CommentRepository
      */
-    private $manager;
+    private $commentRepository;
+    /**
+     * @var CommentBuilderInterface
+     */
+    private $commentBuilder;
 
 
     /**
      * CommentTypeHandler constructor.
-     * @param ObjectManager $manager
+     * @param CommentRepository $commentRepository
+     * @param CommentBuilderInterface $commentBuilder
      */
-    public function __construct(ObjectManager $manager)
+    public function __construct(CommentRepository $commentRepository, CommentBuilderInterface $commentBuilder)
     {
-        $this->manager = $manager;
+        $this->commentRepository = $commentRepository;
+        $this->commentBuilder = $commentBuilder;
     }
 
 
@@ -35,14 +42,17 @@ class CommentTypeHandler implements CommentTypeHandlerInterface
      * @param FormInterface $form
      * @param $trick
      * @return bool
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(FormInterface $form, $trick): bool
     {
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $comment = new Comment($data->pseudo, $data->message, $trick);
-            $this->manager->persist($comment);
-            $this->manager->flush();
+
+            $this->commentBuilder->createFromComment($form->getData()->pseudo, $form->getData()->message, $trick);
+
+            $this->commentRepository->save($this->commentBuilder->getComment());
+
             return true;
         }
         return false;

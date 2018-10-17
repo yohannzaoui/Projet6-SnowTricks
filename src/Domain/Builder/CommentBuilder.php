@@ -3,6 +3,7 @@
 
 namespace App\Domain\Builder;
 
+use App\Domain\Builder\Interfaces\CommentBuilderInterface;
 use App\Domain\Models\Comment;
 
 
@@ -10,7 +11,7 @@ use App\Domain\Models\Comment;
  * Class CommentBuilder
  * @package App\Domain\Builder
  */
-class CommentBuilder
+class CommentBuilder implements CommentBuilderInterface
 {
     /**
      * @var

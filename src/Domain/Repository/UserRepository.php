@@ -40,8 +40,17 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     public Function checkRegistrationToken($token)
     {
         return  $this->createQueryBuilder('user')
-                    ->where('user.token = :token')
-                    ->setParameter('token', $token)
+                     ->where('user.token = :token')
+                     ->setParameter('token', $token)
+                     ->getQuery()
+                     ->getOneOrNullResult();
+    }
+
+    public function checkEmail($email)
+    {
+        return $this->createQueryBuilder('user')
+                    ->where('user.email = :email')
+                    ->setParameter('email', $email)
                     ->getQuery()
                     ->getOneOrNullResult();
     }
@@ -55,7 +64,11 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     {
         $this->_em->persist($user);
         $this->_em->flush();
+    }
 
+    public function update()
+    {
+        $this->_em->flush();
     }
 
 }

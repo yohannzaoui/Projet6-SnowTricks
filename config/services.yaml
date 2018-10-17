@@ -35,6 +35,11 @@ services:
         resource: '../src/UI/Action'
         tags: ['controller.service_arguments']
 
+    app.user.listener:
+        class: App\Listener\UserCreatedListener
+        tags:
+            - { name: kernel.event_listener, event: user.created, method: onUserCreated, priority: 100}
+
     App\Services\FileUploader:
         arguments:
             $targetDirectory: '%image_directory%'
