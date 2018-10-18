@@ -9,6 +9,7 @@
 namespace App\UI\Action;
 
 use App\UI\Action\Interfaces\AddTrickActionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\UI\Form\TrickType;
@@ -29,7 +30,7 @@ class AddTrickAction implements AddTrickActionInterface
     }
 
     /**
-     *
+     * @IsGranted("ROLE_USER")
      * @Route("/ajouterTrick", name="addtrick", methods={"GET","POST"})
      */
     public function __invoke(Request $request, AddTrickResponderInterface $responder)

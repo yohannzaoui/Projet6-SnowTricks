@@ -6,7 +6,7 @@ security:
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+
         in_database:
             entity:
                 class: App\Domain\Models\User
@@ -17,6 +17,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern: ^/
             anonymous: true
             provider: in_database
 
@@ -28,7 +29,7 @@ security:
             
             logout:
                 path:   /logout
-                target: /
+                target: /login
             
             # activate different ways to authenticate
 
@@ -46,5 +47,5 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     access_control:
-        #- { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

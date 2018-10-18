@@ -3,31 +3,29 @@
  * Created by PhpStorm.
  * User: Yohann Zaoui
  * Date: 17/10/2018
- * Time: 11:15
+ * Time: 20:43
  */
 
 namespace App\Subscriber;
 
-
-use App\Event\TestEvent;
+use App\Event\UserCreateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class TestSubscriber implements EventSubscriberInterface
+class UserCreatedSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
         return [
-            TestEvent::NAME => 'onHello'
+            UserCreateEvent::NAME => 'onUserCreatedEvent'
         ];
     }
 
-    public function onHello(TestEvent $event)
+    public function onUserCreatedEvent(UserCreateEvent $event)
     {
         return new Response(
-            $event->sayHello()
+            $event->email()
         );
     }
-
 
 }
