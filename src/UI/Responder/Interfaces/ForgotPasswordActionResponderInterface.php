@@ -23,5 +23,5 @@ interface ForgotPasswordActionResponderInterface
      * @param null $getEmail
      * @return mixed
      */
-    public function __invoke($redirect = false, FormInterface $form = null, $getEmail = null);
+    public function __invoke(FormInterface $form);
 }

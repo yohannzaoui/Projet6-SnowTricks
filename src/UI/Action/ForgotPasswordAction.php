@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use App\UI\Action\Interfaces\ForgotPasswordActionInterface;
 use App\UI\Form\Handler\Interfaces\ForgotPasswordTypeHandlerInterface;
 use App\UI\Responder\Interfaces\ForgotPasswordActionResponderInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 /**
@@ -17,6 +18,8 @@ use App\UI\Responder\Interfaces\ForgotPasswordActionResponderInterface;
  */
 class ForgotPasswordAction implements ForgotPasswordActionInterface
 {
+    private $formFactory;
+    private $forgotPasswordTypeHandler;
 
 
     /**
@@ -24,8 +27,9 @@ class ForgotPasswordAction implements ForgotPasswordActionInterface
      * @param FormFactoryInterface $formFactory
      * @param ForgotPasswordTypeHandlerInterface $forgotPasswordTypeHandler
      */
-    public function __construct(FormFactoryInterface $formFactory,
-                                ForgotPasswordTypeHandlerInterface $forgotPasswordTypeHandler
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        ForgotPasswordTypeHandlerInterface $forgotPasswordTypeHandler
     ) {
         $this->formFactory = $formFactory;
         $this->forgotPasswordTypeHandler = $forgotPasswordTypeHandler;
@@ -38,14 +42,16 @@ class ForgotPasswordAction implements ForgotPasswordActionInterface
     public function __invoke(Request $request, ForgotPasswordActionResponderInterface $responder)
     {
 
-        $form = $this->formFactory->create(ForgotPasswordType::class)
-                                  ->handleRequest($request);
-        
+        $form = $this->formFactory->create(ForgotPasswordType::class)->handleRequest($request);
+
         if ($this->forgotPasswordTypeHandler->handle($form)) {
 
-            return $responder(true, $form, $form->getData()->email);
+            $messageFlash = new Session;
+            $messageFlash->getFlashBag()->add('forgotPassword','Un email à l\'adresse '.$form->getData()->email.' vient de vous être envoyez pour la récupération de votre compte');
+
+            return $responder($form);
         }
 
-        return $responder(false, $form);
+        return $responder($form);
     }
 }

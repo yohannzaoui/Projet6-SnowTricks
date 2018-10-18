@@ -61,6 +61,33 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
+     * @param $token
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function checkResetToken($token)
+    {
+        return  $this->createQueryBuilder('user')
+                      ->where('user.resetPasswordToken = :token')
+                      ->setParameter('token', $token)
+                      ->getQuery()
+                      ->getOneOrNullResult();
+    }
+
+
+    public function resetPassword($token, $password)
+    {
+        $qb = $this->createQueryBuilder('user');
+        $qb->update(User::class, 'u')
+            ->set('u.password', '?1')
+            ->where('u.resetPasswordToken = ?2')
+            ->setParameter(1, $password)
+            ->setParameter(2, $token);
+        $q= $qb->getQuery();
+        $q->execute();
+    }
+
+    /**
      * @param $user
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -72,12 +99,19 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @param $email
+     * @param $token
      */
-    public function update()
+    public function saveResetToken($email, $token)
     {
-        $this->_em->flush();
+         $qb = $this->createQueryBuilder('user');
+         $qb->update(User::class, 'u')
+             ->set('u.resetPasswordToken', '?1')
+             ->where('u.email = ?2')
+             ->setParameter(1, $token)
+             ->setParameter(2, $email);
+         $q= $qb->getQuery();
+         $q->execute();
     }
 
 }

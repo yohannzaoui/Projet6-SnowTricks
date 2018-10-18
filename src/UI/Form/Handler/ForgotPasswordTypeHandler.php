@@ -10,15 +10,38 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 
+/**
+ * Class ForgotPasswordTypeHandler
+ * @package App\UI\Form\Handler
+ */
 class ForgotPasswordTypeHandler implements ForgotPasswordTypeHandlerInterface
 {
 
+    /**
+     * @var EmailerInterface
+     */
     private $mail;
+    /**
+     * @var \Swift_Mailer
+     */
     private $mailer;
+    /**
+     * @var Environment
+     */
     private $twig;
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
 
+    /**
+     * ForgotPasswordTypeHandler constructor.
+     * @param EmailerInterface $mail
+     * @param \Swift_Mailer $mailer
+     * @param Environment $twig
+     * @param UserRepository $userRepository
+     */
     public function __construct(EmailerInterface $mail, \Swift_Mailer $mailer, Environment $twig, UserRepository $userRepository)
     {
         $this->mail = $mail;
@@ -28,15 +51,21 @@ class ForgotPasswordTypeHandler implements ForgotPasswordTypeHandlerInterface
     }
 
 
+    /**
+     * @param FormInterface $form
+     * @return bool|mixed|Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isvalid()) {
 
-            if ($this->userRepository->checkEmail($form->getData()->email)){
-
                 $token = md5(uniqid());
 
-                dump($token);
+                $this->userRepository->saveResetToken($form->getData()->email, $token);
 
                 $email = $this->mail->mail('Récupération de votre compte Snow Tricks',
                     ['reset_password@snowtrick.com' => 'Récupération de mot passe'],
@@ -48,8 +77,7 @@ class ForgotPasswordTypeHandler implements ForgotPasswordTypeHandlerInterface
                 return true;
             }
 
-            return new Response('Email inconnu');
-            }
         return false;
+
     }
 }

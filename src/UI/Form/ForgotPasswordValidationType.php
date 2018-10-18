@@ -8,12 +8,14 @@
 
 namespace App\UI\Form;
 
-use Symfony\Component\DependencyInjection\Compiler\RepeatedPass;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Domain\DTO\NewUserDTO;
+use Symfony\Component\Form\FormInterface;
 
 
 /**
@@ -43,7 +45,12 @@ class ForgotPasswordValidationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => NewUserDTO::class,
+            'empty_data' => function (FormInterface $form) {
+                return new newUserDTO(
+                    $form->get('password')->getData()
+                );
+            }
         ]);
     }
 }

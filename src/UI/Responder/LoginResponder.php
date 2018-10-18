@@ -36,7 +36,7 @@ class LoginResponder implements LoginResponderInterface
      */
     public function __invoke($error, $lastUsername)
     {
-        return new Response($this->twig->render('login/index.html.twig.', [
+        return new Response($this->twig->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
         ]), 200);

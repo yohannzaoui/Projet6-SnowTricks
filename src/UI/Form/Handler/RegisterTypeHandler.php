@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Handler\Interfaces\RegisterTypeHandlerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use App\Domain\Builder\UserBuilder;
-use App\Event\UserCreateEvent;
+//use App\Event\UserCreateEvent;
 use App\Mailer\Interfaces\EmailerInterface;
 use Twig\Environment;
 
@@ -37,7 +37,7 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
     /**
      * @var EmailerInterface
      */
-    //private $mail;
+    private $mail;
 
     /**
      * @var \Swift_Mailer

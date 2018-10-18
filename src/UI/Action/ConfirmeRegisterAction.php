@@ -39,6 +39,7 @@ class ConfirmeRegisterAction implements ConfirmeRegisterActionInterface
      */
     public function __invoke(Request $request, ConfirmeRegisterActionResponderInterface $responder)
     {
+
         if ($this->userRepository->checkRegistrationToken($request->get('token'))) {
 
             return $responder(true);

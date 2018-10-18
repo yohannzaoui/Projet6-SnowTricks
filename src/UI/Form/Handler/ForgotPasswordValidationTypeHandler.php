@@ -8,37 +8,36 @@
 
 namespace App\UI\Form\Handler;
 
-
-use App\Domain\Builder\Interfaces\UserBuilderInterface;
+use App\Domain\Models\User;
 use App\Domain\Repository\UserRepository;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ForgotPasswordValidationTypeHandler
 {
 
     private $userRepository;
-    private $userBuilder;
     private $encoderFactory;
 
-    public function __construct(UserRepository $userRepository, UserBuilderInterface $userBuilder, EncoderFactoryInterface $encoderFactory)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        EncoderFactoryInterface $encoderFactory
+    ) {
         $this->userRepository = $userRepository;
-        $this->userBuilder = $userBuilder;
         $this->encoderFactory = $encoderFactory;
     }
 
-    public function handle(FormInterface $form)
+    public function handle($token, FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()){
 
             $password = $this->encoderFactory->getEncoder(User::class)->encodePassword($form->getData()->password, null);
 
-            $this->userBuilder->resetPassword($password);
+            $this->userRepository->resetPassword($token, $password);
 
-            $this->userBuilder->getUser();
-
-            $this->userRepository->update();
+            $messageFlash = new Session;
+            $messageFlash->getFlashBag()->add('resetPassword','Votre mot de passe à bien été mis à jour');
 
             return true;
         }

@@ -15,6 +15,7 @@ use App\UI\Responder\Interfaces\RegisterActionResponderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 /**
@@ -47,9 +48,12 @@ class RegisterAction implements RegisterActionInterface
 
         if ($this->registerTypeHandler->handle($form)) {
 
-            return $responder(true, $form, $form->getData()->email);
+            $messageFlash = new Session;
+            $messageFlash->getFlashBag()->add('register','Un email à l\'adresse ' .$form->getData()->email. ' vient de vous être envoyez pour la validation de votre compte');
+
+            return $responder($form);
         }
-        return $responder(false, $form);
+        return $responder($form);
 
 
 
