@@ -41,7 +41,7 @@ class User implements UserInterface
     /**
      * @var string
      */
-    private $roles;
+    private $roles = [];
 
     /**
      * @var bool
@@ -153,12 +153,13 @@ class User implements UserInterface
         
     }
 
-    /**
-     * @return array
-     */
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
 

@@ -46,6 +46,11 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
                      ->getOneOrNullResult();
     }
 
+    /**
+     * @param $email
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function checkEmail($email)
     {
         return $this->createQueryBuilder('user')
@@ -66,6 +71,10 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         $this->_em->flush();
     }
 
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function update()
     {
         $this->_em->flush();

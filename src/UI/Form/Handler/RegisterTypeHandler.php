@@ -3,11 +3,13 @@
 namespace App\UI\Form\Handler;
 
 use App\Domain\Models\User;
+use App\Domain\Repository\UserRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\UI\Form\Handler\Interfaces\RegisterTypeHandlerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use App\Domain\Builder\UserBuilder;
+use App\Event\UserCreateEvent;
 use App\Mailer\Interfaces\EmailerInterface;
 use Twig\Environment;
 
@@ -18,10 +20,11 @@ use Twig\Environment;
  */
 class RegisterTypeHandler implements RegisterTypeHandlerInterface
 {
+
     /**
-     * @var ObjectManager
+     * @var UserRepository
      */
-    private $manager;
+    private $userRepository;
     /**
      * @var EncoderFactoryInterface
      */
@@ -34,7 +37,7 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
     /**
      * @var EmailerInterface
      */
-    private $mail;
+    //private $mail;
 
     /**
      * @var \Swift_Mailer
@@ -46,27 +49,42 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
      */
     private $twig;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
 
     /**
      * RegisterTypeHandler constructor.
-     * @param ObjectManager $manager
      * @param EncoderFactoryInterface $encoderFactory
      * @param UserBuilder $userBuilder
      */
-    public function __construct(ObjectManager $manager, EncoderFactoryInterface $encoderFactory, UserBuilder $userBuilder, EmailerInterface $mail, \Swift_Mailer $mailer, Environment $twig)
-    {
-        $this->manager = $manager;
+    public function __construct(
+        UserRepository $userRepository,
+        EncoderFactoryInterface $encoderFactory,
+        UserBuilder $userBuilder,
+        EmailerInterface $mail,
+        \Swift_Mailer $mailer,
+        Environment $twig,
+        EventDispatcherInterface $eventDispatcher
+    ) {
+        $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
         $this->userBuilder = $userBuilder;
         $this->mail = $mail;
         $this->mailer = $mailer;
         $this->twig = $twig;
+        $this->eventDispatcher = $eventDispatcher;
+
     }
 
 
     /**
      * @param FormInterface $form
      * @return bool|mixed
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -87,8 +105,9 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
             );
 
             $user = $this->userBuilder->getUser();
-            $this->manager->persist($user);
-            $this->manager->flush();
+            $this->userRepository->save($user);
+
+            //$this->eventDispatcher->dispatch(UserCreateEvent::NAME, new UserCreateEvent($form->getData()->email, $token, $this->twig, $this->mailer));
 
             $email = $this->mail->mail('Validation de votre compte Snow Tricks',
                 ['register@snowtrick.com' => 'Inscription à Snow Tricks'],

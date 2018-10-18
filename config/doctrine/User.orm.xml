@@ -18,7 +18,7 @@
         <field name="email" column="email" type="string" length="255" nullable="false" unique="true" />
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="token" column="token" type="string" length="255" nullable="false" />
-        <field name="roles" column="roles" type="string" length="255" nullable="true" />
+        <field name="roles" column="roles" type="array" length="255" nullable="true" />
         <field name="image" column="image" type="string" length="255" nullable="true" />
         <field name="validated" column="validated" type="boolean" nullable="false" />
         <field name="active" column="active" type="boolean" nullable="false" />
