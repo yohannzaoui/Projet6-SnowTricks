@@ -5,6 +5,7 @@ namespace App\UI\Form\Handler\Interfaces;
 use App\Domain\Builder\Interfaces\CommentBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use App\Domain\Repository\CommentRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Interface CommentTypeHandlerInterface
@@ -18,7 +19,11 @@ interface CommentTypeHandlerInterface
      * @param CommentRepository $commentRepository
      * @param CommentBuilderInterface $commentBuilder
      */
-    public function __construct(CommentRepository $commentRepository, CommentBuilderInterface $commentBuilder);
+    public function __construct(
+        CommentRepository $commentRepository,
+        CommentBuilderInterface $commentBuilder,
+        SessionInterface $messageFlash
+    );
 
     /**
      * @param FormInterface $form

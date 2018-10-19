@@ -4,12 +4,11 @@ namespace App\UI\Form\Handler;
 
 use App\Domain\Models\User;
 use App\Domain\Repository\UserRepository;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Handler\Interfaces\RegisterTypeHandlerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use App\Domain\Builder\UserBuilder;
-//use App\Event\UserCreateEvent;
 use App\Mailer\Interfaces\EmailerInterface;
 use Twig\Environment;
 
@@ -50,15 +49,20 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
     private $twig;
 
     /**
-     * @var EventDispatcherInterface
+     * @var SessionInterface
      */
-    private $eventDispatcher;
+    private $messageFlash;
 
 
     /**
      * RegisterTypeHandler constructor.
+     * @param UserRepository $userRepository
      * @param EncoderFactoryInterface $encoderFactory
      * @param UserBuilder $userBuilder
+     * @param EmailerInterface $mail
+     * @param \Swift_Mailer $mailer
+     * @param Environment $twig
+     * @param SessionInterface $messageFlash
      */
     public function __construct(
         UserRepository $userRepository,
@@ -67,7 +71,7 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
         EmailerInterface $mail,
         \Swift_Mailer $mailer,
         Environment $twig,
-        EventDispatcherInterface $eventDispatcher
+        SessionInterface $messageFlash
     ) {
         $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
@@ -75,8 +79,7 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
         $this->mail = $mail;
         $this->mailer = $mailer;
         $this->twig = $twig;
-        $this->eventDispatcher = $eventDispatcher;
-
+        $this->messageFlash = $messageFlash;
     }
 
 
@@ -117,6 +120,8 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
                 ]));
 
             $this->mailer->send($email);
+
+            $this->messageFlash->getFlashBag()->add('register','Un email à l\'adresse ' .$form->getData()->email. ' vient de vous être envoyez pour la validation de votre compte');
 
             return true;
         }

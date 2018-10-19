@@ -22,7 +22,11 @@
             <cascade><cascade-persist/></cascade>
         </one-to-one>
         <many-to-one field="author" target-entity="App\Domain\Models\User" />
-        <one-to-one field="image" target-entity="App\Domain\Models\Media" />
+        <one-to-one field="image" target-entity="App\Domain\Models\Media" >
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
         <many-to-one field="video" target-entity="App\Domain\Models\Media" />
 
 

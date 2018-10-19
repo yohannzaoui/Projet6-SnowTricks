@@ -39,19 +39,10 @@ class User implements UserInterface
     private $token;
 
     /**
-     * @var string
+     * @var array
      */
     private $roles = [];
 
-    /**
-     * @var bool
-     */
-    private $validated;
-
-    /**
-     * @var bool
-     */
-    private $active;
 
     /**
      * @var int
@@ -86,10 +77,25 @@ class User implements UserInterface
         $this->email = $email;
         $this->token = $token;
         $this->createdAt = new \DateTime;
-        $this->roles[] = 'ROLE_USER';
-        $this->validated = false;
-        $this->active = false;
         $this->image = $image;
+    }
+
+    /*public function validate()
+    {
+        $this->validated = true;
+        $this->active = true;
+        $this->token = null;
+        $this->roles[] = 'ROLE_USER';
+    }*/
+
+    public function setValidate(bool $validate)
+    {
+        if ($validate) {
+            $this->roles = ['ROLE_USER'];
+            $this->token = null;
+        } else {
+            $this->roles = [];
+        }
     }
 
     /**
@@ -158,10 +164,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
 
@@ -172,33 +175,6 @@ class User implements UserInterface
     {
         return $this->token;
     }
-
-
-    /**
-     * @return bool
-     */
-    public function isValidated(): bool
-    {
-        return $this->validated;
-    }
-
-    /**
-     * @return int
-     */
-    public function getImage(): int
-    {
-        return $this->image;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-
 
 
     /**
@@ -228,13 +204,15 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    /**
-     *
-     */
-    public function validate()
+
+    public function setImage(Media $image = null)
     {
-        $this->validated = true;
-        $this->active = true;
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 
 }

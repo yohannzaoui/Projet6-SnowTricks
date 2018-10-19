@@ -37,7 +37,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public Function checkRegistrationToken($token)
+    public Function checkRegistrationToken($token):? User
     {
         return  $this->createQueryBuilder('user')
                      ->where('user.token = :token')
@@ -113,5 +113,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
          $q= $qb->getQuery();
          $q->execute();
     }
+
+
 
 }

@@ -7,8 +7,8 @@ use App\Mailer\Interfaces\EmailerInterface;
 use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Handler\Interfaces\ForgotPasswordTypeHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Twig\Environment;
-
 
 /**
  * Class ForgotPasswordTypeHandler
@@ -34,6 +34,11 @@ class ForgotPasswordTypeHandler implements ForgotPasswordTypeHandlerInterface
      */
     private $userRepository;
 
+    /**
+     * @var SessionInterface
+     */
+    private $messageFlash;
+
 
     /**
      * ForgotPasswordTypeHandler constructor.
@@ -41,13 +46,20 @@ class ForgotPasswordTypeHandler implements ForgotPasswordTypeHandlerInterface
      * @param \Swift_Mailer $mailer
      * @param Environment $twig
      * @param UserRepository $userRepository
+     * @param SessionInterface $messageFlash
      */
-    public function __construct(EmailerInterface $mail, \Swift_Mailer $mailer, Environment $twig, UserRepository $userRepository)
-    {
+    public function __construct(
+        EmailerInterface $mail,
+        \Swift_Mailer $mailer,
+        Environment $twig,
+        UserRepository $userRepository,
+        SessionInterface $messageFlash
+    ) {
         $this->mail = $mail;
         $this->mailer = $mailer;
         $this->twig = $twig;
         $this->userRepository = $userRepository;
+        $this->messageFlash = $messageFlash;
     }
 
 
@@ -74,7 +86,10 @@ class ForgotPasswordTypeHandler implements ForgotPasswordTypeHandlerInterface
                         'token' => $token
                     ]));
                 $this->mailer->send($email);
-                return true;
+
+            $this->messageFlash->getFlashBag()->add('forgotPassword','Un email à l\'adresse '.$form->getData()->email.' vient de vous être envoyez pour la récupération de votre compte');
+
+            return true;
             }
 
         return false;

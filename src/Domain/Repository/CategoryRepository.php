@@ -42,14 +42,14 @@ class CategoryRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-    /**
-     * @param Category $category
-     * @throws \Doctrine\ORM\ORMException
-     */
-    public function delete(Category $category)
+    public function delete($id)
     {
-        $this->_em->remove($category);
-        $this->_em->flush();
+        return $this->_em->createQueryBuilder()
+            ->delete(Category::class, 'c')
+            ->where('c.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->execute();
     }
 
     /**
@@ -59,7 +59,7 @@ class CategoryRepository extends ServiceEntityRepository
     public function getCategory($id)
     {
         return $this->createQueryBuilder('category')
-            ->andWhere($id)
+            ->Where($id)
             ->getQuery();
 
     }

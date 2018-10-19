@@ -9,7 +9,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use App\UI\Action\Interfaces\ForgotPasswordActionInterface;
 use App\UI\Form\Handler\Interfaces\ForgotPasswordTypeHandlerInterface;
 use App\UI\Responder\Interfaces\ForgotPasswordActionResponderInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 
 /**
@@ -45,13 +44,8 @@ class ForgotPasswordAction implements ForgotPasswordActionInterface
         $form = $this->formFactory->create(ForgotPasswordType::class)->handleRequest($request);
 
         if ($this->forgotPasswordTypeHandler->handle($form)) {
-
-            $messageFlash = new Session;
-            $messageFlash->getFlashBag()->add('forgotPassword','Un email à l\'adresse '.$form->getData()->email.' vient de vous être envoyez pour la récupération de votre compte');
-
             return $responder($form);
         }
-
         return $responder($form);
     }
 }

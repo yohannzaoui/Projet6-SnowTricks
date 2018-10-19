@@ -47,7 +47,7 @@ class EditTrickActionResponder implements EditTrickActionResponderInterface
     {
         $redirect
             ? $response = new RedirectResponse('/')
-            : $response = New Response($this->twig->render('add_trick/index.html.twig', [
+            : $response = New Response($this->twig->render('update_trick/index.html.twig', [
             'form' => $form->createView(),
             'trick' => $trick
         ]), 200);

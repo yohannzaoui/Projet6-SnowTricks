@@ -2,6 +2,8 @@
 
 namespace App\UI\Responder;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,13 +21,18 @@ class RegisterActionResponder implements RegisterActionResponderInterface
      */
     private $twig;
 
+    private $urlGenerator;
+
     /**
      * RegisterActionResponder constructor.
      * @param Environment $twig
      */
-    public function __construct(Environment $twig)
-    {
+    public function __construct(
+        Environment $twig,
+        UrlGeneratorInterface $urlGenerator
+) {
         $this->twig = $twig;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -37,10 +44,11 @@ class RegisterActionResponder implements RegisterActionResponderInterface
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke(FormInterface $form)
+    public function __invoke($redirect = false, FormInterface $form)
     {
-
-        $response = new Response($this->twig->render('register/index.html.twig',[
+        $redirect
+        ? $response = new RedirectResponse($this->urlGenerator->generate('register'))
+        : $response = new Response($this->twig->render('register/index.html.twig',[
             'form' => $form->createView()
         ]), 200);
 

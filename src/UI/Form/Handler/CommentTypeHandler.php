@@ -6,6 +6,7 @@ use App\Domain\Builder\Interfaces\CommentBuilderInterface;
 use App\Domain\Repository\CommentRepository;
 use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Handler\Interfaces\CommentTypeHandlerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /**
@@ -25,16 +26,22 @@ class CommentTypeHandler implements CommentTypeHandlerInterface
      */
     private $commentBuilder;
 
+    private $messageFlash;
+
 
     /**
      * CommentTypeHandler constructor.
      * @param CommentRepository $commentRepository
      * @param CommentBuilderInterface $commentBuilder
      */
-    public function __construct(CommentRepository $commentRepository, CommentBuilderInterface $commentBuilder)
-    {
+    public function __construct(
+        CommentRepository $commentRepository,
+        CommentBuilderInterface $commentBuilder,
+        SessionInterface $messageFlash
+    ) {
         $this->commentRepository = $commentRepository;
         $this->commentBuilder = $commentBuilder;
+        $this->messageFlash = $messageFlash;
     }
 
 
@@ -52,6 +59,8 @@ class CommentTypeHandler implements CommentTypeHandlerInterface
             $this->commentBuilder->createFromComment($form->getData()->pseudo, $form->getData()->message, $trick);
 
             $this->commentRepository->save($this->commentBuilder->getComment());
+
+            $this->messageFlash->getFlashBag()->add('comment', 'Commentaire envoyé !');
 
             return true;
         }

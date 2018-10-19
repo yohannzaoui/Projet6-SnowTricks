@@ -8,9 +8,9 @@
 
 namespace App\UI\Action;
 
-use App\Domain\Models\Category;
+
+use App\Domain\Repository\CategoryRepository;
 use App\UI\Responder\Interfaces\DeleteCategoryActionResponderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,23 +21,25 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DeleteCategoryAction
 {
+    private $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
 
 
     /**
      * @Route("/supprimerCategorie/{id}", name="delcategory", methods={"GET"})
      * @param Request $request
      * @param DeleteCategoryActionResponderInterface $responder
-     * @param ObjectManager $manager
      * @return mixed
      */
-    public function __invoke(Request $request, DeleteCategoryActionResponderInterface $responder, ObjectManager $manager)
+    public function __invoke(Request $request, DeleteCategoryActionResponderInterface $responder)
     {
         if ($request->get('id')){
-            $category = $manager->getRepository(Category::class)->find($request->get('id'));
 
-            $manager->remove($category);
-            $manager->flush();
-
+            $this->categoryRepository->delete($request->get('id'));
 
             return $responder();
         }

@@ -3,7 +3,6 @@
 namespace App\UI\Action\Interfaces;
 
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\UI\Form\Handler\Interfaces\CategoryTypeHandlerInterface;
 use App\UI\Responder\Interfaces\CategoryActionResponderInterface;
@@ -25,8 +24,7 @@ interface CategoryActionInterface
     /**
      * @param Request $request
      * @param CategoryActionResponderInterface $responder
-     * @param ObjectManager $manager
      * @return mixed
      */
-    public function __invoke(Request $request, CategoryActionResponderInterface $responder, ObjectManager $manager);
+    public function __invoke(Request $request, CategoryActionResponderInterface $responder);
 }

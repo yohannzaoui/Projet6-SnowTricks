@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier un Trick{% endblock %}
+
+{% block body %}
+
+    <br>
+    <div class="container">
+        <h1>Modifier un Trick</h1>
+        <div class="row">
+            <div class="col-lg-6 col-md-10 mx-auto">
+                {% form_theme form 'theme/edit_trick_type.html.twig'%}
+                {{form(form)}}
+            </div>
+        </div>
+    </div>
+{% endblock body %}

@@ -3,9 +3,9 @@
 namespace App\UI\Form\Handler\Interfaces;
 
 use Symfony\Component\Form\FormInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Mailer\Interfaces\EmailerInterface;
 use App\Domain\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Twig\Environment;
 
 /**
@@ -14,11 +14,22 @@ use Twig\Environment;
  */
 interface ForgotPasswordTypeHandlerInterface
 {
+
     /**
      * ForgotPasswordTypeHandlerInterface constructor.
-     * @param ObjectManager $manager
+     * @param EmailerInterface $mail
+     * @param \Swift_Mailer $mailer
+     * @param Environment $twig
+     * @param UserRepository $userRepository
+     * @param SessionInterface $messageFlash
      */
-    public function __construct(EmailerInterface $mail, \Swift_Mailer $mailer, Environment $twig, UserRepository $userRepository);
+    public function __construct(
+        EmailerInterface $mail,
+        \Swift_Mailer $mailer,
+        Environment $twig,
+        UserRepository $userRepository,
+        SessionInterface $messageFlash
+    );
 
     /**
      * @param FormInterface $form

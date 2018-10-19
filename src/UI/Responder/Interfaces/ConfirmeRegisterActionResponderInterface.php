@@ -2,6 +2,7 @@
 
 namespace App\UI\Responder\Interfaces;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
 /**
@@ -14,7 +15,7 @@ interface ConfirmeRegisterActionResponderInterface
      * ConfirmeRegisterActionResponderInterface constructor.
      * @param Environment $twig
      */
-    public function __construct(Environment $twig);
+    public function __construct(Environment $twig, UrlGeneratorInterface $urlGenerator);
 
     /**
      * @param bool $redirect

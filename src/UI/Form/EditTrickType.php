@@ -9,8 +9,9 @@
 namespace App\UI\Form;
 
 use Symfony\Component\Form\AbstractType;
+
 use App\Domain\DTO\NewTrickDTO;
-use Symfony\Component\Form\FormInterface;
+use App\Domain\Models\Trick;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -38,16 +39,6 @@ class EditTrickType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => NewTrickDTO::class,
-            'empty_data' => function (FormInterface $form) {
-                return new newTrickDTO(
-                    $form->get('name')->getdata(),
-                    $form->get('description')->getdata(),
-                    $form->get('image')->getdata(),
-                    $form->get('video')->getdata()
-                );
-            }
-        ]);
+
     }
 }

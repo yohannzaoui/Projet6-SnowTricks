@@ -4,6 +4,8 @@ namespace App\UI\Action\Interfaces;
 
 use Symfony\Component\HttpFoundation\Request;
 use App\UI\Responder\Interfaces\ConfirmeRegisterActionResponderInterface;
+use App\Domain\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Interface ConfirmeRegisterActionInterface
@@ -11,6 +13,11 @@ use App\UI\Responder\Interfaces\ConfirmeRegisterActionResponderInterface;
  */
 interface ConfirmeRegisterActionInterface
 {
+    public function __construct(
+        UserRepository $userRepository,
+        SessionInterface $messageFlash
+    );
+
     /**
      * @param Request $request
      * @param ConfirmeRegisterActionResponderInterface $responder
