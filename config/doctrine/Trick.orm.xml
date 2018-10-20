@@ -1,6 +1,6 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="App\Domain\Models\Trick" table="trick">
@@ -15,19 +15,9 @@
         <field name="description" column="description" type="text"  nullable="false" />
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
-        
 
-        <one-to-many target-entity="App\Domain\Models\Comment" field="comment" mapped-by="trick" orphan-removal="true" />
-        <one-to-one field="category" target-entity="App\Domain\Models\Category">
-            <cascade><cascade-persist/></cascade>
-        </one-to-one>
         <many-to-one field="author" target-entity="App\Domain\Models\User" />
-        <one-to-one field="image" target-entity="App\Domain\Models\Media" >
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-        </one-to-one>
-        <many-to-one field="video" target-entity="App\Domain\Models\Media" />
+
 
 
     </entity>

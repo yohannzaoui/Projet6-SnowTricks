@@ -29,10 +29,7 @@ class Trick
      * @var
      */
     private $image;
-    /**
-     * @var
-     */
-    private $video;
+
     /**
      * @var
      */
@@ -61,23 +58,19 @@ class Trick
      * Trick constructor.
      * @param null $name
      * @param null $description
-     * @param null $image
-     * @param null $video
+     *
      * @param null $updatedAt
      * @throws \Exception
      */
-    public function __construct($name = null, $description = null, $image = null, $video = null, $author = null)
+    public function __construct($name = null, $description = null, $image = null, $author = null)
     {
         $this->id = Uuid::uuid4();
         $this->name = $name;
         $this->description = $description;
         $this->image = $image;
-        $this->video = $video;
         $this->author = $author;
         $this->createdAt = new \DateTime();
         $this->updatedAt = null;
-        $this->category = new ArrayCollection();
-        $this->comment = new ArrayCollection();
     }
 
     /**
@@ -160,25 +153,7 @@ class Trick
         return $this;
     }
 
-    /**
-     * Get the value of video
-     */ 
-    public function getVideo()
-    {
-        return $this->video;
-    }
 
-    /**
-     * Set the value of video
-     *
-     * @return  self
-     */ 
-    public function setVideo($video)
-    {
-        $this->video = $video;
-
-        return $this;
-    }
 
     /**
      * Get the value of comment
@@ -212,11 +187,11 @@ class Trick
      * @param Comment $comment
      * @return Trick
      */
-    public function addComment(Comment $comment): self
+    public function addComment(Comment $comments): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setTrick($this);
+        if (!$this->comment->contains($comments)) {
+            $this->comment[] = $comments;
+            $comments->setTrick($this);
         }
 
         return $this;
@@ -228,8 +203,8 @@ class Trick
      */
     public function removeComment(Comment $comment): self
     {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
             // set the owning side to null (unless already changed)
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
@@ -280,22 +255,36 @@ class Trick
     }
 
     /**
-     * Get the value of group
-     */ 
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author): void
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCategory()
     {
         return $this->category;
     }
 
     /**
-     * Set the value of group
-     *
-     * @return  self
-     */ 
-    public function setCategory($category)
+     * @param mixed $category
+     */
+    public function setCategory($category): void
     {
         $this->category = $category;
-
-        return $this;
     }
+
+
 }

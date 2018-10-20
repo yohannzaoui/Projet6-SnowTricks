@@ -42,12 +42,12 @@ class TrickAction implements TrickActionInterface
      */
     public function __invoke(Request $request, ObjectManager $manager, TrickResponderInterface $responder)
     {
-        $trick = $manager->getRepository(Trick::class)->find($request->get('id'));
+        $trick = $manager->getRepository(Trick::class)->find($request->attributes->get('id'));
 
         $form = $this->formFactory->create(CommentType::class)->handleRequest($request);
 
         if ($this->commentTypeHandler->handle($form, $trick)) {
-            return $responder(true, $form, $trick);
+            return $responder(true,$form, $trick, $request->attributes->get('id'));
         }
         return $responder(false, $form, $trick);
     }

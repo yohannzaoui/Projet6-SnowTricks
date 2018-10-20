@@ -3,6 +3,7 @@
 namespace App\UI\Responder;
 
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Twig\Environment;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,13 +21,18 @@ class TrickResponder implements TrickResponderInterface
      */
     private $twig;
 
+    private $urlGenerator;
+
     /**
      * TrickResponder constructor.
      * @param Environment $twig
      */
-    public function __construct(Environment $twig)
-    {
+    public function __construct(
+        Environment $twig,
+        UrlGeneratorInterface $urlGenerator
+    ) {
         $this->twig = $twig;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -37,14 +43,13 @@ class TrickResponder implements TrickResponderInterface
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke($redirect = false, FormInterface $form, $trick)
+    public function __invoke($redirect = false, FormInterface $form, $trick, $id = null)
     {
         $redirect
 
-        ? $response =  new Response($this->twig->render('trick/index.html.twig', [
-            'form' => $form->createView(),
-            'trick' => $trick
-        ]), 200)
+        ? $response =  new RedirectResponse($this->urlGenerator->generate('trick', [
+            'id' => $id
+        ]))
 
         : $response =  new Response($this->twig->render('trick/index.html.twig', [
             'form' => $form->createView(),

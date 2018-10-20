@@ -8,34 +8,36 @@
 
 namespace App\Domain\Repository;
 
-use App\Domain\Models\Media;
+use App\Domain\Models\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
 /**
- * Class MediaRepository
+ * Class ImageRepository
  * @package App\Domain\Repository
  */
-class MediaRepository extends ServiceEntityRepository
+class ImageRepository extends ServiceEntityRepository
 {
+
     /**
-     * MediaRepository constructor.
+     * ImageRepository constructor.
      * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Media::class);
+        parent::__construct($registry, Image::class);
     }
 
+
     /**
-     * @param Media $media
+     * @param Image $image
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(Media $media)
+    public function save(Image $image)
     {
-        $this->_em->persist($media);
+        $this->_em->persist($image);
         $this->_em->flush();
     }
 

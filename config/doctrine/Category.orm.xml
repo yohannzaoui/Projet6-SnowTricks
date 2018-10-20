@@ -15,9 +15,7 @@
         <field name="description" column="description" type="text" nullable="true" />
         
 
-        <many-to-one field="trick" target-entity="App\Domain\Models\Trick" inversed-by="category">
-        <join-column name="trick_id" referenced-column-name="id" />
-        </many-to-one>
+
 
     </entity>
 

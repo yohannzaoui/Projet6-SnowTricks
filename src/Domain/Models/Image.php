@@ -2,21 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: Yohann Zaoui
- * Date: 12/10/2018
- * Time: 16:27
+ * Date: 20/10/2018
+ * Time: 21:55
  */
 
 namespace App\Domain\Models;
 
-
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+
 /**
- * Class Media
+ * Class Image
  * @package App\Domain\Models
  */
-class Media
+class Image
 {
     /**
      * @var UuidInterface
@@ -24,20 +24,21 @@ class Media
     private $id;
 
     /**
-     * @var null
+     * @var
      */
-    private $file;
+    private $fileName;
 
 
     /**
-     * Media constructor.
-     * @param null $file
+     * Image constructor.
+     * @param $id
+     * @param $fileName
      * @throws \Exception
      */
-    public function __construct($file = null)
+    public function __construct($fileName)
     {
         $this->id = Uuid::uuid4();
-        $this->file = $file;
+        $this->fileName = $fileName;
     }
 
     /**
@@ -59,17 +60,20 @@ class Media
     /**
      * @return mixed
      */
-    public function getFile()
+    public function getFileName()
     {
-        return $this->file;
+        return $this->fileName;
     }
 
     /**
      * @param mixed $fileName
      */
-    public function setFile($file): void
+    public function setFileName($fileName): void
     {
-        $this->file = $file;
+        $this->fileName = $fileName;
     }
+
+
+
 
 }

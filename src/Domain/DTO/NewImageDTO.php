@@ -9,12 +9,12 @@
 namespace App\Domain\DTO;
 
 
-class NewMediaDTO
+class NewImageDTO
 {
-    public $file;
+    public $image;
 
-    public function __construct($file = null)
+    public function __construct($image)
     {
-        $this->file = $file;
+        $this->image = $image;
     }
 }

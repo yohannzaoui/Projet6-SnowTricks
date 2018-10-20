@@ -75,6 +75,8 @@ class ForgotPasswordTypeHandler implements ForgotPasswordTypeHandlerInterface
     {
         if ($form->isSubmitted() && $form->isvalid()) {
 
+            if(!\is_null($this->userRepository->checkEmail($form->getData()->email))){
+
                 $token = md5(uniqid());
 
                 $this->userRepository->saveResetToken($form->getData()->email, $token);
@@ -87,9 +89,13 @@ class ForgotPasswordTypeHandler implements ForgotPasswordTypeHandlerInterface
                     ]));
                 $this->mailer->send($email);
 
-            $this->messageFlash->getFlashBag()->add('forgotPassword','Un email à l\'adresse '.$form->getData()->email.' vient de vous être envoyez pour la récupération de votre compte');
+                $this->messageFlash->getFlashBag()->add('forgotPassword','Un email à l\'adresse '.$form->getData()->email.' vient de vous être envoyez pour la récupération de votre compte');
 
-            return true;
+                return true;
+            }
+
+            $this->messageFlash->getFlashBag()->add('checkMailError','L\'adresse email est inconnue');
+
             }
 
         return false;

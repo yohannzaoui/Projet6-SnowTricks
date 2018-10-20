@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\UI\Form\Handler;
 
 
-use App\Domain\Builder\MediaBuilder;
-use App\Domain\Repository\MediaRepository;
+use App\Domain\Builder\ImageBuilder;
+use App\Domain\Repository\ImageRepository;
 use App\Services\FileUploader;
 use App\UI\Form\Handler\Interfaces\ProfilTypeHandlerInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /**
@@ -24,22 +25,29 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
      */
     private $fileUploader;
     /**
-     * @var MediaRepository
+     * @var ImageRepository
      */
-    private $mediaRepository;
+    private $imageRepository;
     /**
-     * @var MediaBuilder
+     * @var ImageBuilder
      */
-    private $mediaBuilder;
+    private $imageBuilder;
+
+    private $messageFlash;
 
     /**
      * ProfilTypeHandler constructor.
      */
-    public function __construct(FileUploader $fileUploader, MediaRepository $mediaRepository, MediaBuilder $mediaBuilder)
-    {
+    public function __construct(
+        FileUploader $fileUploader,
+        ImageRepository $imageRepository,
+        ImageBuilder $imageBuilder,
+        SessionInterface $messageFlash
+    ) {
         $this->fileUploader = $fileUploader;
-        $this->mediaRepository = $mediaRepository;
-        $this->mediaBuilder = $mediaBuilder;
+        $this->imageRepository = $imageRepository;
+        $this->imageBuilder = $imageBuilder;
+        $this->messageFlash = $messageFlash;
     }
 
 
@@ -52,13 +60,13 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->getData()->file;
-            $fileName = $this->fileUploader->upload($file);
+            $image = $this->fileUploader->upload($file);
 
-            $this->mediaBuilder->create($fileName);
+            $this->imageBuilder->create($image);
 
+            $this->imageRepository->save($this->imageBuilder->getImage());
 
-            $this->mediaRepository->save($this->mediaBuilder->getMedia());
-
+            $this->messageFlash->getFlashBag()->add('profilUpdate','Votre image de profil à bien été mis à jour');
         }
         return false;
     }

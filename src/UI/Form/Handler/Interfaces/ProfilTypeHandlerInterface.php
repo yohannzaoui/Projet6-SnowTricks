@@ -2,11 +2,11 @@
 
 namespace App\UI\Form\Handler\Interfaces;
 
-use App\Domain\Repository\MediaRepository;
+use App\Domain\Builder\ImageBuilder;
+use App\Domain\Repository\ImageRepository;
 use App\Services\FileUploader;
 use Symfony\Component\Form\FormInterface;
-use App\Domain\Builder\MediaBuilder;
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * Interface ProfilTypeHandlerInterface
  * @package App\UI\Form\Handler\Interfaces
@@ -16,7 +16,12 @@ interface ProfilTypeHandlerInterface
     /**
      * ProfilTypeHandlerInterface constructor.
      */
-    public function __construct(FileUploader $fileUploader, MediaRepository $mediaRepository, MediaBuilder $mediaBuilder);
+    public function __construct(
+        FileUploader $fileUploader,
+        ImageRepository $imageRepository,
+        ImageBuilder $mediaBuilder,
+        SessionInterface $messageFlash
+    );
 
     /**
      * @return mixed

@@ -5,6 +5,7 @@ namespace App\Domain\Models;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class User
@@ -43,17 +44,16 @@ class User implements UserInterface
      */
     private $roles = [];
 
-
-    /**
-     * @var int
-     */
-    private $image;
-
-
     /**
      * @var
      */
     private $resetPasswordToken;
+
+    private $comment;
+
+    private $tricks;
+
+    private $profilImage;
 
 
     /**
@@ -62,14 +62,14 @@ class User implements UserInterface
      * @param string|null $password
      * @param string|null $email
      * @param string|null $token
-     * @param int|null $profilImage
      * @throws \Exception
      */
-    public function __construct(string $username = null,
-                                string $password = null,
-                                string $email = null,
-                                string $token = null,
-                                string $image = null
+    public function __construct(
+        string $username = null,
+        string $password = null,
+        string $email = null,
+        string $token = null,
+        $profilImage = null
     ) {
         $this->id = Uuid::uuid4();
         $this->username = $username;
@@ -77,16 +77,8 @@ class User implements UserInterface
         $this->email = $email;
         $this->token = $token;
         $this->createdAt = new \DateTime;
-        $this->image = $image;
+        $this->profilImage = $profilImage;
     }
-
-    /*public function validate()
-    {
-        $this->validated = true;
-        $this->active = true;
-        $this->token = null;
-        $this->roles[] = 'ROLE_USER';
-    }*/
 
     public function setValidate(bool $validate)
     {
@@ -204,15 +196,55 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-
-    public function setImage(Media $image = null)
+    /**
+     * @return mixed
+     */
+    public function getTricks()
     {
-        $this->image = $image;
+        return $this->tricks;
     }
 
-    public function getImage()
+    /**
+     * @param mixed $trick
+     */
+    public function setTricks($tricks): void
     {
-        return $this->image;
+        $this->tricks = $tricks;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment): void
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @return null
+     */
+    public function getProfilImage()
+    {
+        return $this->profilImage;
+    }
+
+    /**
+     * @param null $profilImage
+     */
+    public function setProfilImage($profilImage): void
+    {
+        $this->profilImage = $profilImage;
+    }
+
+
+
 
 }

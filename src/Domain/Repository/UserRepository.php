@@ -80,6 +80,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         $qb = $this->createQueryBuilder('user');
         $qb->update(User::class, 'u')
             ->set('u.password', '?1')
+            ->set('u.resetPasswordToken', 'null')
             ->where('u.resetPasswordToken = ?2')
             ->setParameter(1, $password)
             ->setParameter(2, $token);

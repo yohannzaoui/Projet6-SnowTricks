@@ -19,8 +19,9 @@ interface TrickActionInterface
      * @param FormFactoryInterface $formFactory
      * @param CommentTypeHandlerInterface $commentTypeHandler
      */
-    public function __construct(FormFactoryInterface $formFactory,
-                                CommentTypeHandlerInterface $commentTypeHandler
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        CommentTypeHandlerInterface $commentTypeHandler
     );
 
     /**
