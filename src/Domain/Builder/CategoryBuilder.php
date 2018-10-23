@@ -24,13 +24,12 @@ class CategoryBuilder
 
     /**
      * @param $name
-     * @param $description
      * @return $this
      * @throws \Exception
      */
-    public function createFromCategory($name, $description)
+    public function createFromCategory($name)
     {
-        $this->category = new Category($name, $description);
+        $this->category = new Category($name);
         return $this;
     }
 

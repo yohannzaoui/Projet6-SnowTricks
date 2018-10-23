@@ -31,9 +31,9 @@ class TrickBuilder
      * @return $this
      * @throws \Exception
      */
-    public function create($name, $description, $image, $video)
+    public function create($name, $description, $category)
     {
-        $this->trick = new Trick($name, $description, $image, $video);
+        $this->trick = new Trick($name, $description, $category);
         return $this;
     }
 

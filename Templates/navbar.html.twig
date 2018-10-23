@@ -13,11 +13,6 @@
             <li class="nav-item">
               <a class="nav-link" href="{{path('addtrick')}}">Ajouter un Trick</a>
             </li>
-            {% if is_granted('ROLE_ADMIN') %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{path('category')}}">Gestion des catégories</a>
-            </li>
-                {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{{path('profil')}}">Gestion de mon profil</a>
             </li>
@@ -30,6 +25,11 @@
               <a class="nav-link" href="{{path('login')}}">Connexion</a>
             </li>
             {% else %}
+                {% if is_granted('ROLE_ADMIN') %}
+                  <li class="nav-item">
+                    <a style="color: red" class="nav-link" href="{{path('category')}}">Administration</a>
+                  </li>
+                {% endif %}
             <li class="nav-item">
               <a style="color:#FB9C04" class="nav-link" href="{{path('logout')}}">Déconnexion</a>
             </li>

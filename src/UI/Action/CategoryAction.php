@@ -3,7 +3,7 @@
 namespace App\UI\Action;
 
 use App\Domain\Repository\CategoryRepository;
-use App\UI\Form\CategoryType;
+use App\UI\Form\AddCategoryType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,9 +37,10 @@ class CategoryAction implements CategoryActionInterface
      * @param FormFactoryInterface $formFactory
      * @param CategoryTypeHandlerInterface $categoryTypeHandler
      */
-    public function __construct(FormFactoryInterface $formFactory,
-                                CategoryTypeHandlerInterface $categoryTypeHandler,
-                                CategoryRepository $categoryRepository
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        CategoryTypeHandlerInterface $categoryTypeHandler,
+        CategoryRepository $categoryRepository
     ) {
         $this->formFactory = $formFactory;
         $this->categoryTypeHandler = $categoryTypeHandler;
@@ -56,7 +57,7 @@ class CategoryAction implements CategoryActionInterface
     {
 
         $categoryList = $this->categoryRepository->getAllCategory();
-        $form = $this->formFactory->create(CategoryType::class)->handleRequest($request);
+        $form = $this->formFactory->create(AddCategoryType::class)->handleRequest($request);
 
         if ($this->categoryTypeHandler->handle($form)) {
             return $responder(true, $form, $categoryList);

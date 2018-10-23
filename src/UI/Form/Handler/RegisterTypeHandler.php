@@ -2,8 +2,11 @@
 
 namespace App\UI\Form\Handler;
 
+use App\Domain\Builder\Interfaces\ImageBuilderInterface;
 use App\Domain\Models\User;
+use App\Domain\Repository\ImageRepository;
 use App\Domain\Repository\UserRepository;
+use App\Services\Interfaces\FileUploaderInterface;
 use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Handler\Interfaces\RegisterTypeHandlerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -53,6 +56,18 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
      */
     private $messageFlash;
 
+    /**
+     * @var ImageBuilderInterface
+     */
+    private $imageBuilder;
+
+    /**
+     * @var ImageRepository
+     */
+    private $imageRepository;
+
+    private $fileUploader;
+
 
     /**
      * RegisterTypeHandler constructor.
@@ -63,6 +78,8 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
      * @param \Swift_Mailer $mailer
      * @param Environment $twig
      * @param SessionInterface $messageFlash
+     * @param ImageBuilderInterface $imageBuilder
+     * @param ImageRepository $imageRepository
      */
     public function __construct(
         UserRepository $userRepository,
@@ -71,7 +88,10 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
         EmailerInterface $mail,
         \Swift_Mailer $mailer,
         Environment $twig,
-        SessionInterface $messageFlash
+        SessionInterface $messageFlash,
+        ImageBuilderInterface $imageBuilder,
+        ImageRepository $imageRepository,
+        FileUploaderInterface $fileUploader
     ) {
         $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
@@ -80,6 +100,9 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
         $this->mailer = $mailer;
         $this->twig = $twig;
         $this->messageFlash = $messageFlash;
+        $this->imageBuilder = $imageBuilder;
+        $this->imageRepository = $imageRepository;
+        $this->fileUploader = $fileUploader;
     }
 
 
@@ -96,21 +119,32 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $password = $this->encoderFactory->getEncoder(User::class)->encodePassword($form->getData()->password, null);
+            //($form->getData());
+            $filename = $this->fileUploader->upload($form->getData()->image->file);
+
+            $password = $this->encoderFactory->getEncoder(
+                User::class)->encodePassword(
+                    $form->getData()->password, null
+            );
 
             $token = md5(uniqid());
+
+
 
             $this->userBuilder->createFromRegistration(
                 $form->getData()->username,
                 $password,
                 $form->getData()->email,
+                $this->imageBuilder->create($filename),
                 $token
             );
 
-            $user = $this->userBuilder->getUser();
-            $this->userRepository->save($user);
 
-            //$this->eventDispatcher->dispatch(UserCreateEvent::NAME, new UserCreateEvent($form->getData()->email, $token, $this->twig, $this->mailer));
+
+            $this->userRepository->save($this->userBuilder->getUser());
+
+            $this->imageRepository->save($this->imageBuilder->getImage());
+
 
             $email = $this->mail->mail('Validation de votre compte Snow Tricks',
                 ['register@snowtrick.com' => 'Inscription à Snow Tricks'],

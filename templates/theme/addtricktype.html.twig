@@ -1,10 +1,10 @@
 {% block form %}
 {{ form_start(form) }}
     {{ form_row(form.name, {'label':'Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
-    {{ form_row(form.image, {'label':'Media','attr':{'placeholder': 'Media'}}) }}
-    {{ form_row(form.video, {'label':'Vidéo','attr':{'placeholder': 'Vidéo'}}) }}
-    {{ form_row(form.description, {'label':'Déscription','attr':{'placeholder': 'Entrez la déscription du Trick'}}) }}
-    {#{{ form_row(form.category, {'label':'Catégories','attr':{'placeholder': 'Choisissez une catégorie'}}) }}#}
+    {{ form_row(form.image) }}
+    {{ form_row(form.video, {'label':'Vidéo'}) }}
+    {{ form_row(form.description, {'label':'Déscription du Trick'}) }}
+    {{ form_row(form.category, {'label':'Catégorie'} ) }}
     <p>
         <button type="submit" class="btn btn-success">Ajouter</button>
         <button type="reset" class="btn btn-danger">Effacer</button>

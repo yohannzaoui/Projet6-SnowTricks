@@ -11,11 +11,21 @@ namespace App\Domain\DTO;
 
 class NewVideoDTO
 {
-    public $video;
+    public $url;
 
-    public function __construct($video)
+    public function __construct($url)
     {
-        $this->video = $video;
+        $this->url = $url;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+
 
 }

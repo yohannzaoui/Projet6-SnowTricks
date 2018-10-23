@@ -15,24 +15,13 @@ class NewCategoryDTO
 
 
     /**
-     * @var
-     */
-    public $description;
-
-
-
-
-
-    /**
      * NewCategoryDTO constructor.
      * @param $name
-     * @param $description
      * @param $trick
      */
-    public function __construct($name, $description)
+    public function __construct($name = null)
     {
         $this->name = $name;
-        $this->description = $description;
     }
 
     

@@ -30,8 +30,10 @@ class CategoryTypeHandler implements CategoryTypeHandlerInterface
      * CategoryTypeHandler constructor.
      * @param ObjectManager $manager
      */
-    public function __construct(CategoryBuilder $categoryBuilder, CategoryRepository $categoryRepository)
-    {
+    public function __construct(
+        CategoryBuilder $categoryBuilder,
+        CategoryRepository $categoryRepository
+    ) {
         $this->categoryBuilder = $categoryBuilder;
         $this->categoryRepository = $categoryRepository;
     }
@@ -46,7 +48,7 @@ class CategoryTypeHandler implements CategoryTypeHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->categoryBuilder->createFromCategory($form->getData()->name, $form->getData()->description);
+            $this->categoryBuilder->createFromCategory($form->getData()->name);
 
             $this->categoryRepository->save($this->categoryBuilder->getCategory());
 

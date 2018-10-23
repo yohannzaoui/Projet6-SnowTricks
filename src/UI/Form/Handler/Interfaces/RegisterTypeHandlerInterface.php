@@ -2,13 +2,16 @@
 
 namespace App\UI\Form\Handler\Interfaces;
 
+use App\Domain\Builder\Interfaces\ImageBuilderInterface;
 use App\Domain\Builder\UserBuilder;
+use App\Domain\Repository\ImageRepository;
 use App\Domain\Repository\UserRepository;
 use App\Mailer\Interfaces\EmailerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Twig\Environment;
+use App\Services\Interfaces\FileUploaderInterface;
 
 /**
  * Interface RegisterTypeHandlerInterface
@@ -18,6 +21,19 @@ interface RegisterTypeHandlerInterface
 {
 
 
+    /**
+     * RegisterTypeHandlerInterface constructor.
+     * @param UserRepository $userRepository
+     * @param EncoderFactoryInterface $encoderFactory
+     * @param UserBuilder $userBuilder
+     * @param EmailerInterface $mail
+     * @param \Swift_Mailer $mailer
+     * @param Environment $twig
+     * @param SessionInterface $messageFlash
+     * @param ImageBuilderInterface $imageBuilder
+     * @param ImageRepository $imageRepository
+     * @param FileUploaderInterface $fileUploader
+     */
     public function __construct(
         UserRepository $userRepository,
         EncoderFactoryInterface $encoderFactory,
@@ -25,7 +41,10 @@ interface RegisterTypeHandlerInterface
         EmailerInterface $mail,
         \Swift_Mailer $mailer,
         Environment $twig,
-        SessionInterface $messageFlash
+        SessionInterface $messageFlash,
+        ImageBuilderInterface $imageBuilder,
+        ImageRepository $imageRepository,
+        FileUploaderInterface $fileUploader
     );
 
     /**

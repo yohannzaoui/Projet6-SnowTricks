@@ -16,7 +16,30 @@
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
 
-        <many-to-one field="author" target-entity="App\Domain\Models\User" />
+        <many-to-one field="author" target-entity="App\Domain\Models\User" inversed-by="tricks">
+            <join-column nullable="true" />
+        </many-to-one>
+
+        
+        <many-to-one field="category" target-entity="App\Domain\Models\Category">
+        <cascade>
+            <cascade-persist/>
+        </cascade>
+            <join-columns>
+                <join-column nullable="false"/>
+            </join-columns>
+        </many-to-one>
+
+
+        <one-to-many field="comments" target-entity="App\Domain\Models\Comment" mapped-by="trick" orphan-removal="true">
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC"/>
+            </order-by>
+        </one-to-many>
+
+        <many-to-one field="image" target-entity="App\Domain\Models\Image"/>
+
+        <many-to-one field="video" target-entity="App\Domain\Models\Video"/>
 
 
 

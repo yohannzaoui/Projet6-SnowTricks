@@ -36,8 +36,11 @@ class AddTrickTypeHandler implements AddTrickTypeHandlerInterface
     /**
      * AddTrickTypeHandler constructor.
      */
-    public function __construct(TrickRepository $trickRepository, TrickBuilder $trickBuilder, FileUploader $fileUploader)
-    {
+    public function __construct(
+        TrickRepository $trickRepository,
+        TrickBuilder $trickBuilder,
+        FileUploader $fileUploader
+    ) {
         $this->trickRepository = $trickRepository;
         $this->trickBuilder = $trickBuilder;
         $this->fileUploader = $fileUploader;
@@ -54,12 +57,15 @@ class AddTrickTypeHandler implements AddTrickTypeHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
             //$file = $form->getData()->image;
-            //$fileName = $this->fileUploader->upload($file);
+            //$image = $this->fileUploader->upload($file);
 
-            $this->trickBuilder->create($form->getData()->name,
+
+            $this->trickBuilder->create(
+                $form->getData()->name,
                 $form->getData()->description,
-                $form->getData()->image,
-                $form->getData()->video
+                $form->getdata()->category
+                //$form->getData()->image,
+                //$form->getData()->video
             );
 
 

@@ -2,7 +2,9 @@
 
 namespace App\Domain\DTO;
 
+
 use App\Domain\DTO\Interfaces\NewUserDTOInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class NewUserDTO
@@ -27,17 +29,20 @@ class NewUserDTO implements NewUserDTOInterface
      */
     public $email;
 
+    /**
+     * @var null
+     */
     public $image;
 
 
-    /**
-     * NewUserDTO constructor.
-     * @param null $username
-     * @param null $password
-     * @param null $email
-     */
-    public function __construct($username = null, $password = null, $email = null, $image = null)
-    {
+
+
+    public function __construct(
+        $username,
+        $password,
+        $email,
+        NewImageDTO $image
+    ) {
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;

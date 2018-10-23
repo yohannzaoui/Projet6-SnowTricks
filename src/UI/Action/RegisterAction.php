@@ -22,13 +22,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RegisterAction implements RegisterActionInterface
 {
+    /**
+     * @var RegisterTypeHandlerInterface
+     */
     private $registerTypeHandler;
+    /**
+     * @var FormFactoryInterface
+     */
     private $formFactory;
 
 
     /**
-     * Register constructor.
+     * RegisterAction constructor.
      * @param FormFactoryInterface $formFactory
+     * @param RegisterTypeHandlerInterface $registerTypeHandler
      */
     public function __construct(FormFactoryInterface $formFactory, RegisterTypeHandlerInterface $registerTypeHandler)
     {
@@ -36,8 +43,12 @@ class RegisterAction implements RegisterActionInterface
         $this->registerTypeHandler = $registerTypeHandler;
     }
 
+
     /**
      * @Route("/inscription", name="register", methods={"GET","POST"})
+     * @param Request $request
+     * @param RegisterActionResponderInterface $responder
+     * @return mixed
      */
     public function __invoke(Request $request, RegisterActionResponderInterface $responder)
     {

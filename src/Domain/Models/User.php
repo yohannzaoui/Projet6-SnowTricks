@@ -49,37 +49,53 @@ class User implements UserInterface
      */
     private $resetPasswordToken;
 
-    private $comment;
+    /**
+     * @var
+     */
+    private $comments;
 
+    /**
+     * @var
+     */
     private $tricks;
 
-    private $profilImage;
+
+    /**
+     * @var
+     */
+    private $image;
 
 
     /**
      * User constructor.
-     * @param string|null $username
-     * @param string|null $password
-     * @param string|null $email
-     * @param string|null $token
+     * @param $username
+     * @param $password
+     * @param $email
+     * @param $image
+     * @param $token
      * @throws \Exception
      */
     public function __construct(
-        string $username = null,
-        string $password = null,
-        string $email = null,
-        string $token = null,
-        $profilImage = null
+        $username,
+        $password,
+        $email,
+        Image $image,
+        $token
     ) {
         $this->id = Uuid::uuid4();
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
+        $this->image = $image;
         $this->token = $token;
         $this->createdAt = new \DateTime;
-        $this->profilImage = $profilImage;
+        $this->comments = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
     }
 
+    /**
+     * @param bool $validate
+     */
     public function setValidate(bool $validate)
     {
         if ($validate) {
@@ -215,35 +231,34 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getComment()
+    public function getComments()
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     /**
-     * @param mixed $comment
+     * @param mixed $comments
      */
-    public function setComment($comment): void
+    public function setComments($comments): void
     {
-        $this->comment = $comment;
+        $this->comments = $comments;
     }
 
     /**
-     * @return null
+     * @return mixed
      */
-    public function getProfilImage()
+    public function getImage()
     {
-        return $this->profilImage;
+        return $this->image;
     }
 
     /**
-     * @param null $profilImage
+     * @param mixed $image
      */
-    public function setProfilImage($profilImage): void
+    public function setImage($image): void
     {
-        $this->profilImage = $profilImage;
+        $this->image = $image;
     }
-
 
 
 

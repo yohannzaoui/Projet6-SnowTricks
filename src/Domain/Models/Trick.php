@@ -25,15 +25,17 @@ class Trick
      * @var null
      */
     private $description;
-    /**
-     * @var
-     */
+
+
     private $image;
+
+
+    private $video;
 
     /**
      * @var
      */
-    private $comment;
+    private $comments;
 
     /**
      * @var
@@ -54,23 +56,25 @@ class Trick
 
 
 
-    /**
-     * Trick constructor.
-     * @param null $name
-     * @param null $description
-     *
-     * @param null $updatedAt
-     * @throws \Exception
-     */
-    public function __construct($name = null, $description = null, $image = null, $author = null)
-    {
+
+    public function __construct(
+        $name = null,
+        $description = null,
+        //$image = null,
+        //$video = null,
+        $author = null,
+        $category = null
+    ) {
         $this->id = Uuid::uuid4();
         $this->name = $name;
         $this->description = $description;
-        $this->image = $image;
+        //$this->image = $image;
+        //$this->video = $video;
         $this->author = $author;
         $this->createdAt = new \DateTime();
         $this->updatedAt = null;
+        $this->comments = new ArrayCollection();
+        $this->category = $category;
     }
 
     /**
@@ -134,84 +138,11 @@ class Trick
     }
 
     /**
-     * Get the value of image
-     */ 
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Set the value of image
-     *
-     * @return  self
-     */ 
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-
-
-    /**
-     * Get the value of comment
-     */ 
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    /**
-     * Set the value of comment
-     *
-     * @return  self
-     */ 
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
     {
         return $this->comments;
-    }
-
-    /**
-     * @param Comment $comment
-     * @return Trick
-     */
-    public function addComment(Comment $comments): self
-    {
-        if (!$this->comment->contains($comments)) {
-            $this->comment[] = $comments;
-            $comments->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Comment $comment
-     * @return Trick
-     */
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comment->contains($comment)) {
-            $this->comment->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getTrick() === $this) {
-                $comment->setTrick(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
@@ -286,5 +217,32 @@ class Trick
         $this->category = $category;
     }
 
+    /**
+     * @return array|null
+     */
+    public function getImage(): ?array
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param array|null $image
+     */
+    public function setImage(?array $image): void
+    {
+        $this->image = $image;
+    }
+
+
+    public function getVideo(): ?array
+    {
+        return $this->video;
+    }
+
+
+    public function setVideo(?array $video): void
+    {
+        $this->video = $video;
+    }
 
 }

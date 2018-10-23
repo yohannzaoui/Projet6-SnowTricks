@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\UI\Form\Handler\Interfaces\ProfilTypeHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use App\UI\Form\ProfilType;
+use App\UI\Form\AddImageProfilType;
 
 
 class ProfilAction
@@ -34,7 +34,7 @@ class ProfilAction
      */
     public function __invoke(Request $request, ProfilActionResponderInterface $responder)
     {
-        $form = $this->formFactory->create(ProfilType::class)->handleRequest($request);
+        $form = $this->formFactory->create(AddImageProfilType::class)->handleRequest($request);
 
         $security = $this->container->get('security.token_storage');
 

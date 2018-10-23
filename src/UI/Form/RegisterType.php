@@ -30,19 +30,25 @@ class RegisterType extends AbstractType implements RegisterTypeInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add('username', TextType::class, [
                 'required' => true
             ])
+
             ->add('email', EmailType::class, [
                 'required' => true
             ])
+
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
                 'first_options' => ['label' => 'Votre mot de passe*'],
                 'second_options' => ['label' => 'Confirmez votre mot de passe*'],
             ])
-            ->add('image', TextType::class, [
+
+            //->add('image', FileType::class)
+
+            ->add('image', ImageUserType::class, [
                 'required' => false
             ]);
     }
@@ -59,8 +65,8 @@ class RegisterType extends AbstractType implements RegisterTypeInterface
                 return new newUserDTO(
                     $form->get('username')->getData(),
                     $form->get('email')->getData(),
-                    $form->get('image')->getData(),
-                    $form->get('password')->getData()
+                    $form->get('password')->getData(),
+                    $form->get('image')->getData()
                 );
             }
         ]);

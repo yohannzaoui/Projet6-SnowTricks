@@ -8,24 +8,31 @@
 
 namespace App\Domain\Builder;
 
+use App\Domain\Builder\Interfaces\ImageBuilderInterface;
 use App\Domain\Models\Image;
 
 
-class ImageBuilder
+/**
+ * Class ImageBuilder
+ * @package App\Domain\Builder
+ */
+class ImageBuilder implements ImageBuilderInterface
 {
+
     /**
      * @var
      */
     private $image;
 
+
     /**
-     * @param $image
+     * @param $fileName
      * @return $this
      * @throws \Exception
      */
-    public function create($image)
+    public function create($fileName)
     {
-        $this->image = new Image($image);
+        $this->image = new Image($fileName);
         return $this;
     }
 

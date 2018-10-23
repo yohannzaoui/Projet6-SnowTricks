@@ -13,9 +13,11 @@
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
 
 
-        <many-to-one field="trick" target-entity="App\Domain\Models\Trick" inversed-by="comment" >
+        <many-to-one field="trick" target-entity="App\Domain\Models\Trick" inversed-by="comments" >
             <join-column name="trick_id" referenced-column-name="id" />
         </many-to-one>
+
+        <many-to-one field="author" target-entity="App\Domain\Models\User" inversed-by="comments" />
 
     </entity>
 

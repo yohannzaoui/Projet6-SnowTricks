@@ -7,7 +7,7 @@
 
         <id name="id" type="uuid" column="id" />
 
-        <field name="fileName" column="filename" type="string" length="255" nullable="true" />
+        <field name="fileName" column="filename" type="string" length="255" nullable="false" />
 
     </entity>
 

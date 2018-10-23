@@ -3,20 +3,22 @@
 namespace App\UI\Form;
 
 use App\Domain\DTO\NewTrickDTO;
+use App\Domain\Models\Category;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\UI\Form\Interfaces\TrickTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+//use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  * Class AddTrickType
  * @package App\UI\Form
  */
-class TrickType extends AbstractType implements TrickTypeInterface
+class AddTrickType extends AbstractType implements TrickTypeInterface
 {
     /**
      * @param FormBuilderInterface $builder
@@ -26,13 +28,33 @@ class TrickType extends AbstractType implements TrickTypeInterface
     {
         $builder
             ->add('name', TextType::class)
+
             ->add('description', TextareaType::class)
-            ->add('image', FileType::class, [
+
+            ->add('image', AddImageTrickType::class, [
                 'required' => false
             ])
-            ->add('video', TextType::class)
-            ->add('category', CategoryNameType::class,[
+
+            /*->add('image', CollectionType::class, [
+                'entry_type' => AddImageTrickType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'by_reference' => false,
+                'entry_options' => [
+                    'required' => false
+                ]
+            ])*/
+
+            ->add('video', AddVideoTrickType::class, [
                 'required' => false
+            ])
+
+            ->add('category', EntityType::class,[
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'expanded' => false,
+                'multiple' => false
             ]);
     }
 
@@ -48,7 +70,8 @@ class TrickType extends AbstractType implements TrickTypeInterface
                     $form->get('name')->getdata(),
                     $form->get('description')->getdata(),
                     $form->get('image')->getdata(),
-                    $form->get('video')->getdata()
+                    $form->get('video')->getdata(),
+                    $form->get('category')->getData()
                 );
             }
         ]);

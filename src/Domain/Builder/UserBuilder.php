@@ -21,19 +21,15 @@ class UserBuilder implements UserBuilderInterface
      * @param $username
      * @param $password
      * @param $email
+     * @param $image
      * @param $token
      * @return $this|mixed
      * @throws \Exception
      */
-    public function createFromRegistration($username, $password, $email, $token)
+    public function createFromRegistration($username, $password, $email, ImageBuilder $image, $token)
     {
-        $this->user = new User($username, $password, $email, $token);
+        $this->user = new User($username, $password, $email, $image->getImage(), $token);
         return $this;
-    }
-
-    public function resetPassword($password)
-    {
-        $this->user = new User($password);
     }
 
     /**

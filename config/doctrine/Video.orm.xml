@@ -9,7 +9,5 @@
 
         <field name="url" column="url" type="string" length="255" nullable="true" />
 
-
-
     </entity>
 </doctrine-mapping>

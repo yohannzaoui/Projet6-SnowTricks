@@ -39,16 +39,16 @@
         <hr>
         <div class="col-lg-10 col-md-12 mx-auto">
             <h3>
-                {% if trick.comment | length == 0 %} 
+                {% if trick.comments | length == 0 %}
                     <h4 class="p_center">Aucun commentaire pour ce Trick. Soyez le premier à commenter.</h4> 
-                {% elseif trick.comment | length == 1 %}
-                    {{trick.comment | length}} Commentaire
+                {% elseif trick.comments | length == 1 %}
+                    {{trick.comments | length}} Commentaire
                 {% else %}
-                    {{trick.comment | length}} Commentaires
+                    {{trick.comments | length}} Commentaires
                 {% endif %}
             </h3>
 
-            {% for comment in trick.comment %}
+            {% for comment in trick.comments %}
                 <div class="alert alert-dismissible alert-secondary">
                     <p>{{ comment.pseudo }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
                     <p>A écrit : {{ comment.message }}</p>

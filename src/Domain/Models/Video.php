@@ -30,16 +30,51 @@ class Video
     private $url;
 
 
+
     /**
      * Video constructor.
      * @param $url
      * @throws \Exception
      */
-    public function __construct($url)
+    public function __construct($url = null)
     {
         $this->id = Uuid::uuid4();
         $this->url = $url;
     }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param UuidInterface $id
+     */
+    public function setId(UuidInterface $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param mixed $url
+     */
+    public function setUrl($url): void
+    {
+        $this->url = $url;
+    }
+
+
 
 
 }

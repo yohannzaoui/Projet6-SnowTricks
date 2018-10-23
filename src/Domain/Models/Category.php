@@ -19,24 +19,16 @@ class Category
      * @var
      */
     private $name;
-    /**
-     * @var
-     */
-    private $description;
-    /**
-     * @var
-     */
-    private $trick;
+
 
     /**
      * Category constructor.
      * @throws \Exception
      */
-    public function __construct($name = null, $description = null)
+    public function __construct($name)
     {
         $this->id = Uuid::uuid4();
         $this->name = $name;
-        $this->description = $description;
     }
 
     /**
@@ -79,43 +71,5 @@ class Category
         return $this;
     }
 
-    /**
-     * Get the value of trick
-     */ 
-    public function getTrick()
-    {
-        return $this->trick;
-    }
 
-    /**
-     * Set the value of trick
-     *
-     * @return  self
-     */ 
-    public function setTrick($trick)
-    {
-        $this->trick = $trick;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of description
-     */ 
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set the value of description
-     *
-     * @return  self
-     */ 
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 }

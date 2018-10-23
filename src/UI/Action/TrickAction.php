@@ -3,7 +3,7 @@
 namespace App\UI\Action;
 
 use App\Domain\Models\Trick;
-use App\UI\Form\CommentType;
+use App\UI\Form\AddCommentType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,7 +44,7 @@ class TrickAction implements TrickActionInterface
     {
         $trick = $manager->getRepository(Trick::class)->find($request->attributes->get('id'));
 
-        $form = $this->formFactory->create(CommentType::class)->handleRequest($request);
+        $form = $this->formFactory->create(AddCommentType::class)->handleRequest($request);
 
         if ($this->commentTypeHandler->handle($form, $trick)) {
             return $responder(true,$form, $trick, $request->attributes->get('id'));
