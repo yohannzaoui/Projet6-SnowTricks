@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\UI\Form\Handler;
 
+use App\Domain\Builder\Interfaces\ImageBuilderInterface;
+use App\Domain\Builder\Interfaces\VideoBuilderInterface;
 use App\Domain\Builder\TrickBuilder;
+use App\Domain\Repository\ImageRepository;
 use App\Domain\Repository\TrickRepository;
 use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Handler\Interfaces\AddTrickTypeHandlerInterface;
@@ -23,6 +26,11 @@ class AddTrickTypeHandler implements AddTrickTypeHandlerInterface
     private $trickRepository;
 
     /**
+     * @var ImageRepository
+     */
+    private $imageRepository;
+
+    /**
      * @var TrickBuilder
      */
     private $trickBuilder;
@@ -32,18 +40,41 @@ class AddTrickTypeHandler implements AddTrickTypeHandlerInterface
      */
     private $fileUploader;
 
+    /**
+     * @var ImageBuilderInterface
+     */
+    private $imageBuilder;
+
+    /**
+     * @var VideoBuilderInterface
+     */
+    private $videoBuilder;
+
 
     /**
      * AddTrickTypeHandler constructor.
+     * @param TrickRepository $trickRepository
+     * @param ImageRepository $imageRepository
+     * @param TrickBuilder $trickBuilder
+     * @param FileUploader $fileUploader
+     * @param ImageBuilderInterface $imageBuilder
+     * @param VideoBuilderInterface $videoBuilder
      */
     public function __construct(
         TrickRepository $trickRepository,
+        ImageRepository $imageRepository,
         TrickBuilder $trickBuilder,
-        FileUploader $fileUploader
+        FileUploader $fileUploader,
+        ImageBuilderInterface $imageBuilder,
+        VideoBuilderInterface $videoBuilder
+
     ) {
         $this->trickRepository = $trickRepository;
+        $this->imageRepository = $imageRepository;
         $this->trickBuilder = $trickBuilder;
         $this->fileUploader = $fileUploader;
+        $this->imageBuilder = $imageBuilder;
+        $this->videoBuilder = $videoBuilder;
     }
 
 
@@ -56,20 +87,23 @@ class AddTrickTypeHandler implements AddTrickTypeHandlerInterface
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
-            //$file = $form->getData()->image;
-            //$image = $this->fileUploader->upload($file);
-
 
             $this->trickBuilder->create(
                 $form->getData()->name,
                 $form->getData()->description,
+
+                $this->imageBuilder->create(
+                    $this->fileUploader->upload(
+                        $form->getData()->image->file)
+                ),
+                $this->videoBuilder->create(
+                    $form->getData()->video->url
+                ),
                 $form->getdata()->category
-                //$form->getData()->image,
-                //$form->getData()->video
             );
 
-
             $this->trickRepository->save($this->trickBuilder->getTrick());
+            $this->imageRepository->save($this->imageBuilder->getImage());
 
             return true;
         }

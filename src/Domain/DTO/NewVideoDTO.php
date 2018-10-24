@@ -9,10 +9,21 @@
 namespace App\Domain\DTO;
 
 
+/**
+ * Class NewVideoDTO
+ * @package App\Domain\DTO
+ */
 class NewVideoDTO
 {
+    /**
+     * @var
+     */
     public $url;
 
+    /**
+     * NewVideoDTO constructor.
+     * @param $url
+     */
     public function __construct($url)
     {
         $this->url = $url;

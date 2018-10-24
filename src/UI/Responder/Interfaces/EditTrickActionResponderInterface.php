@@ -29,6 +29,6 @@ interface EditTrickActionResponderInterface
      * @param FormInterface $form
      * @return mixed
      */
-    public function __invoke(FormInterface $form, $trick, $redirect = false);
+    public function __invoke(FormInterface $form, $redirect = false);
 
 }

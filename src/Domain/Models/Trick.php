@@ -27,9 +27,15 @@ class Trick
     private $description;
 
 
+    /**
+     * @var Image
+     */
     private $image;
 
 
+    /**
+     * @var Video
+     */
     private $video;
 
     /**
@@ -55,22 +61,30 @@ class Trick
     private $updatedAt;
 
 
-
-
+    /**
+     * Trick constructor.
+     * @param null $name
+     * @param null $description
+     * @param Image|null $image
+     * @param Video|null $video
+     * @param null $author
+     * @param null $category
+     * @throws \Exception
+     */
     public function __construct(
         $name = null,
         $description = null,
-        //$image = null,
-        //$video = null,
-        $author = null,
+        Image $image = null,
+        Video $video = null,
+        //User $author = null,
         $category = null
     ) {
         $this->id = Uuid::uuid4();
         $this->name = $name;
         $this->description = $description;
-        //$this->image = $image;
-        //$this->video = $video;
-        $this->author = $author;
+        $this->image = $image;
+        $this->video = $video;
+        //$this->author = $author;
         $this->createdAt = new \DateTime();
         $this->updatedAt = null;
         $this->comments = new ArrayCollection();
@@ -217,10 +231,8 @@ class Trick
         $this->category = $category;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getImage(): ?array
+
+    public function getImage()
     {
         return $this->image;
     }
@@ -228,19 +240,21 @@ class Trick
     /**
      * @param array|null $image
      */
-    public function setImage(?array $image): void
+    public function setImage($image): void
     {
         $this->image = $image;
     }
 
 
-    public function getVideo(): ?array
+
+    public function getVideo()
     {
         return $this->video;
     }
 
 
-    public function setVideo(?array $video): void
+
+    public function setVideo($video): void
     {
         $this->video = $video;
     }

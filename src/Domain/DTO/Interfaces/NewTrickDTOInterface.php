@@ -9,18 +9,21 @@
 namespace App\Domain\DTO\Interfaces;
 
 
+use App\Domain\DTO\NewImageDTO;
+use App\Domain\DTO\NewVideoDTO;
+
 /**
  * Interface NewTrickDTOInterface
  * @package App\Domain\DTO\Interfaces
  */
 interface NewTrickDTOInterface
 {
-    /**
-     * NewTrickDTOInterface constructor.
-     * @param null $name
-     * @param null $description
-     * @param null $image
-     * @param null $video
-     */
-    public function __construct($name = null, $description = null, $image = null, $video = null);
+
+    public function __construct(
+        $name = null,
+        $description = null,
+        NewImageDTO $image = null,
+        NewVideoDTO $video = null,
+        $category = null
+    );
 }

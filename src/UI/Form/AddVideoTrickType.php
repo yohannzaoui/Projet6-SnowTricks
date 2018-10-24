@@ -9,7 +9,7 @@
 namespace App\UI\Form;
 
 
-use App\Domain\Models\Video;
+use App\Domain\DTO\NewVideoDTO;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,14 +22,19 @@ class AddVideoTrickType extends AbstractType
     {
         $builder
             ->add('url', TextType::class, [
-                'label' => 'Copiez collez l\'url de la video du trick (plusieurs choix possible)',
+                'label' => 'Copiez collez l\'url de la video du trick (plusieurs URLs possible)',
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Video::class
+            'data_class' => NewVideoDTO::class,
+            'empty_data' => function (FormInterface $form) {
+                return new NewVideoDTO(
+                    $form->get('url')->getData()
+                );
+            }
         ]);
     }
 

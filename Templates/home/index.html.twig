@@ -11,7 +11,7 @@
         {% for trick in tricks %}
             <div class="col-lg-2 col-md-10 mx-auto">
                   <div class="card mb-3">
-                    <img  src="{{trick.image}}" class="img-fluid" alt="Responsive image" alt="Card image">
+                    <img  src="{{asset(trick.image.getImage)}}" class="img-fluid" alt="Responsive image" alt="Card image">
                         <div class="card-footer">
                             <div class="container-fluid">
                                 <div class="row">

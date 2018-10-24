@@ -50,9 +50,7 @@ class EditTrickTypeHandler implements EditTrickTypeHandlerInterface
     {
        if ($form->isSubmitted() && $form->isValid()){
 
-           $this->trickBuilder->create($form->getData()->name, $form->getData()->description, $form->getData()->image, $form->getData()->video);
 
-           $this->trickRepository->update();
 
            return true;
        }

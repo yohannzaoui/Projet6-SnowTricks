@@ -8,7 +8,8 @@
 
 namespace App\UI\Action;
 
-use App\Domain\DTO\NewTrickDTO;
+//use App\Domain\DTO\NewTrickDTO;
+use App\Domain\Models\Trick;
 use App\Domain\Repository\TrickRepository;
 use App\UI\Form\UpdateTrickType;
 use App\UI\Responder\Interfaces\EditTrickActionResponderInterface;
@@ -63,12 +64,12 @@ class EditTrickAction
         if ($request->attributes->get('id')){
 
             $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
+            dd($trick);
 
-            $form = $this->formFactory->create(UpdateTrickType::class, $trick)->handleRequest($request);
-
+            $form = $this->formFactory->create(UpdateTrickType::class, $trick);
             if ($this->editTrickTypeHandler->handle($form)){
                 return $responder($form, true);
             }
-        } return $responder($form, $trick, false);
+        } return $responder($form, false);
     }
 }

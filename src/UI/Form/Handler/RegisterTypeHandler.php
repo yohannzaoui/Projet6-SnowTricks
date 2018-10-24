@@ -66,6 +66,9 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
      */
     private $imageRepository;
 
+    /**
+     * @var FileUploaderInterface
+     */
     private $fileUploader;
 
 
@@ -119,9 +122,6 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //($form->getData());
-            $filename = $this->fileUploader->upload($form->getData()->image->file);
-
             $password = $this->encoderFactory->getEncoder(
                 User::class)->encodePassword(
                     $form->getData()->password, null
@@ -129,16 +129,15 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
 
             $token = md5(uniqid());
 
-
-
             $this->userBuilder->createFromRegistration(
                 $form->getData()->username,
                 $password,
                 $form->getData()->email,
-                $this->imageBuilder->create($filename),
+                $this->imageBuilder->create(
+                    $this->fileUploader->upload(
+                        $form->getData()->image->file)),
                 $token
             );
-
 
 
             $this->userRepository->save($this->userBuilder->getUser());
@@ -155,7 +154,8 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
 
             $this->mailer->send($email);
 
-            $this->messageFlash->getFlashBag()->add('register','Un email à l\'adresse ' .$form->getData()->email. ' vient de vous être envoyez pour la validation de votre compte');
+            $this->messageFlash->getFlashBag()->add(
+                'register','Un email à l\'adresse ' .$form->getData()->email. ' vient de vous être envoyez pour la validation de votre compte');
 
             return true;
         }

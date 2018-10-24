@@ -2,6 +2,7 @@
 
 namespace App\UI\Action;
 
+use App\Domain\Repository\CommentRepository;
 use App\Domain\Repository\TrickRepository;
 use App\UI\Responder\DeleteTrickResponder;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +18,14 @@ class DeleteTrickAction implements DeleteTrickActionInterface
 {
     private $trickRepository;
 
-    public function __construct(TrickRepository $trickRepository)
-    {
+    private $commentRepository;
+
+    public function __construct(
+        TrickRepository $trickRepository,
+        CommentRepository $commentRepository
+    ) {
         $this->trickRepository = $trickRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -31,7 +37,7 @@ class DeleteTrickAction implements DeleteTrickActionInterface
 
         if($request->get('id')){
 
-            $this->trickRepository->delete($request->get('id'));
+            $this->trickRepository->delete($request->attributes->get('id'));
 
             return $responder();
         }

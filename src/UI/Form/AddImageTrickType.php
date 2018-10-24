@@ -18,7 +18,7 @@ class AddImageTrickType extends AbstractType
                 'label' => 'Images du Trick (plusieurs choix possible)',
                 'attr' => [
                     'accept' => '.png, .jpeg, .jpg'
-                ]
+                ],
             ]);
     }
 

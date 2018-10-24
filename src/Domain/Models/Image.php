@@ -73,6 +73,11 @@ class Image
         $this->fileName = $fileName;
     }
 
+    public function getImage()
+    {
+        return 'uploads/images/'. $this->fileName;
+    }
+
 
 
 

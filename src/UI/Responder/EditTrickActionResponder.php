@@ -43,13 +43,12 @@ class EditTrickActionResponder implements EditTrickActionResponderInterface
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke(FormInterface $form, $trick,$redirect = false)
+    public function __invoke(FormInterface $form, $redirect = false)
     {
         $redirect
             ? $response = new RedirectResponse('/')
             : $response = New Response($this->twig->render('update_trick/index.html.twig', [
             'form' => $form->createView(),
-            'trick' => $trick
         ]), 200);
         return $response;
 

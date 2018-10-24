@@ -37,9 +37,17 @@
             </order-by>
         </one-to-many>
 
-        <many-to-one field="image" target-entity="App\Domain\Models\Image"/>
+        <many-to-one field="image" target-entity="App\Domain\Models\Image">
+        <cascade>
+            <cascade-persist/>
+        </cascade>
+        </many-to-one>
 
-        <many-to-one field="video" target-entity="App\Domain\Models\Video"/>
+        <many-to-one field="video" target-entity="App\Domain\Models\Video">
+        <cascade>
+            <cascade-persist/>
+        </cascade>
+        </many-to-one>
 
 
 
