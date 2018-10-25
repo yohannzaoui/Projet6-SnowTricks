@@ -33,8 +33,6 @@ class Comment
      */
     private $trick;
 
-    private $author;
-
 
     /**
      * Comment constructor.
@@ -43,14 +41,13 @@ class Comment
      * @param null $trick
      * @throws \Exception
      */
-    public function __construct($pseudo = null, $message = null, $trick = null, User $author = null)
+    public function __construct($pseudo = null, $message = null, $trick = null)
     {
         $this->id = Uuid::uuid4();
         $this->pseudo = $pseudo;
         $this->message = $message;
         $this->createdAt = new \DateTime();
         $this->trick = $trick;
-        $this->author = $author;
     }
 
 
@@ -153,22 +150,4 @@ class Comment
 
         return $this;
     }
-
-    /**
-     * @return User
-     */
-    public function getAuthor(): User
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param User $author
-     */
-    public function setAuthor(User $author): void
-    {
-        $this->author = $author;
-    }
-
-
 }

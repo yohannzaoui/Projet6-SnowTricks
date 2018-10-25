@@ -25,12 +25,14 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
+
     /**
      * @return mixed
      */
     public function getAllTricks()
     {
-        return $this->createQueryBuilder('trick')
+        return $this->createQueryBuilder('t')
+                     ->orderBy('t.createdAt','DESC')
                      ->getQuery()
                      ->getResult();
     }
@@ -71,6 +73,10 @@ class TrickRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function delete($id)
     {
         return $this->_em->createQueryBuilder()

@@ -10,22 +10,12 @@ use App\Domain\DTO\Interfaces\NewTrickDTOInterface;
  */
 class NewTrickDTO implements NewTrickDTOInterface
 {
-    /**
-     * @var null
-     */
+
     public $name;
-
-
-    /**
-     * @var null
-     */
+    
     public $description;
 
-
-
     public $image;
-
-
 
     public $video;
 

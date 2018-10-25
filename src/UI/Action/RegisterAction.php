@@ -54,14 +54,11 @@ class RegisterAction implements RegisterActionInterface
     {
         $form = $this->formFactory->create(RegisterType::class)->handleRequest($request);
 
-
         if ($this->registerTypeHandler->handle($form)) {
 
             return $responder(true, $form);
         }
         return $responder(false,$form);
-
-
 
     }
 }

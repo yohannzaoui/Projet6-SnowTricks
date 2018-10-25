@@ -34,7 +34,7 @@ class ForgotPasswordType extends AbstractType implements ForgotPasswordTypeInter
         $resolver->setDefaults([
             'data_class' => NewUserDTO::class,
             'empty_data' => function (FormInterface $form) {
-                return new newUserDTO(
+                return new NewUserDTO(
                     $form->get('email')->getdata()
                 );
             }

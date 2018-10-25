@@ -10,7 +10,6 @@ namespace App\UI\Form;
 
 use App\Domain\DTO\NewTrickDTO;
 use Symfony\Component\Form\AbstractType;
-
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Domain\Models\Category;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -64,6 +63,8 @@ class UpdateTrickType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-
+        $resolver->setDefault([
+            'data_class' => NewTrickDTO::class
+        );
     }
 }

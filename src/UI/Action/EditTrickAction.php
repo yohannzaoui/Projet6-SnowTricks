@@ -64,7 +64,7 @@ class EditTrickAction
         if ($request->attributes->get('id')){
 
             $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
-            dd($trick);
+            //dd($trick);
 
             $form = $this->formFactory->create(UpdateTrickType::class, $trick);
             if ($this->editTrickTypeHandler->handle($form)){

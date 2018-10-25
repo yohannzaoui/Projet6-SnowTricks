@@ -32,6 +32,33 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         // TODO: Implement loadUserByUsername() method.
     }
 
+
+    /**
+     * @param $id
+     * @return \Doctrine\ORM\Query
+     */
+    public function getUser($id)
+    {
+        return $this->createQueryBuilder('u')
+                    ->where('u.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery();
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getAllUsersForAdmin()
+    {
+        return $this->createQueryBuilder('u')
+                    //->where('u.roles = ?1')
+                    //->setParameter(1, "ROLE_USER")
+                    ->orderBy('u.createdAt','DESC')
+                    ->getQuery()
+                    ->getResult();
+    }
+
     /**
      * @param $token
      * @return mixed
@@ -75,6 +102,10 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
 
+    /**
+     * @param $token
+     * @param $password
+     */
     public function resetPassword($token, $password)
     {
         $qb = $this->createQueryBuilder('user');
@@ -113,6 +144,20 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
              ->setParameter(2, $email);
          $q= $qb->getQuery();
          $q->execute();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id)
+    {
+        return $this->_em->createQueryBuilder()
+            ->delete(User::class, 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->execute();
     }
 
 
