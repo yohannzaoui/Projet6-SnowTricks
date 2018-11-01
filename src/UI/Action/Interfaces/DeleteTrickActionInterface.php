@@ -2,6 +2,7 @@
 
 namespace App\UI\Action\Interfaces;
 
+use App\Domain\Repository\TrickRepository;
 use App\UI\Responder\DeleteTrickResponder;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -11,6 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
  */
 interface DeleteTrickActionInterface
 {
+
+    /**
+     * DeleteTrickActionInterface constructor.
+     * @param TrickRepository $trickRepository
+     */
+    public function __construct(
+        TrickRepository $trickRepository
+    );
 
     /**
      *

@@ -46,9 +46,7 @@ class RegisterType extends AbstractType implements RegisterTypeInterface
                 'second_options' => ['label' => 'Confirmez votre mot de passe*'],
             ])
 
-            //->add('image', FileType::class)
-
-            ->add('image', ImageUserType::class, [
+            ->add('profilImage', ImageUserType::class, [
                 'required' => false
             ]);
     }
@@ -66,7 +64,7 @@ class RegisterType extends AbstractType implements RegisterTypeInterface
                     $form->get('username')->getData(),
                     $form->get('email')->getData(),
                     $form->get('password')->getData(),
-                    $form->get('image')->getData()
+                    $form->get('profilImage')->getData()
                 );
             }
         ]);

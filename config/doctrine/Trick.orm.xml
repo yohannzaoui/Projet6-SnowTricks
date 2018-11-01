@@ -11,14 +11,11 @@
 
         <id name="id" type="uuid" column="id" />
 
+        <field name="author" column="author" type="string" length="255" nullable="false" />
         <field name="name" column="name" type="string" length="255" nullable="false" unique="true" />
         <field name="description" column="description" type="text"  nullable="false" />
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
-
-        <many-to-one field="author" target-entity="App\Domain\Models\User" inversed-by="tricks">
-            <join-column nullable="true" />
-        </many-to-one>
 
         
         <many-to-one field="category" target-entity="App\Domain\Models\Category">
@@ -37,19 +34,46 @@
             </order-by>
         </one-to-many>
 
-        <many-to-one field="image" target-entity="App\Domain\Models\Image">
-        <cascade>
-            <cascade-persist/>
-        </cascade>
-        </many-to-one>
 
-        <many-to-one field="video" target-entity="App\Domain\Models\Video">
-        <cascade>
-            <cascade-persist/>
-        </cascade>
-        </many-to-one>
+        <many-to-many field="images" target-entity="App\Domain\Models\Image" orphan-removal="true" fetch="EXTRA_LAZY">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-table name="tricks_images">
+                <join-columns>
+                    <join-column name="trick_id" referenced-column-name="id" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="image_id" referenced-column-name="id" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
 
 
+        <many-to-many field="videos" target-entity="App\Domain\Models\Video" orphan-removal="true" fetch="EXTRA_LAZY">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-table name="tricks_videos">
+                <join-columns>
+                    <join-column name="trick_id" referenced-column-name="id" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="video_id" referenced-column-name="id" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+
+        <one-to-one field="defaultImage" target-entity="App\Domain\Models\Image" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-column name="default_image_id" referenced-column-name="id" />
+        </one-to-one>
 
     </entity>
 

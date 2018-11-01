@@ -5,6 +5,7 @@ namespace App\UI\Form;
 use App\Domain\DTO\NewTrickDTO;
 use App\Domain\Models\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\UI\Form\Interfaces\TrickTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-//use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  * Class AddTrickType
@@ -27,26 +27,25 @@ class AddTrickType extends AbstractType implements TrickTypeInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('author', HiddenType::class)
 
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, [
+                'required' => true
+            ])
 
-            ->add('image', AddImageTrickType::class, [
+            ->add('description', TextareaType::class, [
+                'required' => true
+            ])
+
+            ->add('defaultImage', AddDefaultImageTrickType::class, [
+                'required' => true
+            ])
+
+            ->add('images', AddImageTrickType::class, [
                 'required' => false
             ])
 
-            /*->add('image', CollectionType::class, [
-                'entry_type' => AddImageTrickType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'by_reference' => false,
-                'entry_options' => [
-                    'required' => false
-                ]
-            ])*/
-
-            ->add('video', AddVideoTrickType::class, [
+            ->add('videos', AddVideoTrickType::class, [
                 'required' => false
             ])
 
@@ -67,10 +66,12 @@ class AddTrickType extends AbstractType implements TrickTypeInterface
             'data_class' => NewTrickDTO::class,
             'empty_data' => function (FormInterface $form) {
                 return new NewTrickDTO(
+                    $form->get('author')->getData(),
                     $form->get('name')->getdata(),
                     $form->get('description')->getdata(),
-                    $form->get('image')->getdata(),
-                    $form->get('video')->getdata(),
+                    $form->get('defaultImage')->getData(),
+                    $form->get('images')->getdata(),
+                    $form->get('videos')->getdata(),
                     $form->get('category')->getData()
                 );
             }

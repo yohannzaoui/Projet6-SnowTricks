@@ -8,25 +8,27 @@
 
 namespace App\Domain\DTO;
 
+use App\Domain\DTO\Interfaces\NewVideoDTOInterface;
+
 
 /**
  * Class NewVideoDTO
  * @package App\Domain\DTO
  */
-class NewVideoDTO
+class NewVideoDTO implements NewVideoDTOInterface
 {
     /**
      * @var
      */
-    public $url;
+    public $urls;
 
     /**
      * NewVideoDTO constructor.
-     * @param $url
+     * @param $urls
      */
-    public function __construct($url)
+    public function __construct(array $urls = [])
     {
-        $this->url = $url;
+        $this->urls = $urls;
     }
 
     /**
@@ -34,7 +36,7 @@ class NewVideoDTO
      */
     public function getUrl()
     {
-        return $this->url;
+        return $this->urls;
     }
 
 

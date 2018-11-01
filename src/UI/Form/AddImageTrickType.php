@@ -15,10 +15,11 @@ class AddImageTrickType extends AbstractType
     {
         $builder
             ->add('fileName', FileType::class, [
-                'label' => 'Images du Trick (plusieurs choix possible)',
+                'label' => 'Images supplémentaires (plusieurs choix possible)',
                 'attr' => [
                     'accept' => '.png, .jpeg, .jpg'
                 ],
+                'multiple' => true
             ]);
     }
 

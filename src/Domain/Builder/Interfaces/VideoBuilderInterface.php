@@ -9,9 +9,21 @@
 namespace App\Domain\Builder\Interfaces;
 
 
+/**
+ * Interface VideoBuilderInterface
+ * @package App\Domain\Builder\Interfaces
+ */
 interface VideoBuilderInterface
 {
-    public function create($url);
 
-    public function getVideo();
+    /**
+     * @return mixed
+     */
+    public function getVideos();
+
+    /**
+     * @param array $urls
+     * @return mixed
+     */
+    public function createFromArray(array $urls);
 }

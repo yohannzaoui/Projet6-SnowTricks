@@ -8,9 +8,24 @@
                 <h1>Ajouter un Trick</h1>
             <div class="row">
                 <div class="col-lg-6 col-md-10 mx-auto">
-                    {% form_theme form 'theme/addtricktype.html.twig'%}
-                    {{form(form)}}
+
+                    {{ form_start(form) }}
+                    {{ form_row(form.author, {'value':app.user.username}) }}
+                    {{ form_row(form.name, {'label':'Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
+                    {{ form_row(form.defaultImage, {'label' : 'Image principale'}) }}
+                    {{ form_row(form.images) }}
+                    {{ form_row(form.videos, {'label':'Vidéo'}) }}
+                    {{ form_row(form.description, {'label':'Déscription du Trick'}) }}
+                    {{ form_row(form.category, {'label':'Catégorie'} ) }}
+                    <p>
+                        <button type="submit" class="btn btn-success">Ajouter</button>
+                        <button type="reset" class="btn btn-danger">Effacer</button>
+                    </p>
+                    {{ form_end(form) }}
+
+
                 </div>
             </div>
     </div>
+
 {% endblock body %}

@@ -10,9 +10,6 @@ declare(strict_types = 1);
 namespace App\Domain\DTO;
 
 
-
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 /**
  * Class NewImageDTO
  * @package App\Domain\DTO
@@ -20,19 +17,17 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class NewImageDTO
 {
 
-    /**
-     * @var \SplFileInfo
-     */
-    public $file;
+
+    public $files;
 
 
     /**
      * NewImageDTO constructor.
-     * @param UploadedFile $file
+     * @param
      */
-    public function __construct(UploadedFile $file)
+    public function __construct(array $files = [])
     {
-        $this->file = $file;
+        $this->files = $files;
     }
 
 
@@ -41,6 +36,6 @@ class NewImageDTO
      */
     public function getFileName()
     {
-        return $this->file;
+        return $this->files;
     }
 }

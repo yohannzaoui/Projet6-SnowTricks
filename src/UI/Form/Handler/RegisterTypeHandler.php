@@ -62,11 +62,6 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
     private $imageBuilder;
 
     /**
-     * @var ImageRepository
-     */
-    private $imageRepository;
-
-    /**
      * @var FileUploaderInterface
      */
     private $fileUploader;
@@ -83,6 +78,7 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
      * @param SessionInterface $messageFlash
      * @param ImageBuilderInterface $imageBuilder
      * @param ImageRepository $imageRepository
+     * @param FileUploaderInterface $fileUploader
      */
     public function __construct(
         UserRepository $userRepository,
@@ -93,7 +89,6 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
         Environment $twig,
         SessionInterface $messageFlash,
         ImageBuilderInterface $imageBuilder,
-        ImageRepository $imageRepository,
         FileUploaderInterface $fileUploader
     ) {
         $this->userRepository = $userRepository;
@@ -104,7 +99,6 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
         $this->twig = $twig;
         $this->messageFlash = $messageFlash;
         $this->imageBuilder = $imageBuilder;
-        $this->imageRepository = $imageRepository;
         $this->fileUploader = $fileUploader;
     }
 
@@ -129,21 +123,20 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
 
             $token = md5(uniqid());
 
+            $file = $this->fileUploader->upload(
+                $form->getData()->profilImage->file);
+
+            $profileImage = $this->imageBuilder->createProfileImage($file);
+
             $this->userBuilder->createFromRegistration(
                 $form->getData()->username,
                 $password,
                 $form->getData()->email,
-                $this->imageBuilder->create(
-                    $this->fileUploader->upload(
-                        $form->getData()->image->file)),
-                $token
+                $token,
+                $profileImage
             );
 
-
             $this->userRepository->save($this->userBuilder->getUser());
-
-            $this->imageRepository->save($this->imageBuilder->getImage());
-
 
             $email = $this->mail->mail('Validation de votre compte Snow Tricks',
                 ['register@snowtrick.com' => 'Inscription à Snow Tricks'],

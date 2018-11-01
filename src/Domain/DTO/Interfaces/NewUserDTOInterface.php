@@ -8,7 +8,7 @@
 
 namespace App\Domain\DTO\Interfaces;
 
-use App\Domain\DTO\NewImageDTO;
+use App\Domain\DTO\NewProfilImageDTO;
 
 /**
  * Interface NewUserDTOInterface
@@ -18,5 +18,17 @@ interface NewUserDTOInterface
 {
 
 
-    public function __construct($username, $password, $email, NewImageDTO $image);
+    /**
+     * NewUserDTOInterface constructor.
+     * @param $username
+     * @param $password
+     * @param $email
+     * @param NewProfilImageDTO $profilImage
+     */
+    public function __construct(
+        $username,
+        $password,
+        $email,
+        NewProfilImageDTO $profilImage
+    );
 }

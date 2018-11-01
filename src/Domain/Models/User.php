@@ -2,6 +2,7 @@
 
 namespace App\Domain\Models;
 
+use App\Domain\Models\Interfaces\ImageInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,22 +19,27 @@ class User implements UserInterface
      * @var UuidInterface
      */
     private $id;
+
     /**
      * @var null
      */
     private $username;
+
     /**
      * @var
      */
     private $password;
+
     /**
      * @var null
      */
     private $email;
+
     /**
      * @var \DateTime
      */
     private $createdAt;
+
     /**
      * @var null
      */
@@ -50,28 +56,26 @@ class User implements UserInterface
     private $resetPasswordToken;
 
     /**
-     * @var
+     * @var ArrayCollection
      */
     private $comments;
 
     /**
-     * @var
+     * @var ArrayCollection
      */
     private $tricks;
 
-
     /**
-     * @var
+     * @var ImageInterface
      */
-    private $image;
-
+    private $profilImage;
 
     /**
      * User constructor.
      * @param $username
      * @param $password
      * @param $email
-     * @param $image
+     * @param ImageInterface $profilImage
      * @param $token
      * @throws \Exception
      */
@@ -79,14 +83,14 @@ class User implements UserInterface
         $username,
         $password,
         $email,
-        Image $image,
-        $token
+        $token,
+        ImageInterface $profilImage = null
     ) {
         $this->id = Uuid::uuid4();
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
-        $this->image = $image;
+        $this->profilImage = $profilImage;
         $this->token = $token;
         $this->createdAt = new \DateTime;
         $this->comments = new ArrayCollection();
@@ -118,7 +122,7 @@ class User implements UserInterface
     /**
      * Get the value of pseudo
      */ 
-    public function getUsername()
+    public function getUsername():string
     {
         return $this->username;
     }
@@ -127,7 +131,7 @@ class User implements UserInterface
     /**
      * Get the value of password
      */ 
-    public function getPassword()
+    public function getPassword():string
     {
         return $this->password;
     }
@@ -136,7 +140,7 @@ class User implements UserInterface
     /**
      * Get the value of email
      */ 
-    public function getEmail()
+    public function getEmail():string
     {
         return $this->email;
     }
@@ -221,14 +225,6 @@ class User implements UserInterface
     }
 
     /**
-     * @param mixed $trick
-     */
-    public function setTricks($tricks): void
-    {
-        $this->tricks = $tricks;
-    }
-
-    /**
      * @return mixed
      */
     public function getComments()
@@ -237,27 +233,11 @@ class User implements UserInterface
     }
 
     /**
-     * @param mixed $comments
-     */
-    public function setComments($comments): void
-    {
-        $this->comments = $comments;
-    }
-
-    /**
      * @return mixed
      */
-    public function getImage()
+    public function getProfilImage():? ImageInterface
     {
-        return $this->image;
-    }
-
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image): void
-    {
-        $this->image = $image;
+        return $this->profilImage;
     }
 
 

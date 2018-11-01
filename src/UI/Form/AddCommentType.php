@@ -4,6 +4,7 @@ namespace App\UI\Form;
 
 use App\Domain\DTO\NewCommentDTO;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Interfaces\CommentTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +25,7 @@ class AddCommentType extends AbstractType implements CommentTypeInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo', TextType::class)
+            ->add('pseudo', HiddenType::class)
             ->add('message', TextareaType::class);
     }
 

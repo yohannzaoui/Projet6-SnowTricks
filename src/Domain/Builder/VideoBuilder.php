@@ -21,24 +21,31 @@ class VideoBuilder implements VideoBuilderInterface
     /**
      * @var
      */
-    private $video;
+    private $videos;
+
 
     /**
-     * @param $url
-     * @return $this
+     * @param array $urls
+     * @return array|mixed
      * @throws \Exception
      */
-    public function create($url)
+    function createFromArray(array $urls)
     {
-      $this->video = new Video($url);
-      return $this;
+        $videos = [];
+
+        foreach ($urls as $url) {
+            $videos[] = new Video($url);
+        }
+        return $videos;
     }
 
     /**
      * @return mixed
      */
-    public function getVideo()
+    public function getVideos()
     {
-        return $this->video;
+        return $this->videos;
     }
+
+
 }

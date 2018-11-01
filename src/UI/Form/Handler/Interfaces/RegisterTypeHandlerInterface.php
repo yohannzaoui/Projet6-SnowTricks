@@ -31,7 +31,6 @@ interface RegisterTypeHandlerInterface
      * @param Environment $twig
      * @param SessionInterface $messageFlash
      * @param ImageBuilderInterface $imageBuilder
-     * @param ImageRepository $imageRepository
      * @param FileUploaderInterface $fileUploader
      */
     public function __construct(
@@ -43,7 +42,6 @@ interface RegisterTypeHandlerInterface
         Environment $twig,
         SessionInterface $messageFlash,
         ImageBuilderInterface $imageBuilder,
-        ImageRepository $imageRepository,
         FileUploaderInterface $fileUploader
     );
 

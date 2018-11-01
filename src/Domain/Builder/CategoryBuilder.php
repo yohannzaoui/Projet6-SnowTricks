@@ -9,13 +9,14 @@
 namespace App\Domain\Builder;
 
 
+use App\Domain\Builder\Interfaces\CategoryBuilderInterface;
 use App\Domain\Models\Category;
 
 /**
  * Class CategoryBuilder
  * @package App\Domain\Builder
  */
-class CategoryBuilder
+class CategoryBuilder implements CategoryBuilderInterface
 {
     /**
      * @var

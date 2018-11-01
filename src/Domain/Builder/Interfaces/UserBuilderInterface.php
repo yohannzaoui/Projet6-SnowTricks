@@ -9,7 +9,7 @@
 namespace App\Domain\Builder\Interfaces;
 
 
-use App\Domain\Builder\ImageBuilder;
+use App\Domain\Models\Interfaces\ImageInterface;
 
 /**
  * Interface UserBuilderInterface
@@ -26,7 +26,7 @@ interface UserBuilderInterface
      * @param $token
      * @return mixed
      */
-    public function createFromRegistration($username, $password, $email, ImageBuilder $image, $token);
+    public function createFromRegistration($username, $password, $email, $token, ImageInterface $image);
 
 
     /**

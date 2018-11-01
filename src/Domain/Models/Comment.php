@@ -41,7 +41,7 @@ class Comment
      * @param null $trick
      * @throws \Exception
      */
-    public function __construct($pseudo = null, $message = null, $trick = null)
+    public function __construct($pseudo, $message, $trick)
     {
         $this->id = Uuid::uuid4();
         $this->pseudo = $pseudo;

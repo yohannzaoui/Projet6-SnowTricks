@@ -9,8 +9,7 @@
 namespace App\Domain\Builder;
 
 
-use App\Domain\Builder\Interfaces\ImageBuilderInterface;
-use App\Domain\Builder\Interfaces\VideoBuilderInterface;
+use App\Domain\Builder\Interfaces\TrickBuilderInterface;
 use App\Domain\Models\Category;
 use App\Domain\Models\Trick;
 
@@ -18,25 +17,24 @@ use App\Domain\Models\Trick;
  * Class TrickBuilder
  * @package App\Domain\Builder
  */
-class TrickBuilder
+class TrickBuilder implements TrickBuilderInterface
 {
-    /**
-     * @var
-     */
     private $trick;
 
-
     /**
+     * @param $author
      * @param $name
      * @param $description
-     * @param $image
-     * @param $video
+     * @param $defaultImage
+     * @param array $images
+     * @param array $videos
+     * @param Category $category
      * @return $this
      * @throws \Exception
      */
-    public function create($name, $description, ImageBuilderInterface $image, VideoBuilderInterface $video, Category $category)
+    public function create($author, $name, $description, $defaultImage, array $images, array $videos, Category $category)
     {
-        $this->trick = new Trick($name, $description, $image->getImage(), $video->getVideo(), $category);
+        $this->trick = new Trick($author, $name, $description, $defaultImage, $images, $videos, $category);
         return $this;
     }
 

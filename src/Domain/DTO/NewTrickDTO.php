@@ -11,29 +11,67 @@ use App\Domain\DTO\Interfaces\NewTrickDTOInterface;
 class NewTrickDTO implements NewTrickDTOInterface
 {
 
+    /**
+     * @var
+     */
+    public $author;
+
+    /**
+     * @var
+     */
     public $name;
-    
+
+    /**
+     * @var
+     */
     public $description;
 
-    public $image;
+    /**
+     * @var NewDefaultImageDTO
+     */
+    public $defaultImage;
 
-    public $video;
+    /**
+     * @var NewImageDTO
+     */
+    public $images;
 
+    /**
+     * @var NewVideoDTO
+     */
+    public $videos;
+
+    /**
+     * @var
+     */
     public $category;
 
 
-
+    /**
+     * NewTrickDTO constructor.
+     * @param $author
+     * @param $name
+     * @param $description
+     * @param NewDefaultImageDTO $defaultImage
+     * @param NewImageDTO $images
+     * @param NewVideoDTO $videos
+     * @param $category
+     */
     public function __construct(
-        $name = null,
-        $description = null,
-        NewImageDTO $image = null,
-        NewVideoDTO $video = null,
-        $category = null)
-    {
+        $author,
+        $name,
+        $description,
+        NewDefaultImageDTO $defaultImage,
+        NewImageDTO $images,
+        NewVideoDTO $videos,
+        $category
+    ) {
+        $this->author = $author;
         $this->name = $name;
         $this->description = $description;
-        $this->image = $image;
-        $this->video = $video;
+        $this->defaultImage = $defaultImage;
+        $this->images = $images;
+        $this->videos = $videos;
         $this->category = $category;
     }
 

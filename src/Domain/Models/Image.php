@@ -8,6 +8,7 @@
 
 namespace App\Domain\Models;
 
+use App\Domain\Models\Interfaces\ImageInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -16,7 +17,7 @@ use Ramsey\Uuid\UuidInterface;
  * Class Image
  * @package App\Domain\Models
  */
-class Image
+class Image implements ImageInterface
 {
     /**
      * @var UuidInterface
@@ -42,7 +43,7 @@ class Image
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getId()
     {
@@ -50,35 +51,12 @@ class Image
     }
 
     /**
-     * @param mixed $id
+     * @inheritdoc
      */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFileName()
+    public function getImage()
     {
         return $this->fileName;
     }
-
-    /**
-     * @param mixed $fileName
-     */
-    public function setFileName($fileName): void
-    {
-        $this->fileName = $fileName;
-    }
-
-    public function getImage()
-    {
-        return 'uploads/images/'. $this->fileName;
-    }
-
-
 
 
 }

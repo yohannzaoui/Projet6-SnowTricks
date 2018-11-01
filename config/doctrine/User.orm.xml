@@ -22,7 +22,7 @@
 
         <one-to-many field="tricks" target-entity="App\Domain\Models\Trick" mapped-by="author" />
 
-        <one-to-one field="image" target-entity="App\Domain\Models\Image">
+        <one-to-one field="profilImage" target-entity="App\Domain\Models\Image">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

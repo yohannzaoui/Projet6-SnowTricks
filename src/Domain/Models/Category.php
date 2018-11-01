@@ -2,6 +2,7 @@
 
 namespace App\Domain\Models;
 
+use App\Domain\Models\Interfaces\CategoryInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -9,7 +10,7 @@ use Ramsey\Uuid\UuidInterface;
  * Class Category
  * @package App\Domain\Models
  */
-class Category
+class Category implements CategoryInterface
 {
     /**
      * @var UuidInterface
@@ -40,35 +41,11 @@ class Category
     }
 
     /**
-     * Set the value of id
-     *
-     * @return  self
-     */ 
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of nameGroup
      */ 
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set the value of name
-     *
-     * @return  self
-     */ 
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
 

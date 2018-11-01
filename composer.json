@@ -18,6 +18,7 @@
 		"symfony/framework-bundle": "*",
 		"symfony/monolog-bundle": "^3.3",
 		"symfony/orm-pack": "^1.0",
+		"symfony/phpunit-bridge": "*",
 		"symfony/security-bundle": "*",
 		"symfony/swiftmailer-bundle": "^3.2",
 		"symfony/twig-bundle": "*",
@@ -26,8 +27,9 @@
 		"symfony/yaml": "*"
 	},
 	"require-dev" : {
-		"symfony/dotenv" : "*",
-		"symfony/web-profiler-bundle" : "*"
+		"phpunit/phpunit": "7",
+		"symfony/dotenv": "*",
+		"symfony/web-profiler-bundle": "*"
 	},
 	"config" : {
 		"preferred-install" : {

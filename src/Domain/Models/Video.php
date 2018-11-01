@@ -9,6 +9,7 @@
 namespace App\Domain\Models;
 
 
+use App\Domain\Models\Interfaces\VideoInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -16,7 +17,7 @@ use Ramsey\Uuid\UuidInterface;
  * Class Video
  * @package App\Domain\Models
  */
-class Video
+class Video implements VideoInterface
 {
 
     /**
@@ -51,30 +52,10 @@ class Video
     }
 
     /**
-     * @param UuidInterface $id
-     */
-    public function setId(UuidInterface $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return mixed
      */
     public function getUrl()
     {
         return $this->url;
     }
-
-    /**
-     * @param mixed $url
-     */
-    public function setUrl($url): void
-    {
-        $this->url = $url;
-    }
-
-
-
-
 }

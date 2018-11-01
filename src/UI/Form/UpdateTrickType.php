@@ -1,24 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Yohann Zaoui
- * Date: 14/10/2018
- * Time: 16:34
- */
 
 namespace App\UI\Form;
 
 use App\Domain\DTO\NewTrickDTO;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Domain\Models\Category;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\UI\Form\Interfaces\TrickTypeInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-
-class UpdateTrickType extends AbstractType
+/**
+ * Class AddTrickType
+ * @package App\UI\Form
+ */
+class UpdateTrickType extends AbstractType implements TrickTypeInterface
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,26 +27,25 @@ class UpdateTrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('author', HiddenType::class)
 
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, [
+                'required' => true
+            ])
 
-            ->add('image', AddImageTrickType::class, [
+            ->add('description', TextareaType::class, [
+                'required' => true
+            ])
+
+            ->add('defaultImage', AddDefaultImageTrickType::class, [
+                'required' => true
+            ])
+
+            ->add('images', AddImageTrickType::class, [
                 'required' => false
             ])
 
-            /*->add('image', CollectionType::class, [
-                'entry_type' => AddImageTrickType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'by_reference' => false,
-                'entry_options' => [
-                    'required' => false
-                ]
-            ])*/
-
-            ->add('video', AddVideoTrickType::class, [
+            ->add('videos', AddVideoTrickType::class, [
                 'required' => false
             ])
 
@@ -63,8 +62,19 @@ class UpdateTrickType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault([
-            'data_class' => NewTrickDTO::class
-        );
+        $resolver->setDefaults([
+            'data_class' => NewTrickDTO::class,
+            'empty_data' => function (FormInterface $form) {
+                return new NewTrickDTO(
+                    $form->get('author')->getData(),
+                    $form->get('name')->getdata(),
+                    $form->get('description')->getdata(),
+                    $form->get('defaultImage')->getData(),
+                    $form->get('images')->getdata(),
+                    $form->get('videos')->getdata(),
+                    $form->get('category')->getData()
+                );
+            }
+        ]);
     }
 }

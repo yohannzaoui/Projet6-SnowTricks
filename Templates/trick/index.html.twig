@@ -7,21 +7,33 @@
         <h1>{{ trick.name }}</h1>
         <div class="row">
             <div class="col-lg-10 col-md-6 mx-auto">
-                <img src="{{asset(trick.image.getImage)}}" class="rounded mx-auto d-block img-fluid" alt="Responsive image">
+                {% for message in app.flashes('comment') %}
+                    <div class="alert alert-dismissible alert-info">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <img src="{{asset("uploads/images/" ~ trick.defaultImage.getImage)}}" class="rounded mx-auto d-block img-fluid" alt="Responsive image">
                 <br>
                 <div class="alert alert-dismissible alert-secondary">
                     <p>{{ trick.description }}</p>
-                    <p class="italicgrey">Ajouté le {{ trick.createdAt| date("d/m/Y") }} {% if trick.updatedAt %} - Modifié le {{ trick.updatedAt | date("d/m/Y") }} {% endif %} dans la catégorie {{ trick.category.name }} </p>
+                    <p class="italicgrey">Auteur : {{ trick.author }}. Ajouté le {{ trick.createdAt| date("d/m/Y") }} {% if trick.updatedAt %} - Modifié le {{ trick.updatedAt | date("d/m/Y") }} {% endif %} dans la catégorie {{ trick.category.name }} </p>
                 </div>
-                {{ trick.video.url }}
+
+
+                {% for image in trick.images %}
+                <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{ asset("uploads/images/" ~ image.getImage) }}" alt="Image supplémentaire" class="img-fluid">
+                 {% endfor %}
+
+                {% for video in trick.videos %}
+                    {{ video.getUrl }}
+                {% endfor %}
 
                 {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('edittrick', {'id':trick.id}) }}">
                         <button type="button" class="btn btn-success">Modifiez le Trick</button>
                     </a>
                 {% endif %}
-
-
 
             </div>
         </div>
@@ -30,13 +42,6 @@
         {% if app.user %}
         <div class="col-lg-10 col-md-6 mx-auto">
         <h3>Ecrire un commentaire</h3>
-
-            {% for message in app.flashes('comment') %}
-                <div class="alert alert-dismissible alert-info">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    {{ message }}
-                </div>
-            {% endfor %}
 
             {% form_theme form 'theme/comment_type.html.twig' %}
             {{form(form)}}
@@ -60,7 +65,7 @@
 
             {% for comment in trick.comments %}
                 <div class="alert alert-dismissible alert-secondary">
-                    <p><img src="{{asset(app.user.image.getImage)}}"/> {{ comment.pseudo }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
+                    <p><img src="{{asset(app.user.profilImage.getImage)}}"/> {{ comment.pseudo }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
                     <p>A écrit : {{ comment.message }}</p>
                 </div>
             {% endfor %}

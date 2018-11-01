@@ -27,7 +27,7 @@ class NewCommentDTO
      * @param null $pseudo
      * @param null $message
      */
-    public function __construct($pseudo = null, $message = null)
+    public function __construct($pseudo, $message)
     {
         $this->pseudo = $pseudo;
         $this->message = $message;

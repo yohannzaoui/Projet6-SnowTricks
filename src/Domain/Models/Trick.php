@@ -2,8 +2,8 @@
 
 namespace App\Domain\Models;
 
+use App\Domain\Models\Interfaces\ImageInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -17,6 +17,7 @@ class Trick
      * @var UuidInterface
      */
     private $id;
+
     /**
      * @var null
      */
@@ -28,15 +29,21 @@ class Trick
 
 
     /**
-     * @var Image
+     * @var null
      */
-    private $image;
+    private $defaultImage;
 
 
     /**
-     * @var Video
+     * @var ArrayCollection
      */
-    private $video;
+    private $images;
+
+
+    /**
+     * @var ArrayCollection
+     */
+    private $videos;
 
     /**
      * @var
@@ -47,14 +54,17 @@ class Trick
      * @var
      */
     private $author;
+
     /**
      * @var
      */
     private $category;
+
     /**
      * @var
      */
     private $createdAt;
+
     /**
      * @var
      */
@@ -63,28 +73,31 @@ class Trick
 
     /**
      * Trick constructor.
+     * @param $author
      * @param null $name
      * @param null $description
-     * @param Image|null $image
-     * @param Video|null $video
-     * @param null $author
+     * @param ImageInterface|null $defaultImage
+     * @param array $images
+     * @param array $videos
      * @param null $category
      * @throws \Exception
      */
     public function __construct(
+        $author,
         $name = null,
         $description = null,
-        Image $image = null,
-        Video $video = null,
-        //User $author = null,
+        ImageInterface $defaultImage = null,
+        array $images = [],
+        array $videos = [],
         $category = null
     ) {
         $this->id = Uuid::uuid4();
+        $this->author = $author;
         $this->name = $name;
         $this->description = $description;
-        $this->image = $image;
-        $this->video = $video;
-        //$this->author = $author;
+        $this->defaultImage = $defaultImage;
+        $this->images = new ArrayCollection($images);
+        $this->videos = new ArrayCollection($videos);
         $this->createdAt = new \DateTime();
         $this->updatedAt = null;
         $this->comments = new ArrayCollection();
@@ -92,111 +105,59 @@ class Trick
     }
 
     /**
-     * Get the value of id
-     */ 
-    public function getId()
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
     /**
-     * Set the value of id
-     *
-     * @return  self
-     */ 
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of name
-     */ 
+     * @return null
+     */
     public function getName()
     {
         return $this->name;
     }
 
     /**
-     * Set the value of name
-     *
-     * @return  self
-     */ 
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of description
-     */ 
+     * @return null
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
     /**
-     * Set the value of description
-     *
-     * @return  self
-     */ 
-    public function setDescription($description)
+     * @return Image
+     */
+    public function getDefaultImage(): ImageInterface
     {
-        $this->description = $description;
-
-        return $this;
+        return $this->defaultImage;
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return ArrayCollection
      */
-    public function getComments(): Collection
+    public function getImages(): \ArrayAccess
+    {
+        return $this->images;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getVideos(): \ArrayAccess
+    {
+        return $this->videos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
     {
         return $this->comments;
-    }
-
-    /**
-     * Get the value of createdAt
-     */ 
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set the value of createdAt
-     *
-     * @return  self
-     */ 
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of updatedAt
-     */ 
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set the value of updatedAt
-     *
-     * @return  self
-     */ 
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**
@@ -208,14 +169,6 @@ class Trick
     }
 
     /**
-     * @param mixed $author
-     */
-    public function setAuthor($author): void
-    {
-        $this->author = $author;
-    }
-
-    /**
      * @return mixed
      */
     public function getCategory()
@@ -224,39 +177,19 @@ class Trick
     }
 
     /**
-     * @param mixed $category
+     * @return mixed
      */
-    public function setCategory($category): void
+    public function getCreatedAt()
     {
-        $this->category = $category;
-    }
-
-
-    public function getImage()
-    {
-        return $this->image;
+        return $this->createdAt;
     }
 
     /**
-     * @param array|null $image
+     * @return mixed
      */
-    public function setImage($image): void
+    public function getUpdatedAt()
     {
-        $this->image = $image;
-    }
-
-
-
-    public function getVideo()
-    {
-        return $this->video;
-    }
-
-
-
-    public function setVideo($video): void
-    {
-        $this->video = $video;
+        return $this->updatedAt;
     }
 
 }

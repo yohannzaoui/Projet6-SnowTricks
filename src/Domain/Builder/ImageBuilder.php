@@ -22,26 +22,75 @@ class ImageBuilder implements ImageBuilderInterface
     /**
      * @var
      */
-    private $image;
+    private $defaultImage;
 
+    /**
+     * @var
+     */
+    private $profilImage;
+
+    /**
+     * @var
+     */
+    private $images;
 
     /**
      * @param $fileName
-     * @return $this
+     * @return $this|mixed
      * @throws \Exception
      */
     public function create($fileName)
     {
-        $this->image = new Image($fileName);
-        return $this;
+        $this->defaultImage = new Image($fileName);
+        return $this->defaultImage;
+    }
+
+    /**
+     * @param $fileName
+     * @return Image|mixed
+     * @throws \Exception
+     */
+    public function createProfileImage($fileName)
+    {
+        $this->profilImage = new Image($fileName);
+        return $this->profilImage;
+    }
+
+    public function getProfilImage()
+    {
+        return $this->profilImage;
     }
 
     /**
      * @return mixed
      */
-    public function getImage()
+    public function getDefaultImage()
     {
-        return $this->image;
+        return $this->defaultImage;
     }
+
+    /**
+     * @param array $files
+     * @return array|mixed
+     * @throws \Exception
+     */
+    public function createFromArray(array $files)
+    {
+        $images = [];
+
+        foreach ($files as $file) {
+            $images[] = new Image($file);
+        }
+        return $images;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
 
 }

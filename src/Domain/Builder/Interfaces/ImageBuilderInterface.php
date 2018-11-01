@@ -22,7 +22,29 @@ interface ImageBuilderInterface
     public function create($fileName);
 
     /**
+     * @param $fileName
      * @return mixed
      */
-    public function getImage();
+    public function createProfileImage($fileName);
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultImage();
+
+    /**
+     * @return mixed
+     */
+    public function getProfilImage();
+
+    /**
+     * @param array $files
+     * @return mixed
+     */
+    public function createFromArray(array $files);
+
+    /**
+     * @return mixed
+     */
+    public function getImages();
 }

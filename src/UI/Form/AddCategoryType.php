@@ -4,6 +4,7 @@ namespace App\UI\Form;
 
 
 use App\Domain\DTO\NewCategoryDTO;
+use App\UI\Form\Interfaces\AddCategoryTypeInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  * Class AddCategoryType
  * @package App\UI\Form
  */
-class AddCategoryType extends AbstractType
+class AddCategoryType extends AbstractType implements AddCategoryTypeInterface
 {
 
     /**

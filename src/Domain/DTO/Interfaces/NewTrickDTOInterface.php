@@ -9,8 +9,10 @@
 namespace App\Domain\DTO\Interfaces;
 
 
+use App\Domain\DTO\NewDefaultImageDTO;
 use App\Domain\DTO\NewImageDTO;
 use App\Domain\DTO\NewVideoDTO;
+
 
 /**
  * Interface NewTrickDTOInterface
@@ -20,10 +22,12 @@ interface NewTrickDTOInterface
 {
 
     public function __construct(
-        $name = null,
-        $description = null,
-        NewImageDTO $image = null,
-        NewVideoDTO $video = null,
-        $category = null
+        $author,
+        $name,
+        $description,
+        NewDefaultImageDTO $defaultImage,
+        NewImageDTO $image,
+        NewVideoDTO $video,
+        $category
     );
 }

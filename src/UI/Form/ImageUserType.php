@@ -2,7 +2,7 @@
 
 namespace App\UI\Form;
 
-use App\Domain\DTO\NewImageDTO;
+use App\Domain\DTO\NewProfilImageDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -25,9 +25,9 @@ class ImageUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => NewImageDTO::class,
+            'data_class' => NewProfilImageDTO::class,
             'empty_data' => function (FormInterface $form) {
-            return new NewImageDTO($form->get('fileName')->getData());
+            return new NewProfilImageDTO($form->get('fileName')->getData());
             }
 
         ]);

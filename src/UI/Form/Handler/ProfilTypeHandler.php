@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
+
 /**
  * Class ProfilTypeHandler
  * @package App\UI\Form\Handler
@@ -33,10 +34,18 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
      */
     private $imageBuilder;
 
+    /**
+     * @var SessionInterface
+     */
     private $messageFlash;
+
 
     /**
      * ProfilTypeHandler constructor.
+     * @param FileUploader $fileUploader
+     * @param ImageRepository $imageRepository
+     * @param ImageBuilder $imageBuilder
+     * @param SessionInterface $messageFlash
      */
     public function __construct(
         FileUploader $fileUploader,
@@ -59,7 +68,9 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
+
             $file = $form->getData()->file;
+
             $image = $this->fileUploader->upload($file);
 
             $this->imageBuilder->create($image);

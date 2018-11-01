@@ -14,6 +14,15 @@
                     <p><button type="submit" class="btn btn-success">Mettre à jour</button></p>
                 {{ form_end(form) }}
 
+                <p>Mon nom d'utilisateur : <strong>{{ app.user.username }}</strong></p>
+                <p>Mon adresse Email : <strong>{{ app.user.email }}</strong></p>
+                <p>Mon statut :
+                    {% for role in app.user.roles %}
+                    <strong>{{ role }}</strong>
+                    {% endfor %}
+                </p>
+
+
                 {% for message in app.flashes('profilUpdate') %}
                     <div class="alert alert-dismissible alert-info">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
