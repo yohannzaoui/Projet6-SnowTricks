@@ -19,6 +19,9 @@ class NewDefaultImageDTO implements NewDefaultImageDTOInterface
 {
 
 
+    /**
+     * @var
+     */
     public $file;
 
 

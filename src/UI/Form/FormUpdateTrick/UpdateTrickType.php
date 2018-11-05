@@ -1,17 +1,17 @@
 <?php
 
-namespace App\UI\Form;
+namespace App\UI\Form\FormUpdateTrick;
 
-use App\Domain\DTO\NewTrickDTO;
+use App\Domain\DTO\NewUpdateTrickDTO;
 use App\Domain\Models\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\UI\Form\Interfaces\TrickTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
@@ -37,15 +37,18 @@ class UpdateTrickType extends AbstractType implements TrickTypeInterface
                 'required' => true
             ])
 
-            ->add('defaultImage', AddDefaultImageTrickType::class, [
+            ->add('defaultImage', UpdateDefaultImageTrickType::class, [
                 'required' => true
             ])
 
-            ->add('images', AddImageTrickType::class, [
-                'required' => false
+            ->add('images', CollectionType::class, [
+                'entry_type' => UpdateImagesTrickType::class,
+                'entry_options' => [
+                    'label' => false
+                ]
             ])
 
-            ->add('videos', AddVideoTrickType::class, [
+            ->add('videos', UpdateVideoTrickType::class, [
                 'required' => false
             ])
 
@@ -63,18 +66,7 @@ class UpdateTrickType extends AbstractType implements TrickTypeInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => NewTrickDTO::class,
-            'empty_data' => function (FormInterface $form) {
-                return new NewTrickDTO(
-                    $form->get('author')->getData(),
-                    $form->get('name')->getdata(),
-                    $form->get('description')->getdata(),
-                    $form->get('defaultImage')->getData(),
-                    $form->get('images')->getdata(),
-                    $form->get('videos')->getdata(),
-                    $form->get('category')->getData()
-                );
-            }
+            'data_class' => NewUpdateTrickDTO::class,
         ]);
     }
 }

@@ -27,6 +27,9 @@ interface DeleteTrickActionInterface
      * @param DeleteTrickResponder $responder
      * @return mixed
      */
-    public function __invoke(Request $request, DeleteTrickResponder $responder);
+    public function __invoke(
+        Request $request,
+        DeleteTrickResponder $responder
+    );
     
 }

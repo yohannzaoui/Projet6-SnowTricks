@@ -17,9 +17,9 @@
                 <div class="card border-secondary mb-3" style="max-width: 20rem;">
 
                     <div class="card-header">
-                        <h4 style="text-align: center" ><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a></h4>
+                        <h5 style="text-align: center" ><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a></h5>
                     </div>
-                        <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{asset("uploads/images/" ~ trick.defaultImage.getImage)}}" alt="Image par défaut du trick" class="img-fluid">
+                        <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.getImage)}}" alt="Image par défaut du trick" class="img-fluid">
                     {% if app.user %}
                         <div class="card-footer text-muted">
                             <div class="container-fluid">

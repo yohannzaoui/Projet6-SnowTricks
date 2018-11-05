@@ -37,16 +37,21 @@ class TrickRepository extends ServiceEntityRepository
                      ->getResult();
     }
 
+
     /**
      * @param $id
      * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getTrick($id)
     {
         return $this->createQueryBuilder('trick')
                     ->where('trick.id = :id')
                     ->setParameter('id', $id)
-                    ->getQuery();
+                    ->getQuery()
+                    ->getOneOrNullResult();
+
+
 
     }
 

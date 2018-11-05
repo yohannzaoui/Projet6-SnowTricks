@@ -38,11 +38,14 @@ class DeleteTrickAction implements DeleteTrickActionInterface
      * @param DeleteTrickResponder $responder
      * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function __invoke(Request $request, DeleteTrickResponder $responder)
-    {
+    public function __invoke(
+        Request $request,
+        DeleteTrickResponder $responder
+    ) {
         if($request->attributes->get('id')){
 
             $this->trickRepository->delete($request->attributes->get('id'));
+
 
             return $responder();
         }

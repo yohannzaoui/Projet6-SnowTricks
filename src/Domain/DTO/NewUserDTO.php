@@ -42,9 +42,9 @@ class NewUserDTO implements NewUserDTOInterface
      * @param NewProfilImageDTO|null $profilImage
      */
     public function __construct(
-        $username,
-        $password,
-        $email,
+        $username = null,
+        $password = null,
+        $email = null,
         NewProfilImageDTO $profilImage = null
     ) {
         $this->username = $username;

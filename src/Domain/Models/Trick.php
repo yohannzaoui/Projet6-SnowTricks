@@ -2,6 +2,7 @@
 
 namespace App\Domain\Models;
 
+use App\Domain\Models\Interfaces\CategoryInterface;
 use App\Domain\Models\Interfaces\ImageInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
@@ -89,7 +90,7 @@ class Trick
         ImageInterface $defaultImage = null,
         array $images = [],
         array $videos = [],
-        $category = null
+        CategoryInterface $category = null
     ) {
         $this->id = Uuid::uuid4();
         $this->author = $author;
@@ -171,7 +172,7 @@ class Trick
     /**
      * @return mixed
      */
-    public function getCategory()
+    public function getCategory(): CategoryInterface
     {
         return $this->category;
     }

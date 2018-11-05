@@ -34,5 +34,13 @@ services:
         arguments:
             $targetDirectory: '%image_directory%'
 
+    App\UI\Form\Transformers\ImageDefaultTransformer:
+        arguments:
+            $path: '%image_directory%/'
+
+    App\UI\Form\Transformers\ImageTransformer:
+        arguments:
+            $path: '%image_directory%/'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

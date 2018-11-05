@@ -9,7 +9,14 @@
 namespace App\Domain\DTO\DTOFactory;
 
 
-class ImageDTOFactory
-{
+use App\Domain\DTO\DTOFactory\Interfaces\ImageDTOFactoryInterface;
+use App\Domain\DTO\NewImageDTO;
 
+
+class ImageDTOFactory implements ImageDTOFactoryInterface
+{
+    public function create($image)
+    {
+        return new NewImageDTO($image);
+    }
 }

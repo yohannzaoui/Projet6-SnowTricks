@@ -1,10 +1,4 @@
 {
-    "composer/semver": {
-        "version": "1.4.2"
-    },
-    "composer/xdebug-handler": {
-        "version": "1.3.0"
-    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -74,14 +68,8 @@
     "egulias/email-validator": {
         "version": "2.1.6"
     },
-    "friendsofphp/php-cs-fixer": {
-        "version": "2.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.2",
-            "ref": "81dee417d2cc60cd1c9d6208dff2ec22a1103e93"
-        }
+    "facebook/webdriver": {
+        "version": "1.6.0"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -103,9 +91,6 @@
     },
     "phar-io/version": {
         "version": "1.0.1"
-    },
-    "php-cs-fixer/diff": {
-        "version": "v1.3.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -227,6 +212,9 @@
     "symfony/asset": {
         "version": "v4.1.6"
     },
+    "symfony/browser-kit": {
+        "version": "v4.1.6"
+    },
     "symfony/cache": {
         "version": "v4.1.4"
     },
@@ -242,6 +230,9 @@
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
     },
+    "symfony/css-selector": {
+        "version": "v4.1.6"
+    },
     "symfony/debug": {
         "version": "v4.1.4"
     },
@@ -250,6 +241,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.1.4"
+    },
+    "symfony/dom-crawler": {
+        "version": "v4.1.6"
     },
     "symfony/dotenv": {
         "version": "v4.1.4"
@@ -314,6 +308,9 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/panther": {
+        "version": "v0.2.0"
+    },
     "symfony/phpunit-bridge": {
         "version": "4.1",
         "recipe": {
@@ -359,9 +356,6 @@
             "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
     },
-    "symfony/stopwatch": {
-        "version": "v4.1.6"
-    },
     "symfony/swiftmailer-bundle": {
         "version": "2.5",
         "recipe": {
@@ -370,6 +364,9 @@
             "version": "2.5",
             "ref": "3db029c03e452b4a23f7fc45cec7c922c2247eb8"
         }
+    },
+    "symfony/test-pack": {
+        "version": "v1.0.4"
     },
     "symfony/translation": {
         "version": "3.3",

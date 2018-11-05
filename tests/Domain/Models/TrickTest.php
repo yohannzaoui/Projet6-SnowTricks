@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Yohann Zaoui
- * Date: 01/11/2018
- * Time: 09:17
+ * Date: 05/11/2018
+ * Time: 10:16
  */
 
 namespace App\Tests\Domain\Models;
@@ -11,7 +11,7 @@ namespace App\Tests\Domain\Models;
 
 use PHPUnit\Framework\TestCase;
 
-class TestComment extends TestCase
+class TrickTest extends TestCase
 {
 
 }

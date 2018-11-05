@@ -9,13 +9,15 @@
 namespace App\Domain\DTO\DTOFactory;
 
 
-use App\Domain\DTO\NewImageDTO;
-use App\Domain\Models\Interfaces\ImageInterface;
 
-class VideoDTOFactory
+use App\Domain\DTO\DTOFactory\Interfaces\VideoDTOFactoryInterface;
+use App\Domain\DTO\NewVideoDTO;
+use App\Domain\Models\Video;
+
+class VideoDTOFactory implements VideoDTOFactoryInterface
 {
-    public function createDefaultImage(ImageInterface $image)
+    public function create($video)
     {
-        return new NewImageDTO();
+        return new NewVideoDTO($video);
     }
 }

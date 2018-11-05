@@ -12,7 +12,6 @@ namespace App\UI\Form;
 use App\Domain\DTO\NewVideoDTO;
 use App\UI\Form\Transformers\VideoTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -33,9 +32,8 @@ class AddVideoTrickType extends AbstractType
         $builder
             ->add('urls', TextareaType::class, [
                 'label' => 'Copiez collez l\'URL de la video (plusieurs URLs possible séparées par une virgule)',
-            ])
+            ]);
 
-        ;
         $builder->get('urls')->addViewTransformer($this->videoTransformer);
     }
 
