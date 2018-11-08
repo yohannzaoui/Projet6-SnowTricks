@@ -11,18 +11,30 @@
 
                     {{ form_start(form) }}
                     {{ form_row(form.author, {'value':app.user.username}) }}
-                    {{ form_row(form.name, {'label':'Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
-                    {{ form_row(form.defaultImage, {'label' : 'Image principale'}) }}
-                    {{ form_row(form.images) }}
-                    {{ form_row(form.videos, {'label':'Vidéo'}) }}
-                    {{ form_row(form.description, {'label':'Déscription du Trick'}) }}
-                    {{ form_row(form.category, {'label':'Catégorie'} ) }}
+                    {{ form_row(form.name, {'label':'*Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
+                    {{ form_row(form.defaultImage, {'label' : '*Image principale'}) }}
+
+                    <strong>Image supplémentaire</strong>
+                    <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                        {% for image in form.images %}
+                            {{ form_row(image) }}
+                        {% endfor %}
+                    </ul>
+                    <br>
+                    <strong>vidéo supplémentaire</strong>
+                    <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                        {% for video in form.videos %}
+                            {{ form_row(video) }}
+                        {% endfor %}
+                    </ul>
+                    {{ form_row(form.description, {'label':'*Déscription du Trick'}) }}
+                    {{ form_row(form.category, {'label':'*Catégorie'} ) }}
                     <p>
                         <button type="submit" class="btn btn-success">Ajouter</button>
                         <button type="reset" class="btn btn-danger">Effacer</button>
+                        * Obligatoire
                     </p>
-                    {{ form_end(form) }}
-
+                    {{ form_end(form, { "render_rest": false }) }}
 
                 </div>
             </div>

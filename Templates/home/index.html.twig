@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Snow Tricks{% endblock %}
 
+
 {% block body %}
 
     <img src="images/home.jpg" class="img-fluid" alt="Responsive image">
@@ -19,7 +20,7 @@
                     <div class="card-header">
                         <h5 style="text-align: center" ><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a></h5>
                     </div>
-                        <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.getImage)}}" alt="Image par défaut du trick" class="img-fluid">
+                        <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.getFileName)}}" alt="Image par défaut du trick" class="img-fluid">
                     {% if app.user %}
                         <div class="card-footer text-muted">
                             <div class="container-fluid">
@@ -38,6 +39,10 @@
                 </div>
             </div>
             {% endfor %}
+
+        </div>
+        <div id="loadMore" style="">
+            <a href="#">Voir plus de Trick</a>
         </div>
     </div>
 {% endblock body %}

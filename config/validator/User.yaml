@@ -1,19 +1,10 @@
-App\Domain\Models\User:
+App\Entity\User:
   properties:
     password:
-      - Length:
-          {min: 8, minMessage: "Le mot de passe doit contenir 8 caractères minimum."}
-    image:
-        minWidth: 200
-        minWidthMessage: "L'image doit avoir une largeur minimum de 200 pixel"
-        maxWidth: 200
-        maxWidthMessage: "L'image doit avoir une largeur maximum de 200 pixel"
-        minHeight: 200
-        minHeightMessage: "L'image doit avoir une hauteur maximum de 200 pixel"
-        maxHeight: 200
-        maxHeightMessage: "L'image doit avoir une hauteur maximum de 200 pixel"
-        mimeTypes: image/png
-        mimeTypesMessage: "Le format de fichier doit être du PNG."
+    - Length:
+        min: 8
+        minMessage: 'Le mot de passe doit contenir 8 caractères minimum.'
+
 
   constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:

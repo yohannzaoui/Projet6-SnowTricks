@@ -21,12 +21,12 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Domain/Models,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\UI\Action\:
-        resource: '../src/UI/Action'
+    App\Controller\:
+        resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
 
@@ -34,11 +34,11 @@ services:
         arguments:
             $targetDirectory: '%image_directory%'
 
-    App\UI\Form\Transformers\ImageDefaultTransformer:
+    App\Services\Transformers\ImageDefaultTransformer:
         arguments:
             $path: '%image_directory%/'
 
-    App\UI\Form\Transformers\ImageTransformer:
+    App\Services\Transformers\ImageTransformer:
         arguments:
             $path: '%image_directory%/'
 

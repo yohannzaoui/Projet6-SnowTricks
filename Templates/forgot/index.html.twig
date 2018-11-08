@@ -20,7 +20,16 @@
                         </div>
                     {% endfor %}
 
+
+
                     {% for message in app.flashes('checkMailError') %}
+                        <div class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('resetPassword') %}
                         <div class="alert alert-dismissible alert-danger">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             {{ message }}

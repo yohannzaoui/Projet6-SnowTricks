@@ -21,7 +21,7 @@
                             Modifié <i class="fas fa-edit"></i>
                         </a>
                     {% endif %}
-                    <img src="{{asset('/uploads/images/'~ trick.defaultImage.getImage)}}" class="rounded mx-auto d-block img-fluid" alt="Image principale">
+                    <img src="{{asset('/uploads/images/'~ trick.defaultImage.getFileName)}}" class="rounded mx-auto d-block img-fluid" alt="Image principale">
                     </div>
 
 
@@ -39,7 +39,7 @@
                             Modifié <i class="fas fa-edit"></i>
                         </a>
                     {% endif %}
-                <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{'/uploads/images/'~ asset(image.getImage) }}" alt="Image supplémentaire" class="img-fluid">
+                <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{'/uploads/images/'~ asset(image.getFilename) }}" alt="Image supplémentaire" class="img-fluid">
                  {% endfor %}
             </div>
 
@@ -55,12 +55,12 @@
     <div class="col-lg-8 col-md-6 mx-auto">
         <hr>
         {% if app.user %}
-        <div class="col-lg-10 col-md-6 mx-auto">
+
         <h3>Ecrire un commentaire</h3>
 
             {% form_theme form 'theme/comment_type.html.twig' %}
             {{form(form)}}
-        </div>
+
         {% else %}
             <p class="p_center">Vous devez être connecté pour commenter.</p>
             <p class="p_center"><a class="italic" href="{{path('login')}}">Connectez-vous</a> ou <a class="italic" href="{{path('register')}}">créez un compte</a>
@@ -68,7 +68,7 @@
             </p>
     </div>
         <hr>
-        <div class="col-lg-10 col-md-12 mx-auto">
+        <div class="col-lg-8 col-md-12 mx-auto">
             <h3>
                 {% if trick.comments | length == 0 %}
                     <h4 class="p_center">Aucun commentaire pour ce Trick. Soyez le premier à commenter.</h4> 
@@ -81,7 +81,7 @@
 
             {% for comment in trick.comments %}
                 <div class="alert alert-dismissible alert-secondary">
-                    <p><img src="{{asset('/uploads/images/' ~ app.user.profilImage.getImage)}}"/> {{ comment.pseudo }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
+                    <p><img src="{{asset('/uploads/images/' ~ app.user.profilImage)}}"/> {{ comment.pseudo }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
                     <p>A écrit : {{ comment.message }}</p>
                 </div>
             {% endfor %}

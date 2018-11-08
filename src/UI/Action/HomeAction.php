@@ -30,7 +30,7 @@ class HomeAction implements HomeActionInterface
 
 
     /**
-     * @Route("/", name="home", methods={"GET"})
+     *
      * @param HomeResponderInterface $responder
      * @return mixed
      */

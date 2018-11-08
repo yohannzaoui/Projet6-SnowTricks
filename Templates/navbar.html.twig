@@ -43,7 +43,7 @@
           </ul>
           {% if app.user %}
           <span class="navbar-text">
-            Bienvenue {{ app.user.getUsername }} !<img src="{{asset('/uploads/images/'~ app.user.profilImage.getImage)}}"/>
+            Bienvenue {{ app.user.getUsername }} !<img src="{{asset('/uploads/images/'~ app.user.getProfilImage)}}"/>
           </span>
           {% endif %}
         </div>
