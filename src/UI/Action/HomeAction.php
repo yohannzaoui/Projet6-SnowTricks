@@ -2,11 +2,10 @@
 
 namespace App\UI\Action;
 
-use App\Domain\Models\Trick;
+use App\Domain\Repository\TrickRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\UI\Action\Interfaces\HomeActionInterface;
 use App\UI\Responder\Interfaces\HomeResponderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Class HomeAction
@@ -16,13 +15,29 @@ class HomeAction implements HomeActionInterface
 {
 
     /**
-     * @Route("/", name="home", methods={"GET"})
+     * @var TrickRepository
      */
-    public function __invoke(HomeResponderInterface $responder,
-        ObjectManager $manager
-    ) {
+    private $trickRepository;
 
-        $tricks = $manager->getRepository(Trick::class)->findAll();
+    /**
+     * HomeAction constructor.
+     * @param TrickRepository $trickRepository
+     */
+    public function __construct(TrickRepository $trickRepository)
+    {
+        $this->trickRepository = $trickRepository;
+    }
+
+
+    /**
+     *
+     * @param HomeResponderInterface $responder
+     * @return mixed
+     */
+    public function __invoke(HomeResponderInterface $responder)
+    {
+        $tricks = $this->trickRepository->getAllTricks();
+
         return $responder($tricks);
     }
 }

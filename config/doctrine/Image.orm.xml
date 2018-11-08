@@ -3,11 +3,13 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Models\Image" table="image">
+    <entity name="App\Entity\Image" table="image">
 
         <id name="id" type="uuid" column="id" />
 
         <field name="fileName" column="filename" type="string" length="255" nullable="false" />
+
+         <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="images"/>
 
     </entity>
 

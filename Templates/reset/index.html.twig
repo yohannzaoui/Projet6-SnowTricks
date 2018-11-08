@@ -10,14 +10,14 @@
             {% form_theme form 'theme/reset_type.html.twig' %}
             {{form(form)}}
 
-            {% for message in app.flashes('resetPassword') %}
-                <div class="alert alert-dismissible alert-warning">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    {{ message }}
-                </div>
-            {% endfor %}
         </div>
     </div>
+    {% for message in app.flashes('resetPassword') %}
+        <div class="alert alert-dismissible alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+    {% endfor %}
 </div>
 {% endblock body %}
 

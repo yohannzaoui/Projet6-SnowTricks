@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Gestion des catégories{% endblock %}
+{% block title %}Administration{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -7,15 +7,39 @@
             <h1>Gestion des catégories</h1>
             <div class="row">
                 <div class="col-lg-6 col-md-10 mx-auto">
-                    {% form_theme form 'theme/category_type.html.twig' %}
-                    {{ form(form)}}
+
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-dismissible alert-warning">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+
+                    {{form_start(form)}}
+                    {{ form_row(form.name, {'label':'Nom de la catégorie'}) }}
+
+                    <p>
+                        <button type="submit" class="btn btn-success">
+                            {% if editMode %}
+                                Modifié la catégorie
+                            {% else %}
+                                Ajouté la catégorie
+                            {% endif %}
+                        </button>
+                        <button type="reset" class="btn btn-danger">Effacer</button>
+                    </p>
+                    {{ form_end(form)}}
                     </div>
+
                     <div class="col-lg-6 col-md-10 mx-auto">
                     <h4>Liste des catégories</h4>
-                    {% for categorylist in categoryslist %}
-                        <p>{{categorylist.name}} |
-                            <a href="{{path('delcategory', {'id':categorylist.id})}}"><i class="fas fa-trash-alt"></i></a> |
-                            <a href="{#{{path('editcategory', {'id':categorylist.id})}}#}"><i class="fas fa-edit"></i></a>
+                    {% for categoryList in categorysList %}
+                        <p>{{categoryList.name}} |
+                            <a href="{{path('delcategory', {'id':categoryList.id})}}"><i class="fas fa-trash-alt"></i></a> |
+                            <a href="{{path('editCategory', {'id':categoryList.id})}}"><i class="fas fa-edit"></i></a>
                         </p>
                     {% endfor %}
                     </div>

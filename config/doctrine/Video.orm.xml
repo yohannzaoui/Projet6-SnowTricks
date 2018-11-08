@@ -3,11 +3,13 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Models\Video" table="video">
+    <entity name="App\Entity\Video" table="video">
 
         <id name="id" type="uuid" column="id" />
 
         <field name="url" column="url" type="string" length="255" nullable="true" />
+
+        <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="videos"/>
 
     </entity>
 </doctrine-mapping>

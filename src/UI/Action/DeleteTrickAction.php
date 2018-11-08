@@ -15,26 +15,39 @@ use App\UI\Action\Interfaces\DeleteTrickActionInterface;
  */
 class DeleteTrickAction implements DeleteTrickActionInterface
 {
+    /**
+     * @var TrickRepository
+     */
     private $trickRepository;
 
-    public function __construct(TrickRepository $trickRepository)
-    {
+
+    /**
+     * DeleteTrickAction constructor.
+     * @param TrickRepository $trickRepository
+     */
+    public function __construct(
+        TrickRepository $trickRepository
+    ) {
         $this->trickRepository = $trickRepository;
     }
 
+
     /**
-     * 
      * @Route("/supprimerTrick/{id}", name="deltrick", methods={"GET"})
+     * @param Request $request
+     * @param DeleteTrickResponder $responder
+     * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function __invoke(Request $request, DeleteTrickResponder $responder)
-    {
+    public function __invoke(
+        Request $request,
+        DeleteTrickResponder $responder
+    ) {
+        if($request->attributes->get('id')){
 
-        if($request->get('id')){
+            $this->trickRepository->delete($request->attributes->get('id'));
 
-            $this->trickRepository->delete($request->get('id'));
 
             return $responder();
         }
-
     }
 }

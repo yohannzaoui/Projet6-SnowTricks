@@ -7,6 +7,7 @@ use App\Domain\Repository\CommentRepository;
 use Symfony\Component\Form\FormInterface;
 use App\UI\Form\Handler\Interfaces\CommentTypeHandlerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 
 /**
@@ -15,7 +16,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class CommentTypeHandler implements CommentTypeHandlerInterface
 {
-
 
     /**
      * @var CommentRepository
@@ -27,7 +27,6 @@ class CommentTypeHandler implements CommentTypeHandlerInterface
     private $commentBuilder;
 
     private $messageFlash;
-
 
     /**
      * CommentTypeHandler constructor.
@@ -56,11 +55,13 @@ class CommentTypeHandler implements CommentTypeHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
+
+
             $this->commentBuilder->createFromComment($form->getData()->pseudo, $form->getData()->message, $trick);
 
             $this->commentRepository->save($this->commentBuilder->getComment());
 
-            $this->messageFlash->getFlashBag()->add('comment', 'Commentaire envoyé !');
+            $this->messageFlash->getFlashBag()->add('comment', 'Commentaire ajouté !');
 
             return true;
         }

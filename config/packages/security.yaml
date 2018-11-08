@@ -1,6 +1,6 @@
 security:
     encoders:
-        App\Domain\Models\User:
+        App\Entity\User:
             algorithm: bcrypt
             cost: 13
             
@@ -10,7 +10,7 @@ security:
 
         in_database:
             entity:
-                class: App\Domain\Models\User
+                class: App\Entity\User
                 property: username
         
     firewalls:

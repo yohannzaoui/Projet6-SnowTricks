@@ -25,19 +25,25 @@
               <a class="nav-link" href="{{path('login')}}">Connexion</a>
             </li>
             {% else %}
-                {% if is_granted('ROLE_ADMIN') %}
-                  <li class="nav-item">
-                    <a style="color: red" class="nav-link" href="{{path('category')}}">Administration</a>
-                  </li>
-                {% endif %}
             <li class="nav-item">
               <a style="color:#FB9C04" class="nav-link" href="{{path('logout')}}">Déconnexion</a>
             </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="dropdown">
+                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Administration
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{path('category')}}">Gestion des catégories</a>
+                            <a class="dropdown-item" href="{{path('allUsers')}}">Gestion des membres</a>
+                        </div>
+                    </div>
+                {% endif %}
             {% endif %}
           </ul>
           {% if app.user %}
           <span class="navbar-text">
-            Bienvenue {{ app.user.getUsername }} !
+            Bienvenue {{ app.user.getUsername }} !<img src="{{asset('/uploads/images/'~ app.user.getProfilImage)}}"/>
           </span>
           {% endif %}
         </div>

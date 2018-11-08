@@ -2,7 +2,7 @@
 
 namespace App\UI\Action\Interfaces;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Domain\Repository\TrickRepository;
 use App\UI\Responder\Interfaces\HomeResponderInterface;
 
 /**
@@ -12,9 +12,15 @@ use App\UI\Responder\Interfaces\HomeResponderInterface;
 interface HomeActionInterface
 {
     /**
+     * HomeActionInterface constructor.
+     * @param TrickRepository $trickRepository
+     */
+    public function __construct(TrickRepository $trickRepository);
+
+
+    /**
      * @param HomeResponderInterface $responder
-     * @param ObjectManager $manager
      * @return mixed
      */
-    public function __invoke(HomeResponderInterface $responder, ObjectManager $manager);
+    public function __invoke(HomeResponderInterface $responder);
 }

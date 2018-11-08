@@ -8,10 +8,12 @@
 
 namespace App\UI\Action;
 
-use App\Domain\DTO\NewTrickDTO;
+
+use App\Domain\DTO\DTOFactory\Interfaces\TrickDTOFactoryInterface;
 use App\Domain\Repository\TrickRepository;
-use App\UI\Form\UpdateTrickType;
+use App\UI\Form\FormUpdateTrick\UpdateTrickType;
 use App\UI\Responder\Interfaces\EditTrickActionResponderInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -37,18 +39,29 @@ class EditTrickAction
     private $trickRepository;
 
     /**
+     * @var TrickDTOFactoryInterface
+     */
+    private $trickDTOFactory;
+
+
+    /**
      * EditTrickAction constructor.
      * @param FormFactoryInterface $formFactory
      * @param EditTrickTypeHandlerInterface $editTrickTypeHandler
      * @param TrickRepository $trickRepository
+     * @param TrickDTOFactoryInterface $trickDTOFactory
      */
-    public function __construct(FormFactoryInterface $formFactory,
-                                EditTrickTypeHandlerInterface $editTrickTypeHandler,
-                                TrickRepository $trickRepository
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        EditTrickTypeHandlerInterface $editTrickTypeHandler,
+        TrickRepository $trickRepository,
+        TrickDTOFactoryInterface $trickDTOFactory
+
     ) {
         $this->formFactory = $formFactory;
         $this->editTrickTypeHandler = $editTrickTypeHandler;
         $this->trickRepository = $trickRepository;
+        $this->trickDTOFactory = $trickDTOFactory;
     }
 
 
@@ -58,17 +71,17 @@ class EditTrickAction
      * @return mixed
      * @throws \Exception
      */
-    public function __invoke(Request $request, EditTrickActionResponderInterface $responder)
+    public function __invoke(Request $request, ObjectManager $manager, EditTrickActionResponderInterface $responder)
     {
         if ($request->attributes->get('id')){
-
             $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
 
-            $form = $this->formFactory->create(UpdateTrickType::class, $trick)->handleRequest($request);
-
+            $trickDTO = $this->trickDTOFactory->create($trick);
+            //dd($trickDTO);
+            $form = $this->formFactory->create(UpdateTrickType::class, $trickDTO);
             if ($this->editTrickTypeHandler->handle($form)){
                 return $responder($form, true);
             }
-        } return $responder($form, $trick, false);
+        } return $responder($form, false);
     }
 }

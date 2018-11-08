@@ -1,8 +1,10 @@
-App\Domain\Models\User:
+App\Entity\User:
   properties:
     password:
-      - Length:
-          {min: 8, minMessage: "Le mot de passe doit contenir 8 caractères minimum."}
+    - Length:
+        min: 8
+        minMessage: 'Le mot de passe doit contenir 8 caractères minimum.'
+
 
   constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:

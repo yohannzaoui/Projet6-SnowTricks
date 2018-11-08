@@ -1,4 +1,4 @@
-App\Domain\Models\Trick:
+App\Entity\Trick:
   constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: name

@@ -37,8 +37,10 @@ class RegisterAction implements RegisterActionInterface
      * @param FormFactoryInterface $formFactory
      * @param RegisterTypeHandlerInterface $registerTypeHandler
      */
-    public function __construct(FormFactoryInterface $formFactory, RegisterTypeHandlerInterface $registerTypeHandler)
-    {
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        RegisterTypeHandlerInterface $registerTypeHandler
+    ) {
         $this->formFactory = $formFactory;
         $this->registerTypeHandler = $registerTypeHandler;
     }
@@ -54,14 +56,11 @@ class RegisterAction implements RegisterActionInterface
     {
         $form = $this->formFactory->create(RegisterType::class)->handleRequest($request);
 
-
         if ($this->registerTypeHandler->handle($form)) {
 
             return $responder(true, $form);
         }
         return $responder(false,$form);
-
-
 
     }
 }

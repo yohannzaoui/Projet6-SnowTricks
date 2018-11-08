@@ -4,10 +4,34 @@
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
-        <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+            <link href="{{ asset('css/load-more-button.css') }}" rel="stylesheet">
         {% endblock %}
-        <link rel="icon" href="/images/favicon.png">
+        <link rel="icon" href="{{ asset('images/favicon.png') }}">
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+        <script>
+            window.addEventListener("load", function(){
+                window.cookieconsent.initialise({
+                    "palette": {
+                        "popup": {
+                            "background": "#eb6c44",
+                            "text": "#ffffff"
+                        },
+                        "button": {
+                            "background": "#f5d948"
+                        }
+                    },
+                    "showLink": false,
+                    "theme": "classic",
+                    "position": "bottom-right",
+                    "content": {
+                        "message": "Ce site utilise des cookies pour vous garantir la meilleure expérience sur notre site.",
+                        "dismiss": "Ok"
+                    }
+                })});
+        </script>
     </head>
 
     <body>
@@ -21,10 +45,12 @@
 
 
     {% block javascripts %}
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        {% endblock %}
+        <script src="{{ asset('js/load-more-button.js') }}"></script>
+        <script src="{{ asset('js/jsImage.js') }}"></script>
+    {% endblock %}
 
     </body>
 </html>

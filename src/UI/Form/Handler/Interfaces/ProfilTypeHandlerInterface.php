@@ -7,19 +7,18 @@ use App\Domain\Repository\ImageRepository;
 use App\Services\FileUploader;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 /**
  * Interface ProfilTypeHandlerInterface
  * @package App\UI\Form\Handler\Interfaces
  */
 interface ProfilTypeHandlerInterface
 {
-    /**
-     * ProfilTypeHandlerInterface constructor.
-     */
+
     public function __construct(
         FileUploader $fileUploader,
         ImageRepository $imageRepository,
-        ImageBuilder $mediaBuilder,
+        ImageBuilder $imageBuilder,
         SessionInterface $messageFlash
     );
 

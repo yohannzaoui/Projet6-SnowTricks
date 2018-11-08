@@ -1,38 +1,48 @@
 {% extends 'base.html.twig' %}
 {% block title %}Snow Tricks{% endblock %}
 
+
 {% block body %}
-{# home picture #}
+
     <img src="images/home.jpg" class="img-fluid" alt="Responsive image">
+
+
 
     <div class="container-fluid">
         <br>
         <div class="row justify-content-start">
-        {% for trick in tricks %}
+            {% for trick in tricks %}
             <div class="col-lg-2 col-md-10 mx-auto">
-                  <div class="card mb-3">
-                    <img  src="{{trick.image}}" class="img-fluid" alt="Responsive image" alt="Card image">
-                        <div class="card-footer">
+
+
+                <div class="card border-secondary mb-3" style="max-width: 20rem;">
+
+                    <div class="card-header">
+                        <h5 style="text-align: center" ><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a></h5>
+                    </div>
+                        <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.getFileName)}}" alt="Image par défaut du trick" class="img-fluid">
+                    {% if app.user %}
+                        <div class="card-footer text-muted">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-auto mx-auto">
-                                        <p><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a>
+                                    <div class="col-lg-3 col-md-auto mx-auto">
+                                        <a href="{{path('edittrick', {'id':trick.id})}}"><i class="fas fa-edit"></i></a>
                                     </div>
-                            {% if app.user %}
-                                        <div class="col-lg-3 col-md-auto mx-auto">
-                                            <a href="{{path('edittrick', {'id':trick.id})}}"><i class="fas fa-edit"></i></a>
-                                        </div>
-                                        <div class="col-lg-3 col-md-auto mx-auto">
-                                            <a href="{{path('deltrick', {'id':trick.id})}}"><i class="fas fa-trash-alt"></i></a></p>
-                                        </div> 
-                            {% endif %}
+                                    <div class="col-lg-3 col-md-auto mx-auto">
+                                        <a href="{{path('deltrick', {'id':trick.id})}}"><i class="fas fa-trash-alt"></i></a>
                                     </div>
                                 </div>
+                            </div>
                         </div>
-                      </div>
-                  </div>
-        {% endfor %}
-          </div>
-      </div>
+                    {% endif %}
 
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div id="loadMore" style="">
+            <a href="#">Voir plus de Trick</a>
+        </div>
+    </div>
 {% endblock body %}
