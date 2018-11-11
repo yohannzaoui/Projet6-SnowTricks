@@ -84,7 +84,6 @@ final class DeleteTrickController extends AbstractController
             $file = $this->trickRepository->getDefaultImage($request->attributes->get('id'));
             $files = $this->imageRepository->checkImages($request->attributes->get('id'));
 
-            //dd($defaultImage);
             foreach ($file as $defaultImage) {
                 $this->fileRemover->deleteFile($defaultImage);
             }
