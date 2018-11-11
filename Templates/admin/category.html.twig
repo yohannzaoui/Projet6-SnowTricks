@@ -30,6 +30,9 @@
                             {% endif %}
                         </button>
                         <button type="reset" class="btn btn-danger">Effacer</button>
+                        {% if editMode %}
+                        <a class="btn btn-info" href="{{ path('category') }}">Annulé</a>
+                        {% endif %}
                     </p>
                     {{ form_end(form)}}
                     </div>

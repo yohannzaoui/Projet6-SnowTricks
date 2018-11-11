@@ -9,6 +9,7 @@
 namespace App\FormHandler;
 
 use App\Entity\User;
+use App\FormHandler\Interfaces\ForgotPasswordValidationTypeHandlerInterface;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -18,7 +19,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
  * Class ForgotPasswordValidationTypeHandler
  * @package App\FormHandler
  */
-class ForgotPasswordValidationTypeHandler
+class ForgotPasswordValidationTypeHandler implements ForgotPasswordValidationTypeHandlerInterface
 {
 
     /**

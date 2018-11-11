@@ -6,13 +6,19 @@
     <br>
     <div class="container">
                 <h1>Ajouter un Trick</h1>
-            <div class="row">
                 <div class="col-lg-6 col-md-10 mx-auto">
 
                     {{ form_start(form) }}
-                    {{ form_row(form.author, {'value':app.user.username}) }}
-                    {{ form_row(form.name, {'label':'*Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
-                    {{ form_row(form.defaultImage, {'label' : '*Image principale'}) }}
+                    {{ form_row(form._token) }}
+                    <div class="row">
+                        <div class="col-lg-6 col-md-auto mx-auto">
+                    {{ form_row(form.name, {'label':'* Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
+                    </div>
+                        <div class="col-lg-6 col-md-auto mx-auto">
+                    {{ form_row(form.category, {'label':'* Catégorie'} ) }}
+                        </div>
+                    </div>
+                    {{ form_row(form.defaultImage, {'label' : '* Image principale'}) }}
 
                     <strong>Image supplémentaire</strong>
                     <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
@@ -27,9 +33,10 @@
                             {{ form_row(video) }}
                         {% endfor %}
                     </ul>
-                    {{ form_row(form.description, {'label':'*Déscription du Trick'}) }}
-                    {{ form_row(form.category, {'label':'*Catégorie'} ) }}
+                    {{ form_row(form.description, {'label':'* Déscription du Trick'}) }}
+
                     <p>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         <button type="submit" class="btn btn-success">Ajouter</button>
                         <button type="reset" class="btn btn-danger">Effacer</button>
                         * Obligatoire
@@ -37,7 +44,7 @@
                     {{ form_end(form, { "render_rest": false }) }}
 
                 </div>
-            </div>
+
     </div>
 
 {% endblock body %}

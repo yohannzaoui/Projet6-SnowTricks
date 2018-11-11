@@ -9,6 +9,8 @@
 namespace App\FormHandler;
 
 
+use App\Entity\Trick;
+use App\Repository\TrickRepository;
 use App\Services\FileUploader;
 use Symfony\Component\Form\FormInterface;
 
@@ -16,35 +18,47 @@ class AddTrickHandler
 {
     private $fileUploader;
 
-    public function __construct(FileUploader $fileUploader)
-    {
+    private $trickRepository;
+
+    public function __construct(
+        FileUploader $fileUploader,
+        TrickRepository $trickRepository
+    ) {
         $this->fileUploader = $fileUploader;
+        $this->trickRepository = $trickRepository;
     }
 
-    public function handle(FormInterface $form)
+    public function handle(FormInterface $form, $user, Trick $trick)
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
-            dd($form->getData());
+            $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage());
 
-            $imageFile = $form->getData()->getDefaultImage();
+            $arrayCollectionImages = $form->getData()->getImages()->toArray();
 
-            $imagesFiles = $form->getData()->getImages();
+            foreach ($arrayCollectionImages as $a => $image) {
 
-            $videos = $form->getData()->getVideos();
+                $images = $this->fileUploader->upload($image->getFile());
+                $image->setUrl($images);
 
-            $defaultImage = $this->fileUploader->upload($imageFile);
-
-            foreach ($imagesFiles as $imageFile) {
-
-                $images[] = $this->fileUploader->upload($imageFile);
             }
 
-            if (!\count($form->getData()->getVideos->getUrl()) == 0) {
+            $arrayCollectionVideos = $form->getData()->getVideos()->toArray();
 
+            foreach ($arrayCollectionVideos as $b => $video) {
 
-                }
-                return true;
+                $videos[] = $video->getUrl();
+            }
+
+            $trick->setAuthor($user);
+            $trick->setDefaultImage($defaultImage);
+            $trick->setImages($form->getData()->getImages());
+            $trick->setVideos($form->getData()->getVideos());
+            $trick->setCategory($form->getData()->getCategory());
+
+            $this->trickRepository->save($trick);
+
+            return true;
         }
         return false;
     }

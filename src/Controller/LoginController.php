@@ -19,7 +19,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  * Class LoginController
  * @package App\Controller
  */
-class LoginController extends AbstractController implements LoginControllerInterface
+final class LoginController extends AbstractController implements LoginControllerInterface
 {
 
     /**

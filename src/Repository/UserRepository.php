@@ -32,12 +32,21 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         // TODO: Implement loadUserByUsername() method.
     }
 
-    public function getProfilImage($profilImage, $id)
+
+    /**
+     * @param $image
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function checkProfilImage($image)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery();
+                    ->select('u.profilImage')
+                    ->where('u.profilImage = ?1')
+                    ->setParameter(1, $image)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+
     }
 
 
@@ -53,7 +62,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->where('u.id = ?2')
             ->setParameter(1, $profilImage)
             ->setParameter(2, $id);
-        $q= $qb->getQuery();
+        $q = $qb->getQuery();
         $q->execute();
     }
 
@@ -66,7 +75,8 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $this->createQueryBuilder('u')
             ->where('u.id = :id')
             ->setParameter('id', $id)
-            ->getQuery();
+            ->getQuery()
+            ->getResult();
     }
 
 

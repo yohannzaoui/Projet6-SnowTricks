@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class TrickController
  * @package App\Controller
  */
-class TrickController extends AbstractController implements TrickControllerInterface
+final class TrickController extends AbstractController implements TrickControllerInterface
 {
     /**
      * @var TrickRepository
@@ -72,6 +72,8 @@ class TrickController extends AbstractController implements TrickControllerInter
 
             $this->manager->persist($comment);
             $this->manager->flush();
+
+            $this->addFlash('comment', 'Commentaire ajouté :-)');
 
             return $this->redirectToRoute('trick', [
                 'id' => $trick->getId()

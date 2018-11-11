@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ForgotPasswordValidationController
  * @package App\Controller
  */
-class ForgotPasswordValidationController extends AbstractController implements ForgotPasswordValidationControllerInterface
+final class ForgotPasswordValidationController extends AbstractController implements ForgotPasswordValidationControllerInterface
 {
     /**
      * @var UserRepository

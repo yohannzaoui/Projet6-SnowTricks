@@ -13,7 +13,10 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 
-
+/**
+ * Class Image
+ * @package App\Entity
+ */
 class Image implements ImageInterface
 {
     /**
@@ -24,7 +27,9 @@ class Image implements ImageInterface
     /**
      * @var
      */
-    private $fileName;
+    private $file;
+
+    private $url;
 
     private $trick;
 
@@ -47,20 +52,19 @@ class Image implements ImageInterface
         return $this->id;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
 
     /**
-     * @param mixed $fileName
+     * @return mixed
      */
-    public function setFileName($fileName): void
+    public function getFile()
     {
-        $this->fileName = $fileName;
+        return $this->file;
+    }
+
+
+    public function setFile($file)
+    {
+        $this->file = $file;
     }
 
     /**
@@ -71,15 +75,27 @@ class Image implements ImageInterface
         return $this->trick;
     }
 
-    /**
-     * @param mixed $trick
-     */
+
     public function setTrick($trick): void
     {
         $this->trick = $trick;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
+    /**
+     * @param mixed $url
+     */
+    public function setUrl($url): void
+    {
+        $this->url = $url;
+    }
 
 
 

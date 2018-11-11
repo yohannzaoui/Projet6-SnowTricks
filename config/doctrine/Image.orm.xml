@@ -7,9 +7,11 @@
 
         <id name="id" type="uuid" column="id" />
 
-        <field name="fileName" column="filename" type="string" length="255" nullable="false" />
+        <field name="url" column="url" type="string" length="255" nullable="false" />
 
-         <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="images"/>
+        <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="images">
+            <join-column name="trick_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </many-to-one>
 
     </entity>
 

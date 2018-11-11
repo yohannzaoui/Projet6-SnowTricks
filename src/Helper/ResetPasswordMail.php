@@ -19,9 +19,16 @@ use App\Services\Interfaces\EmailerInterface;
 class ResetPasswordMail implements ResetPasswordMailInterface
 {
 
+    /**
+     * @var EmailerInterface
+     */
     private $mail;
 
 
+    /**
+     * ResetPasswordMail constructor.
+     * @param EmailerInterface $mail
+     */
     public function __construct(EmailerInterface $mail)
     {
         $this->mail = $mail;

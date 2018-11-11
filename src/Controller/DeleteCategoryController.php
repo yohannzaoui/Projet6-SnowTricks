@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class DeleteCategoryController
  * @package App\Controller
  */
-class DeleteCategoryController extends AbstractController implements DeleteCategoryControllerInterface
+final class DeleteCategoryController extends AbstractController implements DeleteCategoryControllerInterface
 {
     /**
      * @var CategoryRepository
