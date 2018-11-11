@@ -58,9 +58,7 @@ class User implements UserInterface
      */
     private $resetPasswordToken;
 
-    /**
-     * @var ArrayCollection
-     */
+
     private $comments;
 
     /**
@@ -83,7 +81,6 @@ class User implements UserInterface
     {
         $this->id = Uuid::uuid4();
         $this->createdAt = new \DateTime;
-        $this->comments = new ArrayCollection();
         $this->tricks = new ArrayCollection();
     }
 
@@ -286,10 +283,8 @@ class User implements UserInterface
         $this->resetPasswordToken = $resetPasswordToken;
     }
 
-    /**
-     * @param ArrayCollection $comments
-     */
-    public function setComments(ArrayCollection $comments): void
+
+    public function setComments($comments)
     {
         $this->comments = $comments;
     }

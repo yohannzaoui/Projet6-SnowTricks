@@ -50,9 +50,21 @@ class TrickRepository extends ServiceEntityRepository
                     ->setParameter('id', $id)
                     ->getQuery()
                     ->getOneOrNullResult();
+    }
 
-
-
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getDefaultImage($id)
+    {
+        return $this->createQueryBuilder('trick')
+            ->select('trick.defaultImage')
+            ->where('trick.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     /**

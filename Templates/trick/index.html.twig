@@ -6,48 +6,58 @@
         <br>
         <h1>{{ trick.name }}</h1>
         <div class="row">
-            <div class="col-lg-12 col-md-6 mx-auto">
+            <div class="col-lg-6 col-md-6 mx-auto">
                 {% for message in app.flashes('comment') %}
                     <div class="alert alert-dismissible alert-info">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         {{ message }}
                     </div>
                 {% endfor %}
+            </div>
 
 
-                <div>
+                <div class="col-lg-12 col-md-6 mx-auto">
                     {% if is_granted('ROLE_USER') %}
                         <a class="" href="{{ path('edittrick', {'id':trick.id}) }}">
                             Modifié <i class="fas fa-edit"></i>
                         </a>
                     {% endif %}
-                    <img src="{{asset('/uploads/images/'~ trick.defaultImage.getFileName)}}" class="rounded mx-auto d-block img-fluid" alt="Image principale">
-                    </div>
-
 
                     <br>
-                <div class="alert alert-dismissible alert-secondary">
+
+                    <img style="width:1100px;height:700px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage)}}" class="rounded mx-auto d-block img-fluid" alt="Image principale">
+                    <hr>
+                    <div class="alert alert-dismissible alert-secondary">
                     <p>{{ trick.description }}</p>
-                    <p class="italicgrey">Auteur : {{ trick.author }}. Ajouté le {{ trick.createdAt| date("d/m/Y") }} {% if trick.updatedAt %} - Modifié le {{ trick.updatedAt | date("d/m/Y") }} {% endif %} dans la catégorie {{ trick.category.name }} </p>
+                    <p class="italicgrey">Auteur : {{ trick.author.getUserName }}. Ajouté le {{ trick.createdAt| date("d/m/Y") }} {% if trick.updatedAt %} - Modifié le {{ trick.updatedAt | date("d/m/Y") }} {% endif %} dans la catégorie {{ trick.category.name }} </p>
                 </div>
             </div>
 
-            <div class="col-lg-12 col-md-6 mx-auto">
+            <div class="col-lg-12 col-md-6 mx-auto media">
+                {% if trick.images %}
                 {% for image in trick.images %}
                     {% if is_granted('ROLE_USER') %}
-                        <a class="" href="{{ path('edittrick', {'id':trick.id}) }}">
-                            Modifié <i class="fas fa-edit"></i>
+                        <a href="{{ path('edittrick', {'id':trick.id}) }}">
+                            <span>
+                            <i class="fas fa-edit"></i>
+                            </span>
                         </a>
                     {% endif %}
-                <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{'/uploads/images/'~ asset(image.getFilename) }}" alt="Image supplémentaire" class="img-fluid">
-                 {% endfor %}
+                <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{'/uploads/images/'~ asset(image.getUrl) }}"  class="img-fluid">
+                {% endfor %}
+                {% endif %}
+
+                {% if trick.videos %}
+                {% for video in trick.videos %}
+                <div class="embed-responsive embed-responsive-4by3">
+
+                    <iframe width="460" height="215" src="https://www.youtube.com/embed/{{ video.getUrl }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                {% endfor %}
+                {% endif %}
             </div>
 
-            <div class="col-lg-12 col-md-6 mx-auto">
-                    {% for video in trick.videos %}
-                    {{ video.getUrl }}
-                    {% endfor %}
-            </div>
+
 
             </div>
         </div>
@@ -56,7 +66,7 @@
         <hr>
         {% if app.user %}
 
-        <h3>Ecrire un commentaire</h3>
+        <h3>Espace de discussion</h3>
 
             {% form_theme form 'theme/comment_type.html.twig' %}
             {{form(form)}}

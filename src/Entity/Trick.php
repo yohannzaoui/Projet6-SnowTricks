@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
@@ -240,30 +239,20 @@ class Trick
         return $this->images;
     }
 
-    /**
-     * @param Image $images
-     * @return Trick
-     */
-    public function addImages(Image $images): self
-    {
-        if (!$this->images->contains($images)) {
-            $this->images[] = $images;
-        }
 
-        return $this;
+
+
+    public function addImage(Image $image)
+    {
+        $image->setTrick($this);
+        $this->images->add($image);
     }
 
-    /**
-     * @param Image $images
-     * @return Trick
-     */
-    public function removeImages(Image $images): self
-    {
-        if ($this->images->contains($images)) {
-            $this->images->removeElement($images);
-        }
 
-        return $this;
+    public function removeImage(Image $image)
+    {
+        $image->setTrick(null);
+        $this->images->removeElement($image);
     }
 
     /**
@@ -274,47 +263,33 @@ class Trick
         return $this->videos;
     }
 
-    /**
-     * @param Video $videos
-     * @return Trick
-     */
-    public function addVideos(Video $videos): self
-    {
-        if (!$this->videos->contains($videos)) {
-            $this->videos[] = $videos;
-        }
 
-        return $this;
+    public function addVideo(Video $video)
+    {
+        $video->setTrick($this);
+        $this->videos->add($video);
     }
 
-    /**
-     * @param Video $videos
-     * @return Trick
-     */
-    public function removeVideos(Video $videos): self
-    {
-        if ($this->videos->contains($videos)) {
-            $this->videos->removeElement($videos);
-        }
 
-        return $this;
+    public function removeVideo(Video $video)
+    {
+        $video->setTrick(null);
+        $this->videos->removeElement($video);
     }
 
-    /**
-     * @param ArrayCollection $images
-     */
-    public function setImages(ArrayCollection $images): void
+
+    public function setVideos($videos)
+    {
+        $this->videos = $videos;
+    }
+
+
+    public function setImages($images)
     {
         $this->images = $images;
     }
 
-    /**
-     * @param ArrayCollection $videos
-     */
-    public function setVideos(ArrayCollection $videos): void
-    {
-        $this->videos = $videos;
-    }
+
 
 
 }

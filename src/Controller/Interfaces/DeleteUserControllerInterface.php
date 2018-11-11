@@ -9,6 +9,7 @@
 namespace App\Controller\Interfaces;
 
 use App\Repository\UserRepository;
+use App\Services\FileRemover;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -17,11 +18,16 @@ use Symfony\Component\HttpFoundation\Request;
  */
 interface DeleteUserControllerInterface
 {
+
     /**
      * DeleteUserControllerInterface constructor.
      * @param UserRepository $userRepository
+     * @param FileRemover $fileRemover
      */
-    public function __construct(UserRepository $userRepository);
+    public function __construct(
+        UserRepository $userRepository,
+        FileRemover $fileRemover
+    );
 
     /**
      * @param Request $request

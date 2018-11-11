@@ -11,30 +11,22 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Form\AddTrickType\AddTrickType;
 use App\FormHandler\AddTrickHandler;
-use App\Services\Interfaces\FileUploaderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Repository\TrickRepository;
+use App\Services\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AddTrickController extends AbstractController
+final class AddTrickController extends AbstractController
 {
 
-    private $fileUploader;
-
-    private $AddTrickHandler;
-
-    private $manager;
+    private $addTrickHandler;
 
     public function __construct(
-        FileUploaderInterface $fileUploader,
-        AddTrickHandler $AddTrickHandler,
-        ObjectManager $manager
+        AddTrickHandler $addTrickHandler
     ) {
-        $this->fileUploader = $fileUploader;
-        $this->AddTrickHandler = $AddTrickHandler;
-        $this->manager = $manager;
+        $this->addTrickHandler = $addTrickHandler;
     }
 
     /**
@@ -51,32 +43,16 @@ class AddTrickController extends AbstractController
         $form = $this->createForm(AddTrickType::class, $trick)
             ->handleRequest($request);
 
-        if ($this->AddTrickHandler->handle($form)) {
+        $user = $this->getUser();
 
+        if ($this->addTrickHandler->handle($form, $user, $trick)) {
 
-
-            return $this->redirectToRoute('trick',[
+            return $this->redirectToRoute('trick', [
                 'id' => $trick->getId()
             ]);
         }
         return $this->render('add_trick/index.html.twig', [
             'form' => $form->createView()
         ]);
-    }
-
-    /**
-     * @Route("/edit/{id}", name="edittrick", methods={"GET", "POST"})
-     */
-    public function editTrick()
-    {
-
-    }
-
-    /**
-     * @Route("/delete/{id}", name="deltrick", methods={"GET"})
-     */
-    public function deleteTrick()
-    {
-
     }
 }

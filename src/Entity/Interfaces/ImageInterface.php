@@ -9,7 +9,6 @@
 namespace App\Entity\Interfaces;
 
 
-
 interface ImageInterface
 {
     /**
@@ -22,8 +21,9 @@ interface ImageInterface
      */
     public function getId();
 
-    /**
-     * @return mixed
-     */
-    public function getFileName();
+
+    public function getFile();
+
+    public function setFile($file);
+
 }

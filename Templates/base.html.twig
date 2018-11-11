@@ -6,9 +6,9 @@
         {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-            <link href="{{ asset('css/load-more-button.css') }}" rel="stylesheet">
         {% endblock %}
         <link rel="icon" href="{{ asset('images/favicon.png') }}">
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
         <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
         <script>
@@ -24,11 +24,9 @@
                         }
                     },
                     "showLink": false,
-                    "theme": "classic",
-                    "position": "bottom-right",
                     "content": {
                         "message": "Ce site utilise des cookies pour vous garantir la meilleure expérience sur notre site.",
-                        "dismiss": "Ok"
+                        "dismiss": "J'accepte !"
                     }
                 })});
         </script>

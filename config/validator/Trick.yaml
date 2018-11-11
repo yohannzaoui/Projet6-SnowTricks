@@ -4,3 +4,11 @@ App\Entity\Trick:
             fields: name
             errorPath: name
             message: "Le nom du Trick existe déja."
+
+  properties:
+    defaultImage:
+    - Image:
+        minWidth: 1000
+        minWidthMessage: "L'image doit faire 1000 pixels de largeur minimum"
+        maxWidth: 2500
+        maxWidthMessage: "L'image doit faire 2500 pixels de hauteur maximum"

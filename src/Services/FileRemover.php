@@ -8,20 +8,42 @@
 
 namespace App\Services;
 
+use App\Services\Interfaces\FileRemoverInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 
-class FileRemover
+/**
+ * Class FileRemover
+ * @package App\Services
+ */
+class FileRemover implements FileRemoverInterface
 {
+    /**
+     * @var Filesystem
+     */
     private $fileSystem;
 
-    public function __construct(Filesystem $fileSystem)
+    /**
+     * @var
+     */
+    private $path;
+
+    /**
+     * FileRemover constructor.
+     * @param Filesystem $fileSystem
+     * @param $path
+     */
+    public function __construct(Filesystem $fileSystem, $path)
     {
         $this->fileSystem = $fileSystem;
+        $this->path = $path;
     }
 
+    /**
+     * @param $file
+     */
     public function deleteFile($file)
     {
-        $this->fileSystem->remove($file);
+        $this->fileSystem->remove($this->path.'/'.$file);
     }
 }

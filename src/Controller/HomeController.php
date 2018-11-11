@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class HomeController
  * @package App\Controller
  */
-class HomeController extends AbstractController implements HomeControllerInterface
+final class HomeController extends AbstractController implements HomeControllerInterface
 {
     /**
      * @var TrickRepository

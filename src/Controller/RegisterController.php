@@ -16,11 +16,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * Class RegisterController
  * @package App\Controller
  */
-class RegisterController extends AbstractController implements RegisterControllerInterface
+final class RegisterController extends AbstractController implements RegisterControllerInterface
 {
     /**
      * @var RegisterFormHandler

@@ -9,7 +9,9 @@
 
         <field name="url" column="url" type="string" length="255" nullable="true" />
 
-        <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="videos"/>
+        <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="videos">
+            <join-column name="trick_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </many-to-one>
 
     </entity>
 </doctrine-mapping>

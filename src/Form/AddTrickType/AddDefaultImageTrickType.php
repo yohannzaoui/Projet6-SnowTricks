@@ -18,7 +18,8 @@ class AddDefaultImageTrickType extends AbstractType
                 'label' => 'Sélectionnez une image principale',
                 'attr' => [
                     'accept' => '.png, .jpeg, .jpg'
-                ]
+                ],
+                'multiple' => true
             ]);
     }
 

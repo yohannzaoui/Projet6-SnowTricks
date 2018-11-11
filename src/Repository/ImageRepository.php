@@ -31,6 +31,21 @@ class ImageRepository extends ServiceEntityRepository
 
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function checkImages($id)
+    {
+        return $this->createQueryBuilder('i')
+            ->select('i.url')
+            ->where('i.trick = ?1')
+            ->setParameter(1, $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    /**
      * @param Image $image
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ProfilController
  * @package App\Controller
  */
-class ProfilController extends AbstractController implements ProfilControllerInterface
+final class ProfilController extends AbstractController implements ProfilControllerInterface
 {
 
     /**
@@ -56,9 +56,9 @@ class ProfilController extends AbstractController implements ProfilControllerInt
             ->handleRequest($request);
 
         $iduser = $this->getUser()->getId();
+        $imageUser = $this->getUser()->getProfilImage();
 
-
-        if ($this->profilTypeHandler->handle($form, $iduser)) {
+        if ($this->profilTypeHandler->handle($form, $iduser, $imageUser)) {
 
             return $this->redirectToRoute('profil');
         }

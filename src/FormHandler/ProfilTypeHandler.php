@@ -5,22 +5,24 @@ declare(strict_types=1);
 namespace App\FormHandler;
 
 
+use App\FormHandler\Interfaces\ProfilTypeHandlerInterface;
 use App\Repository\UserRepository;
-use App\Services\FileUploader;
+use App\Services\Interfaces\FileRemoverInterface;
+use App\Services\Interfaces\FileUploaderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
-
 /**
  * Class ProfilTypeHandler
- * @package App\UI\Form\Handler
+ * @package App\FormHandler
  */
-class ProfilTypeHandler
+class ProfilTypeHandler implements ProfilTypeHandlerInterface
 {
 
+
     /**
-     * @var FileUploader
+     * @var FileUploaderInterface
      */
     private $fileUploader;
 
@@ -34,33 +36,46 @@ class ProfilTypeHandler
      */
     private $messageFlash;
 
+    /**
+     * @var FileRemoverInterface
+     */
+    private $fileRemover;
+
 
     /**
      * ProfilTypeHandler constructor.
-     * @param FileUploader $fileUploader
+     * @param FileUploaderInterface $fileUploader
      * @param SessionInterface $messageFlash
      * @param UserRepository $userRepository
+     * @param FileRemoverInterface $fileRemover
      */
     public function __construct(
-        FileUploader $fileUploader,
+        FileUploaderInterface $fileUploader,
         SessionInterface $messageFlash,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        FileRemoverInterface $fileRemover
     ) {
         $this->fileUploader = $fileUploader;
         $this->messageFlash = $messageFlash;
         $this->userRepository = $userRepository;
+        $this->fileRemover = $fileRemover;
     }
 
 
     /**
      * @param FormInterface $form
+     * @param $iduser
+     * @param $imageUser
      * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function handle(FormInterface $form, $iduser)
+    public function handle(FormInterface $form, $iduser, $imageUser)
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $fileRemove = $this->userRepository->checkProfilImage($imageUser);
 
+            $this->fileRemover->deleteFile($fileRemove['profilImage']);
 
             $file = $form->getData()->getProfilImage();
 

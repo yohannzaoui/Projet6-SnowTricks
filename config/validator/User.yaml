@@ -1,9 +1,16 @@
 App\Entity\User:
   properties:
     password:
-    - Length:
-        min: 8
-        minMessage: 'Le mot de passe doit contenir 8 caractères minimum.'
+      - Length:
+          min: 8
+          minMessage: 'Le mot de passe doit contenir 8 caractères minimum.'
+
+    profilImage:
+      - Image:
+          minWidth: 20
+          minWidthMessage: "L'image doit faire 20x20 pixels minimum"
+          maxWidth: 40
+          maxWidthMessage: "L'image doit faire 40x40 pixels maximum"
 
 
   constraints:

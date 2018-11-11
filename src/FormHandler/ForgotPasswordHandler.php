@@ -9,6 +9,7 @@
 namespace App\FormHandler;
 
 
+use App\FormHandler\Interfaces\ForgotPasswordHandlerInterface;
 use App\Helper\Interfaces\ResetPasswordMailInterface;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormInterface;
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  * Class ForgotPasswordHandler
  * @package App\FormHandler
  */
-class ForgotPasswordHandler
+class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
 {
     /**
      * @var UserRepository

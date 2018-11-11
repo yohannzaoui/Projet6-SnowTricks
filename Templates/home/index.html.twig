@@ -4,45 +4,45 @@
 
 {% block body %}
 
-    <img src="images/home.jpg" class="img-fluid" alt="Responsive image">
-
+    <img src="{{ asset('images/home.jpg') }}" class="img-fluid" alt="Responsive image">
 
 
     <div class="container-fluid">
+
+
+        {% for message in app.flashes('deleteTrick') %}
+        <div class="container mt-2">
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        </div>
+        {% endfor %}
         <br>
-        <div class="row justify-content-start">
+
+
+
+        <div class="row">
             {% for trick in tricks %}
-            <div class="col-lg-2 col-md-10 mx-auto">
-
-
-                <div class="card border-secondary mb-3" style="max-width: 20rem;">
-
-                    <div class="card-header">
-                        <h5 style="text-align: center" ><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a></h5>
-                    </div>
-                        <img style="float:left;width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.getFileName)}}" alt="Image par défaut du trick" class="img-fluid">
-                    {% if app.user %}
-                        <div class="card-footer text-muted">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-auto mx-auto">
-                                        <a href="{{path('edittrick', {'id':trick.id})}}"><i class="fas fa-edit"></i></a>
-                                    </div>
-                                    <div class="col-lg-3 col-md-auto mx-auto">
-                                        <a href="{{path('deltrick', {'id':trick.id})}}"><i class="fas fa-trash-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-
-                </div>
+            <div class="col-lg-2 col-md-auto mx-auto">
+        <div class="card mb-3">
+            <h3 class="card-header"><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a></h3>
+            <img style="width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage)}}" alt="Card image" class="rounded mx-auto d-block img-fluid">
+            {% if app.user %}
+            <div style="text-align: center" class="card-body">
+                <a href="{{path('edittrick', {'id':trick.id})}}"><i class="fas fa-edit"></i></a>
+                <a href="{{path('confirmeDeleteTrick', {'id':trick.id})}}"><i class="fas fa-trash-alt"></i></a>
+            </div>
+            {% endif %}
+            <div class="card-footer text-muted">
+                Ajouté le {{ trick.createdAt| date("d/m/Y") }}
+            </div>
+        </div>
             </div>
             {% endfor %}
+        </div>
 
-        </div>
-        <div id="loadMore" style="">
-            <a href="#">Voir plus de Trick</a>
-        </div>
-    </div>
+
+
+
 {% endblock body %}
