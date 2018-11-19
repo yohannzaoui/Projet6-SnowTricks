@@ -24,6 +24,7 @@ class Trick
      * @var null
      */
     private $name;
+
     /**
      * @var null
      */
@@ -40,7 +41,6 @@ class Trick
      * @var ArrayCollection
      */
     private $images;
-
 
     /**
      * @var ArrayCollection
@@ -111,9 +111,7 @@ class Trick
     }
 
 
-    /**
-     * @return mixed
-     */
+
     public function getDefaultImage()
     {
         return $this->defaultImage;
@@ -184,9 +182,9 @@ class Trick
     }
 
     /**
-     * @param mixed $defaultImage
+     * @param Image $defaultImage
      */
-    public function setDefaultImage($defaultImage): void
+    public function setDefaultImage(Image $defaultImage)
     {
         $this->defaultImage = $defaultImage;
     }
@@ -240,8 +238,9 @@ class Trick
     }
 
 
-
-
+    /**
+     * @param Image $image
+     */
     public function addImage(Image $image)
     {
         $image->setTrick($this);
@@ -249,6 +248,9 @@ class Trick
     }
 
 
+    /**
+     * @param Image $image
+     */
     public function removeImage(Image $image)
     {
         $image->setTrick(null);
@@ -264,6 +266,9 @@ class Trick
     }
 
 
+    /**
+     * @param Video $video
+     */
     public function addVideo(Video $video)
     {
         $video->setTrick($this);
@@ -271,6 +276,9 @@ class Trick
     }
 
 
+    /**
+     * @param Video $video
+     */
     public function removeVideo(Video $video)
     {
         $video->setTrick(null);
@@ -278,17 +286,22 @@ class Trick
     }
 
 
+    /**
+     * @param $videos
+     */
     public function setVideos($videos)
     {
         $this->videos = $videos;
     }
 
 
+    /**
+     * @param $images
+     */
     public function setImages($images)
     {
         $this->images = $images;
     }
-
 
 
 

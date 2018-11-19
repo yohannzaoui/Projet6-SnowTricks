@@ -9,20 +9,29 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
-use App\Form\AddTrickType\AddTrickType;
+use App\Form\AddTrickType;
 use App\FormHandler\AddTrickHandler;
-use App\Repository\TrickRepository;
-use App\Services\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class AddTrickController
+ * @package App\Controller
+ */
 final class AddTrickController extends AbstractController
 {
 
+    /**
+     * @var AddTrickHandler
+     */
     private $addTrickHandler;
 
+    /**
+     * AddTrickController constructor.
+     * @param AddTrickHandler $addTrickHandler
+     */
     public function __construct(
         AddTrickHandler $addTrickHandler
     ) {

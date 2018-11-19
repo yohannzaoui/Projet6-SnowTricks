@@ -13,12 +13,18 @@
 
         <field name="name" column="name" type="string" length="255" nullable="false" unique="true" />
         <field name="description" column="description" type="text"  nullable="false" />
-        <field name="defaultImage" column="defaultImage" type="string" nullable="false"/>
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
 
-
         <many-to-one field="author" target-entity="App\Entity\User" inversed-by="tricks" />
+
+        <one-to-one field="defaultImage" target-entity="App\Entity\Image">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-column name="defaultImage_id" referenced-column-name="id"/>
+        </one-to-one>
 
         <many-to-one field="category" target-entity="App\Entity\Category">
         <cascade>
@@ -29,21 +35,18 @@
             </join-columns>
         </many-to-one>
 
-
-        <one-to-many field="images" target-entity="App\Entity\Image" mapped-by="trick" orphan-removal="false">
+        <one-to-many field="images" target-entity="App\Entity\Image" mapped-by="trick" orphan-removal="true">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>
-        
-        
+
         <one-to-many field="comments" target-entity="App\Entity\Comment" mapped-by="trick" orphan-removal="true">
             <order-by>
                 <order-by-field name="createdAt" direction="DESC"/>
             </order-by>
         </one-to-many>
-
 
         <one-to-many field="videos" target-entity="App\Entity\Video" mapped-by="trick" orphan-removal="true">
             <cascade>

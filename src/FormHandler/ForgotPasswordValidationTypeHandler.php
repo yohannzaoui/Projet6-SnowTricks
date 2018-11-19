@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
  * Class ForgotPasswordValidationTypeHandler
  * @package App\FormHandler
  */
-class ForgotPasswordValidationTypeHandler implements ForgotPasswordValidationTypeHandlerInterface
+final class ForgotPasswordValidationTypeHandler implements ForgotPasswordValidationTypeHandlerInterface
 {
 
     /**

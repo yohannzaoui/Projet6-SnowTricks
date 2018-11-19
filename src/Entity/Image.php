@@ -29,8 +29,14 @@ class Image implements ImageInterface
      */
     private $file;
 
+    /**
+     * @var
+     */
     private $url;
 
+    /**
+     * @var
+     */
     private $trick;
 
 
@@ -62,6 +68,9 @@ class Image implements ImageInterface
     }
 
 
+    /**
+     * @param $file
+     */
     public function setFile($file)
     {
         $this->file = $file;
@@ -76,6 +85,9 @@ class Image implements ImageInterface
     }
 
 
+    /**
+     * @param $trick
+     */
     public function setTrick($trick): void
     {
         $this->trick = $trick;

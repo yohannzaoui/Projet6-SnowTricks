@@ -9,6 +9,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Interfaces\TypeInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -20,7 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class ForgotPasswordValidationType
  * @package App\UI\Form
  */
-class ForgotPasswordValidationType extends AbstractType
+class ForgotPasswordValidationType extends AbstractType implements TypeInterface
 {
     /**
      * @param FormBuilderInterface $builder

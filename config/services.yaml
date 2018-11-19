@@ -27,7 +27,6 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-
     App\Services\FileUploader:
         arguments:
             $targetDirectory: '%image_directory%'
@@ -36,7 +35,6 @@ services:
         arguments:
             $path: '%image_directory%'
 
-
     App\Form\Transformers\ImageDefaultTransformer:
         arguments:
             $path: '%image_directory%/'
@@ -44,6 +42,11 @@ services:
     App\Form\Transformers\ImageTransformer:
         arguments:
             $path: '%image_directory%/'
+
+    app.security.LoginForm:
+        class: App\Security\LoginForm
+
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

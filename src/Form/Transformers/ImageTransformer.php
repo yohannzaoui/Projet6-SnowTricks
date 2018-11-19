@@ -31,23 +31,20 @@ class ImageTransformer implements DataTransformerInterface
         $this->path = $path;
     }
 
-    /**
-     * @param mixed $value
-     * @return mixed|string
-     */
+
     public function transform($value)
     {
-        $file = new File($this->path.$value);
-        $fileName = $file->getFilename();
-        return $fileName;
+
     }
 
     /**
      * @param mixed $value
-     * @return mixed|void
+     * @return mixed|string
      */
     public function reverseTransform($value)
     {
-
+        $file = new File($this->path.$value);
+        $fileName = $file->getFilename();
+        return $fileName;
     }
 }

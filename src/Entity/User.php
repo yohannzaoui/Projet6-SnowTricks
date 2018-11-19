@@ -59,6 +59,9 @@ class User implements UserInterface
     private $resetPasswordToken;
 
 
+    /**
+     * @var
+     */
     private $comments;
 
     /**
@@ -228,9 +231,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param null $username
+     * @param string $username
      */
-    public function setUsername($username): void
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
@@ -244,9 +247,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param null $email
+     * @param string $email
      */
-    public function setEmail($email): void
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
@@ -260,9 +263,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param null $token
+     * @param string $token
      */
-    public function setToken($token): void
+    public function setToken(string $token): void
     {
         $this->token = $token;
     }
@@ -276,9 +279,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param mixed $resetPasswordToken
+     * @param string $resetPasswordToken
      */
-    public function setResetPasswordToken($resetPasswordToken): void
+    public function setResetPasswordToken(string $resetPasswordToken): void
     {
         $this->resetPasswordToken = $resetPasswordToken;
     }
@@ -305,8 +308,6 @@ class User implements UserInterface
     {
         $this->profilImage = $profilImage;
     }
-
-
 
 
 

@@ -53,6 +53,20 @@ class TrickRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param $slug
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getTrickSlug($slug)
+    {
+        return $this->createQueryBuilder('trick')
+            ->where('trick.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * @param $id
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -103,6 +117,8 @@ class TrickRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+
+
 
 }
 

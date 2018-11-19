@@ -10,7 +10,11 @@
         <field name="url" column="url" type="string" length="255" nullable="false" />
 
         <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="images">
-            <join-column name="trick_id" referenced-column-name="id" on-delete="CASCADE"/>
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-column name="trick_id" referenced-column-name="id"/>
         </many-to-one>
 
     </entity>

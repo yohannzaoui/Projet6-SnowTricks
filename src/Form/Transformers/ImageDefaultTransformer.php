@@ -11,6 +11,7 @@ namespace App\Form\Transformers;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class ImageDefaultTransformer
@@ -40,10 +41,8 @@ class ImageDefaultTransformer implements DataTransformerInterface
      */
     public function transform($value)
     {
-        $file = new File($this->path.$value);
-        return $file;
-    }
 
+    }
 
 
     public function reverseTransform($value)

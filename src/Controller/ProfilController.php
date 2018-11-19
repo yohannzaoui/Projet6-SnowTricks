@@ -11,7 +11,7 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\ProfilControllerInterface;
 use App\Entity\User;
-use App\Form\AddImageProfilType;
+use App\Form\ImageProfilType;
 use App\FormHandler\ProfilTypeHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +52,7 @@ final class ProfilController extends AbstractController implements ProfilControl
 
         $user = new User();
 
-        $form = $this->createForm(AddImageProfilType::class, $user)
+        $form = $this->createForm(ImageProfilType::class, $user)
             ->handleRequest($request);
 
         $iduser = $this->getUser()->getId();

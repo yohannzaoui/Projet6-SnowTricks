@@ -76,17 +76,18 @@ final class DeleteTrickController extends AbstractController
      * @Route("/delete/{id}", name="deltrick", methods={"GET"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function delete(Request $request)
     {
         if ($request->attributes->get('id')) {
 
-            $file = $this->trickRepository->getDefaultImage($request->attributes->get('id'));
+            //$file = $this->trickRepository->getDefaultImage($request->attributes->get('id'));
             $files = $this->imageRepository->checkImages($request->attributes->get('id'));
 
-            foreach ($file as $defaultImage) {
-                $this->fileRemover->deleteFile($defaultImage);
-            }
+            //foreach ($file as $defaultImage) {
+              //  $this->fileRemover->deleteFile($defaultImage);
+            //}
 
 
             foreach ($files as $a => $urls) {

@@ -9,9 +9,10 @@
 namespace App\FormHandler\Interfaces;
 
 
-use App\Helper\Interfaces\RegisterMailInterface;
+
+use App\Helper\RegisterMail;
+use App\Repository\UserRepository;
 use App\Services\Interfaces\FileUploaderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
@@ -22,19 +23,20 @@ use Symfony\Component\Form\FormInterface;
  */
 interface RegisterFormHandlerInterface
 {
+
     /**
      * RegisterFormHandlerInterface constructor.
      * @param FileUploaderInterface $fileUploader
      * @param EncoderFactoryInterface $encoder
-     * @param ObjectManager $manager
-     * @param RegisterMailInterface $mail
+     * @param UserRepository $userRepository
+     * @param RegisterMail $mail
      * @param SessionInterface $messageFlash
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
         EncoderFactoryInterface $encoder,
-        ObjectManager $manager,
-        RegisterMailInterface $mail,
+        UserRepository $userRepository,
+        RegisterMail $mail,
         SessionInterface $messageFlash
     );
 

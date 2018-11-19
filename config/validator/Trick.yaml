@@ -6,9 +6,19 @@ App\Entity\Trick:
             message: "Le nom du Trick existe déja."
 
   properties:
-    defaultImage:
-    - Image:
-        minWidth: 1000
-        minWidthMessage: "L'image doit faire 1000 pixels de largeur minimum"
-        maxWidth: 2500
-        maxWidthMessage: "L'image doit faire 2500 pixels de hauteur maximum"
+
+      name:
+        - NotBlank:
+            message: "Le nom du Trick est obligatoire !"
+            groups:
+                - Trick
+
+
+      defaultImage:
+          - NotBlank:
+              message: "L'image pricipale est obligatoire !"
+
+
+      description:
+          - NotBlank:
+              message: "La déscription ne peut pas être vide !"

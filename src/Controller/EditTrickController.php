@@ -9,8 +9,8 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
-use App\Form\EditTrickType\EditTrickType;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Form\EditTrickType;
+use App\FormHandler\Interfaces\EditTrickHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,24 +23,44 @@ final class EditTrickController extends AbstractController
 {
 
     /**
-     * @Route("/edit/trick/{id}", name="edittrick", methods={"GET", "POST"})
+     * @var EditTrickHandlerInterface
+     */
+    private $editTrickHandler;
+
+    /**
+     * EditTrickController constructor.
+     * @param EditTrickHandlerInterface $editTrickHandler
+     */
+    public function __construct(
+        EditTrickHandlerInterface $editTrickHandler
+    ) {
+        $this->editTrickHandler = $editTrickHandler;
+    }
+
+    /**
+     *
      * @param Request $request
      * @param Trick $trick
-     * @param ObjectManager $manager
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/edit/trick/{id}", name="edittrick", methods={"GET", "POST"})
      */
-    public function index(Request $request , Trick $trick, ObjectManager $manager)
+    public function index(Request $request , Trick $trick)
     {
         $form = $this->createForm(EditTrickType::class, $trick)
             ->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $user = $this->getUser();
 
-            $manager->flush();
+        if ($this->editTrickHandler->handle($form, $user, $trick)) {
+
+            return $this->redirectToRoute('trick', [
+                'id' => $request->attributes->get('id')
+            ]);
         }
 
         return $this->render('edit_trick/edit_trick.html.twig',[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'trick' => $trick
         ]);
     }
 }
