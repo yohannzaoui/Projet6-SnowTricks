@@ -83,10 +83,11 @@ final class DeleteTrickController extends AbstractController
         if ($request->attributes->get('id')) {
 
             //$file = $this->trickRepository->getDefaultImage($request->attributes->get('id'));
+
             $files = $this->imageRepository->checkImages($request->attributes->get('id'));
 
             //foreach ($file as $defaultImage) {
-              //  $this->fileRemover->deleteFile($defaultImage);
+             //  $this->fileRemover->deleteFile($defaultImage);
             //}
 
 

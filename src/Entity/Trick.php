@@ -72,6 +72,11 @@ class Trick
      */
     private $updatedAt;
 
+    /**
+     * @var
+     */
+    private $slug;
+
 
     /**
      * Trick constructor.
@@ -300,6 +305,22 @@ class Trick
     public function setImages($images)
     {
         $this->images = $images;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 
 

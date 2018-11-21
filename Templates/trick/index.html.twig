@@ -19,7 +19,7 @@
                 <div class="col-lg-12 col-md-auto mx-auto">
                     {% if is_granted('ROLE_USER') %}
                         <p style="text-align: right">
-                            <a class="btn btn-primary" href="{{ path('edittrick', {'id':trick.id}) }}">Modifié le Trick
+                            <a class="btn btn-primary" href="{{ path('edittrick', {'slug':trick.slug}) }}">Modifié le Trick
                              <i class="fas fa-edit"></i></a>
                         </p>
                     {% endif %}
@@ -45,12 +45,10 @@
                 {% endif %}
 
                 {% if trick.videos %}
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 media">
-                    <div class="embed-responsive embed-responsive-4by3">
+                    <div class="col-lg-12 col-md-auto mx-auto media">
                 {% for video in trick.videos %}
                      {{ video.getUrl | raw }}
                 {% endfor %}
-                    </div>
                     </div>
                 {% endif %}
 

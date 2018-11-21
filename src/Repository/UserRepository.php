@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
  * Class UserRepository
  * @package App\Domain\Repository
  */
-class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
+final class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
     /**
      * UserRepository constructor.

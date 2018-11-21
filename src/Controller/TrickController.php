@@ -48,14 +48,14 @@ final class TrickController extends AbstractController implements TrickControlle
     }
 
     /**
-     * @Route("/trick/{id}", name="trick", methods={"GET", "POST"})
+     * @Route("/trick/{slug}", name="trick", methods={"GET", "POST"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
     public function index(Request $request)
     {
-        $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
+        $trick = $this->trickRepository->getTrickBySlug($request->attributes->get('slug'));
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)
@@ -66,7 +66,7 @@ final class TrickController extends AbstractController implements TrickControlle
         if ($this->commentHandler->handle($form, $user, $trick, $comment)) {
 
             return $this->redirectToRoute('trick', [
-                'id' => $trick->getId()
+                'slug' => $trick->getSlug()
             ]);
         }
         return $this->render('trick/index.html.twig', [

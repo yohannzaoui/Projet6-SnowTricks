@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Repository\Interfaces\CommentRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -10,7 +11,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class CommentRepository
  * @package App\Domain\Repository
  */
-class CommentRepository extends ServiceEntityRepository
+final class CommentRepository extends ServiceEntityRepository implements CommentRepositoryInterface
 {
     /**
      * CommentRepository constructor.

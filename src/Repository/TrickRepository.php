@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Trick;
+use App\Repository\Interfaces\TrickRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -11,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class TrickRepository
  * @package App\Domain\Repository
  */
-class TrickRepository extends ServiceEntityRepository
+final class TrickRepository extends ServiceEntityRepository implements TrickRepositoryInterface
 {
 
     /**
@@ -55,7 +56,7 @@ class TrickRepository extends ServiceEntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getTrickSlug($slug)
+    public function getTrickBySlug($slug)
     {
         return $this->createQueryBuilder('trick')
             ->where('trick.slug = :slug')
