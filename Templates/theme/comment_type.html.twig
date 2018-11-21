@@ -1,6 +1,5 @@
 {% block form %}
     {{ form_start(form) }}
-        {{ form_row(form.pseudo, {'value':app.user.username}) }}
         {{ form_row(form.message, {'label':'Votre commentaire'}) }}
         <p>
             <button type="submit" class="btn btn-success">Commenter</button> 

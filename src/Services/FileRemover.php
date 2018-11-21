@@ -16,7 +16,7 @@ use Symfony\Component\Filesystem\Filesystem;
  * Class FileRemover
  * @package App\Services
  */
-class FileRemover implements FileRemoverInterface
+final class FileRemover implements FileRemoverInterface
 {
     /**
      * @var Filesystem
@@ -41,9 +41,14 @@ class FileRemover implements FileRemoverInterface
 
     /**
      * @param $file
+     * @return mixed|void
      */
     public function deleteFile($file)
     {
-        $this->fileSystem->remove($this->path.'/'.$file);
+        if (is_file($this->path.'/'.$file)) {
+
+            $this->fileSystem->remove($this->path.'/'.$file);
+        }
+
     }
 }

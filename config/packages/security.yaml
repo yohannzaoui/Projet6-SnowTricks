@@ -21,7 +21,9 @@ security:
             pattern: ^/
             anonymous: true
             provider: in_database
-            user_checker: App\Security\UserChecker
+            guard:
+                authenticators:
+                - app.security.LoginForm
 
             form_login:
                 login_path: login

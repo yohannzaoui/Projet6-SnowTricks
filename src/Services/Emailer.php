@@ -9,7 +9,7 @@ use Swift_Message;
  * Class Emailer
  * @package App\Services\Mailer
  */
-class Emailer implements EmailerInterface
+final class Emailer implements EmailerInterface
 {
     /**
      * @var \Swift_Mailer

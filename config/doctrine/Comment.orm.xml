@@ -7,13 +7,25 @@
 
         <id name="id" type="uuid" column="id" />
 
-        <field name="pseudo" column="pseudo" type="string" length="255" nullable="false"/>
+
         <field name="message" column="message" type="text" nullable="false" />
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
 
 
         <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="comments" >
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
             <join-column name="trick_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </many-to-one>
+
+        <many-to-one field="author" target-entity="App\Entity\User" inversed-by="comments">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-column name="author_id" referenced-column-name="id" on-delete="CASCADE"/>
         </many-to-one>
 
     </entity>

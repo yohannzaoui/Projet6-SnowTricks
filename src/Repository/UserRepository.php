@@ -86,9 +86,10 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     public function getAllUsersForAdmin()
     {
         return $this->createQueryBuilder('u')
-            //->where('u.roles = ?1')
+            //->where('u.token = ?1')
             //->setParameter(1, "ROLE_USER")
             ->orderBy('u.createdAt','DESC')
+            //->setParameter(1, null)
             ->getQuery()
             ->getResult();
     }
@@ -117,8 +118,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $this->createQueryBuilder('user')
             ->where('user.email = :email')
             ->setParameter('email', $email)
-            ->getQuery()
-            ->getOneOrNullResult();
+            ->getQuery();
     }
 
     /**
@@ -165,6 +165,15 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
 
     /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function update()
+    {
+        $this->_em->flush();
+    }
+
+    /**
      * @param $email
      * @param $token
      */
@@ -193,7 +202,5 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->execute();
     }
-
-
 
 }

@@ -10,7 +10,7 @@ namespace App\Controller;
 
 
 use App\Controller\Interfaces\RegisterControllerInterface;
-use App\Form\RegisterType\RegisterType;
+use App\Form\RegisterType;
 use App\FormHandler\RegisterFormHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,8 +32,9 @@ final class RegisterController extends AbstractController implements RegisterCon
      * RegisterController constructor.
      * @param RegisterFormHandler $registerFormHandler
      */
-    public function __construct(RegisterFormHandler $registerFormHandler)
-    {
+    public function __construct(
+        RegisterFormHandler $registerFormHandler
+    ) {
         $this->registerFormHandler = $registerFormHandler;
     }
 

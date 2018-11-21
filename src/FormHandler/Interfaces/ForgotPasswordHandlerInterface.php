@@ -8,8 +8,9 @@
 
 namespace App\FormHandler\Interfaces;
 
+
+use App\Helper\ResetPasswordMail;
 use App\Repository\UserRepository;
-use App\Helper\Interfaces\ResetPasswordMailInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -19,15 +20,16 @@ use Symfony\Component\Form\FormInterface;
  */
 interface ForgotPasswordHandlerInterface
 {
+
     /**
      * ForgotPasswordHandlerInterface constructor.
      * @param UserRepository $userRepository
-     * @param ResetPasswordMailInterface $mail
+     * @param ResetPasswordMail $mail
      * @param SessionInterface $messageFlash
      */
     public function __construct(
         UserRepository $userRepository,
-        ResetPasswordMailInterface $mail,
+        ResetPasswordMail $mail,
         SessionInterface $messageFlash
     );
 

@@ -19,9 +19,11 @@
         <field name="token" column="token" type="string" length="255" nullable="true" />
         <field name="roles" column="roles" type="array" length="255" nullable="true" />
         <field name="resetPasswordToken" column="reset_password_token" type="string" nullable="true" />
-        <field name="profilImage" column="profilImage" type="string" nullable="false"/>
+        <field name="profilImage" column="profilImage" type="string" nullable="true"/>
 
-        <one-to-many field="tricks" target-entity="App\Entity\Trick" mapped-by="author" />
+        <one-to-many field="comments" target-entity="App\Entity\Comment" mapped-by="author"/>
+
+        <one-to-many field="tricks" target-entity="App\Entity\Trick" mapped-by="author"/>
 
 
 

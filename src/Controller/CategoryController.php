@@ -10,8 +10,9 @@ namespace App\Controller;
 
 
 use App\Controller\Interfaces\CategoryControllerInterface;
+use App\FormHandler\Interfaces\CategoryHandlerInterface;
 use App\Entity\Category;
-use App\Form\AddCategoryType;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,22 +31,30 @@ final class CategoryController extends AbstractController implements CategoryCon
     private $categoryRepository;
 
     /**
+     * @var CategoryHandlerInterface
+     */
+    private $categoryHandler;
+
+    /**
      * CategoryController constructor.
      * @param CategoryRepository $categoryRepository
+     * @param CategoryHandlerInterface $categoryHandler
      */
     public function  __construct(
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        CategoryHandlerInterface $categoryHandler
     ) {
       $this->categoryRepository = $categoryRepository;
+      $this->categoryHandler = $categoryHandler;
     }
 
     /**
-     * @Route("/category", name="category", methods={"GET"})
+     * @Route("/category", name="category", methods={"GET", "POST"})
      * @Route("/editCategory/{id}", name="editCategory", methods={"GET", "POST"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @param Category|null $category
+     * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function index(Request $request, Category $category = null)
     {
@@ -54,24 +63,17 @@ final class CategoryController extends AbstractController implements CategoryCon
             $category = new Category;
         }
 
-        $categorysList = $this->categoryRepository->getAllCategory();
+        $categoriesList = $this->categoryRepository->getAllCategory();
 
-        $form = $this->createForm(AddCategoryType::class, $category)
+        $form = $this->createForm(CategoryType::class, $category)
             ->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $category->setName($form->getData()->getname());
-
-            $this->categoryRepository->save($category);
-
-            $this->addFlash('category',
-                'Catégorie ajoutée');
+        if ($this->categoryHandler->handle($form, $category)) {
 
             return $this->redirectToRoute('category');
         }
         return $this->render('admin/category.html.twig', [
-            'categorysList' => $categorysList,
+            'categoriesList' => $categoriesList,
             'editMode' => $request->attributes->get('id') !== null,
             'form' => $form->createView()
         ]);

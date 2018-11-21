@@ -3,49 +3,90 @@
 
 {% block body %}
 
-    <br>
-    <div class="container">
+    <div class="container mt-4">
         <h1>Modifier un Trick</h1>
-        <div class="col-lg-6 col-md-10 mx-auto">
+        <div class="row">
+            <div class="col-lg-6 col-md-auto mx-auto">
+                {{ form_start(form) }}
+                {{ form_row(form._token) }}
+                <div class="row">
+                <div class="col-lg-6 col-md-auto mx-auto">
+                {{ form_row(form.name, {'label':'* Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
+                </div>
+                <div class="col-lg-6 col-md-auto mx-auto">
+                {{ form_row(form.category, {'label':'* Catégorie'} ) }}
+                </div>
+                </div>
 
-            {{ form_start(form) }}
-            {{ form_row(form._token) }}
-            <div class="row">
-                <div class="col-lg-6 col-md-auto mx-auto">
-                    {{ form_row(form.name, {'label':'* Nom du Trick','attr':{'placeholder': 'Entrez le nom du Trick'}}) }}
+                {{ form_row(form.defaultImage, {'label' : '* Image principale'}) }}
+
+
+                <strong>Images supplémentaire :</strong>
+                <p><button type="button" class="btn btn-sm btn-primary btn-add" data-rel="#images">Ajouter</button></p>
+                <div id="images" class="row" data-index="{{ form.images|length > 0 ? form.images|last.vars.name+1 : 0 }}" data-prototype="{{ include("theme/form_image.html.twig", { form: form.images.vars.prototype })|e("html_attr") }}">
+                    {% for image in form.images %}
+                        {{ include("theme/form_image.html.twig", { form: image }) }}
+                    {% endfor %}
                 </div>
-                <div class="col-lg-6 col-md-auto mx-auto">
-                    {{ form_row(form.category, {'label':'* Catégorie'} ) }}
+
+                <br>
+
+                <strong>Videos supplémentaire :</strong>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
+                    Comment ?
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-5" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Comment envoyé une vidéo ?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{{ asset('images/upload_video.png') }}" class="img-fluid">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">J'ai compris</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <p><button type="button" class="btn btn-sm btn-primary btn-add" data-rel="#videos">Ajouter</button></p>
+                <div id="videos" class="row" data-index="{{ form.videos|length > 0 ? form.videos|last.vars.name+1 : 0 }}" data-prototype="{{ include("theme/form_video.html.twig", { form: form.videos.vars.prototype })|e("html_attr") }}">
+                    {% for video in form.videos %}
+                        {{ include("theme/form_video.html.twig", { form: video }) }}
+                    {% endfor %}
+                </div>
+                    <br>
+
+                {{ form_row(form.description, {'label':'* Déscription du Trick'}) }}
+                <p>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button type="submit" class="btn btn-success">Modifier</button>
+                    <a class="btn btn-danger" href="{{ path('home') }}">Annuler</a>
+                    * Obligatoire
+                </p>
+                {{ form_end(form, { "render_rest": false }) }}
             </div>
-            {{ form_row(form.defaultImage, {'label' : '* Image principale'}) }}
 
-            <strong>Image supplémentaire</strong>
-            <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-                {% for image in form.images %}
-                    {{ form_row(image) }}
+
+            <div class="col-lg-6 col-md-auto mx-auto">
+                <p><strong>Image principale actuelle</strong></p>
+                    <p><img style="width:100px;height:100px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.url)}}" class="img-fluid"></p>
+
+                <p><strong>Image supplémentaire actuelle</strong></p>
+                {% for image in trick.images %}
+                    <p><img style="width:100px;height:100px;object-fit:cover" src="{{'/uploads/images/'~ asset(image.getUrl) }}" class="img-fluid"></p>
                 {% endfor %}
-            </ul>
-            <br>
-            <strong>vidéo supplémentaire</strong>
-            <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
-                {% for video in form.videos %}
-                    {{ form_row(video) }}
-                {% endfor %}
-            </ul>
-            {{ form_row(form.description, {'label':'* Déscription du Trick'}) }}
-
-            <p>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <button type="submit" class="btn btn-success">Modifier</button>
-                <button type="reset" class="btn btn-danger">Effacer</button>
-                <a class="btn btn-info" href="{{ path('home') }}">Annuler</a>
-                * Obligatoire
-            </p>
-            {{ form_end(form, { "render_rest": false }) }}
-
+            </div>
         </div>
-
     </div>
 
 {% endblock body %}

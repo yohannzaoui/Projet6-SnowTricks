@@ -9,14 +9,14 @@
 namespace App\Helper;
 
 
-use App\Helper\Interfaces\ResetPasswordMailInterface;
+use App\Helper\Interfaces\MailerHelperInterface;
 use App\Services\Interfaces\EmailerInterface;
 
 /**
  * Class ResetPasswordMail
  * @package App\Helper
  */
-class ResetPasswordMail implements ResetPasswordMailInterface
+final class ResetPasswordMail implements MailerHelperInterface
 {
 
     /**

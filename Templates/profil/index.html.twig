@@ -16,15 +16,24 @@
 
                 <p>Mon nom d'utilisateur : <strong>{{ app.user.username }}</strong></p>
                 <p>Mon adresse Email : <strong>{{ app.user.email }}</strong></p>
-                <p>Mon statut :
-                    {% for role in app.user.roles %}
-                    <strong>{{ role }}</strong>
-                    {% endfor %}
+                <p>Mon image de profile :
+                    {% if app.user.getProfilImage %}
+                    <img src="{{asset('/uploads/images/'~ app.user.getProfilImage)}}"/>
+                        | <a href="{{ path('deleteProfileImage') }}" data-toggle="tooltip" data-placement="bottom" title="Supprimé"><i class="fas fa-trash-alt"></i></a>
+                    {% else %}
+                        <i class="far fa-grin fa-2x"></i>
+                    {% endif %}
                 </p>
 
 
                 {% for message in app.flashes('profilUpdate') %}
                     <div class="alert alert-dismissible alert-info">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('deleteProfileImage') %}
+                    <div class="alert alert-dismissible alert-danger">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         {{ message }}
                     </div>

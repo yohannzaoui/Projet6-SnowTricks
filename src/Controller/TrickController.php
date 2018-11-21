@@ -10,11 +10,10 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\TrickControllerInterface;
 use App\Entity\Comment;
-use App\Entity\Trick;
-use App\Form\AddCommentType;
+use App\Form\CommentType;
+use App\FormHandler\Interfaces\CommentHandlerInterface;
 use App\Repository\TrickRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -30,22 +29,22 @@ final class TrickController extends AbstractController implements TrickControlle
     private $trickRepository;
 
     /**
-     * @var ObjectManager
+     * @var CommentHandlerInterface
      */
-    private $manager;
+    private $commentHandler;
 
     /**
      * TrickController constructor.
      * @param TrickRepository $trickRepository
-     * @param ObjectManager $manager
+     * @param CommentHandlerInterface $commentHandler
      */
     public function __construct(
         TrickRepository $trickRepository,
-        ObjectManager $manager
+        CommentHandlerInterface $commentHandler
 
     ) {
         $this->trickRepository = $trickRepository;
-        $this->manager = $manager;
+        $this->commentHandler = $commentHandler;
     }
 
     /**
@@ -56,24 +55,15 @@ final class TrickController extends AbstractController implements TrickControlle
      */
     public function index(Request $request)
     {
-        $trick = $this->getDoctrine()
-            ->getRepository(Trick::class)
-            ->find($request->attributes->get('id'));
+        $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
 
         $comment = new Comment();
-        $form = $this->createForm(AddCommentType::class, $comment)
+        $form = $this->createForm(CommentType::class, $comment)
             ->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $user = $this->getUser();
 
-            $comment->setPseudo($form->getData()->getPseudo());
-            $comment->setMessage($form->getData()->getMessage());
-            $comment->setTrick($trick);
-
-            $this->manager->persist($comment);
-            $this->manager->flush();
-
-            $this->addFlash('comment', 'Commentaire ajouté :-)');
+        if ($this->commentHandler->handle($form, $user, $trick, $comment)) {
 
             return $this->redirectToRoute('trick', [
                 'id' => $trick->getId()

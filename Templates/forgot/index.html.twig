@@ -13,7 +13,7 @@
                     {% form_theme form 'theme/forgot_password_type.html.twig' %}
                     {{form(form)}}
 
-                    {% for message in app.flashes('forgotPassword') %}
+                    {% for message in app.flashes %}
                         <div class="alert alert-dismissible alert-warning">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             {{ message }}

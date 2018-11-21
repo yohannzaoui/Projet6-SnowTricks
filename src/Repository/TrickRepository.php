@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Repository;
 
 use App\Entity\Trick;
@@ -50,6 +48,20 @@ class TrickRepository extends ServiceEntityRepository
                     ->setParameter('id', $id)
                     ->getQuery()
                     ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $slug
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getTrickSlug($slug)
+    {
+        return $this->createQueryBuilder('trick')
+            ->where('trick.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     /**
@@ -103,6 +115,8 @@ class TrickRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+
+
 
 }
 

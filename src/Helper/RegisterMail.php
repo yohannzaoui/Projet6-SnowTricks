@@ -9,14 +9,14 @@
 namespace App\Helper;
 
 
-use App\Helper\Interfaces\RegisterMailInterface;
+use App\Helper\Interfaces\MailerHelperInterface;
 use App\Services\Interfaces\EmailerInterface;
 
 /**
  * Class RegisterMail
  * @package App\Helper
  */
-class RegisterMail implements RegisterMailInterface
+final class RegisterMail implements MailerHelperInterface
 {
 
     /**

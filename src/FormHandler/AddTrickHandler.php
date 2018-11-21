@@ -10,16 +10,32 @@ namespace App\FormHandler;
 
 
 use App\Entity\Trick;
+use App\FormHandler\Interfaces\AddTrickHandlerInterface;
 use App\Repository\TrickRepository;
 use App\Services\FileUploader;
 use Symfony\Component\Form\FormInterface;
 
-class AddTrickHandler
+/**
+ * Class AddTrickHandler
+ * @package App\FormHandler
+ */
+final class AddTrickHandler implements AddTrickHandlerInterface
 {
+    /**
+     * @var FileUploader
+     */
     private $fileUploader;
 
+    /**
+     * @var TrickRepository
+     */
     private $trickRepository;
 
+    /**
+     * AddTrickHandler constructor.
+     * @param FileUploader $fileUploader
+     * @param TrickRepository $trickRepository
+     */
     public function __construct(
         FileUploader $fileUploader,
         TrickRepository $trickRepository
@@ -28,11 +44,22 @@ class AddTrickHandler
         $this->trickRepository = $trickRepository;
     }
 
+    /**
+     * @param FormInterface $form
+     * @param $user
+     * @param Trick $trick
+     * @return bool
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function handle(FormInterface $form, $user, Trick $trick)
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage());
+            $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage()->getFile());
+            //dd($defaultImage);
+            $form->getData()->getDefaultImage()->setUrl($defaultImage);
+
 
             $arrayCollectionImages = $form->getData()->getImages()->toArray();
 
@@ -51,7 +78,7 @@ class AddTrickHandler
             }
 
             $trick->setAuthor($user);
-            $trick->setDefaultImage($defaultImage);
+            $trick->setDefaultImage($form->getData()->getDefaultImage());
             $trick->setImages($form->getData()->getImages());
             $trick->setVideos($form->getData()->getVideos());
             $trick->setCategory($form->getData()->getCategory());

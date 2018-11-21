@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 
 namespace App\FormHandler;
 
@@ -17,7 +16,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  * Class ProfilTypeHandler
  * @package App\FormHandler
  */
-class ProfilTypeHandler implements ProfilTypeHandlerInterface
+final class ProfilTypeHandler implements ProfilTypeHandlerInterface
 {
 
 
@@ -75,6 +74,7 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
 
             $fileRemove = $this->userRepository->checkProfilImage($imageUser);
 
+            //dd($fileRemove);
             $this->fileRemover->deleteFile($fileRemove['profilImage']);
 
             $file = $form->getData()->getProfilImage();

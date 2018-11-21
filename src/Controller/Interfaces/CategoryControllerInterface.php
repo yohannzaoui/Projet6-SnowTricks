@@ -8,6 +8,7 @@
 
 namespace App\Controller\Interfaces;
 
+use App\FormHandler\Interfaces\CategoryHandlerInterface;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
@@ -21,8 +22,12 @@ interface CategoryControllerInterface
     /**
      * CategoryControllerInterface constructor.
      * @param CategoryRepository $categoryRepository
+     * @param CategoryHandlerInterface $categoryHandler
      */
-    public function  __construct(CategoryRepository $categoryRepository);
+    public function  __construct(
+        CategoryRepository $categoryRepository,
+        CategoryHandlerInterface $categoryHandler
+    );
 
     /**
      * @param Request $request

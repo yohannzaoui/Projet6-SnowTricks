@@ -42,6 +42,19 @@ class CategoryRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function update()
+    {
+        $this->_em->flush();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function delete($id)
     {
         return $this->_em->createQueryBuilder()

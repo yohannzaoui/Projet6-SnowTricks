@@ -2,6 +2,7 @@
 {% block title %}Snow Tricks{% endblock %}
 
 
+
 {% block body %}
 
     <img src="{{ asset('images/home.jpg') }}" class="img-fluid" alt="Responsive image">
@@ -21,28 +22,35 @@
         <br>
 
 
-
+        <section id="container">
         <div class="row">
+            {% if tricks %}
             {% for trick in tricks %}
             <div class="col-lg-2 col-md-auto mx-auto">
         <div class="card mb-3">
-            <h3 class="card-header"><a href="{{path('trick', {'id':trick.id})}}">{{trick.name}}</a></h3>
-            <img style="width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage)}}" alt="Card image" class="rounded mx-auto d-block img-fluid">
-            {% if app.user %}
-            <div style="text-align: center" class="card-body">
-                <a href="{{path('edittrick', {'id':trick.id})}}"><i class="fas fa-edit"></i></a>
-                <a href="{{path('confirmeDeleteTrick', {'id':trick.id})}}"><i class="fas fa-trash-alt"></i></a>
-            </div>
-            {% endif %}
-            <div class="card-footer text-muted">
+            <h5 class="card-header"><a href="{{path('trick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Détail du Trick">{{trick.name}}</a></h5>
+            <img style="width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.url)}}" alt="Card image" class="img-fluid">
+            <div style="text-align: center" class="card-footer text-muted">
+
+                <p>
+                    <a href="{{path('trick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Voir le Trick"><i class="far fa-eye"></i></a>
+                    {% if app.user %}
+                    | <a href="{{path('edittrick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Modifié"><i class="fas fa-edit"></i></a> |
+                    <a href="{{path('confirmeDeleteTrick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Supprimé"><i class="fas fa-trash-alt"></i></a>
+                </p>
+                {% endif %}
                 Ajouté le {{ trick.createdAt| date("d/m/Y") }}
             </div>
         </div>
             </div>
             {% endfor %}
+                {% else %}
+                <h3>Pas de Tricks à affiché</h3>
+            {% endif %}
         </div>
 
-
+            <a href="#container"> <i class="fas fa-3x fa-arrow-circle-up"></i></a>
+        </section>
 
 
 {% endblock body %}

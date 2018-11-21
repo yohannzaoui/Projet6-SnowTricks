@@ -10,9 +10,10 @@ namespace App\FormHandler;
 
 
 use App\Entity\User;
-use App\Helper\Interfaces\RegisterMailInterface;
+use App\FormHandler\Interfaces\RegisterFormHandlerInterface;
+use App\Helper\RegisterMail;
+use App\Repository\UserRepository;
 use App\Services\Interfaces\FileUploaderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -21,24 +22,26 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
  * Class RegisterFormHandler
  * @package App\FormHandler
  */
-class RegisterFormHandler
+final class RegisterFormHandler implements RegisterFormHandlerInterface
 {
 
     /**
      * @var FileUploaderInterface
      */
     private $fileUploader;
+
     /**
      * @var EncoderFactoryInterface
      */
     private $encoder;
-    /**
-     * @var ObjectManager
-     */
-    private $manager;
 
     /**
-     * @var RegisterMailInterface
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var RegisterMail
      */
     private $mail;
     /**
@@ -51,20 +54,20 @@ class RegisterFormHandler
      * RegisterFormHandler constructor.
      * @param FileUploaderInterface $fileUploader
      * @param EncoderFactoryInterface $encoder
-     * @param ObjectManager $manager
-     * @param RegisterMailInterface $mail
+     * @param UserRepository $userRepository
+     * @param RegisterMail $mail
      * @param SessionInterface $messageFlash
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
         EncoderFactoryInterface $encoder,
-        ObjectManager $manager,
-        RegisterMailInterface $mail,
+        UserRepository $userRepository,
+        RegisterMail $mail,
         SessionInterface $messageFlash
     ) {
         $this->fileUploader = $fileUploader;
         $this->encoder = $encoder;
-        $this->manager = $manager;
+        $this->userRepository = $userRepository;
         $this->mail = $mail;
         $this->messageFlash = $messageFlash;
     }
@@ -80,10 +83,15 @@ class RegisterFormHandler
 
             $user = new User();
 
-            $file = $form->getData()
-                ->getProfilImage();
+            if ($form->getData()->getProfilImage()) {
 
-            $fileName = $this->fileUploader->upload($file);
+                $file = $form->getData()->getProfilImage();
+
+                $fileName = $this->fileUploader->upload($file);
+
+                $user->setProfilImage($fileName);
+
+            }
 
             $token = md5(uniqid());
 
@@ -96,10 +104,8 @@ class RegisterFormHandler
             ));
             $user->setEmail($form->getData()->getEmail());
             $user->setToken($token);
-            $user->setProfilImage($fileName);
 
-            $this->manager->persist($user);
-            $this->manager->flush();
+            $this->userRepository->save($user);
 
             $this->mail->send($form->getData()->getEmail(), $token);
 

@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
+use App\Entity\Interfaces\CommentInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 
-class Comment
+/**
+ * Class Comment
+ * @package App\Entity
+ */
+class Comment implements CommentInterface
 {
 
     /**
@@ -16,7 +21,7 @@ class Comment
     /**
      * @var null
      */
-    private $pseudo;
+    private $author;
     /**
      * @var null
      */
@@ -33,9 +38,6 @@ class Comment
 
     /**
      * Comment constructor.
-     * @param null $pseudo
-     * @param null $message
-     * @param null $trick
      * @throws \Exception
      */
     public function __construct()
@@ -125,22 +127,23 @@ class Comment
         return $this;
     }
 
-    /**
-     * Get the value of pseudo
-     */
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
 
     /**
-     * Set the value of pseudo
-     *
-     * @return  self
+     * @return null
      */
-    public function setPseudo($pseudo)
+    public function getAuthor()
     {
-        $this->pseudo = $pseudo;
+        return $this->author;
+    }
+
+
+    /**
+     * @param User $author
+     * @return $this
+     */
+    public function setAuthor(User $author)
+    {
+        $this->author = $author;
 
         return $this;
     }

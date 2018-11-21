@@ -8,8 +8,8 @@
 
 namespace App\Controller\Interfaces;
 
+use App\FormHandler\Interfaces\CommentHandlerInterface;
 use App\Repository\TrickRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -21,11 +21,11 @@ interface TrickControllerInterface
     /**
      * TrickControllerInterface constructor.
      * @param TrickRepository $trickRepository
-     * @param ObjectManager $manager
+     * @param CommentHandlerInterface $commentHandler
      */
     public function __construct(
         TrickRepository $trickRepository,
-        ObjectManager $manager
+        CommentHandlerInterface $commentHandler
     );
 
     /**
