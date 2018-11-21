@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Trick;
 use App\Entity\Category;
 use App\Form\Interfaces\TypeInterface;
-use App\Form\Transformers\ImageDefaultTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,13 +16,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class EditTrickType extends AbstractType implements TypeInterface
 {
-
-    /*private $imageDefaultTransformer;
-
-    public function __construct(ImageDefaultTransformer $imageDefaultTransformer)
-    {
-        $this->imageDefaultTransformer = $imageDefaultTransformer;
-    }*/
 
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -67,8 +59,6 @@ class EditTrickType extends AbstractType implements TypeInterface
                 'expanded'     => false,
                 'multiple'     => false
             ]);
-
-        //$builder->get('defaultImage')->addViewTransformer($this->imageDefaultTransformer);
 
     }
 

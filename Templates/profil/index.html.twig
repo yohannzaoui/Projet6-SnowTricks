@@ -16,11 +16,6 @@
 
                 <p>Mon nom d'utilisateur : <strong>{{ app.user.username }}</strong></p>
                 <p>Mon adresse Email : <strong>{{ app.user.email }}</strong></p>
-                <p>Mon statut :
-                    {% for role in app.user.roles %}
-                    <strong>{{ role }}</strong>
-                    {% endfor %}
-                </p>
                 <p>Mon image de profile :
                     {% if app.user.getProfilImage %}
                     <img src="{{asset('/uploads/images/'~ app.user.getProfilImage)}}"/>

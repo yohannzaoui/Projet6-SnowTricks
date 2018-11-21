@@ -80,7 +80,7 @@ class Video implements VideoInterface
     /**
      * @param mixed $trick
      */
-    public function setTrick(Trick $trick): void
+    public function setTrick(Trick $trick)
     {
         $this->trick = $trick;
     }

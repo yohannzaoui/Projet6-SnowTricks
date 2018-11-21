@@ -47,7 +47,7 @@
                 <cascade-remove/>
             </cascade>
             <order-by>
-                <order-by-field name="createdAt" direction="DESC"/>
+                <order-by-field name="createdAt"  direction="DESC"/>
             </order-by>
         </one-to-many>
 

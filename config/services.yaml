@@ -35,14 +35,6 @@ services:
         arguments:
             $path: '%image_directory%'
 
-    App\Form\Transformers\ImageDefaultTransformer:
-        arguments:
-            $path: '%image_directory%/'
-
-    App\Form\Transformers\ImageTransformer:
-        arguments:
-            $path: '%image_directory%/'
-
     app.security.LoginForm:
         class: App\Security\LoginForm
 

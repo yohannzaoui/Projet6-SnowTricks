@@ -281,7 +281,6 @@ class Trick
      */
     public function removeVideo(Video $video)
     {
-        $video->setTrick(null);
         $this->videos->removeElement($video);
     }
 

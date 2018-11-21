@@ -8,10 +8,10 @@
 
 namespace App\Controller;
 
+use App\Controller\Interfaces\EditTrickControllerInterface;
 use App\Entity\Trick;
 use App\Form\EditTrickType;
 use App\FormHandler\Interfaces\EditTrickHandlerInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * Class EditTrickController
  * @package App\Controller
  */
-final class EditTrickController extends AbstractController
+final class EditTrickController extends AbstractController implements EditTrickControllerInterface
 {
 
     /**
@@ -48,35 +48,10 @@ final class EditTrickController extends AbstractController
     public function index(Request $request , Trick $trick)
     {
 
-        /*$images = new ArrayCollection();
-
-        foreach ($trick->getImages() as $image) {
-
-            $images->add($image);
-        }
-
-        $videos = new ArrayCollection();
-
-        foreach ($trick->getVideos() as $video) {
-
-            $videos->add($video);
-        }*/
-
         $form = $this->createForm(EditTrickType::class, $trick)
             ->handleRequest($request);
 
         $user = $this->getUser();
-
-        /*if ($form->isSubmitted() && $form->isValid()) {
-
-            foreach ($images as $image) {
-
-                if (false === $trick->getImages()->contains($image)) {
-
-                    $image->getTrick()->removeElement($trick);
-                }
-            }
-        }*/
 
         if ($this->editTrickHandler->handle($form, $user, $trick)) {
 

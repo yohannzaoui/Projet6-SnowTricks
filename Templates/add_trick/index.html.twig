@@ -22,9 +22,9 @@
 
                     <strong>Images supplémentaire :</strong>
                     <p><button type="button" class="btn btn-sm btn-primary btn-add" data-rel="#images">Ajouter</button></p>
-                    <div id="images" class="row" data-index="{{ form.images|length > 0 ? form.images|last.vars.name+1 : 0 }}" data-prototype="{{ include("edit_trick/form_image.html.twig", { form: form.images.vars.prototype })|e("html_attr") }}">
+                    <div id="images" class="row" data-index="{{ form.images|length > 0 ? form.images|last.vars.name+1 : 0 }}" data-prototype="{{ include("theme/form_image.html.twig", { form: form.images.vars.prototype })|e("html_attr") }}">
                         {% for image in form.images %}
-                            {{ include("edit_trick/form_image.html.twig", { form: image }) }}
+                            {{ include("theme/form_image.html.twig", { form: image }) }}
                         {% endfor %}
                     </div>
                         <br>
@@ -54,53 +54,13 @@
                         </div>
                     </div>
                     <p><button type="button" class="btn btn-sm btn-primary btn-add" data-rel="#videos">Ajouter</button></p>
-                    <div id="videos" class="row" data-index="{{ form.videos|length > 0 ? form.videos|last.vars.name+1 : 0 }}" data-prototype="{{ include("edit_trick/form_video.html.twig", { form: form.videos.vars.prototype })|e("html_attr") }}">
+                    <div id="videos" class="row" data-index="{{ form.videos|length > 0 ? form.videos|last.vars.name+1 : 0 }}" data-prototype="{{ include("theme/form_video.html.twig", { form: form.videos.vars.prototype })|e("html_attr") }}">
                         {% for video in form.videos %}
-                            {{ include("edit_trick/form_video.html.twig", { form: video }) }}
+                            {{ include("theme/form_video.html.twig", { form: video }) }}
                         {% endfor %}
                     </div>
                     <br>
 
-
-
-
-                    {#<strong>Image supplémentaire</strong>
-                    <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-                        {% for image in form.images %}
-                            {{ form_row(image) }}
-                        {% endfor %}
-                    </ul>
-                    <br>
-                    <strong>vidéo supplémentaire</strong>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
-                        Comment ?
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-5" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Comment envoyé une vidéo ?</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <img src="{{ asset('images/upload_video.png') }}" class="img-fluid">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">J'ai compris</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
-                        {% for video in form.videos %}
-                            {{ form_row(video) }}
-                        {% endfor %}
-                    </ul>#}
                     {{ form_row(form.description, {'label':'* Déscription du Trick'}) }}
 
                     <p>
@@ -112,7 +72,6 @@
                     {{ form_end(form, { "render_rest": false }) }}
 
                 </div>
-
     </div>
 
 {% endblock body %}
