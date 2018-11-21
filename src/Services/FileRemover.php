@@ -41,6 +41,7 @@ final class FileRemover implements FileRemoverInterface
 
     /**
      * @param $file
+     * @return mixed|void
      */
     public function deleteFile($file)
     {

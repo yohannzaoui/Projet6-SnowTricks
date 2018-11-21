@@ -8,8 +8,17 @@ jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
     var $collectionHolder = $('ul.images');
 
+
+    $collectionHolder.find('li').each(function() {
+        addImageFormDeleteLink($(this));
+    });
+
+
+
+
     // add the "add a tag" anchor and li to the tags ul
     $collectionHolder.append($newLinkLi);
+
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
@@ -68,7 +77,11 @@ function addImageForm($collectionHolder, $newLinkLi) {
     // also add a remove button, just for this example
     $newFormLi.append('<a href="#" class="remove-image">Supprimé</a>');
 
+
+
     $newLinkLi.before($newFormLi);
+
+    addImageFormDeleteLink($newFormLi);
 
     // handle the removal, just for this example
     $('.remove-image').click(function(e) {
@@ -79,6 +92,21 @@ function addImageForm($collectionHolder, $newLinkLi) {
         return false;
     });
 }
+
+
+function addImageFormDeleteLink($imageFormLi) {
+    var $removeFormButton = $('<button type="button">Delete this tag</button>');
+    $imageFormLi.append($removeFormButton);
+
+    $removeFormButton.on('click', function(e) {
+        // remove the li for the tag form
+        $imageFormLi.remove();
+    });
+}
+
+
+
+
 
 function addVideoForm($collectionHolder, $newLinkLi1) {
     // Get the data-prototype explained earlier

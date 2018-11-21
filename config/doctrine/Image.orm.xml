@@ -14,7 +14,7 @@
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
-            <join-column name="trick_id" referenced-column-name="id"/>
+            <join-column name="trick_id" referenced-column-name="id" on-delete="CASCADE"/>
         </many-to-one>
 
     </entity>

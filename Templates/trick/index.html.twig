@@ -37,22 +37,21 @@
 
 
                 {% if trick.images %}
+                    <div class="col-lg-12 col-md-auto mx-auto">
                 {% for image in trick.images %}
-                    <div class="col-lg-12 col-md-6 mx-auto media">
-                <p><img style="width:222px;height:222px;object-fit:cover" src="{{'/uploads/images/'~ asset(image.getUrl) }}"  class="img-fluid img-thumbnail"></p>
-            </div>
-
-            {% endfor %}
+                        <img style="width:222px;height:222px;object-fit:cover" src="{{'/uploads/images/'~ asset(image.getUrl) }}"  class="img-fluid img-thumbnail">
+                {% endfor %}
+                    </div>
                 {% endif %}
 
                 {% if trick.videos %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 media">
+                    <div class="embed-responsive embed-responsive-4by3">
                 {% for video in trick.videos %}
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 media">
-                <div class="embed-responsive embed-responsive-4by3">
                      {{ video.getUrl | raw }}
-                </div>
-                </div>
                 {% endfor %}
+                    </div>
+                    </div>
                 {% endif %}
 
             </div>

@@ -43,27 +43,29 @@ class EditTrickType extends AbstractType implements TypeInterface
             ])
 
             ->add('images', CollectionType::class, [
-                "entry_type" => ImageTrickType::class,
-                'required' => false,
+                "entry_type"    => ImageTrickType::class,
+                'required'      => false,
                 "entry_options" => ['label' => false],
                 "allow_add"     => true,
+                "prototype"     => true,
                 "allow_delete"  => true,
                 "by_reference"  => false
             ])
 
             ->add('videos', CollectionType::class, [
-                "entry_type" => VideoTrickType::class,
-                'required' => false,
+                "entry_type"    => VideoTrickType::class,
+                'required'      => false,
                 "allow_add"     => true,
+                "prototype"     => true,
                 "allow_delete"  => true,
                 "by_reference"  => false
             ])
 
             ->add('category', EntityType::class,[
-                'class' => Category::class,
+                'class'        => Category::class,
                 'choice_label' => 'name',
-                'expanded' => false,
-                'multiple' => false
+                'expanded'     => false,
+                'multiple'     => false
             ]);
 
         //$builder->get('defaultImage')->addViewTransformer($this->imageDefaultTransformer);

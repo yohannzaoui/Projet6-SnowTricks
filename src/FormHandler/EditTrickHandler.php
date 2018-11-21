@@ -59,11 +59,8 @@ final class EditTrickHandler implements EditTrickHandlerInterface
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //dd($form->getData());
-
             if ($form->getData()->getDefaultImage()->getFile()) {
 
-                //dd($form->getData()->getDefaultImage());
                 $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage()->getFile());
                 $form->getData()->getDefaultImage()->setUrl($defaultImage);
 
@@ -71,15 +68,20 @@ final class EditTrickHandler implements EditTrickHandlerInterface
 
             if ($form->getData()->getImages()) {
 
+
                 $arrayCollectionImages = $form->getData()->getImages()->toArray();
-                        //dd($form->getData()->getImages()->toArray());
+
                 foreach ($arrayCollectionImages as $a => $image) {
 
-                    $images = $this->fileUploader->upload($image->getFile());
-                    $image->setUrl($images);
+                    if (!is_null($image->getFile())) {
+
+                        $images = $this->fileUploader->upload($image->getFile());
+                        $image->setUrl($images);
+
+                    }
+
                 }
             }
-
 
              if ($form->getData()->getVideos()) {
 
