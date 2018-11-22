@@ -16,6 +16,7 @@ use App\Repository\TrickRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class TrickController
@@ -55,7 +56,10 @@ final class TrickController extends AbstractController implements TrickControlle
      */
     public function index(Request $request)
     {
-        $trick = $this->trickRepository->getTrickBySlug($request->attributes->get('slug'));
+        if (!$trick = $this->trickRepository->getTrickBySlug($request->attributes->get('slug'))) {
+            throw new NotFoundHttpException();
+        }
+
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)
