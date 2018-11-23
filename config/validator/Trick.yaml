@@ -1,6 +1,24 @@
-App\Domain\Models\Trick:
+App\Entity\Trick:
   constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: name
             errorPath: name
             message: "Le nom du Trick existe déja."
+
+  properties:
+
+      name:
+        - NotBlank:
+            message: "Le nom du Trick est obligatoire !"
+            groups:
+                - Trick
+
+
+      defaultImage:
+          - NotBlank:
+              message: "L'image pricipale est obligatoire !"
+
+
+      description:
+          - NotBlank:
+              message: "La déscription ne peut pas être vide !"

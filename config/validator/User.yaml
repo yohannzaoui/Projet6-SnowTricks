@@ -1,12 +1,25 @@
-App\Domain\Models\User:
+App\Entity\User:
   properties:
     password:
       - Length:
-          {min: 8, minMessage: "Le mot de passe doit contenir 8 caractères minimum."}
+          min: 8
+          minMessage: 'Le mot de passe doit contenir 8 caractères minimum.'
+
+    profilImage:
+      - Image:
+          minWidth: 20
+          minWidthMessage: "L'image doit faire 20x20 pixels minimum"
+          maxWidth: 40
+          maxWidthMessage: "L'image doit faire 40x40 pixels maximum"
+
 
   constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: email
             errorPath: email
             message: "L'adresse email est déja utilisée. Veuillez en choisir une autre."
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: username
+            errorPath: username
+            message: "Nom d'utilisateur déja existant."
 

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Supprimer un Trick{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <h3>Es-tu sûr de vouloir supprimé ce Trick ?</h3>
+            <a class="btn btn-info" href="{{path('home')}}">NON</a>
+            <a class="btn btn-danger" href="{{path('deltrick', {'id':id})}}">OUI</a>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -22,11 +22,27 @@
       <p><button type="submit" class="btn btn-success">Se connecter</button> <button type="reset" class="btn btn-danger">Effacer</button></p>
         </form>
 
+          {% for message in app.flashes('confirmeRegister') %}
+              <div class="alert alert-dismissible alert-warning">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ message }}
+              </div>
+          {% endfor %}
+
+          {% for message in app.flashes('resetPassword') %}
+              <div class="alert alert-dismissible alert-warning">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ message }}
+              </div>
+          {% endfor %}
+
 
           <p><a href="{{path('forgot')}}">Mot de passe oublié ?</a></p>
 
           {% if error %}
-              <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+          <div class="alert alert-dismissible alert-danger">
+              <p style="text-align: center">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+          </div>
           {% endif %}
 
         </div>

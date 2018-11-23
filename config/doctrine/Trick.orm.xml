@@ -1,28 +1,62 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Models\Trick" table="trick">
+    <entity name="App\Entity\Trick" table="trick">
 
         <unique-constraints>
             <unique-constraint columns="name" name="name" />
         </unique-constraints>
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
-        </id>
+        <id name="id" type="uuid" column="id" />
 
         <field name="name" column="name" type="string" length="255" nullable="false" unique="true" />
         <field name="description" column="description" type="text"  nullable="false" />
-        <field name="image" column="image" type="text" nullable="false" />
-        <field name="video" column="video" type="text" nullable="true" />
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
-        
 
-        <one-to-many target-entity="App\Domain\Models\Comment" field="comment" mapped-by="trick" orphan-removal="true" />
-        <one-to-many target-entity="App\Domain\Models\Category" field="category" mapped-by="trick" />
+        <many-to-one field="author" target-entity="App\Entity\User" inversed-by="tricks" />
+
+        <one-to-one field="defaultImage" target-entity="App\Entity\Image">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <join-column name="defaultImage_id" referenced-column-name="id"/>
+        </one-to-one>
+
+        <many-to-one field="category" target-entity="App\Entity\Category">
+        <cascade>
+            <cascade-persist/>
+        </cascade>
+            <join-columns>
+                <join-column nullable="false"/>
+            </join-columns>
+        </many-to-one>
+
+        <one-to-many field="images" target-entity="App\Entity\Image" mapped-by="trick" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <one-to-many field="comments" target-entity="App\Entity\Comment" mapped-by="trick" orphan-removal="true">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+            <order-by>
+                <order-by-field name="createdAt"  direction="DESC"/>
+            </order-by>
+        </one-to-many>
+
+        <one-to-many field="videos" target-entity="App\Entity\Video" mapped-by="trick" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
 
     </entity>
 
