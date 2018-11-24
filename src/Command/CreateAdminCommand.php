@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
  * Class CreateAdminCommand
  * @package App\Command
  */
-final class CreateAdminCommand extends Command implements CreateAdminCommandInterface
+class CreateAdminCommand extends Command implements CreateAdminCommandInterface
 {
 
     /**

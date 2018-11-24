@@ -95,6 +95,7 @@ final class EditTrickHandler implements EditTrickHandlerInterface
 
             $trick->setAuthor($user);
             $trick->setImages($form->getData()->getImages());
+            $trick->setSlug(strtolower(str_replace(' ', '-', $form->getData()->getName())));
             $trick->setVideos($form->getData()->getVideos());
             $trick->setUpdatedAt(new \DateTime());
             $trick->setCategory($form->getData()->getCategory());

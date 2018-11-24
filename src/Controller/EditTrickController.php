@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * Class EditTrickController
  * @package App\Controller
  */
-final class EditTrickController extends AbstractController implements EditTrickControllerInterface
+class EditTrickController extends AbstractController implements EditTrickControllerInterface
 {
 
     /**
@@ -56,7 +56,7 @@ final class EditTrickController extends AbstractController implements EditTrickC
         if ($this->editTrickHandler->handle($form, $user, $trick)) {
 
             return $this->redirectToRoute('trick', [
-                'slug' => $request->attributes->get('slug')
+                'slug' => $trick->getSlug()
             ]);
         }
 

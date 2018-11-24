@@ -16,7 +16,7 @@ use App\Services\Interfaces\EmailerInterface;
  * Class RegisterMail
  * @package App\Helper
  */
-final class RegisterMail implements MailerHelperInterface
+class RegisterMail implements MailerHelperInterface
 {
 
     /**

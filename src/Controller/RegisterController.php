@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class RegisterController
  * @package App\Controller
  */
-final class RegisterController extends AbstractController implements RegisterControllerInterface
+class RegisterController extends AbstractController implements RegisterControllerInterface
 {
     /**
      * @var RegisterFormHandler

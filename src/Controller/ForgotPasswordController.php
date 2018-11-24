@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ForgotPasswordController
  * @package App\Controller
  */
-final class ForgotPasswordController extends AbstractController implements ForgotPasswordControllerInterface
+class ForgotPasswordController extends AbstractController implements ForgotPasswordControllerInterface
 {
     /**
      * @var ForgotPasswordHandler

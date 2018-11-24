@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Trick;
 use App\Repository\Interfaces\TrickRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -12,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class TrickRepository
  * @package App\Domain\Repository
  */
-final class TrickRepository extends ServiceEntityRepository implements TrickRepositoryInterface
+class TrickRepository extends ServiceEntityRepository implements TrickRepositoryInterface
 {
 
     /**
@@ -26,14 +28,30 @@ final class TrickRepository extends ServiceEntityRepository implements TrickRepo
 
 
     /**
-     * @return mixed
+     * @return Query
      */
-    public function getAllTricks()
+    public function getAllTricks(): Query
     {
         return $this->createQueryBuilder('t')
                      ->orderBy('t.createdAt','DESC')
                      ->getQuery()
                      ->getResult();
+    }
+
+
+    /**
+     * @param int $page
+     * @param int $max
+     * @return Paginator
+     */
+    public function getTricks($page, $max)
+    {
+        $qb = $this->createQueryBuilder('trick');
+        $qb->setFirstResult(($page-1) * $max)
+            ->orderBy('trick.createdAt','DESC')
+            ->setMaxResults($max);
+
+        return new Paginator($qb);
     }
 
 
@@ -116,8 +134,6 @@ final class TrickRepository extends ServiceEntityRepository implements TrickRepo
             ->getQuery()
             ->execute();
     }
-
-
 
 }
 

@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class TrickController
  * @package App\Controller
  */
-final class TrickController extends AbstractController implements TrickControllerInterface
+class TrickController extends AbstractController implements TrickControllerInterface
 {
     /**
      * @var TrickRepository

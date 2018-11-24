@@ -15,12 +15,13 @@ use App\Services\FileRemover;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class DeleteTrickController
  * @package App\Controller
  */
-final class DeleteTrickController extends AbstractController
+class DeleteTrickController extends AbstractController
 {
 
     /**
@@ -103,5 +104,6 @@ final class DeleteTrickController extends AbstractController
 
             return $this->redirectToRoute('home');
         }
+
     }
 }

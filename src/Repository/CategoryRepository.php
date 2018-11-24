@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class CategoryRepository
  * @package App\Domain\Repository
  */
-final class CategoryRepository extends ServiceEntityRepository implements CategoryRepositoryInterface
+class CategoryRepository extends ServiceEntityRepository implements CategoryRepositoryInterface
 {
     /**
      * CategoryRepository constructor.

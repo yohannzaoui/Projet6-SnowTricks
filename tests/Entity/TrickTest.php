@@ -36,15 +36,4 @@ class TrickTest extends TestCase
         $result = $trick->getDescription();
         $this->assertSame('test', $result);
     }
-
-    /**
-     * @throws \Exception
-     */
-    public function testGetAuthor()
-    {
-        $trick = new Trick();
-        $trick->setAuthor('test');
-        $result = $trick->getAuthor();
-        $this->assertSame('test', $result);
-    }
 }

@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ProfilController
  * @package App\Controller
  */
-final class ProfilController extends AbstractController implements ProfilControllerInterface
+class ProfilController extends AbstractController implements ProfilControllerInterface
 {
 
     /**

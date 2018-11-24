@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class VideoRepository
  * @package App\Domain\Repository
  */
-final class VideoRepository extends ServiceEntityRepository implements VideoRepositoryInterface
+class VideoRepository extends ServiceEntityRepository implements VideoRepositoryInterface
 {
     /**
      * VideoRepository constructor.

@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class ImageRepository
  * @package App\Domain\Repository
  */
-final class ImageRepository extends ServiceEntityRepository implements ImageRepositoryInterface
+class ImageRepository extends ServiceEntityRepository implements ImageRepositoryInterface
 {
 
     /**

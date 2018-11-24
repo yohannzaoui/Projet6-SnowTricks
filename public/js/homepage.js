@@ -1,13 +1,28 @@
-$( document ).ready(function () {
-    $(".moreBox").slice(0, 3).show();
-    if ($(".blogBox:hidden").length != 0) {
-        $("#loadMore").show();
-    }
+$(function () {
+    $("div").slice(0, 4).show();
     $("#loadMore").on('click', function (e) {
         e.preventDefault();
-        $(".moreBox:hidden").slice(0, 2).slideDown();
-        if ($(".moreBox:hidden").length == 0) {
-            $("#loadMore").fadeOut('slow');
+        $("div:hidden").slice(0, 4).slideDown();
+        if ($("div:hidden").length == 0) {
+            $("#load").fadeOut('slow');
         }
+        $('html,body').animate({
+            scrollTop: $(this).offset().top
+        }, 1500);
     });
+});
+
+$('a[href=#top]').click(function () {
+    $('body,html').animate({
+        scrollTop: 0
+    }, 600);
+    return false;
+});
+
+$(window).scroll(function () {
+    if ($(this).scrollTop() > 50) {
+        $('.totop a').fadeIn();
+    } else {
+        $('.totop a').fadeOut();
+    }
 });

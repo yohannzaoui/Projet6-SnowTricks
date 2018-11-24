@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class CommentRepository
  * @package App\Domain\Repository
  */
-final class CommentRepository extends ServiceEntityRepository implements CommentRepositoryInterface
+class CommentRepository extends ServiceEntityRepository implements CommentRepositoryInterface
 {
     /**
      * CommentRepository constructor.
