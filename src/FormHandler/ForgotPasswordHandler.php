@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  * Class ForgotPasswordHandler
  * @package App\FormHandler
  */
-final class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
+class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
 {
     /**
      * @var UserRepository

@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
  * Class EditTrickHandler
  * @package App\FormHandler
  */
-final class EditTrickHandler implements EditTrickHandlerInterface
+class EditTrickHandler implements EditTrickHandlerInterface
 {
 
     /**

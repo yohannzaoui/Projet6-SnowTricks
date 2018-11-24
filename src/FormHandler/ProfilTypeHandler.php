@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  * Class ProfilTypeHandler
  * @package App\FormHandler
  */
-final class ProfilTypeHandler implements ProfilTypeHandlerInterface
+class ProfilTypeHandler implements ProfilTypeHandlerInterface
 {
 
 

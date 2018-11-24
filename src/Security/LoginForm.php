@@ -9,6 +9,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Security\Interfaces\LoginFormInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
  * Class LoginForm
  * @package App\Security
  */
-class LoginForm extends AbstractFormLoginAuthenticator
+class LoginForm extends AbstractFormLoginAuthenticator implements LoginFormInterface
 {
     use TargetPathTrait;
 

@@ -43,7 +43,7 @@ class HomeController extends AbstractController implements HomeControllerInterfa
      */
     public function index($page = 1)
     {
-        $tricks = $this->trickRepository->getTricks($page, 5);
+        $tricks = $this->trickRepository->getTricks($page, 6);
 
         $pagination = [
             'page' => $page,

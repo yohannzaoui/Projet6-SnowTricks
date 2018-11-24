@@ -28,9 +28,9 @@ class TrickRepository extends ServiceEntityRepository implements TrickRepository
 
 
     /**
-     * @return Query
+     * @return mixed
      */
-    public function getAllTricks(): Query
+    public function getAllTricks()
     {
         return $this->createQueryBuilder('t')
                      ->orderBy('t.createdAt','DESC')

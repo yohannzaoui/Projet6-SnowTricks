@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  * Class CommentHandler
  * @package App\FormHandler
  */
-final class CommentHandler implements CommentHandlerInterface
+class CommentHandler implements CommentHandlerInterface
 {
     /**
      * @var CommentRepository

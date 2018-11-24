@@ -16,7 +16,7 @@ use Symfony\Component\Filesystem\Filesystem;
  * Class FileRemover
  * @package App\Services
  */
-final class FileRemover implements FileRemoverInterface
+class FileRemover implements FileRemoverInterface
 {
     /**
      * @var Filesystem

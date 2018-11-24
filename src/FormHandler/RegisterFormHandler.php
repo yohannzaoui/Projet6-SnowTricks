@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
  * Class RegisterFormHandler
  * @package App\FormHandler
  */
-final class RegisterFormHandler implements RegisterFormHandlerInterface
+class RegisterFormHandler implements RegisterFormHandlerInterface
 {
 
     /**

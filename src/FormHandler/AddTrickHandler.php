@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
  * Class AddTrickHandler
  * @package App\FormHandler
  */
-final class AddTrickHandler implements AddTrickHandlerInterface
+class AddTrickHandler implements AddTrickHandlerInterface
 {
     /**
      * @var FileUploader

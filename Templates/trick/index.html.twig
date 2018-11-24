@@ -53,12 +53,12 @@
                 <br>
                 {% if trick.videos %}
                     <div class="container">
-                    <div class="row">
+                        <div class="row">
                 {% for video in trick.videos %}
                         <div class="col-lg-4 col-md-auto mx-auto">
-                        <div class="embed-responsive embed-responsive-16by9">
+                            <div class="embed-responsive embed-responsive-16by9">
                      {{ video.getUrl | raw }}
-                        </div>
+                            </div>
                         </div>
                 {% endfor %}
                     </div>
@@ -95,6 +95,7 @@
             </h3>
 
             {% for comment in trick.comments %}
+                <div class="comment">
                 <div class="alert alert-dismissible alert-secondary">
                     <p>{% if comment.author.getProfilImage %}
                         <img src="{{asset('/uploads/images/' ~ comment.author.getProfilImage)}}"/>
@@ -103,6 +104,7 @@
                         {% endif %}
                         {{ comment.author.username }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
                     <p>A écrit : {{ comment.message }}</p>
+                </div>
                 </div>
             {% endfor %}
 {% endblock body %}
