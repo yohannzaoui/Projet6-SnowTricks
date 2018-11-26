@@ -30,6 +30,9 @@ class Video implements VideoInterface
      */
     private $url;
 
+    /**
+     * @var
+     */
     private $trick;
 
 

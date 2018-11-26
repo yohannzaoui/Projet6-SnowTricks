@@ -23,7 +23,7 @@
                              <i class="fas fa-edit"></i></a>
                         </p>
                     {% endif %}
-                    <p style="text-align: center; width:auto;height:auto"><img src="{{asset('/uploads/images/'~ trick.defaultImage.url)}}" class="img-fluid img-thumbnail" alt="Image principale"></p>
+                    <p style="text-align: center; width:auto;height:auto"><img style="width:1200px;height:600x;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.url)}}" class="img-fluid img-thumbnail" alt="Image principale"></p>
                     <hr>
                     </div>
             <div class="col-lg-12 col-md-auto mx-auto">
@@ -85,17 +85,19 @@
         <hr>
         <div class="col-lg-8 col-md-12 mx-auto">
             <h3>
-                {% if trick.comments | length == 0 %}
+                {% if comments | length == 0 %}
                     <h4 class="p_center">Aucun commentaire pour ce Trick. Soyez le premier à commenter.</h4> 
                 {% elseif trick.comments | length == 1 %}
-                    {{trick.comments | length}} Commentaire
+                    {{comments | length}} Commentaire
                 {% else %}
-                    {{trick.comments | length}} Commentaires
+                    {{comments | length}} Commentaires
                 {% endif %}
             </h3>
 
-            {% for comment in trick.comments %}
-                <div class="comment">
+
+            {% for comment in comments %}
+
+
                 <div class="alert alert-dismissible alert-secondary">
                     <p>{% if comment.author.getProfilImage %}
                         <img src="{{asset('/uploads/images/' ~ comment.author.getProfilImage)}}"/>
@@ -105,6 +107,9 @@
                         {{ comment.author.username }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
                     <p>A écrit : {{ comment.message }}</p>
                 </div>
-                </div>
+
             {% endfor %}
+
+    {% include 'pagination_comments.html.twig' %}
+
 {% endblock body %}

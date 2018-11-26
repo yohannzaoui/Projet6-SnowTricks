@@ -63,17 +63,16 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($this->userRepository->checkEmail($form->getData()->getEmail())) {
+            if ($this->userRepository->checkEmail($form->getData()['email'])) {
 
                 $token = md5(uniqid());
 
-                $this->userRepository->saveResetToken($form->getData()->getEmail(), $token);
+                $this->userRepository->saveResetToken($form->getData()['email'], $token);
 
-                $this->mail->send($form->getData()->getEmail(), $token);
+                $this->mail->send($form->getData()['email'], $token);
 
                 $this->messageFlash->getFlashBag()->add('resetPassword',
-                    'Un email à l\'adresse ' .$form->getData()
-                        ->getEmail(). ' vient de vous être envoyez pour la récupération de votre compte');
+                    'Un email à l\'adresse ' .$form->getData()['email']. ' vient de vous être envoyez pour la récupération de votre compte');
                 return true;
             }
             $this->messageFlash->getFlashBag()->add('checkMailError','L\'adresse email est inconnue');

@@ -13,7 +13,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-
+/**
+ * Class AddTrickType
+ * @package App\Form
+ */
 class AddTrickType extends AbstractType implements TypeInterface
 {
     /**

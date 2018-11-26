@@ -118,7 +118,8 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $this->createQueryBuilder('user')
             ->where('user.email = :email')
             ->setParameter('email', $email)
-            ->getQuery();
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     /**

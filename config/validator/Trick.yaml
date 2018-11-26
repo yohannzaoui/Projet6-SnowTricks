@@ -10,15 +10,23 @@ App\Entity\Trick:
       name:
         - NotBlank:
             message: "Le nom du Trick est obligatoire !"
-            groups:
-                - Trick
-
+        - Length:
+            min: 3
+            minMessage: "Le nom du Trick est trop court."
+            max: 255
+            maxMessage: "Le nom du Trick est trop long."
 
       defaultImage:
           - NotBlank:
               message: "L'image pricipale est obligatoire !"
 
-
       description:
           - NotBlank:
               message: "La déscription ne peut pas être vide !"
+          - Length:
+              min: 10
+              minMessage: "La déscription du Trick est trop courte."
+
+      videos:
+          - Valid: ~
+

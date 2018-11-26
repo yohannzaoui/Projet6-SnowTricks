@@ -47,9 +47,8 @@ class ForgotPasswordController extends AbstractController implements ForgotPassw
      */
     public function index(Request $request)
     {
-        $user = new User();
 
-        $form = $this->createForm(ForgotPasswordType::class, $user)
+        $form = $this->createForm(ForgotPasswordType::class)
             ->handleRequest($request);
 
         if ($this->forgotPasswordHandler->handle($form)) {
