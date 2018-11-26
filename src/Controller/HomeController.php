@@ -48,7 +48,7 @@ class HomeController extends AbstractController implements HomeControllerInterfa
         $pagination = [
             'page' => $page,
             'route' => 'page_trick',
-            'pages_count' => ceil(count($tricks) / 5),
+            'pages_count' => ceil(count($tricks) / 6),
             'route_params' => []
         ];
 
