@@ -25,13 +25,4 @@ class ForgotPasswordType extends AbstractType implements TypeInterface
             ->add('email', EmailType::class);
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
-    }
 }

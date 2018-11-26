@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class UsersController
  * @package App\Controller
  */
-final class UsersController extends AbstractController implements UsersControllerInterface
+class UsersController extends AbstractController implements UsersControllerInterface
 {
     /**
      * @var UserRepository

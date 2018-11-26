@@ -10,6 +10,7 @@ namespace App\Repository;
 
 
 use App\Entity\Video;
+use App\Repository\Interfaces\VideoRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,7 +18,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class VideoRepository
  * @package App\Domain\Repository
  */
-class VideoRepository extends ServiceEntityRepository
+class VideoRepository extends ServiceEntityRepository implements VideoRepositoryInterface
 {
     /**
      * VideoRepository constructor.

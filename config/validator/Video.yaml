@@ -1,0 +1,7 @@
+App\Entity\Video:
+  properties:
+    url:
+      - Regex:
+          pattern: '/(youtube)|(dailymotion)/'
+          match : true
+          message : 'Votre vidéo doit provenir de YouTube ou DailyMotion'

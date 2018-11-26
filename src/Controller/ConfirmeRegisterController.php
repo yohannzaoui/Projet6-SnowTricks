@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ConfirmeRegisterController
  * @package App\Controller
  */
-final class ConfirmeRegisterController extends AbstractController implements ConfirmeRegisterControllerInterface
+class ConfirmeRegisterController extends AbstractController implements ConfirmeRegisterControllerInterface
 {
     /**
      * @var UserRepository

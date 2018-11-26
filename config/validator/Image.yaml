@@ -1,0 +1,4 @@
+App\Entity\Image:
+  file:
+  - File:
+      maxSize: 2048k

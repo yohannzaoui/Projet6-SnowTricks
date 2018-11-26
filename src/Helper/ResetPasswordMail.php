@@ -16,7 +16,7 @@ use App\Services\Interfaces\EmailerInterface;
  * Class ResetPasswordMail
  * @package App\Helper
  */
-final class ResetPasswordMail implements MailerHelperInterface
+class ResetPasswordMail implements MailerHelperInterface
 {
 
     /**

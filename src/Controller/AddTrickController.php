@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class AddTrickController
  * @package App\Controller
  */
-final class AddTrickController extends AbstractController
+class AddTrickController extends AbstractController
 {
 
     /**
@@ -57,7 +57,7 @@ final class AddTrickController extends AbstractController
         if ($this->addTrickHandler->handle($form, $user, $trick)) {
 
             return $this->redirectToRoute('trick', [
-                'id' => $trick->getId()
+                'slug' => $trick->getSlug()
             ]);
         }
         return $this->render('add_trick/index.html.twig', [

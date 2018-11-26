@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class CategoryController
  * @package App\Controller
  */
-final class CategoryController extends AbstractController implements CategoryControllerInterface
+class CategoryController extends AbstractController implements CategoryControllerInterface
 {
 
     /**

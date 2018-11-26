@@ -24,7 +24,6 @@ class CategoryTest extends TestCase
     public function testGetName()
     {
         $category = new Category();
-
         $category->setName('name');
         $result = $category->getName();
         $this->assertSame('name', $result);

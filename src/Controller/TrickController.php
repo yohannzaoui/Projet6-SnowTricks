@@ -12,21 +12,28 @@ use App\Controller\Interfaces\TrickControllerInterface;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\FormHandler\Interfaces\CommentHandlerInterface;
+use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class TrickController
  * @package App\Controller
  */
-final class TrickController extends AbstractController implements TrickControllerInterface
+class TrickController extends AbstractController implements TrickControllerInterface
 {
     /**
      * @var TrickRepository
      */
     private $trickRepository;
+
+    /**
+     * @var CommentRepository
+     */
+    private $commentRepository;
 
     /**
      * @var CommentHandlerInterface
@@ -37,25 +44,41 @@ final class TrickController extends AbstractController implements TrickControlle
      * TrickController constructor.
      * @param TrickRepository $trickRepository
      * @param CommentHandlerInterface $commentHandler
+     * @param CommentRepository $commentRepository
      */
     public function __construct(
         TrickRepository $trickRepository,
-        CommentHandlerInterface $commentHandler
+        CommentHandlerInterface $commentHandler,
+        CommentRepository $commentRepository
 
     ) {
         $this->trickRepository = $trickRepository;
         $this->commentHandler = $commentHandler;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
-     * @Route("/trick/{id}", name="trick", methods={"GET", "POST"})
+     * @Route("/trick/{slug}", name="trick", methods={"GET", "POST"})
+     * @Route("trick/comments/{page}/{slug}", name="comment_trick", methods={"GET","POST"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @param int $page
+     * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function index(Request $request)
+    public function index(Request $request, $page = 1)
     {
-        $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
+        if (!$trick = $this->trickRepository->getTrickBySlug($request->attributes->get('slug'))) {
+            throw new NotFoundHttpException();
+        }
+
+        $comments = $this->commentRepository->getComments($trick->getId(), $page, 5);
+
+        $pagination = [
+            'page' => $page,
+            'route' => 'comment_trick',
+            'pages_count' => ceil(count($comments) / 5),
+            'route_params' => ['slug' => $trick->getSlug()]
+        ];
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)
@@ -66,11 +89,13 @@ final class TrickController extends AbstractController implements TrickControlle
         if ($this->commentHandler->handle($form, $user, $trick, $comment)) {
 
             return $this->redirectToRoute('trick', [
-                'id' => $trick->getId()
+                'slug' => $trick->getSlug()
             ]);
         }
         return $this->render('trick/index.html.twig', [
             'trick' => $trick,
+            'comments' => $comments,
+            'pagination' => $pagination,
             'form' => $form->createView()
         ]);
     }

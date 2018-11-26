@@ -18,20 +18,24 @@ class Comment implements CommentInterface
      * @var UuidInterface
      */
     private $id;
+
     /**
-     * @var null
+     * @var
      */
     private $author;
+
     /**
-     * @var null
+     * @var
      */
     private $message;
+
     /**
      * @var \DateTime
      */
     private $createdAt;
+
     /**
-     * @var null
+     * @var
      */
     private $trick;
 
@@ -48,7 +52,7 @@ class Comment implements CommentInterface
 
 
     /**
-     * @return mixed
+     * @return mixed|UuidInterface
      */
     public function getId()
     {
@@ -56,9 +60,8 @@ class Comment implements CommentInterface
     }
 
     /**
-     * Set the value of id
-     *
-     * @return  self
+     * @param $id
+     * @return $this|mixed
      */
     public function setId($id)
     {
@@ -68,7 +71,7 @@ class Comment implements CommentInterface
     }
 
     /**
-     * Get the value of message
+     * @return mixed
      */
     public function getMessage()
     {
@@ -76,9 +79,8 @@ class Comment implements CommentInterface
     }
 
     /**
-     * Set the value of message
-     *
-     * @return  self
+     * @param $message
+     * @return $this|mixed
      */
     public function setMessage($message)
     {
@@ -88,7 +90,7 @@ class Comment implements CommentInterface
     }
 
     /**
-     * Get the value of createdAt
+     * @return \DateTime|mixed
      */
     public function getCreatedAt()
     {
@@ -96,9 +98,8 @@ class Comment implements CommentInterface
     }
 
     /**
-     * Set the value of createdAt
-     *
-     * @return  self
+     * @param $createdAt
+     * @return $this|mixed
      */
     public function setCreatedAt($createdAt)
     {
@@ -116,9 +117,8 @@ class Comment implements CommentInterface
     }
 
     /**
-     * Set the value of trick
-     *
-     * @return  self
+     * @param Trick $trick
+     * @return $this|mixed
      */
     public function setTrick(Trick $trick)
     {
@@ -127,9 +127,8 @@ class Comment implements CommentInterface
         return $this;
     }
 
-
     /**
-     * @return null
+     * @return mixed
      */
     public function getAuthor()
     {

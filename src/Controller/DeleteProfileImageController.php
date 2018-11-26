@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class DeleteProfileImageController
  * @package App\Controller
  */
-final class DeleteProfileImageController extends AbstractController implements DeleteProfileImageControllerInterface
+class DeleteProfileImageController extends AbstractController implements DeleteProfileImageControllerInterface
 {
     /**
      * @Route("/deleteProfileImage", name="deleteProfileImage", methods={"GET"})

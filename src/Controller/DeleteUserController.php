@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class DeleteUserController
  * @package App\Controller
  */
-final class DeleteUserController extends AbstractController implements DeleteUserControllerInterface
+class DeleteUserController extends AbstractController implements DeleteUserControllerInterface
 {
     /**
      * @var UserRepository

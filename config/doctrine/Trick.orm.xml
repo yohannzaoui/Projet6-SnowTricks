@@ -12,6 +12,7 @@
         <id name="id" type="uuid" column="id" />
 
         <field name="name" column="name" type="string" length="255" nullable="false" unique="true" />
+        <field name="slug" column="slug" type="string" length="255" nullable="false" unique="true"/>
         <field name="description" column="description" type="text"  nullable="false" />
         <field name="createdAt" column="created_at" type="datetime" nullable="false" />
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true" />
@@ -23,7 +24,7 @@
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
-            <join-column name="defaultImage_id" referenced-column-name="id"/>
+            <join-column name="defaultImage_id" referenced-column-name="id" on-delete="CASCADE"/>
         </one-to-one>
 
         <many-to-one field="category" target-entity="App\Entity\Category">

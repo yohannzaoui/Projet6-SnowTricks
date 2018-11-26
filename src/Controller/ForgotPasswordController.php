@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ForgotPasswordController
  * @package App\Controller
  */
-final class ForgotPasswordController extends AbstractController implements ForgotPasswordControllerInterface
+class ForgotPasswordController extends AbstractController implements ForgotPasswordControllerInterface
 {
     /**
      * @var ForgotPasswordHandler
@@ -47,9 +47,8 @@ final class ForgotPasswordController extends AbstractController implements Forgo
      */
     public function index(Request $request)
     {
-        $user = new User();
 
-        $form = $this->createForm(ForgotPasswordType::class, $user)
+        $form = $this->createForm(ForgotPasswordType::class)
             ->handleRequest($request);
 
         if ($this->forgotPasswordHandler->handle($form)) {

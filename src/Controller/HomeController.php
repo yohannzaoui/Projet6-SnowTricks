@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class HomeController
  * @package App\Controller
  */
-final class HomeController extends AbstractController implements HomeControllerInterface
+class HomeController extends AbstractController implements HomeControllerInterface
 {
     /**
      * @var TrickRepository
@@ -37,14 +37,24 @@ final class HomeController extends AbstractController implements HomeControllerI
 
     /**
      * @Route("/", name="home", methods={"GET"})
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("tricks/list/{page}", name="page_trick", methods={"GET"})
+     * @param int $page
+     * @return mixed|\Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index($page = 1)
     {
-        $tricks = $this->trickRepository->getAllTricks();
+        $tricks = $this->trickRepository->getTricks($page, 6);
+
+        $pagination = [
+            'page' => $page,
+            'route' => 'page_trick',
+            'pages_count' => ceil(count($tricks) / 6),
+            'route_params' => []
+        ];
 
         return $this->render('home/index.html.twig', [
-            'tricks' => $tricks
+            'tricks' => $tricks,
+            'pagination' => $pagination
         ]);
     }
 }

@@ -16,10 +16,19 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class VideoTrickType
+ * @package App\Form
+ */
 class VideoTrickType extends AbstractType implements TypeInterface
 {
 
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return mixed|void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -28,6 +37,10 @@ class VideoTrickType extends AbstractType implements TypeInterface
             ]);
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     * @return mixed|void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

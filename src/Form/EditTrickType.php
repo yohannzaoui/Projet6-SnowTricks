@@ -14,10 +14,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
+/**
+ * Class EditTrickType
+ * @package App\Form
+ */
 class EditTrickType extends AbstractType implements TypeInterface
 {
 
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return mixed|void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -63,6 +72,10 @@ class EditTrickType extends AbstractType implements TypeInterface
     }
 
 
+    /**
+     * @param OptionsResolver $resolver
+     * @return mixed|void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

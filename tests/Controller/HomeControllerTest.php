@@ -23,11 +23,17 @@ class HomeControllerTest extends KernelTestCase
      */
     private $trickRepository;
 
+    private $twig;
+
     /**
      * @throws \ReflectionException
      */
     public function setUp()
     {
+        //static::bootKernel();
+
+        //$this->twig = static::$kernel->getContainer()->get('twig.configurator.environment');
+
         $this->trickRepository = $this->createMock(TrickRepository::class);
         $this->trickRepository->method('getAllTricks')->willReturn('trick');
     }
@@ -43,10 +49,10 @@ class HomeControllerTest extends KernelTestCase
 
     public function testIndex()
     {
-        $request = \Symfony\Component\HttpFoundation\Request::create('/', 'GET');
         $homeController = new HomeController($this->trickRepository);
 
-        $this->createMock(Environment::class);
-
     }
+
+
+
 }

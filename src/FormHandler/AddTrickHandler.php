@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
  * Class AddTrickHandler
  * @package App\FormHandler
  */
-final class AddTrickHandler implements AddTrickHandlerInterface
+class AddTrickHandler implements AddTrickHandlerInterface
 {
     /**
      * @var FileUploader
@@ -57,10 +57,9 @@ final class AddTrickHandler implements AddTrickHandlerInterface
         if ($form->isSubmitted() && $form->isValid()) {
 
             $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage()->getFile());
-            //dd($defaultImage);
+
             $form->getData()->getDefaultImage()->setUrl($defaultImage);
-
-
+            
             $arrayCollectionImages = $form->getData()->getImages()->toArray();
 
             foreach ($arrayCollectionImages as $a => $image) {
@@ -78,6 +77,7 @@ final class AddTrickHandler implements AddTrickHandlerInterface
             }
 
             $trick->setAuthor($user);
+            $trick->setSlug(strtolower(str_replace(' ', '-', $form->getData()->getName())));
             $trick->setDefaultImage($form->getData()->getDefaultImage());
             $trick->setImages($form->getData()->getImages());
             $trick->setVideos($form->getData()->getVideos());

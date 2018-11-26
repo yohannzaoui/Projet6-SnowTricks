@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * Class EditTrickController
  * @package App\Controller
  */
-final class EditTrickController extends AbstractController implements EditTrickControllerInterface
+class EditTrickController extends AbstractController implements EditTrickControllerInterface
 {
 
     /**
@@ -43,7 +43,7 @@ final class EditTrickController extends AbstractController implements EditTrickC
      * @param Request $request
      * @param Trick $trick
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/edit/trick/{id}", name="edittrick", methods={"GET", "POST"})
+     * @Route("/edit/trick/{slug}", name="edittrick", methods={"GET", "POST"})
      */
     public function index(Request $request , Trick $trick)
     {
@@ -56,7 +56,7 @@ final class EditTrickController extends AbstractController implements EditTrickC
         if ($this->editTrickHandler->handle($form, $user, $trick)) {
 
             return $this->redirectToRoute('trick', [
-                'id' => $request->attributes->get('id')
+                'slug' => $trick->getSlug()
             ]);
         }
 

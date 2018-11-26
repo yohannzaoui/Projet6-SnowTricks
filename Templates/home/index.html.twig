@@ -1,56 +1,61 @@
 {% extends 'base.html.twig' %}
 {% block title %}Snow Tricks{% endblock %}
 
-
-
 {% block body %}
 
     <img src="{{ asset('images/home.jpg') }}" class="img-fluid" alt="Responsive image">
 
-
-    <div class="container-fluid">
-
+    <div class="container-fluid mt-4">
 
         {% for message in app.flashes('deleteTrick') %}
-        <div class="container mt-2">
-            <div class="alert alert-dismissible alert-danger">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
+            <div class="container mt-2">
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
             </div>
-        </div>
         {% endfor %}
-        <br>
 
+        <section id="top">
 
-        <section id="container">
-        <div class="row">
-            {% if tricks %}
-            {% for trick in tricks %}
-            <div class="col-lg-2 col-md-auto mx-auto">
-        <div class="card mb-3">
-            <h5 class="card-header"><a href="{{path('trick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Détail du Trick">{{trick.name}}</a></h5>
-            <img style="width:222px;height:222px;object-fit:cover" src="{{asset('/uploads/images/'~ trick.defaultImage.url)}}" alt="Card image" class="img-fluid">
-            <div style="text-align: center" class="card-footer text-muted">
+            <div id="tricks">
+                <div class="row justify-content-center">
+                    {% if tricks %}
+                        {% for trick in tricks %}
 
-                <p>
-                    <a href="{{path('trick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Voir le Trick"><i class="far fa-eye"></i></a>
-                    {% if app.user %}
-                    | <a href="{{path('edittrick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Modifié"><i class="fas fa-edit"></i></a> |
-                    <a href="{{path('confirmeDeleteTrick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Supprimé"><i class="fas fa-trash-alt"></i></a>
-                </p>
-                {% endif %}
-                Ajouté le {{ trick.createdAt| date("d/m/Y") }}
+                                <div style="text-align: center" class="trick">
+                                    <div class="card mt-4 ml-2" style="width: 15rem;">
+                                        <h5 class="card-header"><a href="{{path('trick', {'slug':trick.slug})}}" data-toggle="tooltip" data-placement="bottom" title="Détail du Trick">{{trick.name}}</a></h5>
+                                        <p style="text-align: center"><img style="width:222px;height:222px;object-fit:cover" class="card-img-top" src="{{asset('/uploads/images/'~ trick.defaultImage.url)}}" alt="Card image cap"></p>
+                                        <div class="card-body">
+                                            <p style="text-align: center">
+                                                <a href="{{path('trick', {'slug':trick.slug})}}" data-toggle="tooltip" data-placement="bottom" title="Voir le Trick"><i class="far fa-eye"></i></a>
+                                                {% if app.user %}
+                                                | <a href="{{path('edittrick', {'slug':trick.slug})}}" data-toggle="tooltip" data-placement="bottom" title="Modifié"><i class="fas fa-edit"></i></a> |
+                                                <a href="{{path('confirmeDeleteTrick', {'id':trick.id})}}" data-toggle="tooltip" data-placement="bottom" title="Supprimé"><i class="fas fa-trash-alt"></i></a>
+                                            </p>
+                                                {% endif %}
+                                            <p style="text-align: center; color: darkgray"><small>Ajouté le {{ trick.createdAt| date("d/m/Y") }}</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        {% endfor %}
+                        {% else %}
+                            <h3>Pas de Tricks à afficher</h3>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-            </div>
-            {% endfor %}
-                {% else %}
-                <h3>Pas de Tricks à affiché</h3>
-            {% endif %}
-        </div>
 
-            <a href="#container"> <i class="fas fa-3x fa-arrow-circle-up"></i></a>
+
+            <div id="pagination">
+                {% include 'pagination.html.twig' %}
+            </div>
+
+            <a href="#top"> <i class="fas fa-3x fa-arrow-circle-up"></i></a>
+
         </section>
 
+    </div>
 
-{% endblock body %}
+{% endblock %}
