@@ -9,13 +9,14 @@
 namespace App\FormHandler\Interfaces;
 
 
-use App\Helper\ResetPasswordMail;
 use App\Repository\UserRepository;
+use App\Services\Interfaces\EmailerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Interface ForgotPasswordHandlerInterface
+ * Interfaces ForgotPasswordHandlerInterface
  * @package App\FormHandler\Interfaces
  */
 interface ForgotPasswordHandlerInterface
@@ -24,13 +25,15 @@ interface ForgotPasswordHandlerInterface
     /**
      * ForgotPasswordHandlerInterface constructor.
      * @param UserRepository $userRepository
-     * @param ResetPasswordMail $mail
+     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         UserRepository $userRepository,
-        ResetPasswordMail $mail,
-        SessionInterface $messageFlash
+        EmailerInterface $emailer,
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher
     );
 
     /**

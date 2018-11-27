@@ -9,10 +9,11 @@
 namespace App\FormHandler;
 
 
+use App\Event\ResetPasswordMailEvent;
 use App\FormHandler\Interfaces\ForgotPasswordHandlerInterface;
-use App\Helper\Interfaces\MailerHelperInterface;
-use App\Helper\ResetPasswordMail;
 use App\Repository\UserRepository;
+use App\Services\Interfaces\EmailerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -28,30 +29,38 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
     private $userRepository;
 
     /**
-     * @var ResetPasswordMail
+     * @var EmailerInterface
      */
-    private $mail;
+    private $emailer;
 
     /**
      * @var SessionInterface
      */
     private $messageFlash;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
 
     /**
      * ForgotPasswordHandler constructor.
      * @param UserRepository $userRepository
-     * @param ResetPasswordMail $mail
+     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         UserRepository $userRepository,
-        ResetPasswordMail $mail,
-        SessionInterface $messageFlash
+        EmailerInterface $emailer,
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->userRepository = $userRepository;
-        $this->mail = $mail;
+        $this->emailer = $emailer;
         $this->messageFlash = $messageFlash;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -69,7 +78,8 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
 
                 $this->userRepository->saveResetToken($form->getData()['email'], $token);
 
-                $this->mail->send($form->getData()['email'], $token);
+                $this->eventDispatcher->dispatch(ResetPasswordMailEvent::NAME,
+                    new ResetPasswordMailEvent($this->emailer, $form->getData()['email'], $token));
 
                 $this->messageFlash->getFlashBag()->add('resetPassword',
                     'Un email à l\'adresse ' .$form->getData()['email']. ' vient de vous être envoyez pour la récupération de votre compte');

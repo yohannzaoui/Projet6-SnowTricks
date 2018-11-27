@@ -10,10 +10,12 @@ namespace App\FormHandler;
 
 
 use App\Entity\User;
+use App\Event\RegisterMailEvent;
 use App\FormHandler\Interfaces\RegisterFormHandlerInterface;
-use App\Helper\RegisterMail;
 use App\Repository\UserRepository;
+use App\Services\Interfaces\EmailerInterface;
 use App\Services\Interfaces\FileUploaderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -41,36 +43,45 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
     private $userRepository;
 
     /**
-     * @var RegisterMail
+     * @var EmailerInterface
      */
-    private $mail;
+    private $emailer;
+
     /**
      * @var SessionInterface
      */
     private $messageFlash;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
     /**
      * RegisterFormHandler constructor.
      * @param FileUploaderInterface $fileUploader
      * @param EncoderFactoryInterface $encoder
      * @param UserRepository $userRepository
-     * @param RegisterMail $mail
+     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
         EncoderFactoryInterface $encoder,
         UserRepository $userRepository,
-        RegisterMail $mail,
-        SessionInterface $messageFlash
+        EmailerInterface $emailer,
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->fileUploader = $fileUploader;
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
-        $this->mail = $mail;
+        $this->emailer = $emailer;
         $this->messageFlash = $messageFlash;
+        $this->eventDispatcher = $eventDispatcher;
     }
+
 
     /**
      * @param FormInterface $form
@@ -107,7 +118,8 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
 
             $this->userRepository->save($user);
 
-            $this->mail->send($form->getData()->getEmail(), $token);
+            $this->eventDispatcher->dispatch(RegisterMailEvent::NAME,
+                new RegisterMailEvent($this->emailer, $form->getData()->getEmail(), $token ));
 
             $this->messageFlash->getFlashBag()->add('register',
                 'Un email à l\'adresse ' .$form->getData()
