@@ -13,6 +13,7 @@ use App\Entity\Trick;
 use App\FormHandler\Interfaces\AddTrickHandlerInterface;
 use App\Repository\TrickRepository;
 use App\Services\FileUploader;
+use App\Services\Interfaces\SluggerInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -32,16 +33,24 @@ class AddTrickHandler implements AddTrickHandlerInterface
     private $trickRepository;
 
     /**
+     * @var SluggerInterface
+     */
+    private $slugger;
+
+    /**
      * AddTrickHandler constructor.
      * @param FileUploader $fileUploader
      * @param TrickRepository $trickRepository
+     * @param SluggerInterface $slugger
      */
     public function __construct(
         FileUploader $fileUploader,
-        TrickRepository $trickRepository
+        TrickRepository $trickRepository,
+        SluggerInterface $slugger
     ) {
         $this->fileUploader = $fileUploader;
         $this->trickRepository = $trickRepository;
+        $this->slugger = $slugger;
     }
 
     /**
@@ -77,7 +86,7 @@ class AddTrickHandler implements AddTrickHandlerInterface
             }
 
             $trick->setAuthor($user);
-            $trick->setSlug(strtolower(str_replace(' ', '-', $form->getData()->getName())));
+            $trick->setSlug($this->slugger->createSlug($form->getData()->getName()));
             $trick->setDefaultImage($form->getData()->getDefaultImage());
             $trick->setImages($form->getData()->getImages());
             $trick->setVideos($form->getData()->getVideos());

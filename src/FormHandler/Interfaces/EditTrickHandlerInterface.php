@@ -12,9 +12,10 @@ use App\Entity\Trick;
 use App\Services\FileUploader;
 use App\Repository\TrickRepository;
 use Symfony\Component\Form\FormInterface;
+use App\Services\Interfaces\SluggerInterface;
 
 /**
- * Interface EditTrickHandlerInterface
+ * Interfaces EditTrickHandlerInterface
  * @package App\FormHandler\Interfaces
  */
 interface EditTrickHandlerInterface
@@ -23,10 +24,12 @@ interface EditTrickHandlerInterface
      * EditTrickHandlerInterface constructor.
      * @param FileUploader $fileUploader
      * @param TrickRepository $trickRepository
+     * @param SluggerInterface $slugger
      */
     public function __construct(
         FileUploader $fileUploader,
-        TrickRepository $trickRepository
+        TrickRepository $trickRepository,
+        SluggerInterface $slugger
     );
 
     /**
