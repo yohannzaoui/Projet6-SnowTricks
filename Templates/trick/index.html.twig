@@ -96,9 +96,8 @@
 
 
             {% for comment in comments %}
-
-
                 <div class="alert alert-dismissible alert-secondary">
+                    <div id="comments">
                     <p>{% if comment.author.getProfilImage %}
                         <img src="{{asset('/uploads/images/' ~ comment.author.getProfilImage)}}"/>
                             {% else %}
@@ -106,10 +105,12 @@
                         {% endif %}
                         {{ comment.author.username }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
                     <p>A écrit : {{ comment.message }}</p>
+                    </div>
                 </div>
-
             {% endfor %}
 
+    {% if comments | length > 0 %}
     {% include 'pagination_comments.html.twig' %}
+    {% endif %}
 
 {% endblock body %}
