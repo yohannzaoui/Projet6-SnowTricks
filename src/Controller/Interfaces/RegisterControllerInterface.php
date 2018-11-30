@@ -10,9 +10,12 @@ namespace App\Controller\Interfaces;
 
 use App\FormHandler\RegisterFormHandler;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 /**
- * Interface RegisterControllerInterface
+ * Interfaces RegisterControllerInterface
  * @package App\Controller\Interfaces
  */
 interface RegisterControllerInterface
@@ -20,8 +23,16 @@ interface RegisterControllerInterface
     /**
      * RegisterControllerInterface constructor.
      * @param RegisterFormHandler $registerFormHandler
+     * @param FormFactoryInterface $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Environment $twig
      */
-    public function __construct(RegisterFormHandler $registerFormHandler);
+    public function __construct(
+        RegisterFormHandler $registerFormHandler,
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator,
+        Environment $twig
+    );
 
     /**
      * @param Request $request

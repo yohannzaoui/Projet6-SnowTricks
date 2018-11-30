@@ -10,9 +10,11 @@ namespace App\Controller\Interfaces;
 
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Interface DeleteCategoryControllerInterface
+ * Interfaces DeleteCategoryControllerInterface
  * @package App\Controller\Interfaces
  */
 interface DeleteCategoryControllerInterface
@@ -20,8 +22,14 @@ interface DeleteCategoryControllerInterface
     /**
      * DeleteCategoryControllerInterface constructor.
      * @param CategoryRepository $categoryRepository
+     * @param SessionInterface $messageFlash
+     * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(CategoryRepository $categoryRepository);
+    public function __construct(
+        CategoryRepository $categoryRepository,
+        SessionInterface $messageFlash,
+        UrlGeneratorInterface $urlGenerator
+    );
 
     /**
      * @param Request $request

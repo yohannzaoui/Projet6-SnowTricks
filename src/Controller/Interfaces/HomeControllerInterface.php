@@ -9,9 +9,10 @@
 namespace App\Controller\Interfaces;
 
 use App\Repository\TrickRepository;
+use Twig\Environment;
 
 /**
- * Interface HomeControllerInterface
+ * Interfaces HomeControllerInterface
  * @package App\Controller\Interfaces
  */
 interface HomeControllerInterface
@@ -19,8 +20,12 @@ interface HomeControllerInterface
     /**
      * HomeControllerInterface constructor.
      * @param TrickRepository $trickRepository
+     * @param Environment $twig
      */
-    public function __construct(TrickRepository $trickRepository);
+    public function __construct(
+        TrickRepository $trickRepository,
+        Environment $twig
+    );
 
     /**
      * @return mixed

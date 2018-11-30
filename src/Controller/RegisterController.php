@@ -12,16 +12,20 @@ namespace App\Controller;
 use App\Controller\Interfaces\RegisterControllerInterface;
 use App\Form\RegisterType;
 use App\FormHandler\RegisterFormHandler;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 
 /**
  * Class RegisterController
  * @package App\Controller
  */
-class RegisterController extends AbstractController implements RegisterControllerInterface
+class RegisterController implements RegisterControllerInterface
 {
     /**
      * @var RegisterFormHandler
@@ -29,13 +33,37 @@ class RegisterController extends AbstractController implements RegisterControlle
     private $registerFormHandler;
 
     /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
      * RegisterController constructor.
      * @param RegisterFormHandler $registerFormHandler
+     * @param FormFactoryInterface $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Environment $twig
      */
     public function __construct(
-        RegisterFormHandler $registerFormHandler
+        RegisterFormHandler $registerFormHandler,
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator,
+        Environment $twig
     ) {
         $this->registerFormHandler = $registerFormHandler;
+        $this->formFactory = $formFactory;
+        $this->urlGenerator = $urlGenerator;
+        $this->twig = $twig;
     }
 
     /**
@@ -46,15 +74,15 @@ class RegisterController extends AbstractController implements RegisterControlle
      */
     public function index(Request $request)
     {
-        $form = $this->createForm(RegisterType::class)
+        $form = $this->formFactory->create(RegisterType::class)
             ->handleRequest($request);
 
         if ($this->registerFormHandler->handle($form)) {
 
-           return $this->redirectToRoute('register');
+           return new RedirectResponse($this->urlGenerator->generate('register'), 302);
         }
-        return $this->render('register/index.html.twig', [
+        return new Response($this->twig->render('register/index.html.twig', [
             'form' => $form->createView()
-        ]);
+        ]), 200);
     }
 }

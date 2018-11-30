@@ -12,9 +12,13 @@ use App\FormHandler\Interfaces\CommentHandlerInterface;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\CommentRepository;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Twig\Environment;
 
 /**
- * Interface TrickControllerInterface
+ * Interfaces TrickControllerInterface
  * @package App\Controller\Interfaces
  */
 interface TrickControllerInterface
@@ -24,11 +28,20 @@ interface TrickControllerInterface
      * @param TrickRepository $trickRepository
      * @param CommentHandlerInterface $commentHandler
      * @param CommentRepository $commentRepository
+     * @param FormFactoryInterface $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param TokenStorageInterface $tokenStorage
+     * @param Environment $twig
      */
     public function __construct(
         TrickRepository $trickRepository,
         CommentHandlerInterface $commentHandler,
-        CommentRepository $commentRepository
+        CommentRepository $commentRepository,
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator,
+        TokenStorageInterface $tokenStorage,
+        Environment $twig
+
     );
 
     /**

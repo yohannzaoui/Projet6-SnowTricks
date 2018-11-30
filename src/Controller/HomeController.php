@@ -11,14 +11,15 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\HomeControllerInterface;
 use App\Repository\TrickRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 /**
  * Class HomeController
  * @package App\Controller
  */
-class HomeController extends AbstractController implements HomeControllerInterface
+class HomeController implements HomeControllerInterface
 {
     /**
      * @var TrickRepository
@@ -26,12 +27,21 @@ class HomeController extends AbstractController implements HomeControllerInterfa
     private $trickRepository;
 
     /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
      * HomeController constructor.
      * @param TrickRepository $trickRepository
+     * @param Environment $twig
      */
-    public function __construct(TrickRepository $trickRepository)
-    {
+    public function __construct(
+        TrickRepository $trickRepository,
+        Environment $twig
+    ) {
         $this->trickRepository = $trickRepository;
+        $this->twig = $twig;
     }
 
 
@@ -39,7 +49,10 @@ class HomeController extends AbstractController implements HomeControllerInterfa
      * @Route("/", name="home", methods={"GET"})
      * @Route("tricks/list/{page}", name="page_trick", methods={"GET"})
      * @param int $page
-     * @return mixed|\Symfony\Component\HttpFoundation\Response
+     * @return mixed|Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index($page = 1)
     {
@@ -52,9 +65,9 @@ class HomeController extends AbstractController implements HomeControllerInterfa
             'route_params' => []
         ];
 
-        return $this->render('home/index.html.twig', [
+        return new Response($this->twig->render('home/index.html.twig', [
             'tricks' => $tricks,
             'pagination' => $pagination
-        ]);
+        ]), 200);
     }
 }

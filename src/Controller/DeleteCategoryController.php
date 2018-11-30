@@ -8,18 +8,19 @@
 
 namespace App\Controller;
 
-
 use App\Controller\Interfaces\DeleteCategoryControllerInterface;
 use App\Repository\CategoryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class DeleteCategoryController
  * @package App\Controller
  */
-class DeleteCategoryController extends AbstractController implements DeleteCategoryControllerInterface
+class DeleteCategoryController implements DeleteCategoryControllerInterface
 {
     /**
      * @var CategoryRepository
@@ -27,13 +28,29 @@ class DeleteCategoryController extends AbstractController implements DeleteCateg
     private $categoryRepository;
 
     /**
+     * @var SessionInterface
+     */
+    private $messageFlash;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
      * DeleteCategoryController constructor.
      * @param CategoryRepository $categoryRepository
+     * @param SessionInterface $messageFlash
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        SessionInterface $messageFlash,
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->categoryRepository = $categoryRepository;
+        $this->messageFlash = $messageFlash;
+        $this->urlGenerator = $urlGenerator;
     }
 
 
@@ -48,10 +65,10 @@ class DeleteCategoryController extends AbstractController implements DeleteCateg
 
             $this->categoryRepository->delete($request->attributes->get('id'));
 
-            $this->addFlash('deleteCategory',
+            $this->messageFlash->getFlashBag()->add('deleteCategory',
                 'Catégorie supprimée');
 
-            return $this->redirectToRoute('category');
+            return new RedirectResponse($this->urlGenerator->generate('category'), 302);
         }
     }
 }

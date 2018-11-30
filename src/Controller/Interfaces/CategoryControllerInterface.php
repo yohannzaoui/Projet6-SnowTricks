@@ -12,9 +12,12 @@ use App\FormHandler\Interfaces\CategoryHandlerInterface;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
+use Symfony\Component\Form\FormFactoryInterface;
 
 /**
- * Interface CategoryControllerInterface
+ * Interfaces CategoryControllerInterface
  * @package App\Controller\Interfaces
  */
 interface CategoryControllerInterface
@@ -23,10 +26,16 @@ interface CategoryControllerInterface
      * CategoryControllerInterface constructor.
      * @param CategoryRepository $categoryRepository
      * @param CategoryHandlerInterface $categoryHandler
+     * @param Environment $twig
+     * @param FormFactoryInterface $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function  __construct(
         CategoryRepository $categoryRepository,
-        CategoryHandlerInterface $categoryHandler
+        CategoryHandlerInterface $categoryHandler,
+        Environment $twig,
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator
     );
 
     /**

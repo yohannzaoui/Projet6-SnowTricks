@@ -9,21 +9,38 @@
 namespace App\Controller;
 
 use App\Controller\Interfaces\LoginControllerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Twig\Environment;
 
 /**
  * Class LoginController
  * @package App\Controller
  */
-class LoginController extends AbstractController implements LoginControllerInterface
+class LoginController implements LoginControllerInterface
 {
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
+     * LoginController constructor.
+     * @param Environment $twig
+     */
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
 
     /**
      * @Route("/login", name="login", methods={"GET","POST"})
      * @param AuthenticationUtils $authenticationUtils
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return mixed|Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(AuthenticationUtils $authenticationUtils)
     {
@@ -31,10 +48,11 @@ class LoginController extends AbstractController implements LoginControllerInter
 
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('login/index.html.twig', [
+
+        return new Response($this->twig->render('login/index.html.twig', [
             'error' => $error,
             'last_username' => $lastUsername
-        ]);
+        ]), 200);
 
     }
 }

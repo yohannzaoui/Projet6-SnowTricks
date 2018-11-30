@@ -10,18 +10,21 @@ namespace App\Controller;
 
 
 use App\Controller\Interfaces\ForgotPasswordControllerInterface;
-use App\Entity\User;
 use App\Form\ForgotPasswordType;
 use App\FormHandler\ForgotPasswordHandler;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 /**
  * Class ForgotPasswordController
  * @package App\Controller
  */
-class ForgotPasswordController extends AbstractController implements ForgotPasswordControllerInterface
+class ForgotPasswordController implements ForgotPasswordControllerInterface
 {
     /**
      * @var ForgotPasswordHandler
@@ -29,13 +32,37 @@ class ForgotPasswordController extends AbstractController implements ForgotPassw
     private $forgotPasswordHandler;
 
     /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
      * ForgotPasswordController constructor.
      * @param ForgotPasswordHandler $forgotPasswordHandler
+     * @param FormFactoryInterface $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Environment $twig
      */
     public function __construct(
-        ForgotPasswordHandler $forgotPasswordHandler
+        ForgotPasswordHandler $forgotPasswordHandler,
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator,
+        Environment $twig
     ) {
         $this->forgotPasswordHandler = $forgotPasswordHandler;
+        $this->formFactory = $formFactory;
+        $this->urlGenerator = $urlGenerator;
+        $this->twig = $twig;
     }
 
 
@@ -48,16 +75,15 @@ class ForgotPasswordController extends AbstractController implements ForgotPassw
     public function index(Request $request)
     {
 
-        $form = $this->createForm(ForgotPasswordType::class)
+        $form = $this->formFactory->create(ForgotPasswordType::class)
             ->handleRequest($request);
 
         if ($this->forgotPasswordHandler->handle($form)) {
 
-            return $this->redirectToRoute('forgot');
+            return new RedirectResponse($this->urlGenerator->generate('forgot'), 302);
         }
-        return $this->render('forgot/index.html.twig', [
+        return new Response($this->twig->render('forgot/index.html.twig', [
             'form' => $form->createView()
-        ]);
-
+        ]), 200);
     }
 }

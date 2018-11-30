@@ -14,20 +14,39 @@ use App\Entity\User;
 use App\Form\ForgotPasswordValidationType;
 use App\FormHandler\ForgotPasswordValidationTypeHandler;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 /**
  * Class ForgotPasswordValidationController
  * @package App\Controller
  */
-class ForgotPasswordValidationController extends AbstractController implements ForgotPasswordValidationControllerInterface
+class ForgotPasswordValidationController implements ForgotPasswordValidationControllerInterface
 {
     /**
      * @var UserRepository
      */
     private $userRepository;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
 
     /**
      * @var ForgotPasswordValidationTypeHandler
@@ -38,39 +57,51 @@ class ForgotPasswordValidationController extends AbstractController implements F
      * ForgotPasswordValidationController constructor.
      * @param UserRepository $userRepository
      * @param ForgotPasswordValidationTypeHandler $forgotPasswordValidationTypeHandler
+     * @param FormFactoryInterface $formFactory
+     * @param Environment $twig
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         UserRepository $userRepository,
-        ForgotPasswordValidationTypeHandler $forgotPasswordValidationTypeHandler
+        ForgotPasswordValidationTypeHandler $forgotPasswordValidationTypeHandler,
+        FormFactoryInterface $formFactory,
+        Environment $twig,
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->userRepository = $userRepository;
         $this->forgotPasswordValidationTypeHandler = $forgotPasswordValidationTypeHandler;
+        $this->formFactory = $formFactory;
+        $this->twig = $twig;
+        $this->urlGenerator = $urlGenerator;
     }
-
 
     /**
      * @Route("/forgotPasswordValidation/{token}", name="forgotPasswordValidation", methods={"GET","POST"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return mixed|RedirectResponse|Response
      * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(Request $request)
     {
         if ($this->userRepository->checkResetToken($request->attributes->get('token'))) {
 
             $user = new User();
-            $form = $this->createForm(ForgotPasswordValidationType::class, $user)
+            $form = $this->formFactory->create(ForgotPasswordValidationType::class, $user)
                 ->handleRequest($request);
 
             if ($this->forgotPasswordValidationTypeHandler->handle($request->attributes->get('token'), $form)) {
 
-                return $this->redirectToRoute('login');
+                return new RedirectResponse($this->urlGenerator->generate('login'), 302);
             }
-            return $this->render('reset/index.html.twig', [
+            return new Response($this->twig->render('reset/index.html.twig', [
                 'form' => $form->createView()
-            ]);
+            ]), 200);
+
         }
-        return $this->render('error/forgot_password_validation_error.html.twig');
+        return new Response($this->twig->render('error/forgot_password_validation_error.html.twig'));
     }
 
 }

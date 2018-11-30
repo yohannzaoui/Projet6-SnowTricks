@@ -9,11 +9,15 @@
 namespace App\Controller\Interfaces;
 
 use App\FormHandler\Interfaces\EditTrickHandlerInterface;
+use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Trick;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 /**
- * Interface EditTrickControllerInterface
+ * Interfaces EditTrickControllerInterface
  * @package App\Controller\Interfaces
  */
 interface EditTrickControllerInterface
@@ -21,15 +25,24 @@ interface EditTrickControllerInterface
     /**
      * EditTrickControllerInterface constructor.
      * @param EditTrickHandlerInterface $editTrickHandler
+     * @param TrickRepository $trickRepository
+     * @param FormFactoryInterface $formFactory
+     * @param TokenStorageInterface $tokenStorage
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Environment $twig
      */
     public function __construct(
-        EditTrickHandlerInterface $editTrickHandler
+        EditTrickHandlerInterface $editTrickHandler,
+        TrickRepository $trickRepository,
+        FormFactoryInterface $formFactory,
+        TokenStorageInterface $tokenStorage,
+        UrlGeneratorInterface $urlGenerator,
+        Environment $twig
     );
 
     /**
      * @param Request $request
-     * @param Trick $trick
      * @return mixed
      */
-    public function index(Request $request , Trick $trick);
+    public function index(Request $request);
 }

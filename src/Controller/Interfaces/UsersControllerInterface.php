@@ -9,9 +9,10 @@
 namespace App\Controller\Interfaces;
 
 use App\Repository\UserRepository;
+use Twig\Environment;
 
 /**
- * Interface UsersControllerInterface
+ * Interfaces UsersControllerInterface
  * @package App\Controller\Interfaces
  */
 interface UsersControllerInterface
@@ -19,8 +20,12 @@ interface UsersControllerInterface
     /**
      * UsersControllerInterface constructor.
      * @param UserRepository $userRepository
+     * @param Environment $twig
      */
-    public function __construct(UserRepository $userRepository);
+    public function __construct(
+        UserRepository $userRepository,
+        Environment $twig
+    );
 
     /**
      * @return mixed

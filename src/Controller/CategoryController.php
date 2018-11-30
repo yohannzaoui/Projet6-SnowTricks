@@ -14,15 +14,19 @@ use App\FormHandler\Interfaces\CategoryHandlerInterface;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class CategoryController
  * @package App\Controller
  */
-class CategoryController extends AbstractController implements CategoryControllerInterface
+class CategoryController implements CategoryControllerInterface
 {
 
     /**
@@ -36,16 +40,41 @@ class CategoryController extends AbstractController implements CategoryControlle
     private $categoryHandler;
 
     /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+
+    /**
      * CategoryController constructor.
      * @param CategoryRepository $categoryRepository
      * @param CategoryHandlerInterface $categoryHandler
+     * @param Environment $twig
+     * @param FormFactoryInterface $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function  __construct(
         CategoryRepository $categoryRepository,
-        CategoryHandlerInterface $categoryHandler
+        CategoryHandlerInterface $categoryHandler,
+        Environment $twig,
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator
     ) {
       $this->categoryRepository = $categoryRepository;
       $this->categoryHandler = $categoryHandler;
+      $this->twig = $twig;
+      $this->formFactory = $formFactory;
+      $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -65,17 +94,18 @@ class CategoryController extends AbstractController implements CategoryControlle
 
         $categoriesList = $this->categoryRepository->getAllCategory();
 
-        $form = $this->createForm(CategoryType::class, $category)
+        $form = $this->formFactory->create(CategoryType::class, $category)
             ->handleRequest($request);
 
         if ($this->categoryHandler->handle($form, $category)) {
 
-            return $this->redirectToRoute('category');
+            return new RedirectResponse($this->urlGenerator->generate('category'), 302);
         }
-        return $this->render('admin/category.html.twig', [
-            'categoriesList' => $categoriesList,
-            'editMode' => $request->attributes->get('id') !== null,
-            'form' => $form->createView()
-        ]);
+
+        return new Response($this->twig->render('admin/category.html.twig', [
+                'categoriesList' => $categoriesList,
+                'editMode' => $request->attributes->get('id') !== null,
+                'form' => $form->createView()
+            ]), 200);
     }
 }

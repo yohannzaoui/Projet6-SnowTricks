@@ -10,18 +10,30 @@ namespace App\Controller\Interfaces;
 
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Twig\Environment;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Interface ConfirmeControllerInterface
+ * Interfaces ConfirmeControllerInterface
  * @package App\Controller\Interfaces
  */
 Interface ConfirmeRegisterControllerInterface
 {
+
     /**
-     * ConfirmeControllerInterface constructor.
+     * ConfirmeRegisterControllerInterface constructor.
      * @param UserRepository $userRepository
+     * @param SessionInterface $messageFlash
+     * @param Environment $twig
+     * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(UserRepository $userRepository);
+    public function __construct(
+        UserRepository $userRepository,
+        SessionInterface $messageFlash,
+        Environment $twig,
+        UrlGeneratorInterface $urlGenerator
+    );
 
     /**
      * @param Request $request
