@@ -12,7 +12,7 @@ use App\Entity\Trick;
 use App\Entity\User;
 
 /**
- * Interface CommentInterface
+ * Interfaces CommentInterface
  * @package App\Entity\Interfaces
  */
 interface CommentInterface

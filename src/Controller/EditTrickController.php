@@ -103,12 +103,12 @@ class EditTrickController implements EditTrickControllerInterface
         $form = $this->formFactory->create(EditTrickType::class, $trick)
             ->handleRequest($request);
 
-        $user = $this->tokenStorage->getToken()->getUser();
+        $author = $this->tokenStorage->getToken()->getUser();
 
-        if ($this->editTrickHandler->handle($form, $user, $trick)) {
+        if ($this->editTrickHandler->handle($form, $author, $trick)) {
 
             return new RedirectResponse($this->urlGenerator->generate('trick', [
-                'slug' => $user->getSlug()
+                'slug' => $trick->getSlug()
             ]), 302);
 
         }

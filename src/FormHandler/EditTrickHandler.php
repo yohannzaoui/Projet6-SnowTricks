@@ -57,61 +57,69 @@ class EditTrickHandler implements EditTrickHandlerInterface
 
     /**
      * @param FormInterface $form
-     * @param $user
+     * @param $author
      * @param Trick $trick
-     * @return bool
+     * @return bool|mixed
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(FormInterface $form, $user, Trick $trick)
+    public function handle(FormInterface $form, $author, $trick)
     {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($form->getData()->getDefaultImage()->getFile()) {
+            if (!is_null($form->getData()->getDefaultImage())) {
 
-                $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage()->getFile());
-                $form->getData()->getDefaultImage()->setUrl($defaultImage);
+                if (!is_null($form->getData()->getDefaultImage()->getFile())) {
+
+                    $defaultImage = $this->fileUploader->upload(
+                        $form->getData()
+                            ->getDefaultImage()
+                            ->getFile()
+                    );
+
+                    $form->getData()->getDefaultImage()->setUrl($defaultImage);
+                }
 
             }
 
-            if ($form->getData()->getImages()) {
+            if (!is_null($form->getData()->getImages())) {
 
+                $imagesCollection = $form->getData()->getImages()->toArray();
 
-                $arrayCollectionImages = $form->getData()->getImages()->toArray();
+                    foreach ($imagesCollection as $a => $image) {
 
-                foreach ($arrayCollectionImages as $a => $image) {
-
-                    if (!is_null($image->getFile())) {
+                        if (!is_null($image->getFile())) {
 
                         $images = $this->fileUploader->upload($image->getFile());
                         $image->setUrl($images);
-
+                        $image->setTrick($trick);
                     }
 
                 }
             }
 
-             if ($form->getData()->getVideos()) {
+            if ($form->getData()->getVideos()) {
 
-                 $arrayCollectionVideos = $form->getData()->getVideos()->toArray();
+                $videosCollection = $form->getData()->getVideos()->toArray();
 
-                 foreach ($arrayCollectionVideos as $b => $video) {
+                foreach ($videosCollection as $b => $video) {
 
-                     $videos[] = $video->getUrl();
-                 }
-             }
+                    $videos[] = $video->getUrl();
+                    $video->setTrick($trick);
 
-            $trick->setAuthor($user);
-            $trick->setImages($form->getData()->getImages());
-            $trick->setSlug($this->slugger->createSlug($form->getData()->getName()));
-            $trick->setVideos($form->getData()->getVideos());
-            $trick->setUpdatedAt(new \DateTime());
+                }
+            }
+
+            $trick->setAuthor($author);
+            $trick->setName($form->getData()->getname());
+            $trick->setDescription($form->getData()->getDescription());
+            $trick->setSlug($this->slugger->createSlug($form->getData()->getname()));
             $trick->setCategory($form->getData()->getCategory());
 
-            $this->trickRepository->update();
+            $this->trickRepository->save($trick);
 
-                return true;
+            return true;
             }
             return false;
         }

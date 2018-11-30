@@ -22,7 +22,6 @@
         <one-to-one field="defaultImage" target-entity="App\Entity\Image">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
             <join-column name="defaultImage_id" referenced-column-name="id" on-delete="CASCADE"/>
         </one-to-one>
@@ -39,7 +38,6 @@
         <one-to-many field="images" target-entity="App\Entity\Image" mapped-by="trick" orphan-removal="true">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
         </one-to-many>
 
@@ -55,7 +53,6 @@
         <one-to-many field="videos" target-entity="App\Entity\Video" mapped-by="trick" orphan-removal="true">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
         </one-to-many>
 

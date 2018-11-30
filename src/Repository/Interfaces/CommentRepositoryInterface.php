@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Entity\Comment;
 
 /**
- * Interface CommentRepositoryInterface
+ * Interfaces CommentRepositoryInterface
  * @package App\Repository\Interfaces
  */
 interface CommentRepositoryInterface
@@ -28,4 +28,12 @@ interface CommentRepositoryInterface
      * @return mixed
      */
     public function save(Comment $comment);
+
+    /**
+     * @param $id
+     * @param $page
+     * @param $max
+     * @return mixed
+     */
+    public function getComments($id, $page, $max);
 }

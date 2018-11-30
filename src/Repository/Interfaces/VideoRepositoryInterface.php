@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Entity\Video;
 
 /**
- * Interface VideoRepositoryInterface
+ * Interfaces VideoRepositoryInterface
  * @package App\Repository\Interfaces
  */
 interface VideoRepositoryInterface

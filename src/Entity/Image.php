@@ -11,13 +11,14 @@ namespace App\Entity;
 use App\Entity\Interfaces\ImageInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
  * Class Image
  * @package App\Entity
  */
-class Image implements ImageInterface
+class Image
 {
     /**
      * @var UuidInterface
@@ -71,7 +72,7 @@ class Image implements ImageInterface
     /**
      * @param $file
      */
-    public function setFile($file)
+    public function setFile(UploadedFile $file)
     {
         $this->file = $file;
     }
@@ -88,7 +89,7 @@ class Image implements ImageInterface
     /**
      * @param $trick
      */
-    public function setTrick($trick): void
+    public function setTrick(Trick $trick)
     {
         $this->trick = $trick;
     }
@@ -104,7 +105,7 @@ class Image implements ImageInterface
     /**
      * @param mixed $url
      */
-    public function setUrl($url): void
+    public function setUrl($url)
     {
         $this->url = $url;
     }

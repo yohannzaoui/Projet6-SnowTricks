@@ -17,7 +17,7 @@ use Ramsey\Uuid\UuidInterface;
  * Class Video
  * @package
  */
-class Video implements VideoInterface
+class Video
 {
 
     /**
@@ -67,7 +67,7 @@ class Video implements VideoInterface
     /**
      * @param mixed $url
      */
-    public function setUrl($url): void
+    public function setUrl($url)
     {
         $this->url = $url;
     }

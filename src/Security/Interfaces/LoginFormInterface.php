@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
- * Interface LoginFormInterface
+ * Interfaces LoginFormInterface
  * @package App\Security\Interfaces
  */
 interface LoginFormInterface

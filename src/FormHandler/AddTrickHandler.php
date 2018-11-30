@@ -54,42 +54,58 @@ class AddTrickHandler implements AddTrickHandlerInterface
     }
 
     /**
-     * @param FormInterface $form
-     * @param $user
      * @param Trick $trick
-     * @return bool
+     * @param $author
+     * @param FormInterface $form
+     * @return bool|mixed
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(FormInterface $form, $user, Trick $trick)
+    public function handle(Trick $trick, $author, FormInterface $form)
     {
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage()->getFile());
+            if (!is_null($form->getData()->getDefaultImage())) {
 
-            $form->getData()->getDefaultImage()->setUrl($defaultImage);
-            
-            $arrayCollectionImages = $form->getData()->getImages()->toArray();
+                $defaultImage = $this->fileUploader->upload(
+                    $form->getData()
+                        ->getDefaultImage()
+                        ->getFile()
+                );
 
-            foreach ($arrayCollectionImages as $a => $image) {
-
-                $images = $this->fileUploader->upload($image->getFile());
-                $image->setUrl($images);
-
+                $form->getData()->getDefaultImage()->setUrl($defaultImage);
             }
 
-            $arrayCollectionVideos = $form->getData()->getVideos()->toArray();
+            if (!is_null($form->getData()->getImages())) {
 
-            foreach ($arrayCollectionVideos as $b => $video) {
+                $imagesCollection = $form->getData()->getImages()->toArray();
 
-                $videos[] = $video->getUrl();
+                foreach ($imagesCollection as $a => $image) {
+
+                    $images = $this->fileUploader->upload($image->getFile());
+                    //dd($images);
+                    $image->setUrl($images);
+                    $image->setTrick($trick);
+                }
             }
 
-            $trick->setAuthor($user);
-            $trick->setSlug($this->slugger->createSlug($form->getData()->getName()));
-            $trick->setDefaultImage($form->getData()->getDefaultImage());
-            $trick->setImages($form->getData()->getImages());
-            $trick->setVideos($form->getData()->getVideos());
+            if (!is_null($form->getData()->getVideos())) {
+
+                $videosCollection = $form->getData()->getVideos()->toArray();
+
+                foreach ($videosCollection as $b => $video) {
+
+                    $videos[] = $video->getUrl();
+                    $video->setTrick($trick);
+
+                }
+            }
+
+            $trick->setAuthor($author);
+            $trick->setName($form->getData()->getname());
+            $trick->setDescription($form->getData()->getDescription());
+            $trick->setSlug($this->slugger->createSlug($form->getData()->getname()));
             $trick->setCategory($form->getData()->getCategory());
 
             $this->trickRepository->save($trick);

@@ -33,10 +33,10 @@ interface AddTrickHandlerInterface
     );
 
     /**
-     * @param FormInterface $form
-     * @param $user
      * @param Trick $trick
+     * @param $author
+     * @param FormInterface $form
      * @return mixed
      */
-    public function handle(FormInterface $form, $user, Trick $trick);
+    public function handle(Trick $trick, $author, FormInterface $form);
 }

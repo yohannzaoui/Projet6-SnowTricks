@@ -9,13 +9,13 @@
 namespace App\Entity\Interfaces;
 
 
-
+/**
+ * Interface CategoryInterface
+ * @package App\Entity\Interfaces
+ */
 interface CategoryInterface
 {
-    /**
-     * CategoryInterface constructor.
-     */
-    public function __construct();
+
 
     /**
      * @return mixed
@@ -26,4 +26,17 @@ interface CategoryInterface
      * @return mixed
      */
     public function getName();
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public  function setId($id);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function setName($name);
+
 }

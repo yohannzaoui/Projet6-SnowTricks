@@ -103,13 +103,13 @@
                             {% else %}
                                 <i class="far fa-grin fa-2x"></i>
                         {% endif %}
-                        {{ comment.author.username }} le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
-                    <p>A écrit : {{ comment.message }}</p>
+                        <strong>{{ comment.author.username }}</strong> le {{ comment.createdAt | date("d/m/Y à H:i:s") }}</p>
+                        <p><strong>A écrit :</strong> {{ comment.message }}</p>
                     </div>
                 </div>
             {% endfor %}
 
-    {% if comments | length > 0 %}
+    {% if comments | length > 5 %}
     {% include 'pagination_comments.html.twig' %}
     {% endif %}
 

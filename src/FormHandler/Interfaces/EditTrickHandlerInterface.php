@@ -38,5 +38,5 @@ interface EditTrickHandlerInterface
      * @param Trick $trick
      * @return mixed
      */
-    public function handle(FormInterface $form, $user, Trick $trick);
+    public function handle(FormInterface $form, $user, $trick);
 }

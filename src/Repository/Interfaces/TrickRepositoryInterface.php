@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Entity\Trick;
 
 /**
- * Interface TrickRepositoryInterface
+ * Interfaces TrickRepositoryInterface
  * @package App\Repository\Interfaces
  */
 interface TrickRepositoryInterface

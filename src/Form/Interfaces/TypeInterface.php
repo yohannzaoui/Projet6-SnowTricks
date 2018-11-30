@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Interface TypeInterface
+ * Interfaces TypeInterface
  * @package App\Form\Interfaces
  */
 interface TypeInterface

@@ -15,7 +15,7 @@ use App\Entity\Comment;
 
 
 /**
- * Interface CommentHandlerInterface
+ * Interfaces CommentHandlerInterface
  * @package App\FormHandler\Interfaces
  */
 interface CommentHandlerInterface

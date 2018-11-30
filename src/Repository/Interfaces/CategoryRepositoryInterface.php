@@ -13,7 +13,7 @@ use App\Entity\Category;
 
 
 /**
- * Interface CategoryRepositoryInterface
+ * Interfaces CategoryRepositoryInterface
  * @package App\Repository\Interfaces
  */
 interface CategoryRepositoryInterface

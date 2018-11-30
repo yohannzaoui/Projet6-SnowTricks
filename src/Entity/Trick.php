@@ -165,7 +165,7 @@ class Trick
     /**
      * @param UuidInterface $id
      */
-    public function setId(UuidInterface $id): void
+    public function setId(UuidInterface $id)
     {
         $this->id = $id;
     }
@@ -173,7 +173,7 @@ class Trick
     /**
      * @param null $name
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -181,7 +181,7 @@ class Trick
     /**
      * @param null $description
      */
-    public function setDescription($description): void
+    public function setDescription($description)
     {
         $this->description = $description;
     }
@@ -197,7 +197,7 @@ class Trick
     /**
      * @param mixed $comments
      */
-    public function setComments($comments): void
+    public function setComments($comments)
     {
         $this->comments = $comments;
     }
@@ -205,7 +205,7 @@ class Trick
     /**
      * @param mixed $author
      */
-    public function setAuthor($author): void
+    public function setAuthor($author)
     {
         $this->author = $author;
     }
@@ -213,7 +213,7 @@ class Trick
     /**
      * @param mixed $category
      */
-    public function setCategory($category): void
+    public function setCategory($category)
     {
         $this->category = $category;
     }
@@ -221,7 +221,7 @@ class Trick
     /**
      * @param mixed $createdAt
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
@@ -286,6 +286,7 @@ class Trick
      */
     public function removeVideo(Video $video)
     {
+        $video->setTrick(null);
         $this->videos->removeElement($video);
     }
 
@@ -322,7 +323,5 @@ class Trick
     {
         $this->slug = $slug;
     }
-
-
 
 }

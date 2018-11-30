@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use App\Entity\Image;
 
 /**
- * Interface ImageRepositoryInterface
+ * Interfaces ImageRepositoryInterface
  * @package App\Repository\Interfaces
  */
 interface ImageRepositoryInterface

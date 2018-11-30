@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
 
     /**
-     * Interface ForgotPasswordValidationTypeHandlerInterface
+     * Interfaces ForgotPasswordValidationTypeHandlerInterface
      * @package App\FormHandler\Interfaces
      */interface ForgotPasswordValidationTypeHandlerInterface
 {

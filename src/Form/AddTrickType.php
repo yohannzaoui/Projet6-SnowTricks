@@ -41,8 +41,8 @@ class AddTrickType extends AbstractType implements TypeInterface
 
             ->add('images', CollectionType::class, [
                 "entry_type" => ImageTrickType::class,
+                'entry_options' => ['label' => false],
                 'required' => false,
-                "entry_options" => ['label' => false],
                 "allow_add"     => true,
                 "allow_delete"  => true,
                 "by_reference"  => false
@@ -50,6 +50,7 @@ class AddTrickType extends AbstractType implements TypeInterface
 
             ->add('videos', CollectionType::class, [
                 "entry_type" => VideoTrickType::class,
+                'entry_options' => ['label' => false],
                 'required' => false,
                 "allow_add"     => true,
                 "allow_delete"  => true,

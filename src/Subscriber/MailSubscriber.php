@@ -26,14 +26,14 @@ class MailSubscriber implements EventSubscriberInterface
     {
         return [
 
-            RegisterMailEvent::NAME => 'onRegisterMail',
+            RegisterMailEvent::NAME      => 'onRegisterMail',
             ResetPasswordMailEvent::NAME => 'onResetPasswordMail'
         ];
     }
 
     /**
      * @param RegisterMailEvent $event
-     * @return mixed|void
+     * @return mixed
      */
     public function onRegisterMail(RegisterMailEvent $event)
     {
@@ -42,7 +42,7 @@ class MailSubscriber implements EventSubscriberInterface
 
     /**
      * @param ResetPasswordMailEvent $event
-     * @return mixed|void
+     * @return mixed
      */
     public function  onResetPasswordMail(ResetPasswordMailEvent $event)
     {

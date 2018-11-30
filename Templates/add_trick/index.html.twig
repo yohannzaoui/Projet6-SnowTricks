@@ -20,7 +20,7 @@
                     </div>
                     {{ form_row(form.defaultImage, {'label' : '* Image principale'}) }}
 
-                    <div class="col-lg-12 col-md-auto mx-auto">
+
                     <strong>Images supplémentaire :</strong>
                     <p><button type="button" class="btn btn-sm btn-primary btn-add" data-rel="#images">Ajouter</button></p>
                     <div id="images" class="row" data-index="{{ form.images|length > 0 ? form.images|last.vars.name+1 : 0 }}" data-prototype="{{ include("theme/form_image.html.twig", { form: form.images.vars.prototype })|e("html_attr") }}">
@@ -28,7 +28,7 @@
                             {{ include("theme/form_image.html.twig", { form: image }) }}
                         {% endfor %}
                     </div>
-                    </div>
+
                         <br>
 
                     <strong>Videos supplémentaire :</strong>

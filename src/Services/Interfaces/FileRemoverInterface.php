@@ -12,7 +12,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 
 /**
- * Interface FileRemoverInterface
+ * Interfaces FileRemoverInterface
  * @package App\Services\Interfaces
  */
 interface FileRemoverInterface

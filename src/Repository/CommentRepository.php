@@ -24,15 +24,12 @@ class CommentRepository extends ServiceEntityRepository implements CommentReposi
     }
 
 
-    /*public function getComments($id)
-    {
-        return $this->createQueryBuilder('comment')
-            ->where('comment.trick = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
-    }*/
-
+    /**
+     * @param $id
+     * @param $page
+     * @param $max
+     * @return Paginator
+     */
     public function getComments($id, $page, $max)
     {
         $qb = $this->createQueryBuilder('comment');

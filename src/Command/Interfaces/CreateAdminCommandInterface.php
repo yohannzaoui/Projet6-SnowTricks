@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use App\Repository\UserRepository;
 
 /**
- * Interface CreateAdminCommandInterface
+ * Interfaces CreateAdminCommandInterface
  * @package App\Command\Interfaces
  */
 interface CreateAdminCommandInterface

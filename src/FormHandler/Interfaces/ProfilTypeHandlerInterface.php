@@ -15,7 +15,7 @@ use App\Services\Interfaces\FileRemoverInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Interface ProfilTypeHandlerInterface
+ * Interfaces ProfilTypeHandlerInterface
  * @package App\FormHandler\Interfaces
  */
 interface ProfilTypeHandlerInterface
