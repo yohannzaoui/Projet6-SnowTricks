@@ -68,7 +68,6 @@ class EditTrickHandler implements EditTrickHandlerInterface
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             if (!is_null($form->getData()->getDefaultImage())) {
 
                 if (!is_null($form->getData()->getDefaultImage()->getFile())) {
@@ -117,6 +116,7 @@ class EditTrickHandler implements EditTrickHandlerInterface
             $trick->setDescription($form->getData()->getDescription());
             $trick->setSlug($this->slugger->createSlug($form->getData()->getname()));
             $trick->setCategory($form->getData()->getCategory());
+            $trick->setUpdatedAt(new \DateTime());
 
             $this->trickRepository->save($trick);
 

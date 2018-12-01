@@ -66,7 +66,7 @@ class AddTrickHandler implements AddTrickHandlerInterface
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if (!is_null($form->getData()->getDefaultImage())) {
+            if ($form->getData()->getDefaultImage()) {
 
                 $defaultImage = $this->fileUploader->upload(
                     $form->getData()
@@ -76,6 +76,8 @@ class AddTrickHandler implements AddTrickHandlerInterface
 
                 $form->getData()->getDefaultImage()->setUrl($defaultImage);
             }
+
+
 
             if (!is_null($form->getData()->getImages())) {
 
@@ -96,6 +98,7 @@ class AddTrickHandler implements AddTrickHandlerInterface
 
                 foreach ($videosCollection as $b => $video) {
 
+                    //dd($videosCollection);
                     $videos[] = $video->getUrl();
                     $video->setTrick($trick);
 

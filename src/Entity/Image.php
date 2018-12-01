@@ -43,7 +43,6 @@ class Image
 
     /**
      * Image constructor.
-     * @param $id
      * @throws \Exception
      */
     public function __construct()
@@ -52,7 +51,7 @@ class Image
     }
 
     /**
-     * @inheritdoc
+     * @return UuidInterface
      */
     public function getId()
     {
@@ -63,49 +62,49 @@ class Image
     /**
      * @return mixed
      */
-    public function getFile()
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
 
     /**
-     * @param $file
+     * @param UploadedFile|null $file
      */
-    public function setFile(UploadedFile $file)
+    public function setFile(?UploadedFile $file)
     {
         $this->file = $file;
     }
 
     /**
-     * @return mixed
+     * @return Trick
      */
-    public function getTrick()
+    public function getTrick(): Trick
     {
         return $this->trick;
     }
 
 
     /**
-     * @param $trick
+     * @param Trick|null $trick
      */
-    public function setTrick(Trick $trick)
+    public function setTrick(?Trick $trick)
     {
         $this->trick = $trick;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
     /**
-     * @param mixed $url
+     * @param string $url
      */
-    public function setUrl($url)
+    public function setUrl(string $url)
     {
         $this->url = $url;
     }

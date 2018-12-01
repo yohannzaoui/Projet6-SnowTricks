@@ -8,15 +8,16 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181121182823 extends AbstractMigration
+final class Version20181201072832 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE trick ADD slug VARCHAR(255) NOT NULL');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_D8F0A91E989D9B62 ON trick (slug)');
+        $this->addSql('ALTER TABLE trick DROP FOREIGN KEY FK_D8F0A91E421EF703');
+        $this->addSql('DROP INDEX UNIQ_D8F0A91E421EF703 ON trick');
+        $this->addSql('ALTER TABLE trick DROP defaultImage_id');
     }
 
     public function down(Schema $schema) : void
@@ -24,7 +25,8 @@ final class Version20181121182823 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP INDEX UNIQ_D8F0A91E989D9B62 ON trick');
-        $this->addSql('ALTER TABLE trick DROP slug');
+        $this->addSql('ALTER TABLE trick ADD defaultImage_id CHAR(36) DEFAULT NULL COLLATE utf8mb4_unicode_ci COMMENT \'(DC2Type:uuid)\'');
+        $this->addSql('ALTER TABLE trick ADD CONSTRAINT FK_D8F0A91E421EF703 FOREIGN KEY (defaultImage_id) REFERENCES image (id) ON DELETE CASCADE');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_D8F0A91E421EF703 ON trick (defaultImage_id)');
     }
 }
