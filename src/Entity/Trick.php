@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -20,13 +21,15 @@ class Trick
      */
     private $id;
 
+
     /**
-     * @var null
+     * @var
      */
     private $name;
 
+
     /**
-     * @var null
+     * @var
      */
     private $description;
 
@@ -42,35 +45,42 @@ class Trick
      */
     private $images;
 
+
     /**
      * @var ArrayCollection
      */
     private $videos;
 
+
     /**
-     * @var
+     * @var ArrayCollection
      */
     private $comments;
+
 
     /**
      * @var
      */
     private $author;
 
+
     /**
      * @var
      */
     private $category;
 
+
     /**
-     * @var
+     * @var \DateTime
      */
     private $createdAt;
+
 
     /**
      * @var
      */
     private $updatedAt;
+
 
     /**
      * @var
@@ -99,25 +109,27 @@ class Trick
         return $this->id;
     }
 
+
     /**
-     * @return null
+     * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
+
     /**
-     * @return null
+     * @return string|null
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
 
 
-    public function getDefaultImage()
+    public function getDefaultImage(): ?Image
     {
         return $this->defaultImage;
     }
@@ -130,24 +142,27 @@ class Trick
         return $this->comments;
     }
 
+
     /**
-     * @return mixed
+     * @return User
      */
-    public function getAuthor()
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
+
     /**
-     * @return mixed
+     * @return Category|null
      */
-    public function getCategory()
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
+
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -170,66 +185,72 @@ class Trick
         $this->id = $id;
     }
 
+
     /**
-     * @param null $name
+     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
+
     /**
-     * @param null $description
+     * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
 
-    /**
-     * @param Image $defaultImage
-     */
-    public function setDefaultImage(Image $defaultImage)
+
+
+    public function setDefaultImage(?Image $defaultImage)
     {
         $this->defaultImage = $defaultImage;
     }
 
+
     /**
-     * @param mixed $comments
+     * @param $comments
      */
     public function setComments($comments)
     {
         $this->comments = $comments;
     }
 
+
     /**
-     * @param mixed $author
+     * @param User $author
      */
-    public function setAuthor($author)
+    public function setAuthor(?User $author)
     {
         $this->author = $author;
     }
 
+
     /**
-     * @param mixed $category
+     * @param Category|null $category
      */
-    public function setCategory($category)
+    public function setCategory(?Category $category)
     {
         $this->category = $category;
     }
 
+
     /**
-     * @param mixed $createdAt
+     * @param \DateTime $createdAt
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
 
+
     /**
-     * @param mixed $updatedAt
+     * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt($updatedAt): void
+    public function setUpdatedAt(\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
@@ -291,35 +312,33 @@ class Trick
     }
 
 
-    /**
-     * @param $videos
-     */
-    public function setVideos($videos)
+
+    /*public function setVideos($videos)
     {
         $this->videos = $videos;
     }
 
 
-    /**
-     * @param $images
-     */
+
     public function setImages($images)
     {
         $this->images = $images;
-    }
+    }*/
+
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getSlug()
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
+
     /**
-     * @param $slug
+     * @param string $slug
      */
-    public function setSlug($slug)
+    public function setSlug(string $slug)
     {
         $this->slug = $slug;
     }
