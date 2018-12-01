@@ -84,7 +84,7 @@ class AddTrickHandler implements AddTrickHandlerInterface
                 foreach ($imagesCollection as $a => $image) {
 
                     $images = $this->fileUploader->upload($image->getFile());
-                    //dd($images);
+
                     $image->setUrl($images);
                     $image->setTrick($trick);
                 }

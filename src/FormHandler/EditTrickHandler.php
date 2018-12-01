@@ -68,6 +68,7 @@ class EditTrickHandler implements EditTrickHandlerInterface
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             if (!is_null($form->getData()->getDefaultImage())) {
 
                 if (!is_null($form->getData()->getDefaultImage()->getFile())) {
