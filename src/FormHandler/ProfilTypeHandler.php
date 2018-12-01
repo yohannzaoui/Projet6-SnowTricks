@@ -63,25 +63,24 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
 
     /**
      * @param FormInterface $form
-     * @param $iduser
+     * @param $idUser
      * @param $imageUser
      * @return bool
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function handle(FormInterface $form, $iduser, $imageUser)
+    public function handle(FormInterface $form, $idUser, $imageUser)
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $fileRemove = $this->userRepository->checkProfilImage($imageUser);
 
-            //dd($fileRemove);
             $this->fileRemover->deleteFile($fileRemove['profilImage']);
 
             $file = $form->getData()->getProfilImage();
 
             $profilImage = $this->fileUploader->upload($file);
 
-            $this->userRepository->updateProfilImage($profilImage, $iduser);
+            $this->userRepository->updateProfilImage($profilImage, $idUser);
 
             $this->messageFlash->getFlashBag()->add('profilUpdate',
                 'Votre image de profil à bien été mis à jour');

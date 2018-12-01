@@ -10,10 +10,13 @@ namespace App\FormHandler;
 
 
 use App\Entity\Trick;
+use App\Event\FileRemoverDefaultImageEvent;
 use App\FormHandler\Interfaces\EditTrickHandlerInterface;
 use App\Repository\TrickRepository;
+use App\Services\FileRemover;
 use App\Services\FileUploader;
 use App\Services\Interfaces\SluggerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -39,19 +42,36 @@ class EditTrickHandler implements EditTrickHandlerInterface
     private $slugger;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @var FileRemover
+     */
+    private $fileRemover;
+
+
+    /**
      * EditTrickHandler constructor.
      * @param FileUploader $fileUploader
      * @param TrickRepository $trickRepository
      * @param SluggerInterface $slugger
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param FileRemover $fileRemover
      */
     public function __construct(
         FileUploader $fileUploader,
         TrickRepository $trickRepository,
-        SluggerInterface $slugger
+        SluggerInterface $slugger,
+        EventDispatcherInterface $eventDispatcher,
+        FileRemover $fileRemover
     ) {
         $this->fileUploader = $fileUploader;
         $this->trickRepository = $trickRepository;
         $this->slugger = $slugger;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->fileRemover = $fileRemover;
     }
 
 
@@ -72,6 +92,10 @@ class EditTrickHandler implements EditTrickHandlerInterface
 
                 if (!is_null($form->getData()->getDefaultImage()->getFile())) {
 
+                    $this->eventDispatcher->dispatch(
+                        FileRemoverDefaultImageEvent::NAME,
+                        new FileRemoverDefaultImageEvent($this->fileRemover, $form->getData()->getDefaultImage()->getUrl()));
+
                     $defaultImage = $this->fileUploader->upload(
                         $form->getData()
                             ->getDefaultImage()
@@ -82,6 +106,7 @@ class EditTrickHandler implements EditTrickHandlerInterface
                 }
 
             }
+
 
             if (!is_null($form->getData()->getImages())) {
 

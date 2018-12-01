@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Trick;
 use App\Repository\Interfaces\TrickRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -99,6 +98,21 @@ class TrickRepository extends ServiceEntityRepository implements TrickRepository
     }
 
     /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function checkDefaultImage($id)
+    {
+        return $this->createQueryBuilder('trick')
+            ->select('trick.defaultImage')
+            ->where('trick.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * @param Trick $trick
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -111,7 +125,7 @@ class TrickRepository extends ServiceEntityRepository implements TrickRepository
 
 
     /**
-     * @param Trick $trick
+     * @return mixed|void
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

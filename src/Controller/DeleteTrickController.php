@@ -114,6 +114,8 @@ class DeleteTrickController implements DeleteTrickControllerInterface
 
             //$file = $this->trickRepository->getDefaultImage($request->attributes->get('id'));
 
+            //dd($file);
+
             $files = $this->imageRepository->checkImages($request->attributes->get('id'));
 
             //foreach ($file as $defaultImage) {
