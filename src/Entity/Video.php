@@ -56,6 +56,14 @@ class Video implements VideoInterface
     }
 
     /**
+     * @param UuidInterface $id
+     */
+    public function setId(?UuidInterface $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return string
      */
     public function getUrl(): ?string

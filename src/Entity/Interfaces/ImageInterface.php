@@ -26,7 +26,13 @@ interface ImageInterface
     /**
      * @return UuidInterface
      */
-    public function getId(): UuidInterface;
+    public function getId(): ?UuidInterface;
+
+    /**
+     * @param UuidInterface|null $id
+     * @return mixed
+     */
+    public function setId(?UuidInterface $id);
 
     /**
      * @return UploadedFile|null

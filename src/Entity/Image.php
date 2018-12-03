@@ -51,9 +51,17 @@ class Image implements ImageInterface
     }
 
     /**
+     * @param UuidInterface $id
+     */
+    public function setId(?UuidInterface $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return UuidInterface
      */
-    public function getId(): UuidInterface
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }

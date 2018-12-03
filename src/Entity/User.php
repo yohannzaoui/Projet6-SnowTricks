@@ -20,7 +20,6 @@ class User implements UserInterface
      */
     private $id;
 
-
     /**
      * @var
      */
@@ -31,7 +30,6 @@ class User implements UserInterface
      */
     private $password;
 
-
     /**
      * @var
      */
@@ -41,7 +39,6 @@ class User implements UserInterface
      * @var \DateTime
      */
     private $createdAt;
-
 
     /**
      * @var
@@ -58,7 +55,6 @@ class User implements UserInterface
      */
     private $resetPasswordToken;
 
-
     /**
      * @var
      */
@@ -68,7 +64,6 @@ class User implements UserInterface
      * @var ArrayCollection
      */
     private $tricks;
-
 
     /**
      * @var
@@ -228,6 +223,11 @@ class User implements UserInterface
     public function getProfilImage()
     {
         return $this->profilImage;
+    }
+
+    public function setId(UuidInterface $id)
+    {
+        $this->id = $id;
     }
 
     /**

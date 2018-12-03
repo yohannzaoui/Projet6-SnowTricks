@@ -28,6 +28,12 @@ interface VideoInterface
     public function getId(): UuidInterface;
 
     /**
+     * @param UuidInterface|null $id
+     * @return mixed
+     */
+    public function setId(?UuidInterface $id);
+
+    /**
      * @return string|null
      */
     public function getUrl(): ?string;
