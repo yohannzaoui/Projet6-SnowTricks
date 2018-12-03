@@ -36,7 +36,10 @@ class AddTrickType extends AbstractType implements TypeInterface
             ])
 
             ->add('defaultImage', ImageTrickType::class, [
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'accept' => '.jpeg, .jpg'
+                ]
             ])
 
             ->add('images', CollectionType::class, [
@@ -45,7 +48,10 @@ class AddTrickType extends AbstractType implements TypeInterface
                 'required' => false,
                 "allow_add"     => true,
                 "allow_delete"  => true,
-                "by_reference"  => false
+                "by_reference"  => false,
+                'attr' => [
+                    'accept' => '.jpeg, .jpg'
+                ]
             ])
 
             ->add('videos', CollectionType::class, [
