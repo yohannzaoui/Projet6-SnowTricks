@@ -9,6 +9,7 @@
 namespace App\Event;
 
 
+use App\Event\Interfaces\FileRemoverDefaultImageEventInterface;
 use App\Services\FileRemover;
 use Symfony\Component\EventDispatcher\Event;
 
@@ -16,7 +17,7 @@ use Symfony\Component\EventDispatcher\Event;
  * Class FileRemoverDefaultImageEvent
  * @package App\Event
  */
-class FileRemoverDefaultImageEvent extends Event
+class FileRemoverDefaultImageEvent extends Event implements FileRemoverDefaultImageEventInterface
 {
     /**
      *
@@ -38,8 +39,10 @@ class FileRemoverDefaultImageEvent extends Event
      * @param FileRemover $fileRemover
      * @param string $file
      */
-    public function __construct(FileRemover $fileRemover, string $file)
-    {
+    public function __construct(
+        FileRemover $fileRemover,
+        string $file
+    ) {
         $this->fileRemover = $fileRemover;
         $this->file = $file;
     }
