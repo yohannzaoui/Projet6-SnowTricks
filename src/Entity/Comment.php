@@ -39,7 +39,6 @@ class Comment implements CommentInterface
      */
     private $trick;
 
-
     /**
      * Comment constructor.
      * @throws \Exception
@@ -54,64 +53,70 @@ class Comment implements CommentInterface
     /**
      * @return mixed|UuidInterface
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
+
     /**
-     * @param $id
+     * @param UuidInterface $id
      * @return $this|mixed
      */
-    public function setId($id)
+    public function setId(UuidInterface $id)
     {
         $this->id = $id;
 
         return $this;
     }
 
+
     /**
-     * @return mixed
+     * @return string
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
+
     /**
-     * @param $message
+     * @param string $message
      * @return $this|mixed
      */
-    public function setMessage($message)
+    public function setMessage(?string $message)
     {
         $this->message = $message;
 
         return $this;
     }
 
+
     /**
-     * @return \DateTime|mixed
+     * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
+
     /**
-     * @param $createdAt
+     * @param \DateTime $createdAt
      * @return $this|mixed
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
+
     /**
-     * Get the value of trick
+     * @return Trick
      */
-    public function getTrick()
+    public function getTrick(): Trick
     {
         return $this->trick;
     }
@@ -127,10 +132,11 @@ class Comment implements CommentInterface
         return $this;
     }
 
+
     /**
-     * @return mixed
+     * @return User
      */
-    public function getAuthor()
+    public function getAuthor(): User
     {
         return $this->author;
     }

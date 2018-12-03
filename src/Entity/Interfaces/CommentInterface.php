@@ -10,55 +10,66 @@ namespace App\Entity\Interfaces;
 
 use App\Entity\Trick;
 use App\Entity\User;
+use Ramsey\Uuid\UuidInterface;
+
 
 /**
- * Interfaces CommentInterface
+ * Interface CommentInterface
  * @package App\Entity\Interfaces
  */
 interface CommentInterface
 {
+
     /**
      * CommentInterface constructor.
      */
     public function __construct();
 
-    /**
-     * @return mixed
-     */
-    public function getId();
 
     /**
-     * @param $id
-     * @return mixed
+     * @return UuidInterface
      */
-    public function setId($id);
+    public function getId(): UuidInterface;
+
 
     /**
+     * @param UuidInterface $id
      * @return mixed
      */
-    public function getMessage();
+    public function setId(UuidInterface $id);
+
 
     /**
-     * @param $message
-     * @return mixed
+     * @return string
      */
-    public function setMessage($message);
+    public function getMessage(): ?string ;
+
 
     /**
+     * @param string $message
      * @return mixed
      */
-    public function getCreatedAt();
+    public function setMessage(?string $message);
+
 
     /**
-     * @param $createdAt
-     * @return mixed
+     * @return \DateTime
      */
-    public function setCreatedAt($createdAt);
+    public function getCreatedAt(): \DateTime;
+
 
     /**
+     * @param \DateTime $createdAt
      * @return mixed
      */
-    public function getTrick();
+    public function setCreatedAt(\DateTime $createdAt);
+
+
+    /**
+     * @return Trick
+     */
+    public function getTrick(): Trick;
+
 
     /**
      * @param Trick $trick
@@ -66,10 +77,12 @@ interface CommentInterface
      */
     public function setTrick(Trick $trick);
 
+
     /**
-     * @return mixed
+     * @return User
      */
-    public function getAuthor();
+    public function getAuthor(): User;
+
 
     /**
      * @param User $author

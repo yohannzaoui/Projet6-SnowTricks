@@ -36,15 +36,17 @@ class Category implements CategoryInterface
     /**
      * @return mixed|UuidInterface
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
+
     /**
-     * @param $id
+     * @param UuidInterface $id
+     * @return mixed|void
      */
-    public function setId($id)
+    public function setId(UuidInterface $id)
     {
         $this->id = $id;
     }
@@ -53,7 +55,7 @@ class Category implements CategoryInterface
     /**
      * @return mixed
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -61,9 +63,9 @@ class Category implements CategoryInterface
 
     /**
      * @param $name
-     * @return string
+     * @return mixed|void
      */
-    public function setName($name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }

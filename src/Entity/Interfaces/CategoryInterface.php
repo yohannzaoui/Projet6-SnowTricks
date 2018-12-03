@@ -9,6 +9,8 @@
 namespace App\Entity\Interfaces;
 
 
+use Ramsey\Uuid\UuidInterface;
+
 /**
  * Interface CategoryInterface
  * @package App\Entity\Interfaces
@@ -18,25 +20,28 @@ interface CategoryInterface
 
 
     /**
-     * @return mixed
+     * @return UuidInterface
      */
-    public function getId();
+    public function getId(): UuidInterface;
+
 
     /**
      * @return mixed
      */
-    public function getName();
+    public function getName(): ?string;
+
 
     /**
-     * @param $id
+     * @param UuidInterface $id
      * @return mixed
      */
-    public  function setId($id);
+    public  function setId(UuidInterface $id);
+
 
     /**
      * @param $name
      * @return mixed
      */
-    public function setName($name);
+    public function setName(string $name);
 
 }

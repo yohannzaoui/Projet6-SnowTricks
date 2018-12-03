@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Class Image
  * @package App\Entity
  */
-class Image
+class Image implements ImageInterface
 {
     /**
      * @var UuidInterface
@@ -53,7 +53,7 @@ class Image
     /**
      * @return UuidInterface
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -96,7 +96,7 @@ class Image
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -104,7 +104,7 @@ class Image
     /**
      * @param string $url
      */
-    public function setUrl(string $url)
+    public function setUrl(?string $url)
     {
         $this->url = $url;
     }

@@ -17,7 +17,7 @@ use Ramsey\Uuid\UuidInterface;
  * Class Video
  * @package
  */
-class Video
+class Video implements VideoInterface
 {
 
     /**

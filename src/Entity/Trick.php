@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Interfaces\TrickInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -13,7 +13,7 @@ use Ramsey\Uuid\UuidInterface;
  * Class Trick
  * @package App\Entity
  */
-class Trick
+class Trick implements TrickInterface
 {
 
     /**
@@ -164,7 +164,7 @@ class Trick
     /**
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
@@ -172,7 +172,7 @@ class Trick
     /**
      * @return mixed
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt():? \DateTime
     {
         return $this->updatedAt;
     }
@@ -189,7 +189,7 @@ class Trick
     /**
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
@@ -198,23 +198,23 @@ class Trick
     /**
      * @param string $description
      */
-    public function setDescription(string $description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
     }
 
-
-
+    /**
+     * @param Image|null $defaultImage
+     */
     public function setDefaultImage(?Image $defaultImage)
     {
         $this->defaultImage = $defaultImage;
     }
 
-
     /**
-     * @param $comments
+     * @param Comment $comments
      */
-    public function setComments($comments)
+    public function setComments(Comment $comments)
     {
         $this->comments = $comments;
     }
@@ -250,7 +250,7 @@ class Trick
     /**
      * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(?\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }
@@ -312,20 +312,6 @@ class Trick
     }
 
 
-
-    /*public function setVideos($videos)
-    {
-        $this->videos = $videos;
-    }
-
-
-
-    public function setImages($images)
-    {
-        $this->images = $images;
-    }*/
-
-
     /**
      * @return string|null
      */
@@ -338,7 +324,7 @@ class Trick
     /**
      * @param string $slug
      */
-    public function setSlug(string $slug)
+    public function setSlug(?string $slug)
     {
         $this->slug = $slug;
     }
