@@ -19,7 +19,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 class CommentTypeTest extends TypeTestCase
 {
     /**
-     * 
+     *
      */
     public function testForm()
     {
