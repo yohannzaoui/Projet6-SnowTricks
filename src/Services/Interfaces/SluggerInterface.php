@@ -16,8 +16,8 @@ namespace App\Services\Interfaces;
 interface SluggerInterface
 {
     /**
-     * @param $string
+     * @param string $string
      * @return mixed
      */
-    public function createSlug($string);
+    public function createSlug(string $string);
 }

@@ -30,7 +30,7 @@ class Emailer implements EmailerInterface
      * @param array $from
      * @param $to
      * @param $body
-     * @return Swift_Message
+     * @return mixed|void
      */
     public function mail($subject, $from = [], $to, $body)
     {

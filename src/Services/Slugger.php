@@ -18,10 +18,10 @@ use App\Services\Interfaces\SluggerInterface;
 class Slugger implements SluggerInterface
 {
     /**
-     * @param $string
+     * @param string $string
      * @return mixed|string
      */
-    public function createSlug($string)
+    public function createSlug(string $string)
     {
          return strtolower(str_replace(' ', '-', $string));
     }
