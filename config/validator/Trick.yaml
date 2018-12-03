@@ -19,6 +19,7 @@ App\Entity\Trick:
       defaultImage:
           - NotBlank:
               message: "L'image pricipale est obligatoire !"
+          - Valid: ~
 
       description:
           - NotBlank:
@@ -26,6 +27,9 @@ App\Entity\Trick:
           - Length:
               min: 10
               minMessage: "La déscription du Trick est trop courte."
+
+      images:
+          - Valid: ~
 
       videos:
           - Valid: ~
