@@ -13,15 +13,23 @@ use App\Entity\Trick;
 
 class TrickTest extends TestCase
 {
+    private $trick;
+
+    /**
+     * @throws \Exception
+     */
+    public function setUp()
+    {
+        $this->trick = new Trick();
+    }
 
     /**
      * @throws \Exception
      */
     public function testGetName()
     {
-        $trick = new Trick();
-        $trick->setName('test');
-        $result = $trick->getName();
+        $this->trick->setName('test');
+        $result = $this->trick->getName();
         $this->assertSame('test', $result);
 
     }
@@ -29,11 +37,47 @@ class TrickTest extends TestCase
     /**
      * @throws \Exception
      */
+    public function testGetNameIfIsNull()
+    {
+        $this->trick->setName(null);
+        $this->assertNull($this->trick->getName());
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function testGetDescription()
     {
-        $trick = new Trick();
-        $trick->setDescription('test');
-        $result = $trick->getDescription();
+        $this->trick->setDescription('test');
+        $result = $this->trick->getDescription();
         $this->assertSame('test', $result);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetDescriptionIfIsNull()
+    {
+        $this->trick->setDescription(null);
+        $this->assertNull($this->trick->getDescription());
+    }
+
+    /**
+     *
+     */
+    public function testGetSlug()
+    {
+        $this->trick->setSlug('test-trick');
+        $result = $this->trick->getSlug();
+        $this->assertSame('test-trick', $result);
+    }
+
+    /**
+     *
+     */
+    public function testGetSlugIfIsNull()
+    {
+        $this->trick->setSlug(null);
+        $this->assertNull($this->trick->getSlug());
     }
 }

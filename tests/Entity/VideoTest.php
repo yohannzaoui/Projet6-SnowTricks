@@ -28,4 +28,14 @@ class VideoTest extends TestCase
         $result = $video->getUrl();
         $this->assertSame('video', $result);
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetUrlIfIfNull()
+    {
+        $video = new Video();
+        $video->setUrl(null);
+        $this->assertNull($video->getUrl());
+    }
 }

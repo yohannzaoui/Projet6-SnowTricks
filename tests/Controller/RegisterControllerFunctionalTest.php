@@ -2,16 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: Yohann Zaoui
- * Date: 28/11/2018
- * Time: 13:30
+ * Date: 02/12/2018
+ * Time: 11:36
  */
 
 namespace App\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AddTrickControllerFunctionalTest extends WebTestCase
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
+
+class RegisterControllerFunctionalTest extends WebTestCase
 {
     /**
      * @var null
@@ -24,15 +25,17 @@ class AddTrickControllerFunctionalTest extends WebTestCase
     public function setUp()
     {
         $this->client = static::createClient();
-
     }
 
-    public function testAddTrickPageIsFound()
+    /**
+     *
+     */
+    public function testLoginPageIsFound()
     {
-        $this->client->request('GET', '/ajouterTrick');
+        $this->client->request('GET', '/register');
 
         static::assertEquals(
-            Response::HTTP_FOUND,
+            Response::HTTP_OK,
             $this->client->getResponse()->getStatusCode()
         );
     }

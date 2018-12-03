@@ -49,7 +49,10 @@ class CategoryControllerFunctionalTest extends WebTestCase
      */
     public function testCategoryPageWhenSelectCategory()
     {
-        $this->client->request('GET', '/editCategory/{id}');
+        $crawler = $this->client->request('GET', '/editCategory/{id}');
+
+        $this->assertSame(1,
+            $crawler->filter('html:contains("Gestion des catégories")')->count());
 
         static::assertEquals(
             Response::HTTP_OK,
@@ -76,8 +79,6 @@ class CategoryControllerFunctionalTest extends WebTestCase
 
         $this->assertSame(1,
             $crawler->filter('div.alert.alert-dismissible.alert-warning')->count());
-
-        //echo $this->client->getResponse()->getContent();
     }
 
 

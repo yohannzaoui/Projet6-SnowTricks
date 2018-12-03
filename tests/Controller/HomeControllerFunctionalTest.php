@@ -52,6 +52,9 @@ class HomeControllerFunctionalTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/');
 
+        $this->assertSame(1,
+            $crawler->filter('html:contains("Snow Tricks")')->count());
+
         $link = $crawler->selectLink('Accueil')->link();
         $crawler = $this->client->click($link);
 

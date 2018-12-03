@@ -2,16 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: Yohann Zaoui
- * Date: 28/11/2018
- * Time: 13:30
+ * Date: 02/12/2018
+ * Time: 11:07
  */
 
 namespace App\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AddTrickControllerFunctionalTest extends WebTestCase
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
+
+class EditTrickControllerFunctionalTest extends WebTestCase
 {
     /**
      * @var null
@@ -24,15 +25,17 @@ class AddTrickControllerFunctionalTest extends WebTestCase
     public function setUp()
     {
         $this->client = static::createClient();
-
     }
 
-    public function testAddTrickPageIsFound()
+    public function testEditTrickPageIsFound()
     {
-        $this->client->request('GET', '/ajouterTrick');
+        $crawler = $this->client->request('GET', '/edit/trick/trick-1');
+
+        $this->assertSame(1,
+            $crawler->filter('html:contains("Modifier un Trick")')->count());
 
         static::assertEquals(
-            Response::HTTP_FOUND,
+            Response::HTTP_OK,
             $this->client->getResponse()->getStatusCode()
         );
     }

@@ -28,11 +28,36 @@ class ForgotPasswordControllerFunctionalTest extends WebTestCase
 
     public function testForgotPasswordPageIsFound()
     {
-        $this->client->request('GET', '/forgot');
+        $crawler = $this->client->request('GET', '/forgot');
+
+        $this->assertSame(1,
+            $crawler->filter('html:contains("Mot de passe oublié")')->count());
 
         static::assertEquals(
             Response::HTTP_OK,
             $this->client->getResponse()->getStatusCode()
         );
+    }
+
+    /**
+     *
+     */
+    public function testForm()
+    {
+        $crawler = $this->client->request('GET', '/forgot');
+
+        $form = $crawler->selectButton('add')->form();
+
+        $form['forgot_password[email]'] = 'test@mail.com';
+
+        $this->client->submit($form);
+
+        static::assertEquals(
+            Response::HTTP_OK,
+            $this->client->getResponse()->getStatusCode()
+        );
+
+
+
     }
 }

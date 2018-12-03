@@ -22,12 +22,22 @@ class CommentTest extends KernelTestCase
     /**
      * @throws \Exception
      */
-    public function testGetMessage()
+    public function testGetMessageIfIsString()
     {
         $comment = new Comment();
         $comment->setMessage('message test');
         $result = $comment->getMessage();
         $this->assertSame('message test', $result);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetMessageIfIsNull()
+    {
+        $comment = new Comment();
+        $comment->setMessage(null);
+        $this->assertNull($comment->getMessage());
     }
 
 
