@@ -33,7 +33,8 @@
 		"symfony/browser-kit": "*",
 		"symfony/css-selector": "*",
 		"symfony/dotenv": "*",
-		"symfony/web-profiler-bundle": "*"
+		"symfony/web-profiler-bundle": "*",
+		"codacy/coverage": "dev-master"
 	},
 	"config" : {
 		"preferred-install" : {

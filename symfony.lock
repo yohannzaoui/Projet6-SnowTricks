@@ -1,4 +1,7 @@
 {
+    "codacy/coverage": {
+        "version": "dev-master"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -70,6 +73,9 @@
     },
     "facebook/webdriver": {
         "version": "1.6.0"
+    },
+    "gitonomy/gitlib": {
+        "version": "v1.0.4"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
