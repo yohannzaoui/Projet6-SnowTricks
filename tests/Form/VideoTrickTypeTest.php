@@ -14,8 +14,15 @@ use Ramsey\Uuid\UuidInterface;
 use App\Entity\Trick;
 use Symfony\Component\Form\Test\TypeTestCase;
 
+/**
+ * Class VideoTrickTypeTest
+ * @package App\Tests\Form
+ */
 class VideoTrickTypeTest extends TypeTestCase
 {
+    /**
+     *
+     */
     public function testForm()
     {
 
@@ -40,6 +47,8 @@ class VideoTrickTypeTest extends TypeTestCase
         $this->assertTrue($form->isValid());
 
         $this->assertEquals($video, $videoToCompare);
+
+        $this->assertInstanceOf(Video::class, $form->getData());
 
     }
 }

@@ -32,7 +32,7 @@ class TrickControllerFunctionalTest extends WebTestCase
      */
     public function testTrickPageIsFound()
     {
-        $this->client->request('GET', '/trick/trick-1');
+        $this->client->request('GET', '/trick/switch-back-540');
 
         static::assertEquals(
             Response::HTTP_OK,

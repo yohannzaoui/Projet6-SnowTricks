@@ -29,7 +29,7 @@ class EditTrickControllerFunctionalTest extends WebTestCase
 
     public function testEditTrickPageIsFound()
     {
-        $crawler = $this->client->request('GET', '/edit/trick/trick-1');
+        $crawler = $this->client->request('GET', '/edit/trick/switch-back-540');
 
         $this->assertSame(1,
             $crawler->filter('html:contains("Modifier un Trick")')->count());

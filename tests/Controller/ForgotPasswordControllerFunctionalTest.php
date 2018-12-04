@@ -30,6 +30,7 @@ class ForgotPasswordControllerFunctionalTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/forgot');
 
+
         $this->assertSame(1,
             $crawler->filter('html:contains("Mot de passe oublié")')->count());
 

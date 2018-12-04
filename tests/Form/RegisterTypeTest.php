@@ -58,5 +58,7 @@ class RegisterTypeTest extends TypeTestCase
 
         $this->assertEquals($user, $userToCompare);
 
+        $this->assertInstanceOf(User::class, $form->getData());
+
     }
 }

@@ -16,8 +16,15 @@ use App\Form\ImageProfilType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Class ImageProfilTypeTest
+ * @package App\Tests\Form
+ */
 class ImageProfilTypeTest extends TypeTestCase
 {
+    /**
+     *
+     */
     public function testForm()
     {
         $uuid = $this->createMock(UuidInterface::class);
@@ -45,5 +52,7 @@ class ImageProfilTypeTest extends TypeTestCase
         $this->assertTrue($form->isValid());
 
         $this->assertEquals($user, $userToCompare);
+
+        $this->assertInstanceOf(User::class, $form->getData());
     }
 }

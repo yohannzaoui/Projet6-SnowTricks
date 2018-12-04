@@ -9,6 +9,7 @@
 namespace App\Tests\Form;
 
 use App\Entity\Category;
+use App\Entity\User;
 use App\Form\CategoryType;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -44,5 +45,7 @@ class CategoryTypeTest extends TypeTestCase
         $this->assertTrue($form->isValid());
 
         $this->assertEquals($category, $categoryToCompare);
+
+        $this->assertInstanceOf(Category::class, $form->getData());
     }
 }

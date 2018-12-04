@@ -39,4 +39,27 @@ class RegisterControllerFunctionalTest extends WebTestCase
             $this->client->getResponse()->getStatusCode()
         );
     }
+
+    /**
+     *
+     */
+    public function testIfFormIsSubmitted()
+    {
+        $crawler =$this->client->request('POST', '/register');
+
+        $form = $crawler->selectButton("S'inscrire")->form();
+
+        $form['register[username]'] = 'user';
+        $form['register[email]'] = 'mail@mail.com';
+        $form['register[profilImage]'] = 'image.jpeg';
+        $form['register[password][first]'] = 'password';
+        $form['register[password][second]'] = 'password';
+
+        $this->client->submit($form);
+
+        static::assertEquals(
+            Response::HTTP_OK,
+            $this->client->getResponse()->getStatusCode()
+        );
+    }
 }

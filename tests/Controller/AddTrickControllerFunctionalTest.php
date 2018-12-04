@@ -36,4 +36,26 @@ class AddTrickControllerFunctionalTest extends WebTestCase
             $this->client->getResponse()->getStatusCode()
         );
     }
+
+
+
+    /*public function testFormSubmission()
+    {
+        $crawler = $this->client->request('GET', '/ajouterTrick');
+
+        $form = $crawler->selectButton('add')->form();
+
+        $form['add_trick[name]'] = 'trick';
+        $form['add_trick[category]'] = 'category';
+        $form['add_trick[defaultImage]'] = 'image.jpg';
+        $form['add_trick[images][0][file]'] = 'image.jpg';
+        $form['add_trick[videos][0][url'] = 'video';
+        $form['add_trick[description]'] = 'description';
+
+        $crawler = $this->client->submit($form);
+
+        $this->assertTrue($crawler->filter('html:contains("Ajouter un Trick")')->count() > 0);
+    }*/
+
+
 }

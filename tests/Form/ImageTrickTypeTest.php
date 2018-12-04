@@ -16,8 +16,15 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Class ImageTrickTypeTest
+ * @package App\Tests\Form
+ */
 class ImageTrickTypeTest extends TypeTestCase
 {
+    /**
+     *
+     */
     public function testForm()
     {
         $uploadFile = $this->createMock(UploadedFile::class);
@@ -43,6 +50,8 @@ class ImageTrickTypeTest extends TypeTestCase
         $this->assertTrue($form->isValid());
 
         $this->assertEquals($image, $imageToCompare);
+
+        $this->assertInstanceOf(Image::class, $form->getData());
 
     }
 }

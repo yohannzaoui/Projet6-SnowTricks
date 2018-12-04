@@ -16,6 +16,10 @@ use App\Form\CommentType;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 
+/**
+ * Class CommentTypeTest
+ * @package App\Tests\Form
+ */
 class CommentTypeTest extends TypeTestCase
 {
     /**
@@ -55,5 +59,7 @@ class CommentTypeTest extends TypeTestCase
         $this->assertTrue($form->isValid());
 
         $this->assertEquals($comment, $commentToCompare);
+
+        $this->assertInstanceOf(Comment::class, $form->getData());
     }
 }
