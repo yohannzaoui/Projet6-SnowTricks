@@ -13,6 +13,7 @@ use App\Event\ResetPasswordMailEvent;
 use App\FormHandler\Interfaces\ForgotPasswordHandlerInterface;
 use App\Repository\UserRepository;
 use App\Services\Interfaces\EmailerInterface;
+use App\Services\Interfaces\TokenInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -43,6 +44,11 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
      */
     private $eventDispatcher;
 
+    /**
+     * @var TokenInterface
+     */
+    private $tokenService;
+
 
     /**
      * ForgotPasswordHandler constructor.
@@ -50,17 +56,20 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
      * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
      * @param EventDispatcherInterface $eventDispatcher
+     * @param TokenInterface $tokenService
      */
     public function __construct(
         UserRepository $userRepository,
         EmailerInterface $emailer,
         SessionInterface $messageFlash,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        TokenInterface $tokenService
     ) {
         $this->userRepository = $userRepository;
         $this->emailer = $emailer;
         $this->messageFlash = $messageFlash;
         $this->eventDispatcher = $eventDispatcher;
+        $this->tokenService = $tokenService;
     }
 
     /**
@@ -74,7 +83,7 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
 
             if ($this->userRepository->checkEmail($form->getData()['email'])) {
 
-                $token = md5(uniqid());
+                $token = $this->tokenService::generateToken();
 
                 $this->userRepository->saveResetToken($form->getData()['email'], $token);
 

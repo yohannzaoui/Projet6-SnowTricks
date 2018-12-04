@@ -38,7 +38,7 @@ class AddTrickType extends AbstractType implements TypeInterface
             ->add('defaultImage', ImageTrickType::class, [
                 'required' => true,
                 'attr' => [
-                    'accept' => '.jpeg, .jpg'
+                    'accept' => '.png, .jpeg, .jpg'
                 ]
             ])
 
@@ -50,7 +50,7 @@ class AddTrickType extends AbstractType implements TypeInterface
                 "allow_delete"  => true,
                 "by_reference"  => false,
                 'attr' => [
-                    'accept' => '.jpeg, .jpg'
+                    'accept' => '.png, .jpeg, .jpg'
                 ]
             ])
 

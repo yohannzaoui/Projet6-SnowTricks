@@ -36,10 +36,8 @@ class Video implements VideoInterface
     private $trick;
 
 
-
     /**
      * Video constructor.
-     * @param $url
      * @throws \Exception
      */
     public function __construct()
@@ -50,7 +48,7 @@ class Video implements VideoInterface
     /**
      * @return UuidInterface
      */
-    public function getId(): UuidInterface
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
@@ -94,8 +92,5 @@ class Video implements VideoInterface
     {
         $this->trick = $trick;
     }
-
-
-
 
 }

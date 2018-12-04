@@ -15,16 +15,16 @@ use App\Services\Interfaces\EmailerInterface;
 
 class ResetPasswordMailEvent extends Event implements ResetPasswordMailEventInterface
 {
+
+    /**
+     *
+     */
     const NAME = 'resetPasswordMail.event';
 
-    /**
-     * @var
-     */
+
     private $email;
 
-    /**
-     * @var
-     */
+
     private $token;
 
     /**
@@ -40,8 +40,8 @@ class ResetPasswordMailEvent extends Event implements ResetPasswordMailEventInte
      */
     public function __construct(
         EmailerInterface $emailer,
-        $email,
-        $token
+        string $email,
+        string $token
     ) {
         $this->emailer = $emailer;
         $this->email = $email;

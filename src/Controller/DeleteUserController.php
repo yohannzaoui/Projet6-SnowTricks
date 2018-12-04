@@ -12,7 +12,6 @@ namespace App\Controller;
 use App\Controller\Interfaces\DeleteUserControllerInterface;
 use App\Repository\UserRepository;
 use App\Services\FileRemover;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -85,11 +84,14 @@ class DeleteUserController implements DeleteUserControllerInterface
     {
         if ($request->attributes->get('id')) {
 
-            $imageUser = $this->tokenStorage->getToken()->getUser()->getProfilImage();
+            if (!is_null($this->tokenStorage->getToken()->getUser()->getProfilImage())) {
 
-            $fileRemove = $this->userRepository->checkProfilImage($imageUser);
+                $imageUser = $this->tokenStorage->getToken()->getUser()->getProfilImage();
 
-            $this->fileRemover->deleteFile($fileRemove['profilImage']);
+                $fileRemove = $this->userRepository->checkProfilImage($imageUser);
+
+                $this->fileRemover->deleteFile($fileRemove['profilImage']);
+            }
 
             $this->userRepository->delete($request->attributes->get('id'));
 

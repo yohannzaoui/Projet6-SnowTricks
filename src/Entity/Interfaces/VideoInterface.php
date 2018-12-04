@@ -25,7 +25,7 @@ interface VideoInterface
     /**
      * @return UuidInterface
      */
-    public function getId(): UuidInterface;
+    public function getId(): ?UuidInterface;
 
     /**
      * @param UuidInterface|null $id

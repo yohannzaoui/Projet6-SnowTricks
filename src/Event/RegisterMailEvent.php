@@ -25,12 +25,12 @@ class RegisterMailEvent extends Event implements RegisterMailEventInterface
     const NAME = "registerMail.event";
 
     /**
-     * @var
+     * @var string
      */
     private $email;
 
     /**
-     * @var
+     * @var string
      */
     private $token;
 
@@ -47,8 +47,8 @@ class RegisterMailEvent extends Event implements RegisterMailEventInterface
      */
     public function __construct(
         EmailerInterface $emailer,
-        $email,
-        $token
+        string $email,
+        string $token
     ) {
         $this->emailer = $emailer;
         $this->email = $email;

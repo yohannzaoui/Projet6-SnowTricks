@@ -40,7 +40,10 @@ class EditTrickType extends AbstractType implements TypeInterface
             ])
 
             ->add('defaultImage', DefaultImageTrickType::class, [
-                'required' => false
+                'required' => false,
+                'attr' => [
+                    'accept' => '.png, .jpeg, .jpg'
+                ]
             ])
 
             ->add('images', CollectionType::class, [
@@ -60,7 +63,10 @@ class EditTrickType extends AbstractType implements TypeInterface
                 "allow_add"     => true,
                 "prototype"     => true,
                 "allow_delete"  => true,
-                "by_reference"  => false
+                "by_reference"  => false,
+                'attr' => [
+                    'accept' => '.png, .jpeg, .jpg'
+                ]
             ])
 
             ->add('category', EntityType::class,[

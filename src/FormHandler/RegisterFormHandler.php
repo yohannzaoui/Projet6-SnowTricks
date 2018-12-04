@@ -15,6 +15,7 @@ use App\FormHandler\Interfaces\RegisterFormHandlerInterface;
 use App\Repository\UserRepository;
 use App\Services\Interfaces\EmailerInterface;
 use App\Services\Interfaces\FileUploaderInterface;
+use App\Services\Interfaces\TokenInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -58,6 +59,11 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
     private $eventDispatcher;
 
     /**
+     * @var TokenInterface
+     */
+    private $tokenService;
+
+    /**
      * RegisterFormHandler constructor.
      * @param FileUploaderInterface $fileUploader
      * @param EncoderFactoryInterface $encoder
@@ -65,6 +71,7 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
      * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
      * @param EventDispatcherInterface $eventDispatcher
+     * @param TokenInterface $tokenService
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
@@ -72,7 +79,8 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
         UserRepository $userRepository,
         EmailerInterface $emailer,
         SessionInterface $messageFlash,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        TokenInterface $tokenService
     ) {
         $this->fileUploader = $fileUploader;
         $this->encoder = $encoder;
@@ -80,6 +88,7 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
         $this->emailer = $emailer;
         $this->messageFlash = $messageFlash;
         $this->eventDispatcher = $eventDispatcher;
+        $this->tokenService = $tokenService;
     }
 
 
@@ -104,7 +113,7 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
 
             }
 
-            $token = md5(uniqid());
+            $token = $this->tokenService::generateToken();
 
             $user->setUsername($form->getData()
                 ->getUsername()

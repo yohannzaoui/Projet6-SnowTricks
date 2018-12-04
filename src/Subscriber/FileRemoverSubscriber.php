@@ -30,6 +30,7 @@ class FileRemoverSubscriber implements EventSubscriberInterface
 
     /**
      * @param FileRemoverDefaultImageEvent $event
+     * @return mixed|void
      */
     public function onFileRemoverDefaultImage(FileRemoverDefaultImageEvent $event)
     {

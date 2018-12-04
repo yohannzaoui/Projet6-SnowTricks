@@ -24,8 +24,8 @@ interface RegisterMailEventInterface
      */
     public function __construct(
         EmailerInterface $emailer,
-        $email,
-        $token
+        string $email,
+        string $token
     );
 
     /**
