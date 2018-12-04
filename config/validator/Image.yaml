@@ -1,8 +1,8 @@
-App\Entity\Video:
+App\Entity\Image:
   properties:
-    url:
+    file:
       - Image:
-          minWidth: 1000
-          minWidthMessage: "L'image doit faire 1000 pixels de largeur minimum"
+          minWidth: 600
+          minWidthMessage: "L'image doit faire 600 pixels de largeur minimum"
           maxWidth: 2500
           maxWidthMessage: "L'image doit faire 2500 pixels de hauteur maximum"
