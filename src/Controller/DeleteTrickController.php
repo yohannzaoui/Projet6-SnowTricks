@@ -28,7 +28,7 @@ use Twig\Environment;
  * Class DeleteTrickController
  * @package App\Controller
  */
-class DeleteTrickController //implements DeleteTrickControllerInterface
+class DeleteTrickController implements DeleteTrickControllerInterface
 {
 
     /**
