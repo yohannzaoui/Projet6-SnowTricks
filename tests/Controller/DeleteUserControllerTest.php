@@ -14,6 +14,7 @@ use App\Controller\Interfaces\DeleteUserControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Repository\UserRepository;
 use App\Services\FileRemover;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -46,6 +47,11 @@ class DeleteUserControllerTest extends KernelTestCase
     private $messageFlash;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      *
      */
     public function setUp()
@@ -55,6 +61,8 @@ class DeleteUserControllerTest extends KernelTestCase
         $this->tokenStorage = static::$kernel->getContainer()->get('security.token_storage');
         $this->urlGenerator = static::$kernel->getContainer()->get('router');
         $this->messageFlash = static::$kernel->getContainer()->get('session');
+        $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+
     }
 
     /**
@@ -70,7 +78,8 @@ class DeleteUserControllerTest extends KernelTestCase
             $this->fileRemover,
             $this->tokenStorage,
             $this->urlGenerator,
-            $this->messageFlash
+            $this->messageFlash,
+            $this->eventDispatcher
         );
 
         static::assertInstanceOf(DeleteUserControllerInterface::class, $deleteUserController);

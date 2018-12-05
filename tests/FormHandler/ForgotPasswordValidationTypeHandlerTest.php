@@ -14,7 +14,7 @@ use App\FormHandler\Interfaces\ForgotPasswordValidationTypeHandlerInterface;
 use App\Repository\UserRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Services\Interfaces\EncoderInterface;
 
 /**
  * Class ForgotPasswordValidationTypeHandlerTest
@@ -27,9 +27,9 @@ class ForgotPasswordValidationTypeHandlerTest extends TestCase
      */
     private $userRepository;
     /**
-     * @var EncoderFactoryInterface
+     * @var EncoderInterface
      */
-    private $encoderFactory;
+    private $encoder;
     /**
      * @var SessionInterface
      */
@@ -46,8 +46,8 @@ class ForgotPasswordValidationTypeHandlerTest extends TestCase
         $this->messageFlash = $this->createMock(
             SessionInterface::class
         );
-        $this->encoderFactory = $this->createMock(
-            EncoderFactoryInterface::class
+        $this->encoder = $this->createMock(
+            EncoderInterface::class
         );
     }
 
@@ -58,7 +58,7 @@ class ForgotPasswordValidationTypeHandlerTest extends TestCase
     {
         $forgotPasswordValidationTypeHandler = new ForgotPasswordValidationTypeHandler(
             $this->userRepository,
-            $this->encoderFactory,
+            $this->encoder,
             $this->messageFlash
         );
 

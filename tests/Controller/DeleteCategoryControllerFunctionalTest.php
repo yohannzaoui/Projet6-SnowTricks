@@ -13,29 +13,19 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DeleteCategoryControllerFunctionalTest extends WebTestCase
 {
-    /**
-     * @var null
-     */
-    private $client = null;
 
-    /**
-     *
-     */
-    public function setUp()
-    {
-        $this->client = static::createClient();
-    }
 
     /**
      *
      */
     public function testDeleteCategoryPageIsFound()
     {
-        $this->client->request('GET', '/supprimerCategorie/{id}');
+        $client = static::createClient();
+        $client->request('GET', '/supprimerCategorie/{id}');
 
-        static::assertEquals(
+        static::assertSame(
             Response::HTTP_FOUND,
-            $this->client->getResponse()->getStatusCode()
+            $client->getResponse()->getStatusCode()
         );
     }
 

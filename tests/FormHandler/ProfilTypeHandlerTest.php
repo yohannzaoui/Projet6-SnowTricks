@@ -15,6 +15,7 @@ use App\Repository\UserRepository;
 use App\Services\Interfaces\FileRemoverInterface;
 use App\Services\Interfaces\FileUploaderInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
@@ -44,6 +45,11 @@ class ProfilTypeHandlerTest extends TestCase
     private $fileRemover;
 
     /**
+     * @var
+     */
+    private $eventDispatcher;
+
+    /**
      *
      */
     public function setUp()
@@ -60,6 +66,9 @@ class ProfilTypeHandlerTest extends TestCase
         $this->fileRemover = $this->createMock(
           FileRemoverInterface::class
         );
+        $this->eventDispatcher = $this->createMock(
+          EventDispatcherInterface::class
+        );
     }
 
     /**
@@ -71,7 +80,9 @@ class ProfilTypeHandlerTest extends TestCase
             $this->fileUploader,
             $this->messageFlash,
             $this->userRepository,
-            $this->fileRemover
+            $this->fileRemover,
+            $this->eventDispatcher
+
         );
 
         static::assertInstanceOf(

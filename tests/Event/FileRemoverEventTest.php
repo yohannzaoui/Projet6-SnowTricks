@@ -9,21 +9,21 @@
 namespace App\Tests\Event;
 
 
-use App\Event\FileRemoverDefaultImageEvent;
-use App\Event\Interfaces\FileRemoverDefaultImageEventInterface;
+use App\Event\FileRemoverEvent;
+use App\Event\Interfaces\FileRemoverEventInterface;
 use App\Services\FileRemover;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class FileRemoverDefaultImageEventTest
+ * Class FileRemoverEventTest
  * @package App\Tests\Event
  */
-class FileRemoverDefaultImageEventTest extends TestCase
+class FileRemoverEventTest extends TestCase
 {
     /**
      *
      */
-    const NAME = 'fileRemoverDefaultImage.event';
+    const NAME = 'fileRemover.event';
 
     /**
      * @var FileRemover
@@ -52,14 +52,14 @@ class FileRemoverDefaultImageEventTest extends TestCase
      */
     public function testConstruct()
     {
-        $fileRemoverDefaultImageEvent = new FileRemoverDefaultImageEvent(
+        $fileRemoverEvent = new FileRemoverEvent(
           $this->fileRemover,
           $this->file
         );
 
         static::assertInstanceOf(
-            FileRemoverDefaultImageEventInterface::class,
-            $fileRemoverDefaultImageEvent
+            FileRemoverEventInterface::class,
+            $fileRemoverEvent
             );
     }
 }

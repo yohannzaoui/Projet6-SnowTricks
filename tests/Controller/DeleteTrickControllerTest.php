@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Repository\TrickRepository;
 use App\Repository\ImageRepository;
 use App\Services\FileRemover;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -52,6 +53,11 @@ class DeleteTrickControllerTest extends KernelTestCase
     private $messageFlash;
 
     /**
+     * @var
+     */
+    private $eventDispatcher;
+
+    /**
      *
      */
     public function setUp()
@@ -61,6 +67,7 @@ class DeleteTrickControllerTest extends KernelTestCase
         $this->twig = static::$kernel->getContainer()->get('twig');
         $this->urlGenerator = static::$kernel->getContainer()->get('router');
         $this->messageFlash = static::$kernel->getContainer()->get('session');
+        $this->eventDispatcher = static::$kernel->getContainer()->get('event_dispatcher');
     }
 
     /**
@@ -78,7 +85,8 @@ class DeleteTrickControllerTest extends KernelTestCase
             $this->fileRemover,
             $this->twig,
             $this->urlGenerator,
-            $this->messageFlash
+            $this->messageFlash,
+            $this->eventDispatcher
         );
 
         static::assertInstanceOf(DeleteTrickControllerInterface::class, $deleteTrickController);

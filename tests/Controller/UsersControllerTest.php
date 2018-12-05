@@ -13,6 +13,7 @@ use App\Controller\Interfaces\UsersControllerInterface;
 use App\Controller\UsersController;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 class UsersControllerTest extends KernelTestCase
@@ -32,8 +33,12 @@ class UsersControllerTest extends KernelTestCase
      */
     public function setUp()
     {
-        $this->userRepository = $this->createMock(UserRepository::class);
-        $this->twig = $this->createMock(Environment::class);
+        $this->userRepository = $this->createMock(
+            UserRepository::class
+        );
+        $this->twig = $this->createMock(
+            Environment::class
+        );
     }
 
     /**
@@ -46,6 +51,14 @@ class UsersControllerTest extends KernelTestCase
           $this->twig
         );
 
-        static::assertInstanceOf(UsersControllerInterface::class, $usersController);
+        static::assertInstanceOf(
+            UsersControllerInterface::class,
+            $usersController
+        );
+    }
+
+    public function testIndexResponse()
+    {
+
     }
 }

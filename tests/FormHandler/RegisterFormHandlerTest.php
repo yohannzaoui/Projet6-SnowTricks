@@ -18,7 +18,7 @@ use App\Services\Interfaces\TokenInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Services\Interfaces\EncoderInterface;
 
 /**
  * Class RegisterFormHandlerTest
@@ -32,7 +32,7 @@ class RegisterFormHandlerTest extends TestCase
     private $fileUploader;
 
     /**
-     * @var EncoderFactoryInterface
+     * @var EncoderInterface
      */
     private $encoder;
 
@@ -70,7 +70,7 @@ class RegisterFormHandlerTest extends TestCase
           FileUploaderInterface::class
         );
         $this->encoder = $this->createMock(
-          EncoderFactoryInterface::class
+          EncoderInterface::class
         );
         $this->userRepository = $this->createMock(
           UserRepository::class
