@@ -92,7 +92,7 @@ class CategoryController implements CategoryControllerInterface
             $category = new Category;
         }
 
-        $categoriesList = $this->categoryRepository->getAllCategory();
+        $categories = $this->categoryRepository->getAllCategory();
 
         $form = $this->formFactory->create(CategoryType::class, $category)
             ->handleRequest($request);
@@ -103,7 +103,7 @@ class CategoryController implements CategoryControllerInterface
         }
 
         return new Response($this->twig->render('admin/category.html.twig', [
-                'categoriesList' => $categoriesList,
+                'categories' => $categories,
                 'editMode' => $request->attributes->get('id') !== null,
                 'form' => $form->createView()
             ]), 200);

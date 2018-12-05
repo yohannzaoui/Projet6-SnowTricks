@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\DeleteCategoryControllerInterface;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -57,13 +58,20 @@ class DeleteCategoryController implements DeleteCategoryControllerInterface
     /**
      * @Route("/supprimerCategorie/{id}", name="delcategory", methods={"GET"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return mixed|RedirectResponse
+     * @throws NonUniqueResultException
      */
     public function index(Request $request)
     {
         if ($request->attributes->get('id')) {
 
-            $this->categoryRepository->delete($request->attributes->get('id'));
+            $category = $this->categoryRepository->getCategory($request->attributes->get('id'));
+
+            if (!$category) {
+                throw new NonUniqueResultException("La catégorie n'existe pas");
+            }
+
+            $this->categoryRepository->delete($category);
 
             $this->messageFlash->getFlashBag()->add('deleteCategory',
                 'Catégorie supprimée');

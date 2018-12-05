@@ -68,7 +68,8 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     /**
      * @param $id
-     * @return \Doctrine\ORM\Query
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getUser($id)
     {
@@ -76,7 +77,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->where('u.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
 

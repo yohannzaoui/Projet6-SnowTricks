@@ -9,7 +9,7 @@
 namespace App\FormHandler\Interfaces;
 
 use App\Repository\UserRepository;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Services\Interfaces\EncoderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -21,12 +21,12 @@ use Symfony\Component\Form\FormInterface;
     /**
      * ForgotPasswordValidationTypeHandlerInterface constructor.
      * @param UserRepository $userRepository
-     * @param EncoderFactoryInterface $encoderFactory
+     * @param EncoderInterface $encoder
      * @param SessionInterface $messageFlash
      */
     public function __construct(
         UserRepository $userRepository,
-        EncoderFactoryInterface $encoderFactory,
+        EncoderInterface $encoder,
         SessionInterface $messageFlash
     );
 

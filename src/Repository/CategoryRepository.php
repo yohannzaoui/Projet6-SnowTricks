@@ -69,12 +69,15 @@ class CategoryRepository extends ServiceEntityRepository implements CategoryRepo
     /**
      * @param $id
      * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getCategory($id)
     {
         return $this->createQueryBuilder('category')
-            ->Where($id)
-            ->getQuery();
+            ->where('category.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
 
     }
 }

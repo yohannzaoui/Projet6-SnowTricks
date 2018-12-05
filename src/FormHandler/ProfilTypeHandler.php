@@ -8,8 +8,10 @@ use App\FormHandler\Interfaces\ProfilTypeHandlerInterface;
 use App\Repository\UserRepository;
 use App\Services\Interfaces\FileRemoverInterface;
 use App\Services\Interfaces\FileUploaderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Event\FileRemoverEvent;
 
 
 /**
@@ -40,6 +42,11 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
      */
     private $fileRemover;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
 
     /**
      * ProfilTypeHandler constructor.
@@ -47,16 +54,19 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
      * @param SessionInterface $messageFlash
      * @param UserRepository $userRepository
      * @param FileRemoverInterface $fileRemover
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
         SessionInterface $messageFlash,
         UserRepository $userRepository,
-        FileRemoverInterface $fileRemover
+        FileRemoverInterface $fileRemover,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->fileUploader = $fileUploader;
         $this->messageFlash = $messageFlash;
         $this->userRepository = $userRepository;
+        $this->eventDispatcher = $eventDispatcher;
         $this->fileRemover = $fileRemover;
     }
 
@@ -74,7 +84,10 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
 
             $fileRemove = $this->userRepository->checkProfilImage($imageUser);
 
-            $this->fileRemover->deleteFile($fileRemove['profilImage']);
+            $this->eventDispatcher->dispatch(
+                FileRemoverEvent::NAME,
+                new FileRemoverEvent($this->fileRemover, $fileRemove['profilImage'])
+            );
 
             $file = $form->getData()->getProfilImage();
 

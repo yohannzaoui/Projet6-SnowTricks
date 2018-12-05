@@ -43,7 +43,7 @@ class FileRemover implements FileRemoverInterface
      * @param string $file
      * @return mixed|void
      */
-    public function deleteFile(string $file)
+    public function deleteFile(?string $file)
     {
         if (is_file($this->path.'/'.$file)) {
 

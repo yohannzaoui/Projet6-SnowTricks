@@ -13,7 +13,7 @@ use App\Repository\UserRepository;
 use App\Services\Interfaces\FileUploaderInterface;
 use App\Services\Interfaces\TokenInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Services\Interfaces\EncoderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
 use App\Services\Interfaces\EmailerInterface;
@@ -28,7 +28,7 @@ interface RegisterFormHandlerInterface
     /**
      * RegisterFormHandlerInterface constructor.
      * @param FileUploaderInterface $fileUploader
-     * @param EncoderFactoryInterface $encoder
+     * @param EncoderInterface $encoder
      * @param UserRepository $userRepository
      * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
@@ -37,7 +37,7 @@ interface RegisterFormHandlerInterface
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
-        EncoderFactoryInterface $encoder,
+        EncoderInterface $encoder,
         UserRepository $userRepository,
         EmailerInterface $emailer,
         SessionInterface $messageFlash,

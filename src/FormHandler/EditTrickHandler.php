@@ -10,11 +10,12 @@ namespace App\FormHandler;
 
 
 use App\Entity\Trick;
-use App\Event\FileRemoverDefaultImageEvent;
+use App\Event\FileRemoverEvent;
 use App\FormHandler\Interfaces\EditTrickHandlerInterface;
 use App\Repository\TrickRepository;
 use App\Services\FileRemover;
 use App\Services\FileUploader;
+use App\Services\Interfaces\FileRemoverInterface;
 use App\Services\Interfaces\SluggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -58,14 +59,14 @@ class EditTrickHandler implements EditTrickHandlerInterface
      * @param TrickRepository $trickRepository
      * @param SluggerInterface $slugger
      * @param EventDispatcherInterface $eventDispatcher
-     * @param FileRemover $fileRemover
+     * @param FileRemoverInterface $fileRemover
      */
     public function __construct(
         FileUploader $fileUploader,
         TrickRepository $trickRepository,
         SluggerInterface $slugger,
         EventDispatcherInterface $eventDispatcher,
-        FileRemover $fileRemover
+        FileRemoverInterface $fileRemover
     ) {
         $this->fileUploader = $fileUploader;
         $this->trickRepository = $trickRepository;
@@ -93,8 +94,8 @@ class EditTrickHandler implements EditTrickHandlerInterface
                 if (!is_null($form->getData()->getDefaultImage()->getFile())) {
 
                     $this->eventDispatcher->dispatch(
-                        FileRemoverDefaultImageEvent::NAME,
-                        new FileRemoverDefaultImageEvent($this->fileRemover, $form->getData()->getDefaultImage()->getUrl()));
+                        FileRemoverEvent::NAME,
+                        new FileRemoverEvent($this->fileRemover, $form->getData()->getDefaultImage()->getUrl()));
 
                     $defaultImage = $this->fileUploader->upload(
                         $form->getData()

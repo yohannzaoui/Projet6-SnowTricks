@@ -9,7 +9,7 @@
 namespace App\Subscriber;
 
 
-use App\Event\FileRemoverDefaultImageEvent;
+use App\Event\FileRemoverEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -24,15 +24,15 @@ class FileRemoverSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            FileRemoverDefaultImageEvent::NAME => 'onFileRemoverDefaultImage'
+            FileRemoverEvent::NAME => 'onFileRemover'
         ];
     }
 
     /**
-     * @param FileRemoverDefaultImageEvent $event
+     * @param FileRemoverEvent $event
      * @return mixed|void
      */
-    public function onFileRemoverDefaultImage(FileRemoverDefaultImageEvent $event)
+    public function onFileRemover(FileRemoverEvent $event)
     {
         return $event->removeFile();
     }

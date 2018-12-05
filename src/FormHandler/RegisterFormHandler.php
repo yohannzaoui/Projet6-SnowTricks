@@ -19,7 +19,7 @@ use App\Services\Interfaces\TokenInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Services\Interfaces\EncoderInterface;
 
 /**
  * Class RegisterFormHandler
@@ -34,7 +34,7 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
     private $fileUploader;
 
     /**
-     * @var EncoderFactoryInterface
+     * @var EncoderInterface
      */
     private $encoder;
 
@@ -66,7 +66,7 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
     /**
      * RegisterFormHandler constructor.
      * @param FileUploaderInterface $fileUploader
-     * @param EncoderFactoryInterface $encoder
+     * @param EncoderInterface $encoder
      * @param UserRepository $userRepository
      * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
@@ -75,7 +75,7 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
-        EncoderFactoryInterface $encoder,
+        EncoderInterface $encoder,
         UserRepository $userRepository,
         EmailerInterface $emailer,
         SessionInterface $messageFlash,
@@ -118,10 +118,9 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
             $user->setUsername($form->getData()
                 ->getUsername()
             );
-            $user->setPassword($this->encoder->getEncoder(
-                User::class)->encodePassword(
-                $form->getData()->getPassword(), null
-            ));
+            $user->setPassword($this->encoder->encodePassword(
+                User::class, $form->getData()->getPassword())
+            );
             $user->setEmail($form->getData()->getEmail());
             $user->setToken($token);
 

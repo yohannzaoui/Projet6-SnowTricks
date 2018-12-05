@@ -13,19 +13,22 @@ use App\Controller\Interfaces\DeleteTrickControllerInterface;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Services\FileRemover;
+use Doctrine\ORM\NonUniqueResultException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use App\Event\FileRemoverEvent;
 use Twig\Environment;
 
 /**
  * Class DeleteTrickController
  * @package App\Controller
  */
-class DeleteTrickController implements DeleteTrickControllerInterface
+class DeleteTrickController //implements DeleteTrickControllerInterface
 {
 
     /**
@@ -58,6 +61,8 @@ class DeleteTrickController implements DeleteTrickControllerInterface
      */
     private $messageFlash;
 
+    private $eventDispatcher;
+
 
     /**
      * DeleteTrickController constructor.
@@ -67,6 +72,7 @@ class DeleteTrickController implements DeleteTrickControllerInterface
      * @param Environment $twig
      * @param UrlGeneratorInterface $urlGenerator
      * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         TrickRepository $trickRepository,
@@ -74,7 +80,8 @@ class DeleteTrickController implements DeleteTrickControllerInterface
         FileRemover $fileRemover,
         Environment $twig,
         UrlGeneratorInterface $urlGenerator,
-        SessionInterface $messageFlash
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->trickRepository = $trickRepository;
         $this->imageRepository = $imageRepository;
@@ -82,6 +89,7 @@ class DeleteTrickController implements DeleteTrickControllerInterface
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->messageFlash = $messageFlash;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -107,14 +115,17 @@ class DeleteTrickController implements DeleteTrickControllerInterface
      * @Route("/delete/{id}", name="deltrick", methods={"GET"})
      * @param Request $request
      * @return mixed|RedirectResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function delete(Request $request)
     {
         if ($request->attributes->get('id')) {
 
-            //$file = $this->trickRepository->getDefaultImage($request->attributes->get('id'));
+            $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
 
-            //dd($file);
+            if (!$trick) {
+                throw new NonUniqueResultException("Ce Trick n'éxiste pas");
+            }
 
             $files = $this->imageRepository->checkImages($request->attributes->get('id'));
 
@@ -125,11 +136,13 @@ class DeleteTrickController implements DeleteTrickControllerInterface
 
             foreach ($files as $a => $urls) {
                 foreach ($urls as $url) {
-                    $this->fileRemover->deleteFile($url);
+                    $this->eventDispatcher->dispatch(
+                        FileRemoverEvent::NAME,
+                        new FileRemoverEvent($this->fileRemover, $url));
                 }
             }
 
-            $this->trickRepository->delete($request->attributes->get('id'));
+            $this->trickRepository->delete($trick);
 
             $this->messageFlash->getFlashBag()->add('deleteTrick', 'Le trick à bien été supprimé');
 
