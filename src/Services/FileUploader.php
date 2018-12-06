@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Class FileUploader
  * @package App\Services
  */
-final class FileUploader implements FileUploaderInterface
+class FileUploader implements FileUploaderInterface
 {
     /**
      * @var

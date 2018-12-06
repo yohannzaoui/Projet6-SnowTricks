@@ -10,19 +10,22 @@ namespace App\FormHandler;
 
 
 use App\Entity\User;
+use App\Event\RegisterMailEvent;
 use App\FormHandler\Interfaces\RegisterFormHandlerInterface;
-use App\Helper\RegisterMail;
 use App\Repository\UserRepository;
+use App\Services\Interfaces\EmailerInterface;
 use App\Services\Interfaces\FileUploaderInterface;
+use App\Services\Interfaces\TokenInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Services\Interfaces\EncoderInterface;
 
 /**
  * Class RegisterFormHandler
  * @package App\FormHandler
  */
-final class RegisterFormHandler implements RegisterFormHandlerInterface
+class RegisterFormHandler implements RegisterFormHandlerInterface
 {
 
     /**
@@ -31,7 +34,7 @@ final class RegisterFormHandler implements RegisterFormHandlerInterface
     private $fileUploader;
 
     /**
-     * @var EncoderFactoryInterface
+     * @var EncoderInterface
      */
     private $encoder;
 
@@ -41,36 +44,53 @@ final class RegisterFormHandler implements RegisterFormHandlerInterface
     private $userRepository;
 
     /**
-     * @var RegisterMail
+     * @var EmailerInterface
      */
-    private $mail;
+    private $emailer;
+
     /**
      * @var SessionInterface
      */
     private $messageFlash;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @var TokenInterface
+     */
+    private $tokenService;
 
     /**
      * RegisterFormHandler constructor.
      * @param FileUploaderInterface $fileUploader
-     * @param EncoderFactoryInterface $encoder
+     * @param EncoderInterface $encoder
      * @param UserRepository $userRepository
-     * @param RegisterMail $mail
+     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param TokenInterface $tokenService
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
-        EncoderFactoryInterface $encoder,
+        EncoderInterface $encoder,
         UserRepository $userRepository,
-        RegisterMail $mail,
-        SessionInterface $messageFlash
+        EmailerInterface $emailer,
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher,
+        TokenInterface $tokenService
     ) {
         $this->fileUploader = $fileUploader;
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
-        $this->mail = $mail;
+        $this->emailer = $emailer;
         $this->messageFlash = $messageFlash;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->tokenService = $tokenService;
     }
+
 
     /**
      * @param FormInterface $form
@@ -93,21 +113,21 @@ final class RegisterFormHandler implements RegisterFormHandlerInterface
 
             }
 
-            $token = md5(uniqid());
+            $token = $this->tokenService::generateToken();
 
             $user->setUsername($form->getData()
                 ->getUsername()
             );
-            $user->setPassword($this->encoder->getEncoder(
-                User::class)->encodePassword(
-                $form->getData()->getPassword(), null
-            ));
+            $user->setPassword($this->encoder->encodePassword(
+                User::class, $form->getData()->getPassword())
+            );
             $user->setEmail($form->getData()->getEmail());
             $user->setToken($token);
 
             $this->userRepository->save($user);
 
-            $this->mail->send($form->getData()->getEmail(), $token);
+            $this->eventDispatcher->dispatch(RegisterMailEvent::NAME,
+                new RegisterMailEvent($this->emailer, $form->getData()->getEmail(), $token ));
 
             $this->messageFlash->getFlashBag()->add('register',
                 'Un email à l\'adresse ' .$form->getData()

@@ -11,21 +11,30 @@ namespace App\Controller\Interfaces;
 use App\Repository\UserRepository;
 use App\FormHandler\ForgotPasswordValidationTypeHandler;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 /**
- * Interface ForgotPasswordValidationInterface
+ * Interfaces ForgotPasswordValidationInterface
  * @package App\Controller\Interfaces
  */
 interface ForgotPasswordValidationControllerInterface
 {
     /**
-     * ForgotPasswordValidationInterface constructor.
+     * ForgotPasswordValidationControllerInterface constructor.
      * @param UserRepository $userRepository
      * @param ForgotPasswordValidationTypeHandler $forgotPasswordValidationTypeHandler
+     * @param FormFactoryInterface $formFactory
+     * @param Environment $twig
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         UserRepository $userRepository,
-        ForgotPasswordValidationTypeHandler $forgotPasswordValidationTypeHandler
+        ForgotPasswordValidationTypeHandler $forgotPasswordValidationTypeHandler,
+        FormFactoryInterface $formFactory,
+        Environment $twig,
+        UrlGeneratorInterface $urlGenerator
     );
 
     /**

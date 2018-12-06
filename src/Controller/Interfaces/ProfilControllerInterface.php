@@ -10,9 +10,13 @@ namespace App\Controller\Interfaces;
 
 use App\FormHandler\ProfilTypeHandler;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 /**
- * Interface ProfilControllerInterface
+ * Interfaces ProfilControllerInterface
  * @package App\Controller\Interfaces
  */
 interface ProfilControllerInterface
@@ -20,9 +24,17 @@ interface ProfilControllerInterface
     /**
      * ProfilControllerInterface constructor.
      * @param ProfilTypeHandler $profilTypeHandler
+     * @param FormFactoryInterface $formFactory
+     * @param TokenStorageInterface $tokenStorage
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Environment $twig
      */
     public function __construct(
-        ProfilTypeHandler $profilTypeHandler
+        ProfilTypeHandler $profilTypeHandler,
+        FormFactoryInterface $formFactory,
+        TokenStorageInterface $tokenStorage,
+        UrlGeneratorInterface $urlGenerator,
+        Environment $twig
     );
 
     /**

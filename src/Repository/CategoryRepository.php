@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Repository\Interfaces\CategoryRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -10,7 +11,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class CategoryRepository
  * @package App\Domain\Repository
  */
-class CategoryRepository extends ServiceEntityRepository
+class CategoryRepository extends ServiceEntityRepository implements CategoryRepositoryInterface
 {
     /**
      * CategoryRepository constructor.
@@ -68,12 +69,15 @@ class CategoryRepository extends ServiceEntityRepository
     /**
      * @param $id
      * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getCategory($id)
     {
         return $this->createQueryBuilder('category')
-            ->Where($id)
-            ->getQuery();
+            ->where('category.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
 
     }
 }

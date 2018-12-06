@@ -18,23 +18,26 @@ class Comment implements CommentInterface
      * @var UuidInterface
      */
     private $id;
+
     /**
-     * @var null
+     * @var
      */
     private $author;
+
     /**
-     * @var null
+     * @var
      */
     private $message;
+
     /**
      * @var \DateTime
      */
     private $createdAt;
+
     /**
-     * @var null
+     * @var
      */
     private $trick;
-
 
     /**
      * Comment constructor.
@@ -48,77 +51,79 @@ class Comment implements CommentInterface
 
 
     /**
-     * @return mixed
+     * @return mixed|UuidInterface
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
+
     /**
-     * Set the value of id
-     *
-     * @return  self
+     * @param UuidInterface $id
+     * @return $this|mixed
      */
-    public function setId($id)
+    public function setId(UuidInterface $id)
     {
         $this->id = $id;
 
         return $this;
     }
 
+
     /**
-     * Get the value of message
+     * @return string
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
+
     /**
-     * Set the value of message
-     *
-     * @return  self
+     * @param string $message
+     * @return $this|mixed
      */
-    public function setMessage($message)
+    public function setMessage(?string $message)
     {
         $this->message = $message;
 
         return $this;
     }
 
+
     /**
-     * Get the value of createdAt
+     * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
+
     /**
-     * Set the value of createdAt
-     *
-     * @return  self
+     * @param \DateTime $createdAt
+     * @return $this|mixed
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
+
     /**
-     * Get the value of trick
+     * @return Trick
      */
-    public function getTrick()
+    public function getTrick(): Trick
     {
         return $this->trick;
     }
 
     /**
-     * Set the value of trick
-     *
-     * @return  self
+     * @param Trick $trick
+     * @return $this|mixed
      */
     public function setTrick(Trick $trick)
     {
@@ -129,9 +134,9 @@ class Comment implements CommentInterface
 
 
     /**
-     * @return null
+     * @return User
      */
-    public function getAuthor()
+    public function getAuthor(): User
     {
         return $this->author;
     }

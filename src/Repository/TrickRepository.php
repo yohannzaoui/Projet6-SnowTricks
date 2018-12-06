@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Trick;
+use App\Repository\Interfaces\TrickRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -11,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class TrickRepository
  * @package App\Domain\Repository
  */
-class TrickRepository extends ServiceEntityRepository
+class TrickRepository extends ServiceEntityRepository implements TrickRepositoryInterface
 {
 
     /**
@@ -37,6 +39,22 @@ class TrickRepository extends ServiceEntityRepository
 
 
     /**
+     * @param int $page
+     * @param int $max
+     * @return Paginator
+     */
+    public function getTricks($page, $max)
+    {
+        $qb = $this->createQueryBuilder('trick');
+        $qb->setFirstResult(($page-1) * $max)
+            ->orderBy('trick.createdAt','DESC')
+            ->setMaxResults($max);
+
+        return new Paginator($qb);
+    }
+
+
+    /**
      * @param $id
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -55,7 +73,7 @@ class TrickRepository extends ServiceEntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getTrickSlug($slug)
+    public function getTrickBySlug($slug)
     {
         return $this->createQueryBuilder('trick')
             ->where('trick.slug = :slug')
@@ -80,6 +98,21 @@ class TrickRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function checkDefaultImage($id)
+    {
+        return $this->createQueryBuilder('trick')
+            ->select('trick.defaultImage')
+            ->where('trick.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * @param Trick $trick
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -92,7 +125,7 @@ class TrickRepository extends ServiceEntityRepository
 
 
     /**
-     * @param Trick $trick
+     * @return mixed|void
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -115,8 +148,6 @@ class TrickRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
-
-
 
 }
 

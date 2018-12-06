@@ -9,18 +9,24 @@
 namespace App\Controller;
 
 use App\Controller\Interfaces\EditTrickControllerInterface;
-use App\Entity\Trick;
 use App\Form\EditTrickType;
 use App\FormHandler\Interfaces\EditTrickHandlerInterface;
+use App\Repository\TrickRepository;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Twig\Environment;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class EditTrickController
  * @package App\Controller
  */
-final class EditTrickController extends AbstractController implements EditTrickControllerInterface
+class EditTrickController implements EditTrickControllerInterface
 {
 
     /**
@@ -29,40 +35,88 @@ final class EditTrickController extends AbstractController implements EditTrickC
     private $editTrickHandler;
 
     /**
+     * @var TrickRepository
+     */
+    private $trickRepository;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
      * EditTrickController constructor.
      * @param EditTrickHandlerInterface $editTrickHandler
+     * @param TrickRepository $trickRepository
+     * @param FormFactoryInterface $formFactory
+     * @param TokenStorageInterface $tokenStorage
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Environment $twig
      */
     public function __construct(
-        EditTrickHandlerInterface $editTrickHandler
+        EditTrickHandlerInterface $editTrickHandler,
+        TrickRepository $trickRepository,
+        FormFactoryInterface $formFactory,
+        TokenStorageInterface $tokenStorage,
+        UrlGeneratorInterface $urlGenerator,
+        Environment $twig
     ) {
         $this->editTrickHandler = $editTrickHandler;
+        $this->trickRepository = $trickRepository;
+        $this->formFactory = $formFactory;
+        $this->tokenStorage = $tokenStorage;
+        $this->urlGenerator = $urlGenerator;
+        $this->twig = $twig;
     }
 
     /**
-     *
+     * @Route("/edit/trick/{slug}", name="edittrick", methods={"GET", "POST"})
      * @param Request $request
-     * @param Trick $trick
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/edit/trick/{id}", name="edittrick", methods={"GET", "POST"})
+     * @return mixed|RedirectResponse|Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function index(Request $request , Trick $trick)
+    public function index(Request $request)
     {
+        if (null === $trick = $this->trickRepository->getTrickBySlug($request->attributes->get('slug'))) {
 
-        $form = $this->createForm(EditTrickType::class, $trick)
-            ->handleRequest($request);
-
-        $user = $this->getUser();
-
-        if ($this->editTrickHandler->handle($form, $user, $trick)) {
-
-            return $this->redirectToRoute('trick', [
-                'id' => $request->attributes->get('id')
-            ]);
+            throw new NotFoundHttpException('Pas de Trick avec ce nom ');
         }
 
-        return $this->render('edit_trick/edit_trick.html.twig',[
+        $form = $this->formFactory->create(EditTrickType::class, $trick)
+            ->handleRequest($request);
+
+        $author = $this->tokenStorage->getToken()->getUser();
+
+        if ($this->editTrickHandler->handle($form, $author, $trick)) {
+
+            return new RedirectResponse($this->urlGenerator->generate('trick', [
+                'slug' => $trick->getSlug()
+            ]), 302);
+
+        }
+
+        return new Response($this->twig->render('edit_trick/edit_trick.html.twig', [
             'form' => $form->createView(),
             'trick' => $trick
-        ]);
+        ]), 200);
+
     }
 }

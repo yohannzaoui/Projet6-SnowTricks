@@ -10,8 +10,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
+/**
+ * Class DefaultImageTrickType
+ * @package App\Form
+ */
 class DefaultImageTrickType extends AbstractType implements TypeInterface
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return mixed|void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -23,6 +32,10 @@ class DefaultImageTrickType extends AbstractType implements TypeInterface
             ]);
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     * @return mixed|void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

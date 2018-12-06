@@ -9,11 +9,15 @@
 namespace App\Controller\Interfaces;
 
 use App\Repository\UserRepository;
-use App\Services\FileRemover;
+use App\Services\Interfaces\FileRemoverInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * Interface DeleteUserControllerInterface
+ * Interfaces DeleteUserControllerInterface
  * @package App\Controller\Interfaces
  */
 interface DeleteUserControllerInterface
@@ -22,11 +26,19 @@ interface DeleteUserControllerInterface
     /**
      * DeleteUserControllerInterface constructor.
      * @param UserRepository $userRepository
-     * @param FileRemover $fileRemover
+     * @param FileRemoverInterface $fileRemover
+     * @param TokenStorageInterface $tokenStorage
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         UserRepository $userRepository,
-        FileRemover $fileRemover
+        FileRemoverInterface $fileRemover,
+        TokenStorageInterface $tokenStorage,
+        UrlGeneratorInterface $urlGenerator,
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher
     );
 
     /**

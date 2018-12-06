@@ -1,0 +1,20 @@
+
+    <ul>
+        {% if pagination.page>1 %}
+            <li><a href="{{ path(pagination.route,
+                    pagination.route_params|merge({'page': 1})) }}"><<</a></li>
+            <li><a href="{{ path(pagination.route,
+                    pagination.route_params|merge({'page': pagination.page-1})) }}"><</a></li>
+        {% endif %}
+        {% for p in range(max(pagination.page-4, 1),
+            min(pagination.page+4, pagination.pages_count)) %}
+            <li {% if p == pagination.page %} class="active"{% endif %}><a href="{{ path(pagination.route,
+                    pagination.route_params|merge({'page': p})) }}">{{ p }}</a></li>
+        {% endfor %}
+        {% if pagination.page<pagination.pages_count %}
+            <li><a class="next" href="{{ path(pagination.route,
+                    pagination.route_params|merge({'page': pagination.page+1})) }}">next</a></li>
+            <li><a href="{{ path(pagination.route,
+                    pagination.route_params|merge({'page': pagination.pages_count})) }}">next</a></li>
+        {% endif %}
+    </ul>

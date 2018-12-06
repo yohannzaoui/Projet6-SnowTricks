@@ -9,6 +9,7 @@
 namespace App\Repository;
 
 use App\Entity\Image;
+use App\Repository\Interfaces\ImageRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,7 +18,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * Class ImageRepository
  * @package App\Domain\Repository
  */
-class ImageRepository extends ServiceEntityRepository
+class ImageRepository extends ServiceEntityRepository implements ImageRepositoryInterface
 {
 
     /**

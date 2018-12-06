@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  * Class CategoryHandler
  * @package App\FormHandler
  */
-final class CategoryHandler implements CategoryHandlerInterface
+class CategoryHandler implements CategoryHandlerInterface
 {
 
     /**

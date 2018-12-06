@@ -30,62 +30,67 @@ class Video implements VideoInterface
      */
     private $url;
 
+    /**
+     * @var
+     */
     private $trick;
-
 
 
     /**
      * Video constructor.
-     * @param $url
      * @throws \Exception
      */
-    public function __construct($url = null)
+    public function __construct()
     {
         $this->id = Uuid::uuid4();
-        $this->url = $url;
     }
 
     /**
      * @return UuidInterface
      */
-    public function getId(): UuidInterface
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
 
     /**
-     * @return mixed
+     * @param UuidInterface $id
      */
-    public function getUrl()
+    public function setId(?UuidInterface $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param mixed $url
+     * @param string $url
      */
-    public function setUrl($url): void
+    public function setUrl(?string $url)
     {
         $this->url = $url;
     }
 
     /**
-     * @return mixed
+     * @return Trick
      */
-    public function getTrick()
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }
 
     /**
-     * @param mixed $trick
+     * @param Trick|null $trick
      */
-    public function setTrick(Trick $trick)
+    public function setTrick(?Trick $trick)
     {
         $this->trick = $trick;
     }
-
-
-
 
 }

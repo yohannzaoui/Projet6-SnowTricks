@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ImageTest extends TestCase
 {
+
     /**
      * @throws \Exception
      */
@@ -27,5 +28,15 @@ class ImageTest extends TestCase
         $image->setUrl('test.jpg');
         $result = $image->getUrl();
         $this->assertSame('test.jpg', $result);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetUrlIfIsNUll()
+    {
+        $image = new Image();
+        $image->setUrl(null);
+        $this->assertNull($image->getUrl());
     }
 }

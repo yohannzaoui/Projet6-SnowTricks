@@ -10,16 +10,21 @@ namespace App\FormHandler;
 
 
 use App\Entity\Trick;
+use App\Event\FileRemoverEvent;
 use App\FormHandler\Interfaces\EditTrickHandlerInterface;
 use App\Repository\TrickRepository;
+use App\Services\FileRemover;
 use App\Services\FileUploader;
+use App\Services\Interfaces\FileRemoverInterface;
+use App\Services\Interfaces\SluggerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
  * Class EditTrickHandler
  * @package App\FormHandler
  */
-final class EditTrickHandler implements EditTrickHandlerInterface
+class EditTrickHandler implements EditTrickHandlerInterface
 {
 
     /**
@@ -33,75 +38,119 @@ final class EditTrickHandler implements EditTrickHandlerInterface
     private $trickRepository;
 
     /**
+     * @var SluggerInterface
+     */
+    private $slugger;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @var FileRemover
+     */
+    private $fileRemover;
+
+
+    /**
      * EditTrickHandler constructor.
      * @param FileUploader $fileUploader
      * @param TrickRepository $trickRepository
+     * @param SluggerInterface $slugger
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param FileRemoverInterface $fileRemover
      */
     public function __construct(
         FileUploader $fileUploader,
-        TrickRepository $trickRepository
+        TrickRepository $trickRepository,
+        SluggerInterface $slugger,
+        EventDispatcherInterface $eventDispatcher,
+        FileRemoverInterface $fileRemover
     ) {
         $this->fileUploader = $fileUploader;
         $this->trickRepository = $trickRepository;
+        $this->slugger = $slugger;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->fileRemover = $fileRemover;
     }
 
 
     /**
      * @param FormInterface $form
-     * @param $user
+     * @param $author
      * @param Trick $trick
-     * @return bool
+     * @return bool|mixed
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(FormInterface $form, $user, Trick $trick)
+    public function handle(FormInterface $form, $author, $trick)
     {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($form->getData()->getDefaultImage()->getFile()) {
+            if (!is_null($form->getData()->getDefaultImage())) {
 
-                $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage()->getFile());
-                $form->getData()->getDefaultImage()->setUrl($defaultImage);
+                if (!is_null($form->getData()->getDefaultImage()->getFile())) {
+
+                    $this->eventDispatcher->dispatch(
+                        FileRemoverEvent::NAME,
+                        new FileRemoverEvent($this->fileRemover, $form->getData()->getDefaultImage()->getUrl()));
+
+                    $defaultImage = $this->fileUploader->upload(
+                        $form->getData()
+                            ->getDefaultImage()
+                            ->getFile()
+                    );
+
+                    $form->getData()->getDefaultImage()->setUrl($defaultImage);
+                }
 
             }
 
-            if ($form->getData()->getImages()) {
 
+            if (!is_null($form->getData()->getImages())) {
 
-                $arrayCollectionImages = $form->getData()->getImages()->toArray();
+                $imagesCollection = $form->getData()->getImages()->toArray();
 
-                foreach ($arrayCollectionImages as $a => $image) {
+                    foreach ($imagesCollection as $a => $image) {
 
-                    if (!is_null($image->getFile())) {
+                        if (!is_null($image->getFile())) {
+
+                            $this->eventDispatcher->dispatch(
+                                FileRemoverEvent::NAME,
+                                new FileRemoverEvent($this->fileRemover, $image->getUrl()));
 
                         $images = $this->fileUploader->upload($image->getFile());
                         $image->setUrl($images);
-
+                        $image->setTrick($trick);
                     }
 
                 }
             }
 
-             if ($form->getData()->getVideos()) {
+            if ($form->getData()->getVideos()) {
 
-                 $arrayCollectionVideos = $form->getData()->getVideos()->toArray();
+                $videosCollection = $form->getData()->getVideos()->toArray();
 
-                 foreach ($arrayCollectionVideos as $b => $video) {
+                foreach ($videosCollection as $b => $video) {
 
-                     $videos[] = $video->getUrl();
-                 }
-             }
+                    $videos[] = $video->getUrl();
+                    $video->setTrick($trick);
 
-            $trick->setAuthor($user);
-            $trick->setImages($form->getData()->getImages());
-            $trick->setVideos($form->getData()->getVideos());
-            $trick->setUpdatedAt(new \DateTime());
+                }
+            }
+
+            $trick->setAuthor($author);
+            $trick->setName($form->getData()->getname());
+            $trick->setDescription($form->getData()->getDescription());
+            $trick->setSlug($this->slugger->createSlug($form->getData()->getname()));
             $trick->setCategory($form->getData()->getCategory());
+            $trick->setUpdatedAt(new \DateTime());
 
-            $this->trickRepository->update();
+            $this->trickRepository->save($trick);
 
-                return true;
+            return true;
             }
             return false;
         }

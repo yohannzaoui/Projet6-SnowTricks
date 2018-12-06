@@ -11,14 +11,15 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\HomeControllerInterface;
 use App\Repository\TrickRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 /**
  * Class HomeController
  * @package App\Controller
  */
-final class HomeController extends AbstractController implements HomeControllerInterface
+class HomeController implements HomeControllerInterface
 {
     /**
      * @var TrickRepository
@@ -26,25 +27,47 @@ final class HomeController extends AbstractController implements HomeControllerI
     private $trickRepository;
 
     /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
      * HomeController constructor.
      * @param TrickRepository $trickRepository
+     * @param Environment $twig
      */
-    public function __construct(TrickRepository $trickRepository)
-    {
+    public function __construct(
+        TrickRepository $trickRepository,
+        Environment $twig
+    ) {
         $this->trickRepository = $trickRepository;
+        $this->twig = $twig;
     }
 
 
     /**
      * @Route("/", name="home", methods={"GET"})
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("tricks/list/{page}", name="page_trick", methods={"GET"})
+     * @param int $page
+     * @return mixed|Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function index()
+    public function index($page = 1)
     {
-        $tricks = $this->trickRepository->getAllTricks();
+        $tricks = $this->trickRepository->getTricks($page, 6);
 
-        return $this->render('home/index.html.twig', [
-            'tricks' => $tricks
-        ]);
+        $pagination = [
+            'page' => $page,
+            'route' => 'page_trick',
+            'pages_count' => ceil(count($tricks) / 6),
+            'route_params' => []
+        ];
+
+        return new Response($this->twig->render('home/index.html.twig', [
+            'tricks' => $tricks,
+            'pagination' => $pagination
+        ]), 200);
     }
 }

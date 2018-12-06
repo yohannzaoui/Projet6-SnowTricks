@@ -8,7 +8,6 @@
 
 namespace App\Tests\Entity;
 
-
 use App\Entity\Category;
 use PHPUnit\Framework\TestCase;
 
@@ -18,15 +17,32 @@ use PHPUnit\Framework\TestCase;
  */
 class CategoryTest extends TestCase
 {
+    private $category;
+
     /**
      * @throws \Exception
      */
-    public function testGetName()
+    public function setUp()
     {
-        $category = new Category();
+        $this->category = new Category();
+    }
 
-        $category->setName('name');
-        $result = $category->getName();
+    /**
+     * @throws \Exception
+     */
+    public function testGetNameIfIsString()
+    {
+        $this->category->setName('name');
+        $result = $this->category->getName();
         $this->assertSame('name', $result);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetNameIfIsNull()
+    {
+        $this->category->setName(null);
+        $this->assertNull($this->category->getName());
     }
 }

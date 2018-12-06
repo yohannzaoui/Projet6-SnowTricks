@@ -11,16 +11,22 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\DeleteUserControllerInterface;
 use App\Repository\UserRepository;
-use App\Services\FileRemover;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Services\Interfaces\FileRemoverInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\Event\FileRemoverEvent;
 
 /**
  * Class DeleteUserController
  * @package App\Controller
  */
-final class DeleteUserController extends AbstractController implements DeleteUserControllerInterface
+class DeleteUserController implements DeleteUserControllerInterface
 {
     /**
      * @var UserRepository
@@ -28,22 +34,55 @@ final class DeleteUserController extends AbstractController implements DeleteUse
     private $userRepository;
 
     /**
-     * @var FileRemover
+     * @var FileRemoverInterface
      */
     private $fileRemover;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
+     * @var SessionInterface
+     */
+    private $messageFlash;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
 
     /**
      * DeleteUserController constructor.
      * @param UserRepository $userRepository
-     * @param FileRemover $fileRemover
+     * @param FileRemoverInterface $fileRemover
+     * @param TokenStorageInterface $tokenStorage
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         UserRepository $userRepository,
-        FileRemover $fileRemover
+        FileRemoverInterface $fileRemover,
+        TokenStorageInterface $tokenStorage,
+        UrlGeneratorInterface $urlGenerator,
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->userRepository = $userRepository;
         $this->fileRemover = $fileRemover;
+        $this->tokenStorage = $tokenStorage;
+        $this->urlGenerator = $urlGenerator;
+        $this->messageFlash = $messageFlash;
+        $this->eventDispatcher = $eventDispatcher;
+
     }
 
 
@@ -57,16 +96,25 @@ final class DeleteUserController extends AbstractController implements DeleteUse
     {
         if ($request->attributes->get('id')) {
 
-            $imageUser = $this->getUser()->getProfilImage();
-            $fileRemove = $this->userRepository->checkProfilImage($imageUser);
-            $this->fileRemover->deleteFile($fileRemove['profilImage']);
+            $user = $this->userRepository->getUser($request->attributes->get('id'));
 
-            $this->userRepository->delete($request->attributes->get('id'));
+            if (!$user) {
+                throw new NonUniqueResultException('Utilisateur inconnu');
+            }
 
-            $this->addFlash('deleteUser',
+            if (!is_null($user->getProfilImage())) {
+
+                $this->eventDispatcher->dispatch(
+                    FileRemoverEvent::NAME,
+                    new FileRemoverEvent($this->fileRemover, $user->getProfilImage()));
+            }
+
+            $this->userRepository->delete($user);
+
+            $this->messageFlash->getFlashBag()->add('deleteUser',
                 'Compte utilisateur supprimé');
 
-            return $this->redirectToRoute('allUsers');
+            return new RedirectResponse($this->urlGenerator->generate('allUsers'), 302);
         }
     }
 }

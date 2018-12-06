@@ -14,10 +14,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
+/**
+ * Class EditTrickType
+ * @package App\Form
+ */
 class EditTrickType extends AbstractType implements TypeInterface
 {
 
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return mixed|void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -31,13 +40,16 @@ class EditTrickType extends AbstractType implements TypeInterface
             ])
 
             ->add('defaultImage', DefaultImageTrickType::class, [
-                'required' => false
+                'required' => false,
+                'attr' => [
+                    'accept' => '.png, .jpeg, .jpg'
+                ]
             ])
 
             ->add('images', CollectionType::class, [
                 "entry_type"    => ImageTrickType::class,
+                'entry_options' => ['label' => false],
                 'required'      => false,
-                "entry_options" => ['label' => false],
                 "allow_add"     => true,
                 "prototype"     => true,
                 "allow_delete"  => true,
@@ -46,11 +58,15 @@ class EditTrickType extends AbstractType implements TypeInterface
 
             ->add('videos', CollectionType::class, [
                 "entry_type"    => VideoTrickType::class,
+                'entry_options' => ['label' => false],
                 'required'      => false,
                 "allow_add"     => true,
                 "prototype"     => true,
                 "allow_delete"  => true,
-                "by_reference"  => false
+                "by_reference"  => false,
+                'attr' => [
+                    'accept' => '.png, .jpeg, .jpg'
+                ]
             ])
 
             ->add('category', EntityType::class,[
@@ -63,6 +79,10 @@ class EditTrickType extends AbstractType implements TypeInterface
     }
 
 
+    /**
+     * @param OptionsResolver $resolver
+     * @return mixed|void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

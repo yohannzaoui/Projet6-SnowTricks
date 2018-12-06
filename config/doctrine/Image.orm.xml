@@ -12,7 +12,6 @@
         <many-to-one field="trick" target-entity="App\Entity\Trick" inversed-by="images">
             <cascade>
                 <cascade-persist/>
-                <cascade-remove/>
             </cascade>
             <join-column name="trick_id" referenced-column-name="id" on-delete="CASCADE"/>
         </many-to-one>

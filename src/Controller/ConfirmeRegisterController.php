@@ -11,15 +11,20 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\ConfirmeRegisterControllerInterface;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
+
 
 /**
  * Class ConfirmeRegisterController
  * @package App\Controller
  */
-final class ConfirmeRegisterController extends AbstractController implements ConfirmeRegisterControllerInterface
+class ConfirmeRegisterController implements ConfirmeRegisterControllerInterface
 {
     /**
      * @var UserRepository
@@ -27,22 +32,51 @@ final class ConfirmeRegisterController extends AbstractController implements Con
     private $userRepository;
 
     /**
+     * @var SessionInterface
+     */
+    private $messageFlash;
+
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+
+    /**
      * ConfirmeRegisterController constructor.
      * @param UserRepository $userRepository
+     * @param SessionInterface $messageFlash
+     * @param Environment $twig
+     * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(UserRepository $userRepository)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        SessionInterface $messageFlash,
+        Environment $twig,
+        UrlGeneratorInterface $urlGenerator
+    ) {
         $this->userRepository = $userRepository;
+        $this->messageFlash = $messageFlash;
+        $this->twig = $twig;
+        $this->urlGenerator = $urlGenerator;
     }
 
 
     /**
      * @Route("/confirmeregister/{token}", name="confirme", methods={"GET"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return mixed|RedirectResponse|Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(Request $request)
     {
@@ -52,10 +86,11 @@ final class ConfirmeRegisterController extends AbstractController implements Con
 
             $this->userRepository->save($user);
 
-            $this->addFlash('confirmeRegister', 'Votre compte à bien été créer');
+            $this->messageFlash->getFlashBag()->add('confirmeRegister', 'Votre compte à bien été créer');
 
-            return $this->redirectToRoute('login');
+            return new RedirectResponse($this->urlGenerator->generate('login'), 302);
         }
-        return $this->render('error/register_validation_error.html.twig');
+
+        return new Response($this->twig->render('error/register_validation_error.html.twig'), 200);
     }
 }

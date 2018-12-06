@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormInterface;
 use App\Entity\Category;
 
 /**
- * Interface CategoryHandlerInterface
+ * Interfaces CategoryHandlerInterface
  * @package App\FormHandler\Interfaces
  */
 interface CategoryHandlerInterface

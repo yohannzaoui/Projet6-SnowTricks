@@ -11,7 +11,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
-
+/**
+ * Class CategoryType
+ * @package App\Form
+ */
 class CategoryType extends AbstractType implements TypeInterface
 {
 

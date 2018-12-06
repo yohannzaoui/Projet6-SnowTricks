@@ -12,13 +12,15 @@ namespace App\Controller;
 use App\Controller\Interfaces\UsersControllerInterface;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 /**
  * Class UsersController
  * @package App\Controller
  */
-final class UsersController extends AbstractController implements UsersControllerInterface
+class UsersController implements UsersControllerInterface
 {
     /**
      * @var UserRepository
@@ -26,26 +28,38 @@ final class UsersController extends AbstractController implements UsersControlle
     private $userRepository;
 
     /**
+     * @var Environment
+     */
+    private $twig;
+
+
+    /**
      * UsersController constructor.
      * @param UserRepository $userRepository
+     * @param Environment $twig
      */
-    public function __construct(UserRepository $userRepository)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        Environment $twig
+    ) {
         $this->userRepository = $userRepository;
+        $this->twig = $twig;
     }
 
 
     /**
      * @Route("/allUsers", name="allUsers", methods={"GET"})
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return mixed|Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index()
     {
         $users = $this->userRepository->getAllUsersForAdmin();
 
-
-        return $this->render('admin/users.html.twig', [
+        return new Response($this->twig->render('admin/users.html.twig', [
             'users' => $users
-        ]);
+        ]), 200);
     }
 }

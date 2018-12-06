@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Interfaces\TrickInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
@@ -12,7 +13,7 @@ use Ramsey\Uuid\UuidInterface;
  * Class Trick
  * @package App\Entity
  */
-class Trick
+class Trick implements TrickInterface
 {
 
     /**
@@ -20,13 +21,15 @@ class Trick
      */
     private $id;
 
+
     /**
-     * @var null
+     * @var
      */
     private $name;
 
+
     /**
-     * @var null
+     * @var
      */
     private $description;
 
@@ -42,35 +45,47 @@ class Trick
      */
     private $images;
 
+
     /**
      * @var ArrayCollection
      */
     private $videos;
 
+
     /**
-     * @var
+     * @var ArrayCollection
      */
     private $comments;
+
 
     /**
      * @var
      */
     private $author;
 
+
     /**
      * @var
      */
     private $category;
 
+
     /**
-     * @var
+     * @var \DateTime
      */
     private $createdAt;
+
 
     /**
      * @var
      */
     private $updatedAt;
+
+
+    /**
+     * @var
+     */
+    private $slug;
 
 
     /**
@@ -94,25 +109,27 @@ class Trick
         return $this->id;
     }
 
+
     /**
-     * @return null
+     * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
+
     /**
-     * @return null
+     * @return string|null
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
 
 
-    public function getDefaultImage()
+    public function getDefaultImage(): ?Image
     {
         return $this->defaultImage;
     }
@@ -125,26 +142,29 @@ class Trick
         return $this->comments;
     }
 
+
     /**
-     * @return mixed
+     * @return User
      */
-    public function getAuthor()
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
+
     /**
-     * @return mixed
+     * @return Category|null
      */
-    public function getCategory()
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
+
     /**
-     * @return mixed
+     * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
@@ -152,7 +172,7 @@ class Trick
     /**
      * @return mixed
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt():? \DateTime
     {
         return $this->updatedAt;
     }
@@ -160,71 +180,77 @@ class Trick
     /**
      * @param UuidInterface $id
      */
-    public function setId(UuidInterface $id): void
+    public function setId(UuidInterface $id)
     {
         $this->id = $id;
     }
 
+
     /**
-     * @param null $name
+     * @param string $name
      */
-    public function setName($name): void
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
 
+
     /**
-     * @param null $description
+     * @param string $description
      */
-    public function setDescription($description): void
+    public function setDescription(?string $description)
     {
         $this->description = $description;
     }
 
     /**
-     * @param Image $defaultImage
+     * @param Image|null $defaultImage
      */
-    public function setDefaultImage(Image $defaultImage)
+    public function setDefaultImage(?Image $defaultImage)
     {
         $this->defaultImage = $defaultImage;
     }
 
     /**
-     * @param mixed $comments
+     * @param Comment $comments
      */
-    public function setComments($comments): void
+    public function setComments(Comment $comments)
     {
         $this->comments = $comments;
     }
 
+
     /**
-     * @param mixed $author
+     * @param User $author
      */
-    public function setAuthor($author): void
+    public function setAuthor(?User $author)
     {
         $this->author = $author;
     }
 
+
     /**
-     * @param mixed $category
+     * @param Category|null $category
      */
-    public function setCategory($category): void
+    public function setCategory(?Category $category)
     {
         $this->category = $category;
     }
 
+
     /**
-     * @param mixed $createdAt
+     * @param \DateTime $createdAt
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
 
+
     /**
-     * @param mixed $updatedAt
+     * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt($updatedAt): void
+    public function setUpdatedAt(?\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }
@@ -281,27 +307,26 @@ class Trick
      */
     public function removeVideo(Video $video)
     {
+        $video->setTrick(null);
         $this->videos->removeElement($video);
     }
 
 
     /**
-     * @param $videos
+     * @return string|null
      */
-    public function setVideos($videos)
+    public function getSlug(): ?string
     {
-        $this->videos = $videos;
+        return $this->slug;
     }
 
 
     /**
-     * @param $images
+     * @param string $slug
      */
-    public function setImages($images)
+    public function setSlug(?string $slug)
     {
-        $this->images = $images;
+        $this->slug = $slug;
     }
-
-
 
 }

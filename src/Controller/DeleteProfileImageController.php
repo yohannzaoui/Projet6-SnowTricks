@@ -12,38 +12,85 @@ namespace App\Controller;
 use App\Controller\Interfaces\DeleteProfileImageControllerInterface;
 use App\Repository\UserRepository;
 use App\Services\FileRemover;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class DeleteProfileImageController
  * @package App\Controller
  */
-final class DeleteProfileImageController extends AbstractController implements DeleteProfileImageControllerInterface
+class DeleteProfileImageController implements DeleteProfileImageControllerInterface
 {
+
     /**
-     * @Route("/deleteProfileImage", name="deleteProfileImage", methods={"GET"})
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @var SessionInterface
+     */
+    private $messageFlash;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var FileRemover
+     */
+    private $fileRemover;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
+     * DeleteProfileImageController constructor.
+     * @param TokenStorageInterface $tokenStorage
+     * @param SessionInterface $messageFlash
      * @param UserRepository $userRepository
      * @param FileRemover $fileRemover
-     * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @param UrlGeneratorInterface $urlGenerator
+     */
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        SessionInterface $messageFlash,
+        UserRepository $userRepository,
+        FileRemover $fileRemover,
+        UrlGeneratorInterface $urlGenerator
+    ) {
+        $this->tokenStorage = $tokenStorage;
+        $this->messageFlash = $messageFlash;
+        $this->userRepository = $userRepository;
+        $this->fileRemover = $fileRemover;
+        $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * @Route("/deleteProfileImage", name="deleteProfileImage", methods={"GET"})
+     * @return mixed|RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function index(UserRepository $userRepository, FileRemover $fileRemover)
+    public function index()
     {
-        $user = $this->getUser();
+        $profileImage = $this->tokenStorage->getToken()->getUser()->getProfilImage();
 
-        $profileImage = $user->getProfilImage();
+        $this->fileRemover->deleteFile($profileImage);
 
-        $fileRemover->deleteFile($profileImage);
+        $this->tokenStorage->getToken()->getUser()->setProfilImage(null);
 
-        $user->setProfilImage(null);
+        $this->userRepository->update();
 
-        $userRepository->update();
+        $this->messageFlash->getFlashBag()->add('deleteProfileImage', 'Image de profile supprimée');
 
-        $this->addFlash('deleteProfileImage', 'Image de profile supprimée');
-
-        return $this->redirectToRoute('profil');
+        return new RedirectResponse($this->urlGenerator->generate('profil'), 302);
 
     }
 }

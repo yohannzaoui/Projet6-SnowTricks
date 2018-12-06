@@ -13,13 +13,13 @@ use App\FormHandler\Interfaces\ForgotPasswordValidationTypeHandlerInterface;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Services\Interfaces\EncoderInterface;
 
 /**
  * Class ForgotPasswordValidationTypeHandler
  * @package App\FormHandler
  */
-final class ForgotPasswordValidationTypeHandler implements ForgotPasswordValidationTypeHandlerInterface
+class ForgotPasswordValidationTypeHandler implements ForgotPasswordValidationTypeHandlerInterface
 {
 
     /**
@@ -27,9 +27,9 @@ final class ForgotPasswordValidationTypeHandler implements ForgotPasswordValidat
      */
     private $userRepository;
     /**
-     * @var EncoderFactoryInterface
+     * @var EncoderInterface
      */
-    private $encoderFactory;
+    private $encoder;
     /**
      * @var SessionInterface
      */
@@ -38,16 +38,16 @@ final class ForgotPasswordValidationTypeHandler implements ForgotPasswordValidat
     /**
      * ForgotPasswordValidationTypeHandler constructor.
      * @param UserRepository $userRepository
-     * @param EncoderFactoryInterface $encoderFactory
+     * @param EncoderInterface $encoder
      * @param SessionInterface $messageFlash
      */
     public function __construct(
         UserRepository $userRepository,
-        EncoderFactoryInterface $encoderFactory,
+        EncoderInterface $encoder,
         SessionInterface $messageFlash
     ) {
         $this->userRepository = $userRepository;
-        $this->encoderFactory = $encoderFactory;
+        $this->encoder = $encoder;
         $this->messageFlash = $messageFlash;
     }
 
@@ -60,8 +60,9 @@ final class ForgotPasswordValidationTypeHandler implements ForgotPasswordValidat
     {
         if ($form->isSubmitted() && $form->isValid()){
 
-            $password = $this->encoderFactory->getEncoder(User::class)
-                ->encodePassword($form->getData()->getPassword(), null);
+            $password = $this->encoder->encodePassword(
+                User::class, $form->getData()->getPassword()
+            );
 
             $this->userRepository->resetPassword($token, $password);
 

@@ -13,13 +13,14 @@ use App\Entity\Trick;
 use App\FormHandler\Interfaces\AddTrickHandlerInterface;
 use App\Repository\TrickRepository;
 use App\Services\FileUploader;
+use App\Services\Interfaces\SluggerInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
  * Class AddTrickHandler
  * @package App\FormHandler
  */
-final class AddTrickHandler implements AddTrickHandlerInterface
+class AddTrickHandler implements AddTrickHandlerInterface
 {
     /**
      * @var FileUploader
@@ -32,55 +33,82 @@ final class AddTrickHandler implements AddTrickHandlerInterface
     private $trickRepository;
 
     /**
+     * @var SluggerInterface
+     */
+    private $slugger;
+
+    /**
      * AddTrickHandler constructor.
      * @param FileUploader $fileUploader
      * @param TrickRepository $trickRepository
+     * @param SluggerInterface $slugger
      */
     public function __construct(
         FileUploader $fileUploader,
-        TrickRepository $trickRepository
+        TrickRepository $trickRepository,
+        SluggerInterface $slugger
     ) {
         $this->fileUploader = $fileUploader;
         $this->trickRepository = $trickRepository;
+        $this->slugger = $slugger;
     }
 
     /**
-     * @param FormInterface $form
-     * @param $user
      * @param Trick $trick
-     * @return bool
+     * @param $author
+     * @param FormInterface $form
+     * @return bool|mixed
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function handle(FormInterface $form, $user, Trick $trick)
+    public function handle(Trick $trick, $author, FormInterface $form)
     {
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $defaultImage = $this->fileUploader->upload($form->getData()->getDefaultImage()->getFile());
-            //dd($defaultImage);
-            $form->getData()->getDefaultImage()->setUrl($defaultImage);
+            if ($form->getData()->getDefaultImage()) {
 
+                $defaultImage = $this->fileUploader->upload(
+                    $form->getData()
+                        ->getDefaultImage()
+                        ->getFile()
+                );
 
-            $arrayCollectionImages = $form->getData()->getImages()->toArray();
-
-            foreach ($arrayCollectionImages as $a => $image) {
-
-                $images = $this->fileUploader->upload($image->getFile());
-                $image->setUrl($images);
-
+                $form->getData()->getDefaultImage()->setUrl($defaultImage);
             }
 
-            $arrayCollectionVideos = $form->getData()->getVideos()->toArray();
 
-            foreach ($arrayCollectionVideos as $b => $video) {
 
-                $videos[] = $video->getUrl();
+            if (!is_null($form->getData()->getImages())) {
+
+                $imagesCollection = $form->getData()->getImages()->toArray();
+
+                foreach ($imagesCollection as $a => $image) {
+
+                    $images = $this->fileUploader->upload($image->getFile());
+
+                    $image->setUrl($images);
+                    $image->setTrick($trick);
+                }
             }
 
-            $trick->setAuthor($user);
-            $trick->setDefaultImage($form->getData()->getDefaultImage());
-            $trick->setImages($form->getData()->getImages());
-            $trick->setVideos($form->getData()->getVideos());
+            if (!is_null($form->getData()->getVideos())) {
+
+                $videosCollection = $form->getData()->getVideos()->toArray();
+
+                foreach ($videosCollection as $b => $video) {
+
+                    //dd($videosCollection);
+                    $videos[] = $video->getUrl();
+                    $video->setTrick($trick);
+
+                }
+            }
+
+            $trick->setAuthor($author);
+            $trick->setName($form->getData()->getname());
+            $trick->setDescription($form->getData()->getDescription());
+            $trick->setSlug($this->slugger->createSlug($form->getData()->getname()));
             $trick->setCategory($form->getData()->getCategory());
 
             $this->trickRepository->save($trick);

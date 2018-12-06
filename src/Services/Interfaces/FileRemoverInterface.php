@@ -12,7 +12,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 
 /**
- * Interface FileRemoverInterface
+ * Interfaces FileRemoverInterface
  * @package App\Services\Interfaces
  */
 interface FileRemoverInterface
@@ -28,5 +28,5 @@ interface FileRemoverInterface
      * @param $file
      * @return mixed
      */
-    public function deleteFile($file);
+    public function deleteFile(string $file);
 }

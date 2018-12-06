@@ -3,7 +3,7 @@
 namespace App\Services\Interfaces;
 
 /**
- * Interface EmailerInterface
+ * Interfaces EmailerInterface
  * @package App\Services\Interfaces
  */
 interface EmailerInterface

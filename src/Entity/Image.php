@@ -11,6 +11,7 @@ namespace App\Entity;
 use App\Entity\Interfaces\ImageInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
@@ -42,7 +43,6 @@ class Image implements ImageInterface
 
     /**
      * Image constructor.
-     * @param $id
      * @throws \Exception
      */
     public function __construct()
@@ -51,9 +51,17 @@ class Image implements ImageInterface
     }
 
     /**
-     * @inheritdoc
+     * @param UuidInterface $id
      */
-    public function getId()
+    public function setId(?UuidInterface $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
@@ -62,49 +70,49 @@ class Image implements ImageInterface
     /**
      * @return mixed
      */
-    public function getFile()
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
 
     /**
-     * @param $file
+     * @param UploadedFile|null $file
      */
-    public function setFile($file)
+    public function setFile(?UploadedFile $file)
     {
         $this->file = $file;
     }
 
     /**
-     * @return mixed
+     * @return Trick
      */
-    public function getTrick()
+    public function getTrick(): Trick
     {
         return $this->trick;
     }
 
 
     /**
-     * @param $trick
+     * @param Trick|null $trick
      */
-    public function setTrick($trick): void
+    public function setTrick(?Trick $trick)
     {
         $this->trick = $trick;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param mixed $url
+     * @param string $url
      */
-    public function setUrl($url): void
+    public function setUrl(?string $url)
     {
         $this->url = $url;
     }

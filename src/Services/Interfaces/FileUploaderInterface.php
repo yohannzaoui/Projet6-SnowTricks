@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
- * Interface FileUploaderInterface
+ * Interfaces FileUploaderInterface
  * @package App\Services\Interfaces
  */
 interface FileUploaderInterface

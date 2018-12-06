@@ -9,13 +9,14 @@
 namespace App\FormHandler\Interfaces;
 
 use App\Services\Interfaces\FileUploaderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\UserRepository;
 use App\Services\Interfaces\FileRemoverInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Interface ProfilTypeHandlerInterface
+ * Interfaces ProfilTypeHandlerInterface
  * @package App\FormHandler\Interfaces
  */
 interface ProfilTypeHandlerInterface
@@ -25,13 +26,16 @@ interface ProfilTypeHandlerInterface
      * @param FileUploaderInterface $fileUploader
      * @param SessionInterface $messageFlash
      * @param UserRepository $userRepository
+     * @param EventDispatcherInterface $eventDispatcher
      * @param FileRemoverInterface $fileRemover
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
         SessionInterface $messageFlash,
         UserRepository $userRepository,
-        FileRemoverInterface $fileRemover
+        FileRemoverInterface $fileRemover,
+        EventDispatcherInterface $eventDispatcher
+
     );
 
     /**

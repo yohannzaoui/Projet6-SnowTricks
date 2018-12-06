@@ -12,16 +12,23 @@ use App\Controller\Interfaces\TrickControllerInterface;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\FormHandler\Interfaces\CommentHandlerInterface;
+use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Twig\Environment;
 
 /**
  * Class TrickController
  * @package App\Controller
  */
-final class TrickController extends AbstractController implements TrickControllerInterface
+class TrickController implements TrickControllerInterface
 {
     /**
      * @var TrickRepository
@@ -29,49 +36,111 @@ final class TrickController extends AbstractController implements TrickControlle
     private $trickRepository;
 
     /**
+     * @var CommentRepository
+     */
+    private $commentRepository;
+
+    /**
      * @var CommentHandlerInterface
      */
     private $commentHandler;
 
     /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+
+    /**
      * TrickController constructor.
      * @param TrickRepository $trickRepository
      * @param CommentHandlerInterface $commentHandler
+     * @param CommentRepository $commentRepository
+     * @param FormFactoryInterface $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param TokenStorageInterface $tokenStorage
+     * @param Environment $twig
      */
     public function __construct(
         TrickRepository $trickRepository,
-        CommentHandlerInterface $commentHandler
+        CommentHandlerInterface $commentHandler,
+        CommentRepository $commentRepository,
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator,
+        TokenStorageInterface $tokenStorage,
+        Environment $twig
 
     ) {
         $this->trickRepository = $trickRepository;
         $this->commentHandler = $commentHandler;
+        $this->commentRepository = $commentRepository;
+        $this->formFactory = $formFactory;
+        $this->urlGenerator = $urlGenerator;
+        $this->tokenStorage = $tokenStorage;
+        $this->twig = $twig;
     }
 
     /**
-     * @Route("/trick/{id}", name="trick", methods={"GET", "POST"})
+     * @Route("/trick/{slug}", name="trick", methods={"GET", "POST"})
+     * @Route("trick/comments/{page<\d+>}/{slug}", name="comment_trick", methods={"GET","POST"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @param int $page
+     * @return mixed|RedirectResponse|Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function index(Request $request)
+    public function index(Request $request, $page = 1)
     {
-        $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
+        if (!$trick = $this->trickRepository->getTrickBySlug($request->attributes->get('slug'))) {
+
+            throw new NotFoundHttpException('Pas de Trick avec ce nom ');
+        }
+
+        $comments = $this->commentRepository->getComments($trick->getId(), $page, 5);
+
+        $pagination = [
+            'page' => $page,
+            'route' => 'comment_trick',
+            'pages_count' => ceil(count($comments) / 5),
+            'route_params' => ['slug' => $trick->getSlug()]
+        ];
 
         $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment)
+        $form = $this->formFactory->create(CommentType::class, $comment)
             ->handleRequest($request);
 
-        $user = $this->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
 
         if ($this->commentHandler->handle($form, $user, $trick, $comment)) {
 
-            return $this->redirectToRoute('trick', [
-                'id' => $trick->getId()
-            ]);
+            return new RedirectResponse($this->urlGenerator->generate('trick', [
+                'slug' => $trick->getSlug()
+            ]), 302);
+
         }
-        return $this->render('trick/index.html.twig', [
+        return new Response($this->twig->render('trick/index.html.twig', [
             'trick' => $trick,
+            'comments' => $comments,
+            'pagination' => $pagination,
             'form' => $form->createView()
-        ]);
+        ]), 200);
+
     }
 }

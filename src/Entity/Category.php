@@ -7,6 +7,10 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 
+/**
+ * Class Category
+ * @package App\Entity
+ */
 class Category implements CategoryInterface
 {
     /**
@@ -28,29 +32,45 @@ class Category implements CategoryInterface
         $this->id = Uuid::uuid4();
     }
 
+
     /**
-     * Get the value of id
+     * @return mixed|UuidInterface
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
+
     /**
-     * Get the value of nameGroup
+     * @param UuidInterface $id
+     * @return mixed|void
      */
-    public function getName()
+    public function setId(UuidInterface $id)
+    {
+        $this->id = $id;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getName(): ?string
     {
         return $this->name;
     }
 
+
     /**
-     * @param mixed $name
+     * @param $name
+     * @return mixed|void
      */
-    public function setName($name): void
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
+
+
 
 
 }

@@ -9,7 +9,7 @@ use Swift_Message;
  * Class Emailer
  * @package App\Services\Mailer
  */
-final class Emailer implements EmailerInterface
+class Emailer implements EmailerInterface
 {
     /**
      * @var \Swift_Mailer
@@ -30,7 +30,7 @@ final class Emailer implements EmailerInterface
      * @param array $from
      * @param $to
      * @param $body
-     * @return Swift_Message
+     * @return mixed|void
      */
     public function mail($subject, $from = [], $to, $body)
     {

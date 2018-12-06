@@ -24,7 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
             ->add('file', FileType::class, [
                 'label' => 'Séléctionne une image',
                 'attr' => [
-                    'accept' => '.png, .jpeg, .jpg'
+                    'accept' => '.jpeg, .jpg'
                 ]
             ]);
     }

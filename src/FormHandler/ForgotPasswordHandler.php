@@ -9,10 +9,12 @@
 namespace App\FormHandler;
 
 
+use App\Event\ResetPasswordMailEvent;
 use App\FormHandler\Interfaces\ForgotPasswordHandlerInterface;
-use App\Helper\Interfaces\MailerHelperInterface;
-use App\Helper\ResetPasswordMail;
 use App\Repository\UserRepository;
+use App\Services\Interfaces\EmailerInterface;
+use App\Services\Interfaces\TokenInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -20,7 +22,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  * Class ForgotPasswordHandler
  * @package App\FormHandler
  */
-final class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
+class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
 {
     /**
      * @var UserRepository
@@ -28,30 +30,46 @@ final class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
     private $userRepository;
 
     /**
-     * @var ResetPasswordMail
+     * @var EmailerInterface
      */
-    private $mail;
+    private $emailer;
 
     /**
      * @var SessionInterface
      */
     private $messageFlash;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * @var TokenInterface
+     */
+    private $tokenService;
+
 
     /**
      * ForgotPasswordHandler constructor.
      * @param UserRepository $userRepository
-     * @param ResetPasswordMail $mail
+     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param TokenInterface $tokenService
      */
     public function __construct(
         UserRepository $userRepository,
-        ResetPasswordMail $mail,
-        SessionInterface $messageFlash
+        EmailerInterface $emailer,
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher,
+        TokenInterface $tokenService
     ) {
         $this->userRepository = $userRepository;
-        $this->mail = $mail;
+        $this->emailer = $emailer;
         $this->messageFlash = $messageFlash;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->tokenService = $tokenService;
     }
 
     /**
@@ -63,17 +81,17 @@ final class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($this->userRepository->checkEmail($form->getData()->getEmail())) {
+            if ($this->userRepository->checkEmail($form->getData()['email'])) {
 
-                $token = md5(uniqid());
+                $token = $this->tokenService::generateToken();
 
-                $this->userRepository->saveResetToken($form->getData()->getEmail(), $token);
+                $this->userRepository->saveResetToken($form->getData()['email'], $token);
 
-                $this->mail->send($form->getData()->getEmail(), $token);
+                $this->eventDispatcher->dispatch(ResetPasswordMailEvent::NAME,
+                    new ResetPasswordMailEvent($this->emailer, $form->getData()['email'], $token));
 
                 $this->messageFlash->getFlashBag()->add('resetPassword',
-                    'Un email à l\'adresse ' .$form->getData()
-                        ->getEmail(). ' vient de vous être envoyez pour la récupération de votre compte');
+                    'Un email à l\'adresse ' .$form->getData()['email']. ' vient de vous être envoyez pour la récupération de votre compte');
                 return true;
             }
             $this->messageFlash->getFlashBag()->add('checkMailError','L\'adresse email est inconnue');

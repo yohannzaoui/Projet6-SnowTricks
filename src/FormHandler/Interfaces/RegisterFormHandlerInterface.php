@@ -9,16 +9,17 @@
 namespace App\FormHandler\Interfaces;
 
 
-
-use App\Helper\RegisterMail;
 use App\Repository\UserRepository;
 use App\Services\Interfaces\FileUploaderInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use App\Services\Interfaces\TokenInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use App\Services\Interfaces\EncoderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
+use App\Services\Interfaces\EmailerInterface;
 
 /**
- * Interface RegisterFormHandlerInterface
+ * Interfaces RegisterFormHandlerInterface
  * @package App\FormHandler\Interfaces
  */
 interface RegisterFormHandlerInterface
@@ -27,17 +28,21 @@ interface RegisterFormHandlerInterface
     /**
      * RegisterFormHandlerInterface constructor.
      * @param FileUploaderInterface $fileUploader
-     * @param EncoderFactoryInterface $encoder
+     * @param EncoderInterface $encoder
      * @param UserRepository $userRepository
-     * @param RegisterMail $mail
+     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param TokenInterface $tokenService
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
-        EncoderFactoryInterface $encoder,
+        EncoderInterface $encoder,
         UserRepository $userRepository,
-        RegisterMail $mail,
-        SessionInterface $messageFlash
+        EmailerInterface $emailer,
+        SessionInterface $messageFlash,
+        EventDispatcherInterface $eventDispatcher,
+        TokenInterface $tokenService
     );
 
     /**
