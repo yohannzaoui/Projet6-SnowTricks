@@ -95,8 +95,9 @@ class User implements UserInterface
         }
     }
 
+
     /**
-     * Get the value of id
+     * @return UuidInterface
      */
     public function getId()
     {
@@ -105,7 +106,7 @@ class User implements UserInterface
 
 
     /**
-     * Get the value of pseudo
+     * @return string
      */
     public function getUsername()
     {
@@ -114,7 +115,7 @@ class User implements UserInterface
 
 
     /**
-     * Get the value of password
+     * @return string
      */
     public function getPassword()
     {
@@ -123,7 +124,7 @@ class User implements UserInterface
 
 
     /**
-     * Get the value of email
+     * @return mixed
      */
     public function getEmail()
     {
@@ -132,7 +133,7 @@ class User implements UserInterface
 
 
     /**
-     * Get the value of createdAt
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -166,7 +167,7 @@ class User implements UserInterface
 
 
     /**
-     * Get the value of token
+     * @return mixed
      */
     public function getToken()
     {
@@ -201,13 +202,15 @@ class User implements UserInterface
         $this->password = $password;
     }
 
+
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getTricks()
     {
         return $this->tricks;
     }
+
 
     /**
      * @return mixed
@@ -217,6 +220,7 @@ class User implements UserInterface
         return $this->comments;
     }
 
+
     /**
      * @return mixed
      */
@@ -225,6 +229,9 @@ class User implements UserInterface
         return $this->profilImage;
     }
 
+    /**
+     * @param UuidInterface $id
+     */
     public function setId(UuidInterface $id)
     {
         $this->id = $id;
@@ -233,15 +240,15 @@ class User implements UserInterface
     /**
      * @param string $username
      */
-    public function setUsername(string $username): void
+    public function setUsername(string $username)
     {
         $this->username = $username;
     }
 
     /**
-     * @param mixed $password
+     * @param string $password
      */
-    public function setPassword($password): void
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
@@ -265,7 +272,7 @@ class User implements UserInterface
     /**
      * @param string $token
      */
-    public function setToken(string $token): void
+    public function setToken(string $token)
     {
         $this->token = $token;
     }
@@ -273,7 +280,7 @@ class User implements UserInterface
     /**
      * @param array $roles
      */
-    public function setRoles(array $roles): void
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
     }
@@ -281,12 +288,15 @@ class User implements UserInterface
     /**
      * @param string $resetPasswordToken
      */
-    public function setResetPasswordToken(string $resetPasswordToken): void
+    public function setResetPasswordToken(string $resetPasswordToken)
     {
         $this->resetPasswordToken = $resetPasswordToken;
     }
 
 
+    /**
+     * @param $comments
+     */
     public function setComments($comments)
     {
         $this->comments = $comments;
@@ -295,7 +305,7 @@ class User implements UserInterface
     /**
      * @param ArrayCollection $tricks
      */
-    public function setTricks(ArrayCollection $tricks): void
+    public function setTricks(ArrayCollection $tricks)
     {
         $this->tricks = $tricks;
     }
@@ -304,7 +314,7 @@ class User implements UserInterface
     /**
      * @param $profilImage
      */
-    public function setProfilImage($profilImage): void
+    public function setProfilImage($profilImage)
     {
         $this->profilImage = $profilImage;
     }

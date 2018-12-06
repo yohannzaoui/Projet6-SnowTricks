@@ -21,7 +21,7 @@ class Slugger implements SluggerInterface
      * @param string $string
      * @return mixed|string
      */
-    public function createSlug(string $string)
+    public function createSlug(string $string): string
     {
          return strtolower(str_replace(' ', '-', $string));
     }

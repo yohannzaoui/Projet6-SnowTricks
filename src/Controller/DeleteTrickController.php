@@ -123,16 +123,17 @@ class DeleteTrickController implements DeleteTrickControllerInterface
 
             $trick = $this->trickRepository->getTrick($request->attributes->get('id'));
 
+            $defaultImage = $trick->getDefaultImage()->getUrl();
+
             if (!$trick) {
                 throw new NonUniqueResultException("Ce Trick n'éxiste pas");
             }
 
             $files = $this->imageRepository->checkImages($request->attributes->get('id'));
 
-            //foreach ($file as $defaultImage) {
-              // $this->fileRemover->deleteFile($defaultImage);
-            //}
-
+            $this->eventDispatcher->dispatch(
+                FileRemoverEvent::NAME,
+                new FileRemoverEvent($this->fileRemover, $defaultImage));
 
             foreach ($files as $a => $urls) {
                 foreach ($urls as $url) {

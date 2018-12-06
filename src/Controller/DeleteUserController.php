@@ -99,7 +99,7 @@ class DeleteUserController implements DeleteUserControllerInterface
             $user = $this->userRepository->getUser($request->attributes->get('id'));
 
             if (!$user) {
-                throw new NonUniqueResultException($error = 'Utilisateur inconnu');
+                throw new NonUniqueResultException('Utilisateur inconnu');
             }
 
             if (!is_null($user->getProfilImage())) {

@@ -19,5 +19,5 @@ interface SluggerInterface
      * @param string $string
      * @return mixed
      */
-    public function createSlug(string $string);
+    public function createSlug(string $string): string;
 }

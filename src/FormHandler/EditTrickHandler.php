@@ -117,6 +117,10 @@ class EditTrickHandler implements EditTrickHandlerInterface
 
                         if (!is_null($image->getFile())) {
 
+                            $this->eventDispatcher->dispatch(
+                                FileRemoverEvent::NAME,
+                                new FileRemoverEvent($this->fileRemover, $image->getUrl()));
+
                         $images = $this->fileUploader->upload($image->getFile());
                         $image->setUrl($images);
                         $image->setTrick($trick);

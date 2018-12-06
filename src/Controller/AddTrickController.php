@@ -87,6 +87,7 @@ class AddTrickController implements AddTrickControllerInterface
     public function index(Request $request)
     {
         $trick = new Trick();
+
         $author = $this->tokenStorage->getToken()->getUser();
 
         $form = $this->formFactory->create(AddTrickType::class, $trick)
