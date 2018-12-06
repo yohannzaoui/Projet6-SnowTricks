@@ -19,6 +19,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * Class DeleteUserControllerTest
+ * @package App\Tests\Controller
+ */
 class DeleteUserControllerTest extends KernelTestCase
 {
     /**

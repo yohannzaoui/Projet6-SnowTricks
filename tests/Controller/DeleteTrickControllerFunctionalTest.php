@@ -11,6 +11,10 @@ namespace App\Tests\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class DeleteTrickControllerFunctionalTest
+ * @package App\Tests\Controller
+ */
 class DeleteTrickControllerFunctionalTest extends WebTestCase
 {
     /**

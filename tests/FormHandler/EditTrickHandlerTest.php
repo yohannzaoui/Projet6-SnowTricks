@@ -17,6 +17,9 @@ use App\Services\FileUploader;
 use App\Services\Interfaces\SluggerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormInterface;
+use App\Entity\User;
+use App\Entity\Trick;
 
 /**
  * Class EditTrickHandlerTest
@@ -88,5 +91,51 @@ class EditTrickHandlerTest extends TestCase
             EditTrickHandlerInterface::class,
             $editTrickHandler
         );
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function testHandlerIfIsTrue()
+    {
+        $form = $this->createMock(FormInterface::class);
+        $author = $this->createMock(User::class);
+        $trick = $this->createMock(Trick::class);
+
+        $editTrickHandler = new EditTrickHandler(
+            $this->fileUploader,
+            $this->trickRepository,
+            $this->slugger,
+            $this->eventDispatcher,
+            $this->fileRemover
+        );
+
+        static::assertTrue(true, $editTrickHandler->handle(
+            $form, $author, $trick
+        ));
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function testHandlerIfIsFalse()
+    {
+        $form = $this->createMock(FormInterface::class);
+        $author = $this->createMock(User::class);
+        $trick = $this->createMock(Trick::class);
+
+        $editTrickHandler = new EditTrickHandler(
+            $this->fileUploader,
+            $this->trickRepository,
+            $this->slugger,
+            $this->eventDispatcher,
+            $this->fileRemover
+        );
+
+        static::assertFalse(false, $editTrickHandler->handle(
+            $form, $author, $trick
+        ));
     }
 }

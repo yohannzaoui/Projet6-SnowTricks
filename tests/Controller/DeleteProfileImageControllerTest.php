@@ -19,7 +19,10 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-
+/**
+ * Class DeleteProfileImageControllerTest
+ * @package App\Tests\Controller
+ */
 class DeleteProfileImageControllerTest extends KernelTestCase
 {
     /**

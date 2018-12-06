@@ -18,6 +18,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * Class DeleteCategoryControllerTest
+ * @package App\Tests\Controller
+ */
 class DeleteCategoryControllerTest extends KernelTestCase
 {
     /**

@@ -9,12 +9,18 @@
 namespace App\Tests\FormHandler;
 
 
+use App\Entity\Category;
 use App\FormHandler\CategoryHandler;
 use App\FormHandler\Interfaces\CategoryHandlerInterface;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Form\FormInterface;
 
+/**
+ * Class CategoryHandlerTest
+ * @package App\Tests\FormHandler
+ */
 class CategoryHandlerTest extends WebTestCase
 {
     /**
@@ -49,8 +55,43 @@ class CategoryHandlerTest extends WebTestCase
         static::assertInstanceOf(CategoryHandlerInterface::class, $categoryHandler);
     }
 
-    /*public function testIfFormIsSubmited()
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function testHandlerIfIsTrue()
     {
-        $this->assertTrue();
-    }*/
+
+        $category = $this->createMock(Category::class);
+        $form = $this->createMock(FormInterface::class);
+
+        $categoryHandler = new CategoryHandler(
+            $this->categoryRepository,
+            $this->messageFlash
+        );
+
+        static::assertTrue(true, $categoryHandler->handle(
+            $form, $category
+        ));
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function testHandlerIfIsFalse()
+    {
+
+        $category = $this->createMock(Category::class);
+        $form = $this->createMock(FormInterface::class);
+
+        $categoryHandler = new CategoryHandler(
+            $this->categoryRepository,
+            $this->messageFlash
+        );
+
+        static::assertFalse(false, $categoryHandler->handle(
+            $form, $category
+        ));
+    }
 }

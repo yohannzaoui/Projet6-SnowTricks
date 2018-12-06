@@ -8,14 +8,21 @@
 
 namespace App\Tests\FormHandler;
 
+use App\Entity\Trick;
+use App\Entity\User;
 use App\FormHandler\AddTrickHandler;
 use App\FormHandler\Interfaces\AddTrickHandlerInterface;
 use App\Services\FileUploader;
 use App\Repository\TrickRepository;
 use App\Services\Interfaces\SluggerInterface;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Form\FormInterface;
 
-class AddTrickHandlerTest extends TestCase
+/**
+ * Class AddTrickHandlerTest
+ * @package App\Tests\FormHandler
+ */
+class AddTrickHandlerTest extends KernelTestCase
 {
     /**
      * @var FileUploader
@@ -32,6 +39,9 @@ class AddTrickHandlerTest extends TestCase
      */
     private $slugger;
 
+    /**
+     *
+     */
     public function setUp()
     {
         $this->fileUploader = $this->createMock(FileUploader::class);
@@ -39,6 +49,9 @@ class AddTrickHandlerTest extends TestCase
         $this->slugger = $this->createMock(SluggerInterface::class);
     }
 
+    /**
+     *
+     */
     public function testConstruct()
     {
         $addTrickHandler = new AddTrickHandler(
@@ -51,5 +64,49 @@ class AddTrickHandlerTest extends TestCase
             AddTrickHandlerInterface::class,
             $addTrickHandler
         );
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function testHandlerIfIsTrue()
+    {
+
+        $trick = $this->createMock(Trick::class);
+        $author = $this->createMock(User::class);
+        $form = $this->createMock(FormInterface::class);
+
+        $addTrickHandler = new AddTrickHandler(
+            $this->fileUploader,
+            $this->trickRepository,
+            $this->slugger
+        );
+
+        static::assertTrue(true, $addTrickHandler->handle(
+            $trick, $author, $form
+        ));
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function testHandlerIfIsFalse()
+    {
+
+        $trick = $this->createMock(Trick::class);
+        $author = $this->createMock(User::class);
+        $form = $this->createMock(FormInterface::class);
+
+        $addTrickHandler = new AddTrickHandler(
+            $this->fileUploader,
+            $this->trickRepository,
+            $this->slugger
+        );
+
+        static::assertFalse(false, $addTrickHandler->handle(
+            $trick, $author, $form
+        ));
     }
 }

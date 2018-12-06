@@ -17,6 +17,7 @@ use App\Services\Interfaces\FileUploaderInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class ProfilTypeHandlerTest
@@ -89,5 +90,51 @@ class ProfilTypeHandlerTest extends TestCase
             ProfilTypeHandlerInterface::class,
             $profilTypeHandler
         );
+    }
+
+    /**
+     *
+     */
+    public function testHandlerIsTrue()
+    {
+        $form = $this->createMock(FormInterface::class);
+        $idUser = '123456';
+        $imageUser = '/public/upload/image.jpg';
+
+        $profilTypeHandler = new ProfilTypeHandler(
+            $this->fileUploader,
+            $this->messageFlash,
+            $this->userRepository,
+            $this->fileRemover,
+            $this->eventDispatcher
+
+        );
+
+        static::assertTrue(true, $profilTypeHandler->handle(
+            $form, $idUser, $imageUser
+        ));
+    }
+
+    /**
+     *
+     */
+    public function testHandlerIsFalse()
+    {
+        $form = $this->createMock(FormInterface::class);
+        $idUser = '123456';
+        $imageUser = '/public/upload/image.jpg';
+
+        $profilTypeHandler = new ProfilTypeHandler(
+            $this->fileUploader,
+            $this->messageFlash,
+            $this->userRepository,
+            $this->fileRemover,
+            $this->eventDispatcher
+
+        );
+
+        static::assertFalse(false, $profilTypeHandler->handle(
+            $form, $idUser, $imageUser
+        ));
     }
 }

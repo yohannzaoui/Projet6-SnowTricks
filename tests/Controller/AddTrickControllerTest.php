@@ -19,6 +19,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig\Environment;
 
+/**
+ * Class AddTrickControllerTest
+ * @package App\Tests\Controller
+ */
 class AddTrickControllerTest extends KernelTestCase
 {
 
@@ -81,6 +85,22 @@ class AddTrickControllerTest extends KernelTestCase
         );
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function testRedirectResponse()
+    {
+        $request = $this->createMock(Request::class);
 
+        $addTrickController = new AddTrickController(
+            $this->addTrickHandler,
+            $this->tokenStorage,
+            $this->twig,
+            $this->formFactory,
+            $this->urlGenerator
+        );
+
+        static::assertSame(RedirectResponse::class, $addTrickController->index($request));
+    }
 
 }

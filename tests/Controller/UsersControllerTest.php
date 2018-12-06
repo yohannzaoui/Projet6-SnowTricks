@@ -16,6 +16,10 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
+/**
+ * Class UsersControllerTest
+ * @package App\Tests\Controller
+ */
 class UsersControllerTest extends KernelTestCase
 {
     /**
@@ -57,8 +61,18 @@ class UsersControllerTest extends KernelTestCase
         );
     }
 
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function testIndexResponse()
     {
+        $usersController = new UsersController(
+            $this->userRepository,
+            $this->twig
+        );
 
+        static::assertSame(Response::class, $usersController->index());
     }
 }

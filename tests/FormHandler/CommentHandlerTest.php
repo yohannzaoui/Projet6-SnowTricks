@@ -9,11 +9,15 @@
 namespace App\Tests\FormHandler;
 
 
+use App\Entity\Comment;
+use App\Entity\Trick;
+use App\Entity\User;
 use App\FormHandler\CommentHandler;
 use App\FormHandler\Interfaces\CommentHandlerInterface;
 use App\Repository\CommentRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class CommentHandlerTest
@@ -33,6 +37,9 @@ class CommentHandlerTest extends TestCase
      */
     private $messageFlash;
 
+    /**
+     *
+     */
     public function setUp()
     {
         $this->commentRepository = $this->createMock(CommentRepository::class);
@@ -50,5 +57,47 @@ class CommentHandlerTest extends TestCase
         );
 
         static::assertInstanceOf(CommentHandlerInterface::class, $commentHandler);
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function testHandlerIfIsTrue()
+    {
+        $comment = $this->createMock(Comment::class);
+        $form = $this->createMock(FormInterface::class);
+        $user = $this->createMock(User::class);
+        $trick = $this->createMock(Trick::class);
+
+        $commentHandler = new CommentHandler(
+            $this->commentRepository,
+            $this->messageFlash
+        );
+
+        static::assertTrue(true, $commentHandler->handle(
+            $form, $user, $trick, $comment
+        ));
+    }
+
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function testHandlerIfIsFalse()
+    {
+        $comment = $this->createMock(Comment::class);
+        $form = $this->createMock(FormInterface::class);
+        $user = $this->createMock(User::class);
+        $trick = $this->createMock(Trick::class);
+
+        $commentHandler = new CommentHandler(
+            $this->commentRepository,
+            $this->messageFlash
+        );
+
+        static::assertFalse(false, $commentHandler->handle(
+            $form, $user, $trick, $comment
+        ));
     }
 }

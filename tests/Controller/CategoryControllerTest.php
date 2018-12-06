@@ -18,6 +18,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
+/**
+ * Class CategoryControllerTest
+ * @package App\Tests\Controller
+ */
 class CategoryControllerTest extends KernelTestCase
 {
     /**

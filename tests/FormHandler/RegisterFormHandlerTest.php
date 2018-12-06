@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Services\Interfaces\EncoderInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class RegisterFormHandlerTest
@@ -108,5 +109,49 @@ class RegisterFormHandlerTest extends TestCase
             RegisterFormHandlerInterface::class,
             $registerFormHandler
             );
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testHandlerIsTrue()
+    {
+        $form = $this->createMock(FormInterface::class);
+
+        $registerFormHandler = new RegisterFormHandler(
+            $this->fileUploader,
+            $this->encoder,
+            $this->userRepository,
+            $this->emailer,
+            $this->messageFlash,
+            $this->eventDispatcher,
+            $this->tokenService
+        );
+
+        static::assertTrue(true, $registerFormHandler->handle(
+            $form
+        ));
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testHandlerIsFalse()
+    {
+        $form = $this->createMock(FormInterface::class);
+
+        $registerFormHandler = new RegisterFormHandler(
+            $this->fileUploader,
+            $this->encoder,
+            $this->userRepository,
+            $this->emailer,
+            $this->messageFlash,
+            $this->eventDispatcher,
+            $this->tokenService
+        );
+
+        static::assertFalse(false, $registerFormHandler->handle(
+            $form
+        ));
     }
 }

@@ -20,6 +20,10 @@ use Twig\Environment;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * Class DeleteTrickControllerTest
+ * @package App\Tests\Controller
+ */
 class DeleteTrickControllerTest extends KernelTestCase
 {
     /**

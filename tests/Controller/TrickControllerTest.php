@@ -20,6 +20,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+/**
+ * Class TrickControllerTest
+ * @package App\Tests\Controller
+ */
 class TrickControllerTest extends KernelTestCase
 {
     /**

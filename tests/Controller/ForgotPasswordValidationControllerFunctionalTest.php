@@ -12,6 +12,10 @@ namespace App\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ForgotPasswordValidationControllerFunctionalTest
+ * @package App\Tests\Controller
+ */
 class ForgotPasswordValidationControllerFunctionalTest extends WebTestCase
 {
 
