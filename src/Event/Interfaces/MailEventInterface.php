@@ -11,13 +11,13 @@ namespace App\Event\Interfaces;
 use App\Services\Interfaces\EmailerInterface;
 
 /**
- * Interface RegisterMailEventInterface
+ * Interface MailEventInterface
  * @package App\Event\Interfaces
  */
-interface RegisterMailEventInterface
+interface MailEventInterface
 {
     /**
-     * RegisterMailEventInterface constructor.
+     * MailEventInterface constructor.
      * @param EmailerInterface $emailer
      * @param $email
      * @param $token

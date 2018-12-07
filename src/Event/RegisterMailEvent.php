@@ -17,7 +17,7 @@ use App\Services\Interfaces\EmailerInterface;
  * Class RegisterMailEvent
  * @package App\Event
  */
-class RegisterMailEvent extends Event implements RegisterMailEventInterface
+class RegisterMailEvent extends Event implements MailEventInterface
 {
     /**
      *

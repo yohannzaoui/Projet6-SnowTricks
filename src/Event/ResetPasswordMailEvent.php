@@ -13,7 +13,11 @@ use App\Event\Interfaces\ResetPasswordMailEventInterface;
 use Symfony\Component\EventDispatcher\Event;
 use App\Services\Interfaces\EmailerInterface;
 
-class ResetPasswordMailEvent extends Event implements ResetPasswordMailEventInterface
+/**
+ * Class ResetPasswordMailEvent
+ * @package App\Event
+ */
+class ResetPasswordMailEvent extends Event implements MailEventInterface
 {
 
     /**
