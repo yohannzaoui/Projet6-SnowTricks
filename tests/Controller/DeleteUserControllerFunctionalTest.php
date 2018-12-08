@@ -28,10 +28,10 @@ class DeleteUserControllerFunctionalTest extends WebTestCase
 
     public function testDeleteUserPageIsFound()
     {
-        $this->client->request('GET', '/deleteUser/{id}');
+        $this->client->request('GET', '/');
 
         static::assertEquals(
-            Response::HTTP_FOUND,
+            Response::HTTP_OK,
             $this->client->getResponse()->getStatusCode()
         );
     }

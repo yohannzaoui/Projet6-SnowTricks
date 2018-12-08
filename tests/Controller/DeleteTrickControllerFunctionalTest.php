@@ -35,37 +35,18 @@ class DeleteTrickControllerFunctionalTest extends WebTestCase
     /**
      *
      */
-    /*public function testDeleteTrickConfirmePageIsFound()
+    public function testDeleteTrickConfirmePageIsFound()
     {
         $this->client->request('GET', '/confirmeDeleteTrick/{id}');
 
-        $trick = $this->createMock(Trick::class);
+/*        $trick = $this->createMock(Trick::class);
         $trick
             ->method('getDefaultImage')
-            ->willReturn('getUrl');
+            ->willReturn('getUrl');*/
 
         static::assertEquals(
             Response::HTTP_OK,
             $this->client->getResponse()->getStatusCode()
         );
-    }*/
-
-
-    /*public function testDeleteTrickUrl()
-    {
-        $this->client->request('GET', '/delete/{id}');
-
-        $trick = $this->createMock(Trick::class);
-        $trick->method('getDefaultImage')
-            ->willReturn('defaultImage');
-        $trickRepository = $this->createMock(TrickRepository::class);
-        $trickRepository->method('getTrick')
-            ->willReturn($trick);
-
-
-        static::assertEquals(
-            Response::HTTP_FOUND,
-            $this->client->getResponse()->getStatusCode()
-        );
-    }*/
+    }
 }

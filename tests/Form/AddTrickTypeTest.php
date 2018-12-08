@@ -11,6 +11,8 @@ namespace App\Tests\Form;
 
 use App\Entity\Trick;
 use App\Form\AddTrickType;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Ramsey\Uuid\UuidInterface;
 
@@ -20,33 +22,40 @@ class AddTrickTypeTest extends TypeTestCase
     {
         $uuid = $this->createMock(UuidInterface::class);
 
+        $arrayCollection = $this->createMock(ArrayCollection::class);
+
         $formData = [
             'id' => $uuid,
             'name' => 'test',
             'description' => 'description',
             'defaultImage' => 'defaultImage',
-            'images' => [
-                'image1' => 'image1',
-                'image2' => 'image2'
-            ],
-            'videos' => [
-                'video1' => 'video1',
-                'video2' => 'video2'
-            ],
-            'category' => 'catTest'
+            'images' => $arrayCollection,
+            'videos' => $arrayCollection,
+            'comment' => $arrayCollection,
+            'author' => 'author',
+            'category' => 'catTest',
+            'createdAt' => new \DateTime(),
+            'updatedAt' => '',
+            'slug' => 'slug'
+
         ];
 
         $trickToCompare = $this->createMock(Trick::class);
 
         $form = $this->factory->create(AddTrickType::class, $trickToCompare);
 
+        $collection = $this->createMock(ArrayCollection::class);
+
         $trick = $this->createMock(Trick::class);
         $trick->setId($uuid);
         $trick->setName('trick');
         $trick->setDescription('description');
         $trick->setDefaultImage('defaultImage');
-        $trick->addImage('image');
-        $trick->addVideo('video');
+        $trick->addImage($collection);
+        $trick->addVideo($collection);
+        $trick->setComment($collection);
+        $trick->setAuthor('author');
+
         $trick->setCategory('catTest');
 
         $form->submit($formData);

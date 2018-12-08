@@ -36,7 +36,7 @@ class RegisterTypeTest extends TypeTestCase
                 'second' => 'pass'
             ],
             'email' => 'email@mail.com',
-            'profilImage' => 'image'
+            'profileImage' => 'image'
         ];
 
         $userToCompare = $this->createMock(User::class);
@@ -48,7 +48,7 @@ class RegisterTypeTest extends TypeTestCase
         $user->setUsername('username');
         $user->setPassword('pass');
         $user->setEmail('email@mail.com');
-        $user->setProfilImage('image');
+        $user->setProfileImage('image');
         $user->setRoles(['ROLE_USER']);
         $user->setCreatedAt($date);
 

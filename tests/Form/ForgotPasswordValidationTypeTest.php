@@ -43,7 +43,7 @@ class ForgotPasswordValidationTypeTest extends TypeTestCase
         $user->setUsername('username');
         $user->setPassword('pass');
         $user->setEmail('email@mail.com');
-        $user->setProfilImage('image');
+        $user->setProfileImage('image');
         $user->setRoles(['ROLE_USER']);
         $user->setCreatedAt($date);
 

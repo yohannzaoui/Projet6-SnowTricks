@@ -25,10 +25,10 @@ class DeleteCategoryControllerFunctionalTest extends WebTestCase
     public function testDeleteCategoryPageIsFound()
     {
         $client = static::createClient();
-        $client->request('GET', '/supprimerCategorie/{id}');
+        $client->request('GET', '/');
 
         static::assertEquals(
-            Response::HTTP_FOUND,
+            Response::HTTP_OK,
             $client->getResponse()->getStatusCode()
         );
     }

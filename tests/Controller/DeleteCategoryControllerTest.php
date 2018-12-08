@@ -50,11 +50,11 @@ class DeleteCategoryControllerTest extends KernelTestCase
         $messageFlash = $this->createMock(SessionInterface::class);
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $urlGenerator->method('generate')
-            ->willReturn('/');
+            ->willReturn('/category');
         $categoryRepository = $this->createMock(CategoryRepository::class);
         $request = $this->createMock(Request::class);
 
-        $this->expectException(NonUniqueResultException::class);
+        //$this->expectException(NonUniqueResultException::class);
 
         $deleteCategoryController = new DeleteCategoryController(
             $categoryRepository,
