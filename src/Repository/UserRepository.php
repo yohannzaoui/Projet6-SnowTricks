@@ -38,11 +38,11 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function checkProfilImage($image)
+    public function checkProfileImage($image)
     {
         return $this->createQueryBuilder('u')
-                    ->select('u.profilImage')
-                    ->where('u.profilImage = ?1')
+                    ->select('u.profileImage')
+                    ->where('u.profileImage = ?1')
                     ->setParameter(1, $image)
                     ->getQuery()
                     ->getOneOrNullResult();
@@ -51,16 +51,16 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
 
     /**
-     * @param $profilImage
+     * @param $profileImage
      * @param $username
      */
-    public function updateProfilImage($profilImage, $id)
+    public function updateProfileImage($profileImage, $id)
     {
         $qb = $this->createQueryBuilder('u');
         $qb->update(User::class, 'u')
-            ->set('u.profilImage', '?1')
+            ->set('u.profileImage', '?1')
             ->where('u.id = ?2')
-            ->setParameter(1, $profilImage)
+            ->setParameter(1, $profileImage)
             ->setParameter(2, $id);
         $q = $qb->getQuery();
         $q->execute();

@@ -98,7 +98,6 @@ class AddTrickHandler implements AddTrickHandlerInterface
 
                 foreach ($videosCollection as $b => $video) {
 
-                    //dd($videosCollection);
                     $videos[] = $video->getUrl();
                     $video->setTrick($trick);
 

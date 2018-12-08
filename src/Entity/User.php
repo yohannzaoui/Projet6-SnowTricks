@@ -68,7 +68,7 @@ class User implements UserInterface
     /**
      * @var
      */
-    private $profilImage;
+    private $profileImage;
 
 
     /**
@@ -224,9 +224,9 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getProfilImage()
+    public function getProfileImage()
     {
-        return $this->profilImage;
+        return $this->profileImage;
     }
 
     /**
@@ -312,11 +312,11 @@ class User implements UserInterface
 
 
     /**
-     * @param $profilImage
+     * @param $profileImage
      */
-    public function setProfilImage($profilImage)
+    public function setProfileImage($profileImage)
     {
-        $this->profilImage = $profilImage;
+        $this->profileImage = $profileImage;
     }
 
 

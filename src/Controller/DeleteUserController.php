@@ -94,19 +94,19 @@ class DeleteUserController implements DeleteUserControllerInterface
      */
     public function index(Request $request)
     {
-        if ($request->attributes->get('id')) {
+        if ($request->get('id')) {
 
-            $user = $this->userRepository->getUser($request->attributes->get('id'));
+            $user = $this->userRepository->getUser($request->get('id'));
 
             if (!$user) {
                 throw new NonUniqueResultException('Utilisateur inconnu');
             }
 
-            if (!is_null($user->getProfilImage())) {
+            if (!is_null($user->getProfileImage())) {
 
                 $this->eventDispatcher->dispatch(
                     FileRemoverEvent::NAME,
-                    new FileRemoverEvent($this->fileRemover, $user->getProfilImage()));
+                    new FileRemoverEvent($this->fileRemover, $user->getProfileImage()));
             }
 
             $this->userRepository->delete($user);

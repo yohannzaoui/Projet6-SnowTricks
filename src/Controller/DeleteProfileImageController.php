@@ -80,11 +80,11 @@ class DeleteProfileImageController implements DeleteProfileImageControllerInterf
      */
     public function index()
     {
-        $profileImage = $this->tokenStorage->getToken()->getUser()->getProfilImage();
+        $profileImage = $this->tokenStorage->getToken()->getUser()->getProfileImage();
 
         $this->fileRemover->deleteFile($profileImage);
 
-        $this->tokenStorage->getToken()->getUser()->setProfilImage(null);
+        $this->tokenStorage->getToken()->getUser()->setProfileImage(null);
 
         $this->userRepository->update();
 

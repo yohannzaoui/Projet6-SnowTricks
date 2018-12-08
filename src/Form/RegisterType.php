@@ -44,7 +44,7 @@ class RegisterType extends AbstractType implements TypeInterface
                 'second_options' => ['label' => 'Confirmez votre mot de passe*'],
             ])
 
-            ->add('profilImage', FileType::class, [
+            ->add('profileImage', FileType::class, [
                 'required' => false,
                 'attr' => [
                     'accept' => '.png'
