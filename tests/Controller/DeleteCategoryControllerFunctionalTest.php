@@ -27,7 +27,7 @@ class DeleteCategoryControllerFunctionalTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/supprimerCategorie/{id}');
 
-        static::assertSame(
+        static::assertEquals(
             Response::HTTP_FOUND,
             $client->getResponse()->getStatusCode()
         );

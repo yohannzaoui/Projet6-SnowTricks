@@ -9,7 +9,7 @@
 namespace App\Tests\Event;
 
 
-use App\Event\Interfaces\RegisterMailEventInterface;
+use App\Event\Interfaces\MailEventInterface;
 use App\Event\RegisterMailEvent;
 use App\Services\Interfaces\EmailerInterface;
 use PHPUnit\Framework\TestCase;
@@ -62,7 +62,7 @@ class RegisterMailEventTest extends TestCase
         );
 
         static::assertInstanceOf(
-          RegisterMailEventInterface::class,
+          MailEventInterface::class,
           $registerMailEvent
         );
     }

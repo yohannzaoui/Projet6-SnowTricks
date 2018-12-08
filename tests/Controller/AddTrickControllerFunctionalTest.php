@@ -52,8 +52,8 @@ class AddTrickControllerFunctionalTest extends WebTestCase
         $form['add_trick[name]'] = 'trick';
         $form['add_trick[category]'] = 'category';
         $form['add_trick[defaultImage]'] = 'image.jpg';
-        $form['add_trick[images][0][file]'] = 'image.jpg';
-        $form['add_trick[videos][0][url'] = 'video';
+        $form['add_trick[images]'] = 'image.jpg';
+        $form['add_trick[videos]'] = 'video';
         $form['add_trick[description]'] = 'description';
 
         $crawler = $this->client->submit($form);

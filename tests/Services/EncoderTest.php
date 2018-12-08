@@ -12,6 +12,7 @@ namespace App\Tests\Services;
 use App\Services\Encoder;
 use App\Services\Interfaces\EncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
  * Class EncoderTest
@@ -30,7 +31,7 @@ class EncoderTest extends KernelTestCase
     public function testConstruct()
     {
         static::bootKernel();
-        $this->encoder = static::$kernel->getContainer()->get('security.encoder_factory');
+        $this->encoder = $this->createMock(EncoderFactoryInterface::class);
 
         $encode = new Encoder(
             $this->encoder

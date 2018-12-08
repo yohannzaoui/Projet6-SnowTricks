@@ -12,7 +12,7 @@ namespace App\Tests\Controller;
 use App\Controller\ConfirmeRegisterController;
 use App\Controller\Interfaces\ConfirmeRegisterControllerInterface;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -24,37 +24,8 @@ use Symfony\Component\HttpFoundation\Response;
  * Class ConfirmeRegisterControllerTest
  * @package App\Tests\Controller
  */
-class ConfirmeRegisterControllerTest extends KernelTestCase
+class ConfirmeRegisterControllerTest extends TestCase
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
-     * @var SessionInterface
-     */
-    private $messageFlash;
-
-    /**
-     * @var Environment
-     */
-    private $twig;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    public function setUp()
-    {
-        static::bootKernel();
-
-        $this->twig = static::$kernel->getContainer()->get('twig');
-        $this->messageFlash = static::$kernel->getContainer()->get('session');
-        $this->urlGenerator = static::$kernel->getContainer()->get('router');
-        $this->userRepository = $this->createMock(UserRepository::class);
-    }
 
     /**
      *
@@ -62,11 +33,16 @@ class ConfirmeRegisterControllerTest extends KernelTestCase
     public function testConstruct()
     {
 
+        $userRepository = $this->createMock(UserRepository::class);
+        $messageFlash = $this->createMock(SessionInterface::class);
+        $twig = $this->createMock(Environment::class);
+        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+
         $confirmeRegisterController = new ConfirmeRegisterController(
-          $this->userRepository,
-          $this->messageFlash,
-          $this->twig,
-          $this->urlGenerator
+          $userRepository,
+          $messageFlash,
+          $twig,
+          $urlGenerator
         );
 
         static::assertInstanceOf(
@@ -76,20 +52,6 @@ class ConfirmeRegisterControllerTest extends KernelTestCase
     }
 
 
-    public function testRedirection()
-    {
-        $request = $this->createMock(Request::class);
-
-        $confirmeRegisterController = new ConfirmeRegisterController(
-            $this->userRepository,
-            $this->messageFlash,
-            $this->twig,
-            $this->urlGenerator
-        );
-
-        static::assertSame(RedirectResponse::class, $confirmeRegisterController->index($request));
-    }
-
     /**
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\ORMException
@@ -98,18 +60,27 @@ class ConfirmeRegisterControllerTest extends KernelTestCase
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function testResponse()
+    public function testIndexResponse()
     {
         $request = $this->createMock(Request::class);
+        $userRepository = $this->createMock(UserRepository::class);
+        $messageFlash = $this->createMock(SessionInterface::class);
+        $twig = $this->createMock(Environment::class);
+        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator
+            ->method('generate')
+            ->willReturn('/login');
 
         $confirmeRegisterController = new ConfirmeRegisterController(
-            $this->userRepository,
-            $this->messageFlash,
-            $this->twig,
-            $this->urlGenerator
+            $userRepository,
+            $messageFlash,
+            $twig,
+            $urlGenerator
         );
 
-        static::assertSame(Response::class, $confirmeRegisterController->index($request));
+            $this->assertInstanceOf(
+                Response::class,
+                $confirmeRegisterController->index($request)
+            );
     }
-
 }

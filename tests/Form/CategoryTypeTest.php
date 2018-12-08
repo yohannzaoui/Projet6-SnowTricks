@@ -29,7 +29,7 @@ class CategoryTypeTest extends TypeTestCase
 
         $formData = [
           'id' => $uuid,
-          'name' => 'test'
+          'name' => 'test',
         ];
 
         $categoryToCompare = $this->createMock(Category::class);

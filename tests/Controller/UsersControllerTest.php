@@ -12,7 +12,8 @@ namespace App\Tests\Controller;
 use App\Controller\Interfaces\UsersControllerInterface;
 use App\Controller\UsersController;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
@@ -20,7 +21,7 @@ use Twig\Environment;
  * Class UsersControllerTest
  * @package App\Tests\Controller
  */
-class UsersControllerTest extends KernelTestCase
+class UsersControllerTest extends TestCase
 {
     /**
      * @var UserRepository
@@ -61,18 +62,15 @@ class UsersControllerTest extends KernelTestCase
         );
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testIndexResponse()
     {
+        $request = $this->createMock(Request::class);
+
         $usersController = new UsersController(
             $this->userRepository,
             $this->twig
         );
 
-        static::assertSame(Response::class, $usersController->index());
+        static::assertInstanceOf(Response::class, $usersController->index($request));
     }
 }

@@ -9,7 +9,7 @@
 namespace App\Tests\Event;
 
 
-use App\Event\Interfaces\ResetPasswordMailEventInterface;
+use App\Event\Interfaces\MailEventInterface;
 use App\Event\ResetPasswordMailEvent;
 use App\Services\Interfaces\EmailerInterface;
 use PHPUnit\Framework\TestCase;
@@ -58,7 +58,7 @@ class ResetPasswordMailEventTest extends TestCase
         );
 
         static::assertInstanceOf(
-          ResetPasswordMailEventInterface::class,
+          MailEventInterface::class,
           $resetPasswordMailEvent
         );
     }

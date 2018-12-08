@@ -13,10 +13,11 @@ use App\Controller\DeleteCategoryController;
 use App\Controller\Interfaces\DeleteCategoryControllerInterface;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * Class DeleteCategoryControllerTest
@@ -24,43 +25,21 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class DeleteCategoryControllerTest extends KernelTestCase
 {
-    /**
-     * @var CategoryRepository
-     */
-    private $categoryRepository;
 
-    /**
-     * @var SessionInterface
-     */
-    private $messageFlash;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    /**
-     *
-     */
-    public function setUp()
-    {
-        static::bootKernel();
-
-        $this->messageFlash = static::$kernel->getContainer()->get('session');
-        $this->urlGenerator = static::$kernel->getContainer()->get('router');
-        $this->categoryRepository = $this->createMock(CategoryRepository::class);
-    }
 
     /**
      *
      */
     public function testConstruct()
     {
+        $messageFlash = $this->createMock(SessionInterface::class);
+        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $categoryRepository = $this->createMock(CategoryRepository::class);
 
         $deleteCategoryController = new DeleteCategoryController(
-            $this->categoryRepository,
-            $this->messageFlash,
-            $this->urlGenerator
+            $categoryRepository,
+            $messageFlash,
+            $urlGenerator
         );
 
         static::assertInstanceOf(DeleteCategoryControllerInterface::class, $deleteCategoryController);
@@ -68,16 +47,24 @@ class DeleteCategoryControllerTest extends KernelTestCase
 
     public function testWrongIdCategory()
     {
-        $request = Request::create('/supprimerCategorie/{id}','GET');
+        $messageFlash = $this->createMock(SessionInterface::class);
+        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator->method('generate')
+            ->willReturn('/');
+        $categoryRepository = $this->createMock(CategoryRepository::class);
+        $request = $this->createMock(Request::class);
+
+        $this->expectException(NonUniqueResultException::class);
 
         $deleteCategoryController = new DeleteCategoryController(
-            $this->categoryRepository,
-            $this->messageFlash,
-            $this->urlGenerator
+            $categoryRepository,
+            $messageFlash,
+            $urlGenerator
         );
 
-        $this->expectException('NonUniqueResultException');
-
-        $deleteCategoryController->index($request);
+        static::assertInstanceOf(
+            RedirectResponse::class,
+            $deleteCategoryController->index($request)
+        );
     }
 }
