@@ -5,16 +5,15 @@ namespace App\Form;
 use App\Entity\User;
 use App\Form\Interfaces\TypeInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
- * Class ImageProfilType
+ * Class ImageProfileType
  * @package App\Form
  */
-class ImageProfilType extends AbstractType implements TypeInterface
+class ImageProfileType extends AbstractType implements TypeInterface
 {
     /**
      * @param FormBuilderInterface $builder
@@ -24,8 +23,8 @@ class ImageProfilType extends AbstractType implements TypeInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('profilImage', FileType::class, [
-                'label' => 'Change ton image de profile (image au format PNG)',
+            ->add('profileImage', FileType::class, [
+                'label' => 'Change ton image de profil (image au format PNG)',
                 'attr' => [
                     'accept' => '.png'
                 ]

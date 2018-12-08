@@ -16,13 +16,13 @@ use App\Services\Interfaces\FileRemoverInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Interfaces ProfilTypeHandlerInterface
+ * Interfaces ProfileTypeHandlerInterface
  * @package App\FormHandler\Interfaces
  */
-interface ProfilTypeHandlerInterface
+interface ProfileTypeHandlerInterface
 {
     /**
-     * ProfilTypeHandlerInterface constructor.
+     * ProfileTypeHandlerInterface constructor.
      * @param FileUploaderInterface $fileUploader
      * @param SessionInterface $messageFlash
      * @param UserRepository $userRepository
@@ -40,9 +40,9 @@ interface ProfilTypeHandlerInterface
 
     /**
      * @param FormInterface $form
-     * @param $iduser
+     * @param $idUser
      * @param $imageUser
      * @return mixed
      */
-    public function handle(FormInterface $form, $iduser, $imageUser);
+    public function handle(FormInterface $form, $idUser, $imageUser);
 }

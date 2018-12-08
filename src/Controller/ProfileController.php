@@ -9,10 +9,10 @@
 namespace App\Controller;
 
 
-use App\Controller\Interfaces\ProfilControllerInterface;
+use App\Controller\Interfaces\ProfileControllerInterface;
 use App\Entity\User;
-use App\Form\ImageProfilType;
-use App\FormHandler\ProfilTypeHandler;
+use App\Form\ImageProfileType;
+use App\FormHandler\ProfileTypeHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,16 +24,16 @@ use Twig\Environment;
 
 
 /**
- * Class ProfilController
+ * Class ProfileController
  * @package App\Controller
  */
-class ProfilController implements ProfilControllerInterface
+class ProfileController implements ProfileControllerInterface
 {
 
     /**
-     * @var profilTypeHandler
+     * @var profileTypeHandler
      */
-    private $profilTypeHandler;
+    private $profileTypeHandler;
 
     /**
      * @var FormFactoryInterface
@@ -57,21 +57,21 @@ class ProfilController implements ProfilControllerInterface
 
 
     /**
-     * ProfilController constructor.
-     * @param ProfilTypeHandler $profilTypeHandler
+     * ProfileController constructor.
+     * @param ProfileTypeHandler $profileTypeHandler
      * @param FormFactoryInterface $formFactory
      * @param TokenStorageInterface $tokenStorage
      * @param UrlGeneratorInterface $urlGenerator
      * @param Environment $twig
      */
     public function __construct(
-        ProfilTypeHandler $profilTypeHandler,
+        ProfileTypeHandler $profileTypeHandler,
         FormFactoryInterface $formFactory,
         TokenStorageInterface $tokenStorage,
         UrlGeneratorInterface $urlGenerator,
         Environment $twig
     ) {
-        $this->profilTypeHandler = $profilTypeHandler;
+        $this->profileTypeHandler = $profileTypeHandler;
         $this->formFactory = $formFactory;
         $this->tokenStorage = $tokenStorage;
         $this->urlGenerator = $urlGenerator;
@@ -93,13 +93,13 @@ class ProfilController implements ProfilControllerInterface
 
         $user = new User();
 
-        $form = $this->formFactory->create(ImageProfilType::class, $user)
+        $form = $this->formFactory->create(ImageProfileType::class, $user)
             ->handleRequest($request);
 
         $idUser = $this->tokenStorage->getToken()->getUser()->getId();
-        $imageUser = $this->tokenStorage->getToken()->getUser()->getProfilImage();
+        $imageUser = $this->tokenStorage->getToken()->getUser()->getProfileImage();
 
-        if ($this->profilTypeHandler->handle($form, $idUser, $imageUser)) {
+        if ($this->profileTypeHandler->handle($form, $idUser, $imageUser)) {
 
             return new RedirectResponse($this->urlGenerator->generate('profil'), 302);
         }

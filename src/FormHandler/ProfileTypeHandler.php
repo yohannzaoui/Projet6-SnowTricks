@@ -4,7 +4,7 @@
 namespace App\FormHandler;
 
 
-use App\FormHandler\Interfaces\ProfilTypeHandlerInterface;
+use App\FormHandler\Interfaces\ProfileTypeHandlerInterface;
 use App\Repository\UserRepository;
 use App\Services\Interfaces\FileRemoverInterface;
 use App\Services\Interfaces\FileUploaderInterface;
@@ -15,10 +15,10 @@ use App\Event\FileRemoverEvent;
 
 
 /**
- * Class ProfilTypeHandler
+ * Class ProfileTypeHandler
  * @package App\FormHandler
  */
-class ProfilTypeHandler implements ProfilTypeHandlerInterface
+class ProfileTypeHandler implements ProfileTypeHandlerInterface
 {
 
 
@@ -82,20 +82,20 @@ class ProfilTypeHandler implements ProfilTypeHandlerInterface
     {
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $fileRemove = $this->userRepository->checkProfilImage($imageUser);
+            $fileRemove = $this->userRepository->checkProfileImage($imageUser);
 
             $this->eventDispatcher->dispatch(
                 FileRemoverEvent::NAME,
-                new FileRemoverEvent($this->fileRemover, $fileRemove['profilImage'])
+                new FileRemoverEvent($this->fileRemover, $fileRemove['profileImage'])
             );
 
-            $file = $form->getData()->getProfilImage();
+            $file = $form->getData()->getProfileImage();
 
-            $profilImage = $this->fileUploader->upload($file);
+            $profileImage = $this->fileUploader->upload($file);
 
-            $this->userRepository->updateProfilImage($profilImage, $idUser);
+            $this->userRepository->updateProfileImage($profileImage, $idUser);
 
-            $this->messageFlash->getFlashBag()->add('profilUpdate',
+            $this->messageFlash->getFlashBag()->add('profileUpdate',
                 'Votre image de profil à bien été mis à jour');
 
             return true;

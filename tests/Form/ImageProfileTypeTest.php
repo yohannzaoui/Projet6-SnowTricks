@@ -9,18 +9,16 @@
 namespace App\Tests\Form;
 
 
-use App\Entity\Image;
-use App\Entity\Trick;
 use App\Entity\User;
-use App\Form\ImageProfilType;
+use App\Form\ImageProfileType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class ImageProfilTypeTest
+ * Class ImageProfileTypeTest
  * @package App\Tests\Form
  */
-class ImageProfilTypeTest extends TypeTestCase
+class ImageProfileTypeTest extends TypeTestCase
 {
     /**
      *
@@ -36,14 +34,14 @@ class ImageProfilTypeTest extends TypeTestCase
 
         $userToCompare = $this->createMock(User::class);
 
-        $form = $this->factory->create(ImageProfilType::class, $userToCompare);
+        $form = $this->factory->create(ImageProfileType::class, $userToCompare);
 
         $user = $this->createMock(User::class);
         $user->setId($uuid);
         $user->setUsername('username');
         $user->setPassword('pass');
         $user->setEmail('email@mail.com');
-        $user->setProfilImage('image');
+        $user->setProfileImage('image');
         $user->setRoles(['ROLE_USER']);
         $user->setCreatedAt($date);
 

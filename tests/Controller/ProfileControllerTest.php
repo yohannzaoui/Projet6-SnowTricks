@@ -9,7 +9,7 @@
 namespace App\Tests\Controller;
 
 
-class ProfilControllerTest
+class ProfileControllerTest
 {
     public function testConstruct()
     {

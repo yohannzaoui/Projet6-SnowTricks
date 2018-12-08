@@ -9,8 +9,8 @@
 namespace App\Tests\FormHandler;
 
 
-use App\FormHandler\Interfaces\ProfilTypeHandlerInterface;
-use App\FormHandler\ProfilTypeHandler;
+use App\FormHandler\Interfaces\ProfileTypeHandlerInterface;
+use App\FormHandler\ProfileTypeHandler;
 use App\Repository\UserRepository;
 use App\Services\Interfaces\FileRemoverInterface;
 use App\Services\Interfaces\FileUploaderInterface;
@@ -20,10 +20,10 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Class ProfilTypeHandlerTest
+ * Class ProfileTypeHandlerTest
  * @package App\Tests\FormHandler
  */
-class ProfilTypeHandlerTest extends TestCase
+class ProfileTypeHandlerTest extends TestCase
 {
     /**
      * @var FileUploaderInterface
@@ -77,7 +77,7 @@ class ProfilTypeHandlerTest extends TestCase
      */
     public function testConstruct()
     {
-        $profilTypeHandler = new ProfilTypeHandler(
+        $profileTypeHandler = new ProfileTypeHandler(
             $this->fileUploader,
             $this->messageFlash,
             $this->userRepository,
@@ -87,8 +87,8 @@ class ProfilTypeHandlerTest extends TestCase
         );
 
         static::assertInstanceOf(
-            ProfilTypeHandlerInterface::class,
-            $profilTypeHandler
+            ProfileTypeHandlerInterface::class,
+            $profileTypeHandler
         );
     }
 
@@ -101,7 +101,7 @@ class ProfilTypeHandlerTest extends TestCase
         $idUser = '123456';
         $imageUser = '/public/upload/image.jpg';
 
-        $profilTypeHandler = new ProfilTypeHandler(
+        $profileTypeHandler = new ProfileTypeHandler(
             $this->fileUploader,
             $this->messageFlash,
             $this->userRepository,
@@ -110,7 +110,7 @@ class ProfilTypeHandlerTest extends TestCase
 
         );
 
-        static::assertTrue(true, $profilTypeHandler->handle(
+        static::assertTrue(true, $profileTypeHandler->handle(
             $form, $idUser, $imageUser
         ));
     }
@@ -124,7 +124,7 @@ class ProfilTypeHandlerTest extends TestCase
         $idUser = '123456';
         $imageUser = '/public/upload/image.jpg';
 
-        $profilTypeHandler = new ProfilTypeHandler(
+        $profileTypeHandler = new ProfileTypeHandler(
             $this->fileUploader,
             $this->messageFlash,
             $this->userRepository,
@@ -133,7 +133,7 @@ class ProfilTypeHandlerTest extends TestCase
 
         );
 
-        static::assertFalse(false, $profilTypeHandler->handle(
+        static::assertFalse(false, $profileTypeHandler->handle(
             $form, $idUser, $imageUser
         ));
     }

@@ -11,13 +11,13 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * Class ProfilControllerFunctionalTest
+ * Class ProfileControllerFunctionalTest
  * @package App\Tests\Controller
  */
-class ProfilControllerFunctionalTest extends WebTestCase
+class ProfileControllerFunctionalTest extends WebTestCase
 {
     public function testResponse()
     {
@@ -32,7 +32,7 @@ class ProfilControllerFunctionalTest extends WebTestCase
 
         static::assertEquals(
             Response::HTTP_OK,
-            $this->client->getResponse()->getStatusCode()
+            $client->getResponse()->getStatusCode()
         );
     }
 
