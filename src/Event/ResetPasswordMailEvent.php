@@ -9,7 +9,7 @@
 namespace App\Event;
 
 
-use App\Event\Interfaces\ResetPasswordMailEventInterface;
+use App\Event\Interfaces\MailEventInterface;
 use Symfony\Component\EventDispatcher\Event;
 use App\Services\Interfaces\EmailerInterface;
 

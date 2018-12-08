@@ -104,7 +104,7 @@ class CategoryController implements CategoryControllerInterface
 
         return new Response($this->twig->render('admin/category.html.twig', [
                 'categories' => $categories,
-                'editMode' => $request->attributes->get('id') !== null,
+                'editMode' => $request->get('id') !== null,
                 'form' => $form->createView()
             ]), 200);
     }

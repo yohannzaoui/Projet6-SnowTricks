@@ -63,9 +63,9 @@ class DeleteCategoryController implements DeleteCategoryControllerInterface
      */
     public function index(Request $request)
     {
-        if ($request->attributes->get('id')) {
+        if ($request->get('id')) {
 
-            $category = $this->categoryRepository->getCategory($request->attributes->get('id'));
+            $category = $this->categoryRepository->getCategory($request->get('id'));
 
             if (!$category) {
                 throw new NonUniqueResultException("La catégorie n'existe pas");

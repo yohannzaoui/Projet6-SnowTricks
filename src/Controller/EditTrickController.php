@@ -95,7 +95,7 @@ class EditTrickController implements EditTrickControllerInterface
      */
     public function index(Request $request)
     {
-        if (null === $trick = $this->trickRepository->getTrickBySlug($request->attributes->get('slug'))) {
+        if (null === $trick = $this->trickRepository->getTrickBySlug($request->get('slug'))) {
 
             throw new NotFoundHttpException('Pas de Trick avec ce nom ');
         }

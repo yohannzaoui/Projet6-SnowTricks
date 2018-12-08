@@ -80,7 +80,7 @@ class ConfirmeRegisterController implements ConfirmeRegisterControllerInterface
      */
     public function index(Request $request)
     {
-        if (!\is_null($user = $this->userRepository->checkRegistrationToken($request->attributes->get('token')))) {
+        if (!\is_null($user = $this->userRepository->checkRegistrationToken($request->get('token')))) {
 
             $user->setValidate(true);
 

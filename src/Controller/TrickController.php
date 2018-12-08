@@ -108,7 +108,7 @@ class TrickController implements TrickControllerInterface
      */
     public function index(Request $request, $page = 1)
     {
-        if (!$trick = $this->trickRepository->getTrickBySlug($request->attributes->get('slug'))) {
+        if (!$trick = $this->trickRepository->getTrickBySlug($request->get('slug'))) {
 
             throw new NotFoundHttpException('Pas de Trick avec ce nom ');
         }
