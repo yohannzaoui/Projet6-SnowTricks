@@ -44,8 +44,8 @@
           {% if app.user %}
           <span class="navbar-text">
             Bienvenue {{ app.user.getUsername }} !
-              {% if app.user.getProfilImage %}
-              <img src="{{asset('/uploads/images/'~ app.user.getProfilImage)}}"/>
+              {% if app.user.getProfileImage %}
+              <img src="{{asset('/uploads/images/'~ app.user.getProfileImage)}}"/>
                   {% else %}
                   <i class="far fa-grin fa-2x"></i>
               {% endif %}

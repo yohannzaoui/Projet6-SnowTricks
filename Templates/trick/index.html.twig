@@ -101,8 +101,8 @@
             {% for comment in comments %}
                 <div class="alert alert-dismissible alert-secondary">
                     <div id="comments">
-                    <p>{% if comment.author.getProfilImage %}
-                        <img src="{{asset('/uploads/images/' ~ comment.author.getProfilImage)}}"/>
+                    <p>{% if comment.author.getProfileImage %}
+                        <img src="{{asset('/uploads/images/' ~ comment.author.getProfileImage)}}"/>
                             {% else %}
                                 <i class="far fa-grin fa-2x"></i>
                         {% endif %}

@@ -10,15 +10,15 @@
         <div class="row">
             <div class="col-lg-6 col-md-10 mx-auto">
                  {{ form_start(form) }}
-                    {{ form_row(form.profilImage) }}
+                    {{ form_row(form.profileImage) }}
                     <p><button type="submit" class="btn btn-success">Mettre à jour</button></p>
                 {{ form_end(form) }}
 
                 <p>Mon nom d'utilisateur : <strong>{{ app.user.username }}</strong></p>
                 <p>Mon adresse Email : <strong>{{ app.user.email }}</strong></p>
                 <p>Mon image de profile :
-                    {% if app.user.getProfilImage %}
-                    <img src="{{asset('/uploads/images/'~ app.user.getProfilImage)}}"/>
+                    {% if app.user.getProfileImage %}
+                    <img src="{{asset('/uploads/images/'~ app.user.getProfileImage)}}"/>
                         | <a href="{{ path('deleteProfileImage') }}" data-toggle="tooltip" data-placement="bottom" title="Supprimé"><i class="fas fa-trash-alt"></i></a>
                     {% else %}
                         <i class="far fa-grin fa-2x"></i>
@@ -26,7 +26,7 @@
                 </p>
 
 
-                {% for message in app.flashes('profilUpdate') %}
+                {% for message in app.flashes('profileUpdate') %}
                     <div class="alert alert-dismissible alert-info">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         {{ message }}
