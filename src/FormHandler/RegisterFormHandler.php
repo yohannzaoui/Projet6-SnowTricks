@@ -44,11 +44,6 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
     private $userRepository;
 
     /**
-     * @var EmailerInterface
-     */
-    private $emailer;
-
-    /**
      * @var SessionInterface
      */
     private $messageFlash;
@@ -68,7 +63,6 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
      * @param FileUploaderInterface $fileUploader
      * @param EncoderInterface $encoder
      * @param UserRepository $userRepository
-     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
      * @param EventDispatcherInterface $eventDispatcher
      * @param TokenInterface $tokenService
@@ -77,7 +71,6 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
         FileUploaderInterface $fileUploader,
         EncoderInterface $encoder,
         UserRepository $userRepository,
-        EmailerInterface $emailer,
         SessionInterface $messageFlash,
         EventDispatcherInterface $eventDispatcher,
         TokenInterface $tokenService
@@ -85,7 +78,6 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
         $this->fileUploader = $fileUploader;
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
-        $this->emailer = $emailer;
         $this->messageFlash = $messageFlash;
         $this->eventDispatcher = $eventDispatcher;
         $this->tokenService = $tokenService;
@@ -103,9 +95,9 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
 
             $user = new User();
 
-            if ($form->getData()->getProfilImage()) {
+            if ($form->getData()->getProfileImage()) {
 
-                $file = $form->getData()->getProfilImage();
+                $file = $form->getData()->getProfileImage();
 
                 $fileName = $this->fileUploader->upload($file);
 
@@ -127,7 +119,7 @@ class RegisterFormHandler implements RegisterFormHandlerInterface
             $this->userRepository->save($user);
 
             $this->eventDispatcher->dispatch(RegisterMailEvent::NAME,
-                new RegisterMailEvent($this->emailer, $form->getData()->getEmail(), $token ));
+                new RegisterMailEvent($form->getData()->getEmail(), $token ));
 
             $this->messageFlash->getFlashBag()->add('register',
                 'Un email à l\'adresse ' .$form->getData()

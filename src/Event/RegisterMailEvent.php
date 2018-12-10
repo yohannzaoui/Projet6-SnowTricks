@@ -11,7 +11,6 @@ namespace App\Event;
 
 use App\Event\Interfaces\MailEventInterface;
 use Symfony\Component\EventDispatcher\Event;
-use App\Services\Interfaces\EmailerInterface;
 
 /**
  * Class RegisterMailEvent
@@ -34,35 +33,28 @@ class RegisterMailEvent extends Event implements MailEventInterface
      */
     private $token;
 
-    /**
-     * @var EmailerInterface
-     */
-    private $emailer;
 
     /**
      * RegisterMailEvent constructor.
-     * @param EmailerInterface $emailer
      * @param $email
      * @param $token
      */
     public function __construct(
-        EmailerInterface $emailer,
         string $email,
         string $token
     ) {
-        $this->emailer = $emailer;
         $this->email = $email;
         $this->token = $token;
     }
 
     /**
-     *
+     * @return array|mixed
      */
     public function sendEmail()
     {
-        $this->emailer->mail('Validation de votre compte Snow Tricks',
-            [ 'register@snowtricks.com' => 'Inscription à Snow Tricks'],
-            $this->email,
-            'Veuillez confirmez votre compte en cliquant sur ce lien : "http://st/confirmeregister/'.$this->token);
+        return [
+            'email' => $this->email,
+            'token' => $this->token
+        ];
     }
 }

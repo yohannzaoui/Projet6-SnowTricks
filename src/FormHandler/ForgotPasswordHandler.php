@@ -30,11 +30,6 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
     private $userRepository;
 
     /**
-     * @var EmailerInterface
-     */
-    private $emailer;
-
-    /**
      * @var SessionInterface
      */
     private $messageFlash;
@@ -53,20 +48,17 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
     /**
      * ForgotPasswordHandler constructor.
      * @param UserRepository $userRepository
-     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
      * @param EventDispatcherInterface $eventDispatcher
      * @param TokenInterface $tokenService
      */
     public function __construct(
         UserRepository $userRepository,
-        EmailerInterface $emailer,
         SessionInterface $messageFlash,
         EventDispatcherInterface $eventDispatcher,
         TokenInterface $tokenService
     ) {
         $this->userRepository = $userRepository;
-        $this->emailer = $emailer;
         $this->messageFlash = $messageFlash;
         $this->eventDispatcher = $eventDispatcher;
         $this->tokenService = $tokenService;
@@ -88,7 +80,7 @@ class ForgotPasswordHandler implements ForgotPasswordHandlerInterface
                 $this->userRepository->saveResetToken($form->getData()['email'], $token);
 
                 $this->eventDispatcher->dispatch(ResetPasswordMailEvent::NAME,
-                    new ResetPasswordMailEvent($this->emailer, $form->getData()['email'], $token));
+                    new ResetPasswordMailEvent($form->getData()['email'], $token));
 
                 $this->messageFlash->getFlashBag()->add('resetPassword',
                     'Un email à l\'adresse ' .$form->getData()['email']. ' vient de vous être envoyez pour la récupération de votre compte');

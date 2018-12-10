@@ -47,11 +47,6 @@ class EditTrickHandler implements EditTrickHandlerInterface
      */
     private $eventDispatcher;
 
-    /**
-     * @var FileRemover
-     */
-    private $fileRemover;
-
 
     /**
      * EditTrickHandler constructor.
@@ -59,20 +54,17 @@ class EditTrickHandler implements EditTrickHandlerInterface
      * @param TrickRepository $trickRepository
      * @param SluggerInterface $slugger
      * @param EventDispatcherInterface $eventDispatcher
-     * @param FileRemoverInterface $fileRemover
      */
     public function __construct(
         FileUploader $fileUploader,
         TrickRepository $trickRepository,
         SluggerInterface $slugger,
-        EventDispatcherInterface $eventDispatcher,
-        FileRemoverInterface $fileRemover
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->fileUploader = $fileUploader;
         $this->trickRepository = $trickRepository;
         $this->slugger = $slugger;
         $this->eventDispatcher = $eventDispatcher;
-        $this->fileRemover = $fileRemover;
     }
 
 
@@ -95,7 +87,7 @@ class EditTrickHandler implements EditTrickHandlerInterface
 
                     $this->eventDispatcher->dispatch(
                         FileRemoverEvent::NAME,
-                        new FileRemoverEvent($this->fileRemover, $form->getData()->getDefaultImage()->getUrl()));
+                        new FileRemoverEvent($form->getData()->getDefaultImage()->getUrl()));
 
                     $defaultImage = $this->fileUploader->upload(
                         $form->getData()
@@ -119,7 +111,7 @@ class EditTrickHandler implements EditTrickHandlerInterface
 
                             $this->eventDispatcher->dispatch(
                                 FileRemoverEvent::NAME,
-                                new FileRemoverEvent($this->fileRemover, $image->getUrl()));
+                                new FileRemoverEvent($image->getUrl()));
 
                         $images = $this->fileUploader->upload($image->getFile());
                         $image->setUrl($images);

@@ -10,7 +10,6 @@ namespace App\FormHandler\Interfaces;
 
 
 use App\Repository\UserRepository;
-use App\Services\Interfaces\EmailerInterface;
 use App\Services\Interfaces\TokenInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -26,14 +25,12 @@ interface ForgotPasswordHandlerInterface
     /**
      * ForgotPasswordHandlerInterface constructor.
      * @param UserRepository $userRepository
-     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
      * @param EventDispatcherInterface $eventDispatcher
      * @param TokenInterface $tokenService
      */
     public function __construct(
         UserRepository $userRepository,
-        EmailerInterface $emailer,
         SessionInterface $messageFlash,
         EventDispatcherInterface $eventDispatcher,
         TokenInterface $tokenService

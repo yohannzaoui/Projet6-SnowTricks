@@ -12,7 +12,6 @@ namespace App\Controller;
 use App\Controller\Interfaces\DeleteTrickControllerInterface;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
-use App\Services\FileRemover;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -42,11 +41,6 @@ class DeleteTrickController implements DeleteTrickControllerInterface
     private $imageRepository;
 
     /**
-     * @var FileRemover
-     */
-    private $fileRemover;
-
-    /**
      * @var Environment
      */
     private $twig;
@@ -61,6 +55,9 @@ class DeleteTrickController implements DeleteTrickControllerInterface
      */
     private $messageFlash;
 
+    /**
+     * @var EventDispatcherInterface
+     */
     private $eventDispatcher;
 
 
@@ -68,7 +65,6 @@ class DeleteTrickController implements DeleteTrickControllerInterface
      * DeleteTrickController constructor.
      * @param TrickRepository $trickRepository
      * @param ImageRepository $imageRepository
-     * @param FileRemover $fileRemover
      * @param Environment $twig
      * @param UrlGeneratorInterface $urlGenerator
      * @param SessionInterface $messageFlash
@@ -77,7 +73,6 @@ class DeleteTrickController implements DeleteTrickControllerInterface
     public function __construct(
         TrickRepository $trickRepository,
         ImageRepository $imageRepository,
-        FileRemover $fileRemover,
         Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         SessionInterface $messageFlash,
@@ -85,7 +80,6 @@ class DeleteTrickController implements DeleteTrickControllerInterface
     ) {
         $this->trickRepository = $trickRepository;
         $this->imageRepository = $imageRepository;
-        $this->fileRemover = $fileRemover;
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->messageFlash = $messageFlash;
@@ -102,10 +96,10 @@ class DeleteTrickController implements DeleteTrickControllerInterface
      */
     public function confirme(Request $request)
     {
-        if ($request->attributes->get('id')) {
+        if ($request->get('id')) {
 
             return new Response($this->twig->render('delete_trick/delete_trick.html.twig', [
-                'id' => $request->attributes->get('id')
+                'id' => $request->get('id')
             ]), 200);
         }
     }
@@ -133,13 +127,13 @@ class DeleteTrickController implements DeleteTrickControllerInterface
 
             $this->eventDispatcher->dispatch(
                 FileRemoverEvent::NAME,
-                new FileRemoverEvent($this->fileRemover, $defaultImage));
+                new FileRemoverEvent($defaultImage));
 
             foreach ($files as $a => $urls) {
                 foreach ($urls as $url) {
                     $this->eventDispatcher->dispatch(
                         FileRemoverEvent::NAME,
-                        new FileRemoverEvent($this->fileRemover, $url));
+                        new FileRemoverEvent($url));
                 }
             }
 
