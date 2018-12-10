@@ -10,8 +10,6 @@ namespace App\Event;
 
 
 use App\Event\Interfaces\FileRemoverEventInterface;
-use App\Services\FileRemover;
-use App\Services\Interfaces\FileRemoverInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -26,33 +24,22 @@ class FileRemoverEvent extends Event implements FileRemoverEventInterface
     const NAME = 'fileRemover.event';
 
     /**
-     * @var FileRemover
-     */
-    private $fileRemover;
-
-    /**
-     * @var
+     * @var string|null
      */
     private $file;
 
-    /**
-     * FileRemoverEvent constructor.
-     * @param FileRemoverInterface $fileRemover
-     * @param string $file
-     */
+
     public function __construct(
-        ?FileRemoverInterface $fileRemover,
         ?string $file
     ) {
-        $this->fileRemover = $fileRemover;
         $this->file = $file;
     }
 
     /**
-     *
+     * @return mixed|string|null
      */
-    public function removeFile()
+    public function removeFile(): ? string
     {
-        $this->fileRemover->deleteFile($this->file);
+        return $this->file;
     }
 }

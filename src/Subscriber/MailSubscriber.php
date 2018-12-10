@@ -11,6 +11,7 @@ namespace App\Subscriber;
 
 use App\Event\RegisterMailEvent;
 use App\Event\ResetPasswordMailEvent;
+use App\Services\Interfaces\EmailerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -19,6 +20,21 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class MailSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var EmailerInterface
+     */
+    private $emailer;
+
+    /**
+     * MailSubscriber constructor.
+     * @param EmailerInterface $emailer
+     */
+    public function __construct(EmailerInterface $emailer)
+    {
+        $this->emailer = $emailer;
+    }
+
+
     /**
      * @return array
      */
@@ -37,7 +53,12 @@ class MailSubscriber implements EventSubscriberInterface
      */
     public function onRegisterMail(RegisterMailEvent $event)
     {
-        return $event->sendEmail();
+        $data = $event->sendEmail();
+
+        $this->emailer->mail('Validation de votre compte Snow Tricks',
+            [ 'register@snowtricks.com' => 'Inscription à Snow Tricks'],
+            $data['email'],
+            'Veuillez confirmez votre compte en cliquant sur ce lien : "http://st/confirmeregister/'.$data['token']);
     }
 
     /**
@@ -46,7 +67,12 @@ class MailSubscriber implements EventSubscriberInterface
      */
     public function  onResetPasswordMail(ResetPasswordMailEvent $event)
     {
-        return $event->sendEmail();
+        $data = $event->sendEmail();
+
+        $this->emailer->mail('Récupération de votre compte Snow Tricks',
+            [ 'reset_password@snowtricks.com' => 'Récupération de mot passe'],
+            $data['email'],
+            'Changer votre mot de passe en cliquant sur ce lien : "http://st/forgotPasswordValidation/'.$data['token']);
     }
 
 }

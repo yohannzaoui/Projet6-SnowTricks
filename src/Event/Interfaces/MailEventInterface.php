@@ -8,7 +8,6 @@
 
 namespace App\Event\Interfaces;
 
-use App\Services\Interfaces\EmailerInterface;
 
 /**
  * Interface MailEventInterface
@@ -18,12 +17,10 @@ interface MailEventInterface
 {
     /**
      * MailEventInterface constructor.
-     * @param EmailerInterface $emailer
      * @param $email
      * @param $token
      */
     public function __construct(
-        EmailerInterface $emailer,
         string $email,
         string $token
     );

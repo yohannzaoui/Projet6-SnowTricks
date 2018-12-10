@@ -10,7 +10,6 @@ namespace App\Controller\Interfaces;
 
 use App\Repository\TrickRepository;
 use App\Repository\ImageRepository;
-use App\Services\FileRemover;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -27,7 +26,6 @@ interface DeleteTrickControllerInterface
      * DeleteTrickControllerInterface constructor.
      * @param TrickRepository $trickRepository
      * @param ImageRepository $imageRepository
-     * @param FileRemover $fileRemover
      * @param Environment $twig
      * @param UrlGeneratorInterface $urlGenerator
      * @param SessionInterface $messageFlash
@@ -36,7 +34,6 @@ interface DeleteTrickControllerInterface
     public function __construct(
         TrickRepository $trickRepository,
         ImageRepository $imageRepository,
-        FileRemover $fileRemover,
         Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         SessionInterface $messageFlash,

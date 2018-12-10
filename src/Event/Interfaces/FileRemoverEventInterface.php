@@ -8,8 +8,6 @@
 
 namespace App\Event\Interfaces;
 
-use App\Services\Interfaces\FileRemoverInterface;
-
 /**
  * Interface FileRemoverEventInterface
  * @package App\Event\Interfaces
@@ -18,11 +16,9 @@ interface FileRemoverEventInterface
 {
     /**
      * FileRemoverEventInterface constructor.
-     * @param FileRemoverInterface $fileRemover
      * @param string $file
      */
     public function __construct(
-        FileRemoverInterface $fileRemover,
         string $file
     );
 

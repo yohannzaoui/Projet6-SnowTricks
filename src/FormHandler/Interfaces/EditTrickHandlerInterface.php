@@ -11,7 +11,6 @@ namespace App\FormHandler\Interfaces;
 use App\Entity\Trick;
 use App\Services\FileUploader;
 use App\Repository\TrickRepository;
-use App\Services\Interfaces\FileRemoverInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use App\Services\Interfaces\SluggerInterface;
@@ -28,14 +27,12 @@ interface EditTrickHandlerInterface
      * @param TrickRepository $trickRepository
      * @param SluggerInterface $slugger
      * @param EventDispatcherInterface $eventDispatcher
-     * @param FileRemoverInterface $fileRemover
      */
     public function __construct(
         FileUploader $fileUploader,
         TrickRepository $trickRepository,
         SluggerInterface $slugger,
-        EventDispatcherInterface $eventDispatcher,
-        FileRemoverInterface $fileRemover
+        EventDispatcherInterface $eventDispatcher
     );
 
     /**

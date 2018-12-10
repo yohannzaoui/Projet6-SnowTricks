@@ -30,7 +30,6 @@ interface RegisterFormHandlerInterface
      * @param FileUploaderInterface $fileUploader
      * @param EncoderInterface $encoder
      * @param UserRepository $userRepository
-     * @param EmailerInterface $emailer
      * @param SessionInterface $messageFlash
      * @param EventDispatcherInterface $eventDispatcher
      * @param TokenInterface $tokenService
@@ -39,7 +38,6 @@ interface RegisterFormHandlerInterface
         FileUploaderInterface $fileUploader,
         EncoderInterface $encoder,
         UserRepository $userRepository,
-        EmailerInterface $emailer,
         SessionInterface $messageFlash,
         EventDispatcherInterface $eventDispatcher,
         TokenInterface $tokenService

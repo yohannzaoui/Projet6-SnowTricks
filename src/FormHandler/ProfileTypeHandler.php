@@ -38,11 +38,6 @@ class ProfileTypeHandler implements ProfileTypeHandlerInterface
     private $messageFlash;
 
     /**
-     * @var FileRemoverInterface
-     */
-    private $fileRemover;
-
-    /**
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
@@ -53,21 +48,18 @@ class ProfileTypeHandler implements ProfileTypeHandlerInterface
      * @param FileUploaderInterface $fileUploader
      * @param SessionInterface $messageFlash
      * @param UserRepository $userRepository
-     * @param FileRemoverInterface $fileRemover
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         FileUploaderInterface $fileUploader,
         SessionInterface $messageFlash,
         UserRepository $userRepository,
-        FileRemoverInterface $fileRemover,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->fileUploader = $fileUploader;
         $this->messageFlash = $messageFlash;
         $this->userRepository = $userRepository;
         $this->eventDispatcher = $eventDispatcher;
-        $this->fileRemover = $fileRemover;
     }
 
 
@@ -86,7 +78,7 @@ class ProfileTypeHandler implements ProfileTypeHandlerInterface
 
             $this->eventDispatcher->dispatch(
                 FileRemoverEvent::NAME,
-                new FileRemoverEvent($this->fileRemover, $fileRemove['profileImage'])
+                new FileRemoverEvent($fileRemove['profileImage'])
             );
 
             $file = $form->getData()->getProfileImage();
