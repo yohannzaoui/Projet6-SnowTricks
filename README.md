@@ -6,4 +6,12 @@ developped with the Symfony 4 framework
 
 Install application :
 
+Clone or download the repository into your environment.
+https://github.com/yohannzaoui/Projet6-SnowTricks.git
+
+Change the files .env.dist and phpunit.xml.dist with your own data :
+
+Change the.env file with your parameters DataBase
+
+
 
