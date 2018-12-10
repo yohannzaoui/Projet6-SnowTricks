@@ -29,6 +29,10 @@ class FileRemoverEvent extends Event implements FileRemoverEventInterface
     private $file;
 
 
+    /**
+     * FileRemoverEvent constructor.
+     * @param string|null $file
+     */
     public function __construct(
         ?string $file
     ) {

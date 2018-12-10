@@ -41,11 +41,6 @@ class ProfileTypeHandlerTest extends TestCase
     private $messageFlash;
 
     /**
-     * @var FileRemoverInterface
-     */
-    private $fileRemover;
-
-    /**
      * @var
      */
     private $eventDispatcher;
@@ -64,9 +59,6 @@ class ProfileTypeHandlerTest extends TestCase
         $this->messageFlash = $this->createMock(
           SessionInterface::class
         );
-        $this->fileRemover = $this->createMock(
-          FileRemoverInterface::class
-        );
         $this->eventDispatcher = $this->createMock(
           EventDispatcherInterface::class
         );
@@ -81,7 +73,6 @@ class ProfileTypeHandlerTest extends TestCase
             $this->fileUploader,
             $this->messageFlash,
             $this->userRepository,
-            $this->fileRemover,
             $this->eventDispatcher
 
         );
@@ -105,7 +96,6 @@ class ProfileTypeHandlerTest extends TestCase
             $this->fileUploader,
             $this->messageFlash,
             $this->userRepository,
-            $this->fileRemover,
             $this->eventDispatcher
 
         );
@@ -128,7 +118,6 @@ class ProfileTypeHandlerTest extends TestCase
             $this->fileUploader,
             $this->messageFlash,
             $this->userRepository,
-            $this->fileRemover,
             $this->eventDispatcher
 
         );

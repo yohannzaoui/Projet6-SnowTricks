@@ -26,11 +26,6 @@ class FileRemoverEventTest extends TestCase
     const NAME = 'fileRemover.event';
 
     /**
-     * @var FileRemover
-     */
-    private $fileRemover;
-
-    /**
      * @var
      */
     private $file;
@@ -53,7 +48,6 @@ class FileRemoverEventTest extends TestCase
     public function testConstruct()
     {
         $fileRemoverEvent = new FileRemoverEvent(
-          $this->fileRemover,
           $this->file
         );
 
@@ -61,5 +55,18 @@ class FileRemoverEventTest extends TestCase
             FileRemoverEventInterface::class,
             $fileRemoverEvent
             );
+    }
+
+    /**
+     *
+     */
+    public function testIfRemoveFileReturnString()
+    {
+        $fileRemoverEvent = new FileRemoverEvent(
+          $this->file
+        );
+
+        $fileRemoverEvent->removeFile();
+        $this->assertSame('file', $fileRemoverEvent->removeFile());
     }
 }

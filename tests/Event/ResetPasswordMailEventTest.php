@@ -14,6 +14,10 @@ use App\Event\ResetPasswordMailEvent;
 use App\Services\Interfaces\EmailerInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class ResetPasswordMailEventTest
+ * @package App\Tests\Event
+ */
 class ResetPasswordMailEventTest extends TestCase
 {
     /**
@@ -31,19 +35,11 @@ class ResetPasswordMailEventTest extends TestCase
      */
     private $token;
 
-    /**
-     * @var EmailerInterface
-     */
-    private $emailer;
-
 
     public function setUp()
     {
         $this->email = 'mail@email.com';
         $this->token = 'azertyu12345';
-        $this->emailer = $this->createMock(
-          EmailerInterface::class
-        );
     }
 
     /**
@@ -52,7 +48,6 @@ class ResetPasswordMailEventTest extends TestCase
     public function testConstruct()
     {
         $resetPasswordMailEvent = new ResetPasswordMailEvent(
-            $this->emailer,
             $this->email,
             $this->token
         );
@@ -61,5 +56,23 @@ class ResetPasswordMailEventTest extends TestCase
           MailEventInterface::class,
           $resetPasswordMailEvent
         );
+    }
+
+    /**
+     *
+     */
+    public function testIfSendMailReturnArray()
+    {
+        $registerMailEvent = new ResetPasswordMailEvent(
+            $this->email,
+            $this->token
+        );
+
+        $data = [
+            'email' => $this->email,
+            'token' => $this->token
+        ];
+
+        $this->assertSame($data, $registerMailEvent->sendEmail());
     }
 }

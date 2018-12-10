@@ -37,11 +37,6 @@ class DeleteTrickControllerTest extends KernelTestCase
     private $imageRepository;
 
     /**
-     * @var FileRemover
-     */
-    private $fileRemover;
-
-    /**
      * @var Environment
      */
     private $twig;
@@ -81,12 +76,10 @@ class DeleteTrickControllerTest extends KernelTestCase
     {
         $this->trickRepository = $this->createMock(TrickRepository::class);
         $this->imageRepository = $this->createMock(ImageRepository::class);
-        $this->fileRemover = $this->createMock(FileRemover::class);
 
         $deleteTrickController = new DeleteTrickController(
             $this->trickRepository,
             $this->imageRepository,
-            $this->fileRemover,
             $this->twig,
             $this->urlGenerator,
             $this->messageFlash,

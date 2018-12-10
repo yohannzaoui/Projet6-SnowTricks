@@ -43,11 +43,6 @@ class RegisterFormHandlerTest extends TestCase
     private $userRepository;
 
     /**
-     * @var EmailerInterface
-     */
-    private $emailer;
-
-    /**
      * @var SessionInterface
      */
     private $messageFlash;
@@ -76,9 +71,6 @@ class RegisterFormHandlerTest extends TestCase
         $this->userRepository = $this->createMock(
           UserRepository::class
         );
-        $this->emailer = $this->createMock(
-          EmailerInterface::class
-        );
         $this->messageFlash = $this->createMock(
           SessionInterface::class
         );
@@ -99,7 +91,6 @@ class RegisterFormHandlerTest extends TestCase
             $this->fileUploader,
             $this->encoder,
             $this->userRepository,
-            $this->emailer,
             $this->messageFlash,
             $this->eventDispatcher,
             $this->tokenService
@@ -122,7 +113,6 @@ class RegisterFormHandlerTest extends TestCase
             $this->fileUploader,
             $this->encoder,
             $this->userRepository,
-            $this->emailer,
             $this->messageFlash,
             $this->eventDispatcher,
             $this->tokenService
@@ -144,7 +134,6 @@ class RegisterFormHandlerTest extends TestCase
             $this->fileUploader,
             $this->encoder,
             $this->userRepository,
-            $this->emailer,
             $this->messageFlash,
             $this->eventDispatcher,
             $this->tokenService

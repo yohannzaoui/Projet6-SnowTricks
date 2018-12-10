@@ -24,10 +24,14 @@ class ResetPasswordMailEvent extends Event implements MailEventInterface
      */
     const NAME = 'resetPasswordMail.event';
 
-
+    /**
+     * @var string
+     */
     private $email;
 
-
+    /**
+     * @var string
+     */
     private $token;
 
     /**

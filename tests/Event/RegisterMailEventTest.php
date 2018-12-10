@@ -36,18 +36,12 @@ class RegisterMailEventTest extends TestCase
     private $token;
 
     /**
-     * @var EmailerInterface
-     */
-    private $emailer;
-
-    /**
      *
      */
     public function setUp()
     {
         $this->email = 'mail@mail.com';
         $this->token = 'azerty12345';
-        $this->emailer = $this->createMock(EmailerInterface::class);
     }
 
     /**
@@ -56,7 +50,6 @@ class RegisterMailEventTest extends TestCase
     public function testConstruct()
     {
         $registerMailEvent = new RegisterMailEvent(
-            $this->emailer,
             $this->email,
             $this->token
         );
@@ -65,5 +58,23 @@ class RegisterMailEventTest extends TestCase
           MailEventInterface::class,
           $registerMailEvent
         );
+    }
+
+    /**
+     *
+     */
+    public function testIfSendMailReturnArray()
+    {
+        $registerMailEvent = new RegisterMailEvent(
+            $this->email,
+            $this->token
+        );
+
+        $data = [
+          'email' => $this->email,
+          'token' => $this->token
+        ];
+
+        $this->assertSame($data, $registerMailEvent->sendEmail());
     }
 }

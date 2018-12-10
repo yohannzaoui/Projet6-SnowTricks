@@ -31,11 +31,6 @@ class ForgotPasswordHandlerTest extends TestCase
     private $userRepository;
 
     /**
-     * @var EmailerInterface
-     */
-    private $emailer;
-
-    /**
      * @var SessionInterface
      */
     private $messageFlash;
@@ -58,9 +53,6 @@ class ForgotPasswordHandlerTest extends TestCase
         $this->userRepository = $this->createMock(
             UserRepository::class
         );
-        $this->emailer = $this->createMock(
-            EmailerInterface::class
-        );
         $this->messageFlash = $this->createMock(
             SessionInterface::class
         );
@@ -79,7 +71,6 @@ class ForgotPasswordHandlerTest extends TestCase
     {
         $forgotPasswordHandler = new ForgotPasswordHandler(
             $this->userRepository,
-            $this->emailer,
             $this->messageFlash,
             $this->eventDispatcher,
             $this->tokenService
@@ -100,7 +91,6 @@ class ForgotPasswordHandlerTest extends TestCase
 
         $forgotPasswordHandler = new ForgotPasswordHandler(
             $this->userRepository,
-            $this->emailer,
             $this->messageFlash,
             $this->eventDispatcher,
             $this->tokenService
@@ -120,7 +110,6 @@ class ForgotPasswordHandlerTest extends TestCase
 
         $forgotPasswordHandler = new ForgotPasswordHandler(
             $this->userRepository,
-            $this->emailer,
             $this->messageFlash,
             $this->eventDispatcher,
             $this->tokenService
