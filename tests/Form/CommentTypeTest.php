@@ -13,6 +13,7 @@ use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\CommentType;
+use App\Form\Interfaces\TypeInterface;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 
@@ -22,6 +23,18 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class CommentTypeTest extends TypeTestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $addTrickType = $this->createMock(CommentType::class);
+
+        $this->assertInstanceOf(TypeInterface::class, $addTrickType);
+    }
+
+
     /**
      *
      */

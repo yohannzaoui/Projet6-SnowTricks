@@ -11,6 +11,7 @@ namespace App\Tests\Form;
 use App\Entity\Category;
 use App\Entity\User;
 use App\Form\CategoryType;
+use App\Form\Interfaces\TypeInterface;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 
@@ -20,6 +21,17 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class CategoryTypeTest extends TypeTestCase
 {
+
+    public function testInterface()
+    {
+        $categoryType = $this->createMock(CategoryType::class);
+
+        $this->assertInstanceOf(TypeInterface::class, $categoryType);
+    }
+
+
+
+
     /**
      *
      */

@@ -44,27 +44,4 @@ class DeleteCategoryControllerTest extends KernelTestCase
 
         static::assertInstanceOf(DeleteCategoryControllerInterface::class, $deleteCategoryController);
     }
-
-    public function testWrongIdCategory()
-    {
-        $messageFlash = $this->createMock(SessionInterface::class);
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-        $urlGenerator->method('generate')
-            ->willReturn('/category');
-        $categoryRepository = $this->createMock(CategoryRepository::class);
-        $request = $this->createMock(Request::class);
-
-        //$this->expectException(NonUniqueResultException::class);
-
-        $deleteCategoryController = new DeleteCategoryController(
-            $categoryRepository,
-            $messageFlash,
-            $urlGenerator
-        );
-
-        static::assertInstanceOf(
-            RedirectResponse::class,
-            $deleteCategoryController->index($request)
-        );
-    }
 }

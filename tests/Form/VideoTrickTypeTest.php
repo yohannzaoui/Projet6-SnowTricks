@@ -13,6 +13,7 @@ use App\Form\VideoTrickType;
 use Ramsey\Uuid\UuidInterface;
 use App\Entity\Trick;
 use Symfony\Component\Form\Test\TypeTestCase;
+use App\Form\Interfaces\TypeInterface;
 
 /**
  * Class VideoTrickTypeTest
@@ -20,6 +21,18 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class VideoTrickTypeTest extends TypeTestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $form = $this->createMock(VideoTrickType::class);
+
+        $this->assertInstanceOf(TypeInterface::class, $form);
+    }
+
+
     /**
      *
      */

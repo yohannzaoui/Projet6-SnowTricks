@@ -9,6 +9,7 @@
 namespace App\Tests\Entity;
 
 
+use App\Entity\Interfaces\VideoInterface;
 use App\Entity\Video;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +19,17 @@ use PHPUnit\Framework\TestCase;
  */
 class VideoTest extends TestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $video = $this->createMock(Video::class);
+
+        $this->assertInstanceOf(VideoInterface::class, $video);
+    }
+
     /**
      * @throws \Exception
      */

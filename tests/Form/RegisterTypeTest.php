@@ -13,6 +13,7 @@ use App\Entity\User;
 use App\Form\RegisterType;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
+use App\Form\Interfaces\TypeInterface;
 
 /**
  * Class RegisterTypeTest
@@ -20,6 +21,18 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class RegisterTypeTest extends TypeTestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $form = $this->createMock(RegisterType::class);
+
+        $this->assertInstanceOf(TypeInterface::class, $form);
+    }
+
+
     /**
      *
      */

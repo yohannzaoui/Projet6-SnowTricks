@@ -8,12 +8,24 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Interfaces\TrickInterface;
 use PHPUnit\Framework\TestCase;
 use App\Entity\Trick;
 
 class TrickTest extends TestCase
 {
     private $trick;
+
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $trick = $this->createMock(Trick::class);
+
+        $this->assertInstanceOf(TrickInterface::class, $trick);
+    }
 
     /**
      * @throws \Exception

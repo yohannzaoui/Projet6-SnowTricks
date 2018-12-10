@@ -10,6 +10,7 @@ namespace App\Tests\Entity;
 
 
 use App\Entity\Image;
+use App\Entity\Interfaces\ImageInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,6 +19,17 @@ use PHPUnit\Framework\TestCase;
  */
 class ImageTest extends TestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $image = $this->createMock(Image::class);
+
+        $this->assertInstanceOf(ImageInterface::class, $image);
+    }
+
 
     /**
      * @throws \Exception

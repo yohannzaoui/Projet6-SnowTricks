@@ -15,6 +15,7 @@ use App\Form\ImageTrickType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Ramsey\Uuid\UuidInterface;
+use App\Form\Interfaces\TypeInterface;
 
 /**
  * Class ImageTrickTypeTest
@@ -22,6 +23,17 @@ use Ramsey\Uuid\UuidInterface;
  */
 class ImageTrickTypeTest extends TypeTestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $form = $this->createMock(ImageTrickType::class);
+
+        $this->assertInstanceOf(TypeInterface::class, $form);
+    }
+
     /**
      *
      */

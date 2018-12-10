@@ -9,6 +9,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Category;
+use App\Entity\Interfaces\CategoryInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,6 +18,18 @@ use PHPUnit\Framework\TestCase;
  */
 class CategoryTest extends TestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $category = $this->createMock(Category::class);
+
+        $this->assertInstanceOf(CategoryInterface::class, $category);
+    }
+
+
     private $category;
 
     /**

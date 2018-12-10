@@ -10,7 +10,7 @@ namespace App\Tests\Entity;
 
 
 use App\Entity\Comment;
-use App\Entity\Trick;
+use App\Entity\Interfaces\CommentInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -19,6 +19,18 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 class CommentTest extends KernelTestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $comment = $this->createMock(Comment::class);
+
+        $this->assertInstanceOf(CommentInterface::class, $comment);
+    }
+
+
     /**
      * @throws \Exception
      */

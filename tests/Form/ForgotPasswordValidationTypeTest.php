@@ -12,6 +12,7 @@ use App\Form\ForgotPasswordValidationType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use App\Entity\User;
 use Ramsey\Uuid\UuidInterface;
+use App\Form\Interfaces\TypeInterface;
 
 /**
  * Class ForgotPasswordValidationTypeTest
@@ -19,6 +20,19 @@ use Ramsey\Uuid\UuidInterface;
  */
 class ForgotPasswordValidationTypeTest extends TypeTestCase
 {
+
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $form = $this->createMock(ForgotPasswordValidationType::class);
+
+        $this->assertInstanceOf(TypeInterface::class, $form);
+    }
+
+
     /**
      *
      */

@@ -13,6 +13,7 @@ use App\Entity\User;
 use App\Form\ImageProfileType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Ramsey\Uuid\UuidInterface;
+use App\Form\Interfaces\TypeInterface;
 
 /**
  * Class ImageProfileTypeTest
@@ -20,6 +21,19 @@ use Ramsey\Uuid\UuidInterface;
  */
 class ImageProfileTypeTest extends TypeTestCase
 {
+
+    /**
+     *
+     */
+    public function testInterface()
+    {
+        $form = $this->createMock(ImageProfileType::class);
+
+        $this->assertInstanceOf(TypeInterface::class, $form);
+    }
+
+
+
     /**
      *
      */

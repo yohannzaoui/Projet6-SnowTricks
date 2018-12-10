@@ -11,6 +11,7 @@ namespace App\Tests\Form;
 
 use App\Form\ForgotPasswordType;
 use Symfony\Component\Form\Test\TypeTestCase;
+use App\Form\Interfaces\TypeInterface;
 
 /**
  * Class ForgotPasswordTypeTest
@@ -18,6 +19,8 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class ForgotPasswordTypeTest extends TypeTestCase
 {
+
+
     /**
      * @throws \Exception
      */
