@@ -81,7 +81,7 @@ class CategoryController implements CategoryControllerInterface
     /**
      * @Route("/category", name="category", methods={"GET", "POST"})
      * @Route("/editCategory/{id}", name="editCategory", methods={"GET", "POST"})
-     * @IsGranted("ROLE_Admin")
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param Category|null $category
      * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

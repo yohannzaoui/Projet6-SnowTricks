@@ -58,7 +58,7 @@ class DeleteCategoryController implements DeleteCategoryControllerInterface
 
     /**
      * @Route("/supprimerCategorie/{id}", name="delcategory", methods={"GET"})
-     * @IsGranted("ROLE_Admin")
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return mixed|RedirectResponse
      * @throws NonUniqueResultException
