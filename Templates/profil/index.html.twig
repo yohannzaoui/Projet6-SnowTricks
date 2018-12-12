@@ -21,7 +21,7 @@
                     <img src="{{asset('/uploads/images/'~ app.user.getProfileImage)}}"/>
                         | <a href="{{ path('deleteProfileImage') }}" data-toggle="tooltip" data-placement="bottom" title="Supprimé"><i class="fas fa-trash-alt"></i></a>
                     {% else %}
-                        <i class="far fa-grin fa-2x"></i>
+                        <i class="fas fa-user-circle fa-2x"></i>
                     {% endif %}
                 </p>
 
