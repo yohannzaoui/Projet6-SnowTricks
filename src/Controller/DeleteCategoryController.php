@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Controller\Interfaces\DeleteCategoryControllerInterface;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -57,6 +58,7 @@ class DeleteCategoryController implements DeleteCategoryControllerInterface
 
     /**
      * @Route("/supprimerCategorie/{id}", name="delcategory", methods={"GET"})
+     * @IsGranted("ROLE_Admin")
      * @param Request $request
      * @return mixed|RedirectResponse
      * @throws NonUniqueResultException

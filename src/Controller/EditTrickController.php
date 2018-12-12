@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Controller\Interfaces\EditTrickControllerInterface;
 use App\Form\EditTrickType;
 use App\FormHandler\Interfaces\EditTrickHandlerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Repository\TrickRepository;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -86,6 +87,7 @@ class EditTrickController implements EditTrickControllerInterface
 
     /**
      * @Route("/edit/trick/{slug}", name="edittrick", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return mixed|RedirectResponse|Response
      * @throws \Doctrine\ORM\NonUniqueResultException

@@ -13,6 +13,7 @@ use App\Controller\Interfaces\ProfileControllerInterface;
 use App\Entity\User;
 use App\Form\ImageProfileType;
 use App\FormHandler\ProfileTypeHandler;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,6 +82,7 @@ class ProfileController implements ProfileControllerInterface
 
     /**
      * @Route("/profil", name="profil", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return mixed|RedirectResponse|Response
      * @throws \Doctrine\ORM\NonUniqueResultException

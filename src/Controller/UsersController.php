@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\UsersControllerInterface;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,6 +50,7 @@ class UsersController implements UsersControllerInterface
 
     /**
      * @Route("/allUsers", name="allUsers", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      * @return mixed|Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime

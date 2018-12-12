@@ -13,6 +13,7 @@ use App\Controller\Interfaces\DeleteTrickControllerInterface;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,6 +89,7 @@ class DeleteTrickController implements DeleteTrickControllerInterface
 
     /**
      * @Route("/confirmeDeleteTrick/{id}", name="confirmeDeleteTrick", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return Response
      * @throws \Twig_Error_Loader
@@ -107,6 +109,7 @@ class DeleteTrickController implements DeleteTrickControllerInterface
 
     /**
      * @Route("/delete/{id}", name="deltrick", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return mixed|RedirectResponse
      * @throws \Doctrine\ORM\NonUniqueResultException

@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\CategoryControllerInterface;
 use App\FormHandler\Interfaces\CategoryHandlerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -80,6 +81,7 @@ class CategoryController implements CategoryControllerInterface
     /**
      * @Route("/category", name="category", methods={"GET", "POST"})
      * @Route("/editCategory/{id}", name="editCategory", methods={"GET", "POST"})
+     * @IsGranted("ROLE_Admin")
      * @param Request $request
      * @param Category|null $category
      * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

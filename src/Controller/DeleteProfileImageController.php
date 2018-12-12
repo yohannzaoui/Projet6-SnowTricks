@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Controller\Interfaces\DeleteProfileImageControllerInterface;
 use App\Repository\UserRepository;
 use App\Services\FileRemover;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,6 +75,7 @@ class DeleteProfileImageController implements DeleteProfileImageControllerInterf
 
     /**
      * @Route("/deleteProfileImage", name="deleteProfileImage", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      * @return mixed|RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

@@ -13,6 +13,7 @@ use App\Controller\Interfaces\DeleteUserControllerInterface;
 use App\Repository\UserRepository;
 use App\Services\Interfaces\FileRemoverInterface;
 use Doctrine\ORM\NonUniqueResultException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,6 +89,7 @@ class DeleteUserController implements DeleteUserControllerInterface
 
     /**
      * @Route("/deleteUser/{id}", name="deleteUser", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Doctrine\ORM\NonUniqueResultException
