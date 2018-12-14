@@ -53,12 +53,10 @@ class MailSubscriber implements EventSubscriberInterface
      */
     public function onRegisterMail(RegisterMailEvent $event)
     {
-        $data = $event->sendEmail();
-
         $this->emailer->mail('Validation de votre compte Snow Tricks',
             [ 'register@snowtricks.com' => 'Inscription à Snow Tricks'],
-            $data['email'],
-            'Veuillez confirmez votre compte en cliquant sur ce lien : "http://st/confirmeregister/'.$data['token']);
+            $event->getEmail(),
+            'Veuillez confirmez votre compte en cliquant sur ce lien : "http://st/confirmeregister/'.$event->getToken());
     }
 
     /**
@@ -67,12 +65,10 @@ class MailSubscriber implements EventSubscriberInterface
      */
     public function  onResetPasswordMail(ResetPasswordMailEvent $event)
     {
-        $data = $event->sendEmail();
-
         $this->emailer->mail('Récupération de votre compte Snow Tricks',
             [ 'reset_password@snowtricks.com' => 'Récupération de mot passe'],
-            $data['email'],
-            'Changer votre mot de passe en cliquant sur ce lien : "http://st/forgotPasswordValidation/'.$data['token']);
+            $event->getEmail(),
+            'Changer votre mot de passe en cliquant sur ce lien : "http://st/forgotPasswordValidation/'.$event->getToken());
     }
 
 }

@@ -49,9 +49,7 @@ class FileRemoverSubscriber implements EventSubscriberInterface
      */
     public function onFileRemover(FileRemoverEvent $event)
     {
-        $file = $event->removeFile();
-
-        $this->fileRemover->deleteFile($file);
+        $this->fileRemover->deleteFile($event->getFile());
     }
 
 }

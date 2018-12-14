@@ -48,13 +48,18 @@ class RegisterMailEvent extends Event implements MailEventInterface
     }
 
     /**
-     * @return array|mixed
+     * @return mixed|string
      */
-    public function sendEmail()
+    public function getEmail(): string
     {
-        return [
-            'email' => $this->email,
-            'token' => $this->token
-        ];
+        return $this->email;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
     }
 }

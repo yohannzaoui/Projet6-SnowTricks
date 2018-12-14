@@ -28,5 +28,10 @@ interface MailEventInterface
     /**
      * @return mixed
      */
-    public function sendEmail();
+    public function getEmail(): string ;
+
+    /**
+     * @return mixed
+     */
+    public function getToken(): string ;
 }

@@ -48,13 +48,18 @@ class ResetPasswordMailEvent extends Event implements MailEventInterface
     }
 
     /**
-     * @return array|mixed
+     * @return mixed|string
      */
-    public function sendEmail()
+    public function getEmail()
     {
-        return [
-            'email' => $this->email,
-            'token' => $this->token
-        ];
+        return $this->email;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }

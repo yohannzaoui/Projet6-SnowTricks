@@ -42,7 +42,7 @@ class FileRemoverEvent extends Event implements FileRemoverEventInterface
     /**
      * @return mixed|string|null
      */
-    public function removeFile(): ? string
+    public function getFile(): ? string
     {
         return $this->file;
     }
