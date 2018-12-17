@@ -11,8 +11,10 @@ namespace App\FormHandler;
 
 use App\Entity\Trick;
 use App\FormHandler\Interfaces\AddTrickHandlerInterface;
+use App\Repository\Interfaces\TrickRepositoryInterface;
 use App\Repository\TrickRepository;
 use App\Services\FileUploader;
+use App\Services\Interfaces\FileUploaderInterface;
 use App\Services\Interfaces\SluggerInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -23,12 +25,12 @@ use Symfony\Component\Form\FormInterface;
 class AddTrickHandler implements AddTrickHandlerInterface
 {
     /**
-     * @var FileUploader
+     * @var FileUploaderInterface
      */
     private $fileUploader;
 
     /**
-     * @var TrickRepository
+     * @var TrickRepositoryInterface
      */
     private $trickRepository;
 
@@ -39,13 +41,13 @@ class AddTrickHandler implements AddTrickHandlerInterface
 
     /**
      * AddTrickHandler constructor.
-     * @param FileUploader $fileUploader
-     * @param TrickRepository $trickRepository
+     * @param FileUploaderInterface $fileUploader
+     * @param TrickRepositoryInterface $trickRepository
      * @param SluggerInterface $slugger
      */
     public function __construct(
-        FileUploader $fileUploader,
-        TrickRepository $trickRepository,
+        FileUploaderInterface $fileUploader,
+        TrickRepositoryInterface $trickRepository,
         SluggerInterface $slugger
     ) {
         $this->fileUploader = $fileUploader;
@@ -58,8 +60,6 @@ class AddTrickHandler implements AddTrickHandlerInterface
      * @param $author
      * @param FormInterface $form
      * @return bool|mixed
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(Trick $trick, $author, FormInterface $form)
     {

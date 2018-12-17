@@ -12,10 +12,12 @@ namespace App\FormHandler;
 use App\Entity\Trick;
 use App\Event\FileRemoverEvent;
 use App\FormHandler\Interfaces\EditTrickHandlerInterface;
+use App\Repository\Interfaces\TrickRepositoryInterface;
 use App\Repository\TrickRepository;
 use App\Services\FileRemover;
 use App\Services\FileUploader;
 use App\Services\Interfaces\FileRemoverInterface;
+use App\Services\Interfaces\FileUploaderInterface;
 use App\Services\Interfaces\SluggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -28,12 +30,12 @@ class EditTrickHandler implements EditTrickHandlerInterface
 {
 
     /**
-     * @var FileUploader
+     * @var FileUploaderInterface
      */
     private $fileUploader;
 
     /**
-     * @var TrickRepository
+     * @var TrickRepositoryInterface
      */
     private $trickRepository;
 
@@ -50,14 +52,14 @@ class EditTrickHandler implements EditTrickHandlerInterface
 
     /**
      * EditTrickHandler constructor.
-     * @param FileUploader $fileUploader
-     * @param TrickRepository $trickRepository
+     * @param FileUploaderInterface $fileUploader
+     * @param TrickRepositoryInterface $trickRepository
      * @param SluggerInterface $slugger
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
-        FileUploader $fileUploader,
-        TrickRepository $trickRepository,
+        FileUploaderInterface $fileUploader,
+        TrickRepositoryInterface $trickRepository,
         SluggerInterface $slugger,
         EventDispatcherInterface $eventDispatcher
     ) {
@@ -73,8 +75,7 @@ class EditTrickHandler implements EditTrickHandlerInterface
      * @param $author
      * @param Trick $trick
      * @return bool|mixed
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     public function handle(FormInterface $form, $author, $trick)
     {

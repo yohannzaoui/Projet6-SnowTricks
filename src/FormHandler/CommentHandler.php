@@ -11,6 +11,7 @@ namespace App\FormHandler;
 use App\Entity\Comment;
 use App\FormHandler\Interfaces\CommentHandlerInterface;
 use App\Repository\CommentRepository;
+use App\Repository\Interfaces\CommentRepositoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class CommentHandler implements CommentHandlerInterface
 {
     /**
-     * @var CommentRepository
+     * @var CommentRepositoryInterface
      */
     private $commentRepository;
 
@@ -33,11 +34,11 @@ class CommentHandler implements CommentHandlerInterface
 
     /**
      * CommentHandler constructor.
-     * @param CommentRepository $commentRepository
+     * @param CommentRepositoryInterface $commentRepository
      * @param SessionInterface $messageFlash
      */
     public function __construct(
-        CommentRepository $commentRepository,
+        CommentRepositoryInterface $commentRepository,
         SessionInterface $messageFlash
     ) {
         $this->commentRepository = $commentRepository;
@@ -49,9 +50,7 @@ class CommentHandler implements CommentHandlerInterface
      * @param $user
      * @param $trick
      * @param Comment $comment
-     * @return bool
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @return bool|mixed
      */
     public function handle(FormInterface $form, $user, $trick, Comment $comment)
     {

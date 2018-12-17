@@ -9,6 +9,7 @@
 namespace App\FormHandler\Interfaces;
 
 use App\Repository\CommentRepository;
+use App\Repository\Interfaces\CommentRepositoryInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
 use App\Entity\Comment;
@@ -22,11 +23,11 @@ interface CommentHandlerInterface
 {
     /**
      * CommentHandlerInterface constructor.
-     * @param CommentRepository $commentRepository
+     * @param CommentRepositoryInterface $commentRepository
      * @param SessionInterface $messageFlash
      */
     public function __construct(
-        CommentRepository $commentRepository,
+        CommentRepositoryInterface $commentRepository,
         SessionInterface $messageFlash
     );
 

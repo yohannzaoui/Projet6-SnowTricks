@@ -9,6 +9,7 @@
 namespace App\FormHandler\Interfaces;
 
 use App\Repository\CategoryRepository;
+use App\Repository\Interfaces\CategoryRepositoryInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormInterface;
 use App\Entity\Category;
@@ -21,11 +22,11 @@ interface CategoryHandlerInterface
 {
     /**
      * CategoryHandlerInterface constructor.
-     * @param CategoryRepository $categoryRepository
+     * @param CategoryRepositoryInterface $categoryRepository
      * @param SessionInterface $messageFlash
      */
     public function __construct(
-        CategoryRepository $categoryRepository,
+        CategoryRepositoryInterface $categoryRepository,
         SessionInterface $messageFlash
     );
 

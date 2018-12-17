@@ -12,6 +12,7 @@ namespace App\FormHandler;
 use App\Entity\Category;
 use App\FormHandler\Interfaces\CategoryHandlerInterface;
 use App\Repository\CategoryRepository;
+use App\Repository\Interfaces\CategoryRepositoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -23,7 +24,7 @@ class CategoryHandler implements CategoryHandlerInterface
 {
 
     /**
-     * @var CategoryRepository
+     * @var CategoryRepositoryInterface
      */
     private $categoryRepository;
 
@@ -34,11 +35,11 @@ class CategoryHandler implements CategoryHandlerInterface
 
     /**
      * CategoryHandler constructor.
-     * @param CategoryRepository $categoryRepository
+     * @param CategoryRepositoryInterface $categoryRepository
      * @param SessionInterface $messageFlash
      */
     public function __construct(
-        CategoryRepository $categoryRepository,
+        CategoryRepositoryInterface $categoryRepository,
         SessionInterface $messageFlash
     ) {
         $this->categoryRepository = $categoryRepository;
@@ -49,8 +50,6 @@ class CategoryHandler implements CategoryHandlerInterface
      * @param FormInterface $form
      * @param Category $category
      * @return bool|mixed
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(FormInterface $form, Category $category)
     {
