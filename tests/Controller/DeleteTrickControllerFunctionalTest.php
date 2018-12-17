@@ -45,7 +45,7 @@ class DeleteTrickControllerFunctionalTest extends WebTestCase
             ->willReturn('getUrl');*/
 
         static::assertEquals(
-            Response::HTTP_OK,
+            302,
             $this->client->getResponse()->getStatusCode()
         );
     }

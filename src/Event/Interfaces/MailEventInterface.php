@@ -28,10 +28,10 @@ interface MailEventInterface
     /**
      * @return mixed
      */
-    public function getEmail(): string ;
+    public function getEmail(): string;
 
     /**
      * @return mixed
      */
-    public function getToken(): string ;
+    public function getToken(): string;
 }

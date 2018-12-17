@@ -50,7 +50,7 @@ class ResetPasswordMailEvent extends Event implements MailEventInterface
     /**
      * @return mixed|string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -58,7 +58,7 @@ class ResetPasswordMailEvent extends Event implements MailEventInterface
     /**
      * @return mixed|string
      */
-    public function getToken()
+    public function getToken(): string
     {
         return $this->token;
     }

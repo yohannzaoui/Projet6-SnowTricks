@@ -36,7 +36,7 @@ class UsersControllerFunctionalTest extends WebTestCase
         $this->client->request('GET', '/allUsers');
 
         static::assertEquals(
-            Response::HTTP_OK,
+            302,
             $this->client->getResponse()->getStatusCode()
         );
     }

@@ -31,46 +31,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class EditTrickControllerTest extends KernelTestCase
 {
 
-    /**
-     *
-     */
-    public function testConstruct()
-    {
-        $editTrickHandler = $this->createMock(
-            EditTrickHandlerInterface::class
-        );
-        $trickRepository = $this->createMock(
-            TrickRepository::class
-        );
-        $formFactory = $this->createMock(
-            FormFactoryInterface::class
-        );
-        $tokenStorage = $this->createMock(
-            TokenStorageInterface::class
-        );
-        $urlGenerator = $this->createMock(
-            UrlGeneratorInterface::class
-        );
-        $twig = $this->createMock(
-            Environment::class
-        );
-
-
-        $editTrickController = new EditTrickController(
-            $editTrickHandler,
-            $trickRepository,
-            $formFactory,
-            $tokenStorage,
-            $urlGenerator,
-            $twig
-        );
-
-        static::assertInstanceOf(
-            EditTrickControllerInterface::class,
-            $editTrickController
-        );
-    }
-
 
     /**
      * @dataProvider dataHandler

@@ -29,30 +29,6 @@ use Twig\Environment;
  */
 class AddTrickControllerTest extends TestCase
 {
-    /**
-     *
-     */
-    public function testConstruct()
-    {
-        $addTrickHandler = $this->createMock(AddTrickHandler::class);
-        $tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $twig = $this->createMock(Environment::class);
-        $formFactory = $this->createMock(FormFactoryInterface::class);
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
-
-        $addTrickController = new AddTrickController(
-            $addTrickHandler,
-            $tokenStorage,
-            $twig,
-            $formFactory,
-            $urlGenerator
-        );
-
-        static::assertInstanceOf(AddTrickControllerInterface::class, $addTrickController);
-
-    }
-
-
 
     /**
      * @dataProvider dataHandler

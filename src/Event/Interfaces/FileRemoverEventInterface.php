@@ -25,5 +25,5 @@ interface FileRemoverEventInterface
     /**
      * @return mixed
      */
-    public function getFile(): ? string ;
+    public function getFile(): ? string;
 }

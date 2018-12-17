@@ -9,8 +9,11 @@
 namespace App\Tests\Controller;
 
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * Class CategoryControllerFunctionalTest
@@ -39,7 +42,7 @@ class CategoryControllerFunctionalTest extends WebTestCase
         $this->client->request('GET', '/category');
 
         static::assertEquals(
-            Response::HTTP_OK,
+            302,
             $this->client->getResponse()->getStatusCode()
         );
     }
@@ -60,11 +63,28 @@ class CategoryControllerFunctionalTest extends WebTestCase
         );
     }
 
+    public function logIn()
+    {
+        $session = $this->client->getContainer()->get('session');
+
+        // the firewall context (defaults to the firewall name)
+        $firewall = 'main';
+
+        $token = new UsernamePasswordToken(User::class, null, $firewall, array('ROLE_ADMIN'));
+        $session->set('_security_'.$firewall, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
+    }
+
     /**
      *
      */
     public function testAddCategory()
     {
+        $this->logIn();
+
         $crawler = $this->client->request('GET', '/category');
 
         $form = $crawler->selectButton('add')->form();
