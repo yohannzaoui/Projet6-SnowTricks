@@ -6,6 +6,7 @@
 - CSS : Bootstrap : https://bootswatch.com/superhero/
 - PHPUnit
 - SwiftMailer
+- Infinite Ajax Scroll : https://infiniteajaxscroll.com/docs/getting-started.html
 
 Install application :
 
