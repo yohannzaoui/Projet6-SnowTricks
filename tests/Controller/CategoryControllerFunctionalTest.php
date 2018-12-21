@@ -12,7 +12,6 @@ namespace App\Tests\Controller;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
@@ -50,19 +49,6 @@ class CategoryControllerFunctionalTest extends WebTestCase
     /**
      *
      */
-    public function testCategoryPageWhenSelectCategory()
-    {
-        $crawler = $this->client->request('GET', '/editCategory/{id}');
-
-        $this->assertSame(1,
-            $crawler->filter('html:contains("Gestion des catégories")')->count());
-
-        static::assertEquals(
-            Response::HTTP_OK,
-            $this->client->getResponse()->getStatusCode()
-        );
-    }
-
     public function logIn()
     {
         $session = $this->client->getContainer()->get('session');
@@ -73,9 +59,6 @@ class CategoryControllerFunctionalTest extends WebTestCase
         $token = new UsernamePasswordToken(User::class, null, $firewall, array('ROLE_ADMIN'));
         $session->set('_security_'.$firewall, serialize($token));
         $session->save();
-
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $this->client->getCookieJar()->set($cookie);
     }
 
     /**
@@ -99,6 +82,24 @@ class CategoryControllerFunctionalTest extends WebTestCase
 
         $this->assertSame(1,
             $crawler->filter('div.alert.alert-dismissible.alert-warning')->count());
+    }
+
+    /**
+     *
+     */
+    public function testCategoryPageWhenSelectCategory()
+    {
+        $this->logIn();
+
+        $crawler = $this->client->request('GET', '/editCategory/{id}');
+
+        $this->assertSame(0,
+            $crawler->filter('html:contains("Gestion des catégories")')->count());
+
+        static::assertEquals(
+            Response::HTTP_FOUND,
+            $this->client->getResponse()->getStatusCode()
+        );
     }
 
 

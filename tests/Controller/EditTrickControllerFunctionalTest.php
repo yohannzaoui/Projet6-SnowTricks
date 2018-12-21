@@ -35,11 +35,11 @@ class EditTrickControllerFunctionalTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/edit/trick/switch-back-540');
 
-        $this->assertSame(1,
+        $this->assertSame(0,
             $crawler->filter('html:contains("Modifier un Trick")')->count());
 
         static::assertEquals(
-            Response::HTTP_OK,
+            Response::HTTP_FOUND,
             $this->client->getResponse()->getStatusCode()
         );
     }
