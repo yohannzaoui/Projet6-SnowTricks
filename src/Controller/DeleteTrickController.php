@@ -88,7 +88,7 @@ class DeleteTrickController implements DeleteTrickControllerInterface
     }
 
     /**
-     * @Route("/confirmeDeleteTrick/{id}", name="confirmeDeleteTrick", methods={"GET"})
+     * @Route(path="/confirmeDeleteTrick/{id}", name="confirmeDeleteTrick", methods={"GET"})
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return Response
@@ -102,13 +102,13 @@ class DeleteTrickController implements DeleteTrickControllerInterface
 
             return new Response($this->twig->render('delete_trick/delete_trick.html.twig', [
                 'id' => $request->get('id')
-            ]), 200);
+            ]), Response::HTTP_OK);
         }
     }
 
 
     /**
-     * @Route("/delete/{id}", name="deltrick", methods={"GET"})
+     * @Route(path="/delete/{id}", name="deltrick", methods={"GET"})
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return mixed|RedirectResponse
@@ -144,7 +144,8 @@ class DeleteTrickController implements DeleteTrickControllerInterface
 
             $this->messageFlash->getFlashBag()->add('deleteTrick', 'Le trick à bien été supprimé');
 
-            return new RedirectResponse($this->urlGenerator->generate('home'), 302);
+            return new RedirectResponse($this->urlGenerator->generate('home'),
+                RedirectResponse::HTTP_FOUND);
         }
 
     }

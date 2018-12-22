@@ -74,7 +74,7 @@ class DeleteProfileImageController implements DeleteProfileImageControllerInterf
     }
 
     /**
-     * @Route("/deleteProfileImage", name="deleteProfileImage", methods={"GET"})
+     * @Route(path="/deleteProfileImage", name="deleteProfileImage", methods={"GET"})
      * @IsGranted("ROLE_USER")
      * @return mixed|RedirectResponse
      * @throws \Doctrine\ORM\ORMException
@@ -92,7 +92,8 @@ class DeleteProfileImageController implements DeleteProfileImageControllerInterf
 
         $this->messageFlash->getFlashBag()->add('deleteProfileImage', 'Image de profile supprimée');
 
-        return new RedirectResponse($this->urlGenerator->generate('profil'), 302);
+        return new RedirectResponse($this->urlGenerator->generate('profil'),
+            RedirectResponse::HTTP_FOUND);
 
     }
 }

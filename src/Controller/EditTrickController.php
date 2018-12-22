@@ -111,14 +111,14 @@ class EditTrickController implements EditTrickControllerInterface
 
             return new RedirectResponse($this->urlGenerator->generate('trick', [
                 'slug' => $trick->getSlug()
-            ]), 302);
+            ]), RedirectResponse::HTTP_FOUND);
 
         }
 
         return new Response($this->twig->render('edit_trick/edit_trick.html.twig', [
             'form' => $form->createView(),
             'trick' => $trick
-        ]), 200);
+        ]), Response::HTTP_OK);
 
     }
 }

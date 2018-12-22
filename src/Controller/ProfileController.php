@@ -81,7 +81,7 @@ class ProfileController implements ProfileControllerInterface
 
 
     /**
-     * @Route("/profil", name="profil", methods={"GET", "POST"})
+     * @Route(path="/profil", name="profil", methods={"GET", "POST"})
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return mixed|RedirectResponse|Response
@@ -103,11 +103,12 @@ class ProfileController implements ProfileControllerInterface
 
         if ($this->profileTypeHandler->handle($form, $idUser, $imageUser)) {
 
-            return new RedirectResponse($this->urlGenerator->generate('profil'), 302);
+            return new RedirectResponse($this->urlGenerator->generate('profil'),
+                RedirectResponse::HTTP_FOUND);
         }
 
         return new Response($this->twig->render('profil/index.html.twig', [
             'form' => $form->createView(),
-        ]), 200);
+        ]), Response::HTTP_OK);
     }
 }

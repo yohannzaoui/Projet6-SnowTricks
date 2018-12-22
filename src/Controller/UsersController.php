@@ -49,7 +49,7 @@ class UsersController implements UsersControllerInterface
 
 
     /**
-     * @Route("/allUsers", name="allUsers", methods={"GET"})
+     * @Route(path="/allUsers", name="allUsers", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return mixed|Response
      * @throws \Twig_Error_Loader
@@ -62,6 +62,6 @@ class UsersController implements UsersControllerInterface
 
         return new Response($this->twig->render('admin/users.html.twig', [
             'users' => $users
-        ]), 200);
+        ]), Response::HTTP_OK);
     }
 }

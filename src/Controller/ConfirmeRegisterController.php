@@ -68,7 +68,7 @@ class ConfirmeRegisterController implements ConfirmeRegisterControllerInterface
 
 
     /**
-     * @Route("/confirmeregister/{token}", name="confirme", methods={"GET"})
+     * @Route(path="/confirmeregister/{token}", name="confirme", methods={"GET"})
      * @param Request $request
      * @return mixed|RedirectResponse|Response
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -88,9 +88,11 @@ class ConfirmeRegisterController implements ConfirmeRegisterControllerInterface
 
             $this->messageFlash->getFlashBag()->add('confirmeRegister', 'Votre compte à bien été créer');
 
-            return new RedirectResponse($this->urlGenerator->generate('login'), 302);
+            return new RedirectResponse($this->urlGenerator->generate('login'),
+                RedirectResponse::HTTP_FOUND);
         }
 
-        return new Response($this->twig->render('error/register_validation_error.html.twig'), 200);
+        return new Response($this->twig->render('error/register_validation_error.html.twig'),
+            Response::HTTP_OK);
     }
 }

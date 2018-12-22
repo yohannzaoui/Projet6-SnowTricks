@@ -57,7 +57,7 @@ class DeleteCategoryController implements DeleteCategoryControllerInterface
 
 
     /**
-     * @Route("/supprimerCategorie/{id}", name="delcategory", methods={"GET"})
+     * @Route(path="/supprimerCategorie/{id}", name="delcategory", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return mixed|RedirectResponse
@@ -78,7 +78,8 @@ class DeleteCategoryController implements DeleteCategoryControllerInterface
             $this->messageFlash->getFlashBag()->add('deleteCategory',
                 'Catégorie supprimée');
 
-            return new RedirectResponse($this->urlGenerator->generate('category'), 302);
+            return new RedirectResponse($this->urlGenerator->generate('category'),
+                RedirectResponse::HTTP_FOUND);
         }
     }
 }

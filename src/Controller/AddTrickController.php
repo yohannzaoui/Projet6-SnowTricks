@@ -82,7 +82,7 @@ class AddTrickController implements AddTrickControllerInterface
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      * @IsGranted("ROLE_USER")
-     * @Route("/ajouterTrick", name="addtrick", methods={"GET","POST"})
+     * @Route(path="/ajouterTrick", name="addtrick", methods={"GET","POST"})
      */
     public function index(Request $request)
     {
@@ -97,12 +97,12 @@ class AddTrickController implements AddTrickControllerInterface
 
             return new RedirectResponse($this->urlGenerator->generate('trick', [
                 'slug' => $trick->getSlug()
-            ]), 302);
+            ]), RedirectResponse::HTTP_FOUND);
         }
 
         return new Response($this->twig->render('add_trick/index.html.twig', [
             'form' => $form->createView()
-        ]), 200);
+        ]), Response::HTTP_OK);
 
     }
 }

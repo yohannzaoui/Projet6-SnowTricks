@@ -26,7 +26,6 @@ interface DeleteUserControllerInterface
     /**
      * DeleteUserControllerInterface constructor.
      * @param UserRepository $userRepository
-     * @param FileRemoverInterface $fileRemover
      * @param TokenStorageInterface $tokenStorage
      * @param UrlGeneratorInterface $urlGenerator
      * @param SessionInterface $messageFlash
@@ -34,7 +33,6 @@ interface DeleteUserControllerInterface
      */
     public function __construct(
         UserRepository $userRepository,
-        FileRemoverInterface $fileRemover,
         TokenStorageInterface $tokenStorage,
         UrlGeneratorInterface $urlGenerator,
         SessionInterface $messageFlash,

@@ -11,7 +11,6 @@ namespace App\Controller;
 
 use App\Controller\Interfaces\DeleteUserControllerInterface;
 use App\Repository\UserRepository;
-use App\Services\Interfaces\FileRemoverInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -33,11 +32,6 @@ class DeleteUserController implements DeleteUserControllerInterface
      * @var UserRepository
      */
     private $userRepository;
-
-    /**
-     * @var FileRemoverInterface
-     */
-    private $fileRemover;
 
     /**
      * @var TokenStorageInterface
@@ -63,7 +57,6 @@ class DeleteUserController implements DeleteUserControllerInterface
     /**
      * DeleteUserController constructor.
      * @param UserRepository $userRepository
-     * @param FileRemoverInterface $fileRemover
      * @param TokenStorageInterface $tokenStorage
      * @param UrlGeneratorInterface $urlGenerator
      * @param SessionInterface $messageFlash
@@ -71,14 +64,12 @@ class DeleteUserController implements DeleteUserControllerInterface
      */
     public function __construct(
         UserRepository $userRepository,
-        FileRemoverInterface $fileRemover,
         TokenStorageInterface $tokenStorage,
         UrlGeneratorInterface $urlGenerator,
         SessionInterface $messageFlash,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->userRepository = $userRepository;
-        $this->fileRemover = $fileRemover;
         $this->tokenStorage = $tokenStorage;
         $this->urlGenerator = $urlGenerator;
         $this->messageFlash = $messageFlash;
@@ -88,7 +79,7 @@ class DeleteUserController implements DeleteUserControllerInterface
 
 
     /**
-     * @Route("/deleteUser/{id}", name="deleteUser", methods={"GET"})
+     * @Route(path="/deleteUser/{id}", name="deleteUser", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -108,7 +99,7 @@ class DeleteUserController implements DeleteUserControllerInterface
 
                 $this->eventDispatcher->dispatch(
                     FileRemoverEvent::NAME,
-                    new FileRemoverEvent($this->fileRemover, $user->getProfileImage()));
+                    new FileRemoverEvent($user->getProfileImage()));
             }
 
             $this->userRepository->delete($user);
@@ -116,7 +107,8 @@ class DeleteUserController implements DeleteUserControllerInterface
             $this->messageFlash->getFlashBag()->add('deleteUser',
                 'Compte utilisateur supprimé');
 
-            return new RedirectResponse($this->urlGenerator->generate('allUsers'), 302);
+            return new RedirectResponse($this->urlGenerator->generate('allUsers'),
+                RedirectResponse::HTTP_FOUND);
         }
     }
 }

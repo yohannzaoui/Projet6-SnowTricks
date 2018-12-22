@@ -35,7 +35,7 @@ class LoginController implements LoginControllerInterface
     }
 
     /**
-     * @Route("/login", name="login", methods={"GET","POST"})
+     * @Route(path="/login", name="login", methods={"GET","POST"})
      * @param AuthenticationUtils $authenticationUtils
      * @return mixed|Response
      * @throws \Twig_Error_Loader
@@ -52,7 +52,7 @@ class LoginController implements LoginControllerInterface
         return new Response($this->twig->render('login/index.html.twig', [
             'error' => $error,
             'last_username' => $lastUsername
-        ]), 200);
+        ]), Response::HTTP_OK);
 
     }
 }

@@ -96,8 +96,8 @@ class TrickController implements TrickControllerInterface
     }
 
     /**
-     * @Route("/trick/{slug}", name="trick", methods={"GET", "POST"})
-     * @Route("trick/comments/{page<\d+>}/{slug}", name="comment_trick", methods={"GET","POST"})
+     * @Route(path="/trick/{slug}", name="trick", methods={"GET", "POST"})
+     * @Route(path="trick/comments/{page<\d+>}/{slug}", name="comment_trick", methods={"GET","POST"})
      * @param Request $request
      * @param int $page
      * @return mixed|RedirectResponse|Response
@@ -132,7 +132,7 @@ class TrickController implements TrickControllerInterface
 
             return new RedirectResponse($this->urlGenerator->generate('trick', [
                 'slug' => $trick->getSlug()
-            ]), 302);
+            ]), RedirectResponse::HTTP_FOUND);
 
         }
         return new Response($this->twig->render('trick/index.html.twig', [
@@ -140,7 +140,7 @@ class TrickController implements TrickControllerInterface
             'comments' => $comments,
             'pagination' => $pagination,
             'form' => $form->createView()
-        ]), 200);
+        ]), Response::HTTP_OK);
 
     }
 }

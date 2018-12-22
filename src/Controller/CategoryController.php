@@ -79,8 +79,8 @@ class CategoryController implements CategoryControllerInterface
     }
 
     /**
-     * @Route("/category", name="category", methods={"GET", "POST"})
-     * @Route("/editCategory/{id}", name="editCategory", methods={"GET", "POST"})
+     * @Route(path="/category", name="category", methods={"GET", "POST"})
+     * @Route(path="/editCategory/{id}", name="editCategory", methods={"GET", "POST"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param Category|null $category
@@ -101,13 +101,13 @@ class CategoryController implements CategoryControllerInterface
 
         if ($this->categoryHandler->handle($form, $category)) {
 
-            return new RedirectResponse($this->urlGenerator->generate('category'), 302);
+            return new RedirectResponse($this->urlGenerator->generate('category'), RedirectResponse::HTTP_FOUND);
         }
 
         return new Response($this->twig->render('admin/category.html.twig', [
                 'categories' => $categories,
                 'editMode' => $request->get('id') !== null,
                 'form' => $form->createView()
-            ]), 200);
+            ]), Response::HTTP_OK);
     }
 }

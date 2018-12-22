@@ -94,14 +94,16 @@ class ForgotPasswordValidationController implements ForgotPasswordValidationCont
 
             if ($this->forgotPasswordValidationTypeHandler->handle($request->attributes->get('token'), $form)) {
 
-                return new RedirectResponse($this->urlGenerator->generate('login'), 302);
+                return new RedirectResponse($this->urlGenerator->generate('login'),
+                    RedirectResponse::HTTP_FOUND);
             }
             return new Response($this->twig->render('reset/index.html.twig', [
                 'form' => $form->createView()
-            ]), 200);
+            ]), Response::HTTP_OK);
 
         }
-        return new Response($this->twig->render('error/forgot_password_validation_error.html.twig'));
+        return new Response($this->twig->render('error/forgot_password_validation_error.html.twig'),
+            Response::HTTP_OK);
     }
 
 }

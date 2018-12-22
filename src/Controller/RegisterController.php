@@ -67,7 +67,7 @@ class RegisterController implements RegisterControllerInterface
     }
 
     /**
-     * @Route("/register", name="register", methods={"GET","POST"})
+     * @Route(path="/register", name="register", methods={"GET","POST"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
@@ -79,10 +79,11 @@ class RegisterController implements RegisterControllerInterface
 
         if ($this->registerFormHandler->handle($form)) {
 
-           return new RedirectResponse($this->urlGenerator->generate('register'), 302);
+           return new RedirectResponse($this->urlGenerator->generate('register'),
+               RedirectResponse::HTTP_FOUND);
         }
         return new Response($this->twig->render('register/index.html.twig', [
             'form' => $form->createView()
-        ]), 200);
+        ]), Response::HTTP_OK);
     }
 }

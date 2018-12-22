@@ -46,8 +46,8 @@ class HomeController implements HomeControllerInterface
 
 
     /**
-     * @Route("/", name="home", methods={"GET"})
-     * @Route("tricks/list/{page}", name="page_trick", methods={"GET"})
+     * @Route(path="/", name="home", methods={"GET"})
+     * @Route(path="tricks/list/{page}", name="page_trick", methods={"GET"})
      * @param int $page
      * @return mixed|Response
      * @throws \Twig_Error_Loader
@@ -68,6 +68,6 @@ class HomeController implements HomeControllerInterface
         return new Response($this->twig->render('home/index.html.twig', [
             'tricks' => $tricks,
             'pagination' => $pagination
-        ]), 200);
+        ]), Response::HTTP_OK);
     }
 }

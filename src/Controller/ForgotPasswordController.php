@@ -67,7 +67,7 @@ class ForgotPasswordController implements ForgotPasswordControllerInterface
 
 
     /**
-     * @Route("/forgot", name="forgot", methods={"GET", "POST"})
+     * @Route(path="/forgot", name="forgot", methods={"GET", "POST"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
@@ -80,10 +80,11 @@ class ForgotPasswordController implements ForgotPasswordControllerInterface
 
         if ($this->forgotPasswordHandler->handle($form)) {
 
-            return new RedirectResponse($this->urlGenerator->generate('forgot'), 302);
+            return new RedirectResponse($this->urlGenerator->generate('forgot'),
+                RedirectResponse::HTTP_FOUND);
         }
         return new Response($this->twig->render('forgot/index.html.twig', [
             'form' => $form->createView()
-        ]), 200);
+        ]), Response::HTTP_OK);
     }
 }
