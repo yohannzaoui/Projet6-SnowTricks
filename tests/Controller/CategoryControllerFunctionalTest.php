@@ -9,10 +9,11 @@
 namespace App\Tests\Controller;
 
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
+use Symfony\Component\BrowserKit\Cookie;
 
 /**
  * Class CategoryControllerFunctionalTest
@@ -41,24 +42,9 @@ class CategoryControllerFunctionalTest extends WebTestCase
         $this->client->request('GET', '/category');
 
         static::assertEquals(
-            302,
+            200,
             $this->client->getResponse()->getStatusCode()
         );
-    }
-
-    /**
-     *
-     */
-    public function logIn()
-    {
-        $session = $this->client->getContainer()->get('session');
-
-        // the firewall context (defaults to the firewall name)
-        $firewall = 'main';
-
-        $token = new UsernamePasswordToken(User::class, null, $firewall, array('ROLE_ADMIN'));
-        $session->set('_security_'.$firewall, serialize($token));
-        $session->save();
     }
 
     /**
@@ -93,13 +79,33 @@ class CategoryControllerFunctionalTest extends WebTestCase
 
         $crawler = $this->client->request('GET', '/editCategory/{id}');
 
-        $this->assertSame(0,
+        $this->assertSame(1,
             $crawler->filter('html:contains("Gestion des catégories")')->count());
 
         static::assertEquals(
-            Response::HTTP_FOUND,
+            Response::HTTP_OK,
             $this->client->getResponse()->getStatusCode()
         );
+    }
+
+    private function logIn()
+    {
+        $session = $this->client->getContainer()->get('session');
+        $user = $this->createMock(UserInterface::class);
+
+        //$firewallName = 'secure_area';
+        // if you don't define multiple connected firewalls, the context defaults to the firewall name
+        // See https://symfony.com/doc/current/reference/configuration/security.html#firewall-context
+        $firewallContext = 'secured_area';
+
+        // you may need to use a different token class depending on your application.
+        // for example, when using Guard authentication you must instantiate PostAuthenticationGuardToken
+        $token = new PostAuthenticationGuardToken($user, "main", array('ROLE_ADMIN'));
+        $session->set('_security_'.$firewallContext, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
     }
 
 

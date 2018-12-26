@@ -11,6 +11,7 @@ namespace App\Tests\Controller;
 
 use App\Controller\DeleteUserController;
 use App\Controller\Interfaces\DeleteUserControllerInterface;
+use App\Services\Interfaces\FileRemoverInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Repository\UserRepository;
 use App\Services\FileRemover;
@@ -25,65 +26,24 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class DeleteUserControllerTest extends KernelTestCase
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
-     * @var FileRemover
-     */
-    private $fileRemover;
-
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    /**
-     * @var SessionInterface
-     */
-    private $messageFlash;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
-     *
-     */
-    public function setUp()
-    {
-        static::bootKernel();
-
-        $this->tokenStorage = static::$kernel->getContainer()->get('security.token_storage');
-        $this->urlGenerator = static::$kernel->getContainer()->get('router');
-        $this->messageFlash = static::$kernel->getContainer()->get('session');
-        $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
-
-    }
 
     /**
      *
      */
     public function testConstruct()
     {
-        $this->fileRemover = $this->createMock(FileRemover::class);
-        $this->userRepository = $this->createMock(UserRepository::class);
+        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
+        $userRepository = $this->createMock(UserRepository::class);
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        $messageFlash = $this->createMock(SessionInterface::class);
 
         $deleteUserController = new DeleteUserController(
-            $this->userRepository,
-            $this->fileRemover,
-            $this->tokenStorage,
-            $this->urlGenerator,
-            $this->messageFlash,
-            $this->eventDispatcher
+            $userRepository,
+            $tokenStorage,
+            $urlGenerator,
+            $messageFlash,
+            $eventDispatcher
         );
 
         static::assertInstanceOf(DeleteUserControllerInterface::class, $deleteUserController);
